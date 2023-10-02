@@ -1,0 +1,157 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<body>
+    <div class="navbar">
+        <div class="navbar-content">
+          <div class="navbar-logo"></div>
+          <div class="logo-text">SAN JUAN BATANGAS</div>
+        </div>
+        <ul class="navbar-list">
+          <li><a routerLink="/home">Home</a></li>
+          <li><a routerLink="/about">About</a></li>
+          <li><a routerLink="/contacts">Contacts</a></li>
+          <li><a routerLink="/calendar">Calendar</a></li>
+          <li>
+            <button class="menu-button">
+              <i class="fa fa-reorder"></i>
+              <ul class="dropdown-menu">
+                <li><a routerLink="/healthrecords">Records</a></li>
+                <li><a routerLink="/monthlyrecords">Monthly Records</a></li>
+                <li><a routerLink="/bmi">BMI Calculator</a></li>
+                <li><a routerLink="/childreninfo">Profile</a></li>
+                <li><a href="#">Barangay Ranking</a></li>
+              </ul>
+            </button>
+          </li>
+        </ul>
+      </div>
+      <div class="background-image"></div>
+    <div class="container">
+        <div class="navigation-buttons">
+            <button routerLink="/childreninfo">Children Info</button>
+            <button routerLink="/familyprofile">Family Profile</button>
+          </div>
+    <form>
+      <div>
+        <label for="householdnumber">Household Number:</label>
+        <input type="text" id="householdnumber" name="householdnumber" ngModel required>
+      </div>
+      <div>
+        <label for="householdmember">No. of Household Members:</label>
+        <input type="text" id="householdmember" name="householdmember" ngModel required>
+      </div>
+      <fieldset>
+      <div>
+        <legend>-NUMBER OF CHILDREN-</legend>
+      </div>
+      <div>
+        <label for="0-5monthsold">0-5 Months Old:</label>
+        <input type="text" id="0-5monthsold" name="0-5monthsold" ngModel>
+      </div>
+      <div>
+        <label for="6-23monthsold">6-23 Months Old:</label>
+        <input type="text" id="6-23monthsold" name="6-23monthsold" ngModel>
+      </div>
+      <div>
+        <label for="24-59monthsold">24-59 Months Old:</label>
+        <input type="text" id="24-59monthsold" name="24-59monthsold" ngModel>
+      </div>
+      <div>
+        <label for="below60monthsold">Below 60 Months Old:</label>
+        <input type="text" id="below60monthsold" name="below60monthsold" ngModel>
+      </div>
+      </fieldset>
+      <div>
+        <label for="head/spouse">Name of Household Head/Spouse:</label>
+        <input type="text" id="head/spouse" name="head/spouse" ngModel required>
+      </div>
+      <div>
+        <label for="occupation">Occupation:</label>
+        <input type="text" id="occupation" name="occupation" ngModel>
+      </div>
+      <div>
+        <label for="educationalattainment">Educational Attainment:</label>
+        <input type="text" id="educationalattainment" name="educationalattainment" ngModel>
+      </div>
+      <fieldset>
+      <div>
+        <legend>Check If:</legend>
+      </div>
+      <div>
+        <label for="motherPregnant">Mother Pregnant:</label>
+        <input type="checkbox" id="motherPregnant" name="motherPregnant" [(ngModel)]="motherPregnant">
+      </div>
+      <div>
+        <label for="familyPlanning">Couple Practices Family Planning:</label>
+        <input type="checkbox" id="familyPlanning" name="familyPlanning" [(ngModel)]="familyPlanning">
+      </div>
+      </fieldset>
+      <fieldset>
+      <div>
+        <legend>-BREASTFEEDING ≤ 6 MONTHS OLD-</legend>
+      </div>
+      <div>
+        <legend>Check If:</legend>
+      </div>
+      <div>
+        <label for="EBF">Exclusive Breastfeeding (EBF):</label>
+        <input type="checkbox" id="EBF" name="EBF" [(ngModel)]="EBF">
+      </div>
+      <div>
+        <label for="mixedMilkFeeding">Mixed Milk Feeding:</label>
+        <input type="checkbox" id="mixedMilkFeeding" name="mixedMilkFeeding" [(ngModel)]="mixedMilkFeeding">
+      </div>
+      <div>
+        <label for="bottleFeeding">Bottle Feeding:</label>
+        <input type="checkbox" id="bottleFeeding" name="bottleFeeding" [(ngModel)]="bottleFeeding">
+      </div>
+      </fieldset>
+      <fieldset>
+      <div>
+        <legend>Fill In:</legend>
+      </div>
+      <div>
+        <label for="toiletType">Toilet Type:</label>
+        <select id="toiletType" name="toiletType" [(ngModel)]="toiletType">
+          <option value="WS">WS (Water-Sealed)</option>
+          <option value="OP">OP (Open Pit)</option>
+          <option value="O">O (Other)</option>
+          <option value="N">N (None)</option>
+        </select>
+      </div>
+      <div>
+        <label for="waterSource">Water Source:</label>
+        <select id="waterSource" name="waterSource" [(ngModel)]="waterSource">
+          <option value="P">P (Piped)</option>
+          <option value="W">W (Well)</option>
+          <option value="S">S (Spring)</option>
+        </select>
+      </div>
+      <div>
+        <label for="foodProductionActivity">Food Production Activity:</label>
+        <select id="foodProductionActivity" name="foodProductionActivity" [(ngModel)]="foodProductionActivity">
+          <option value="VG">VG (Vegetable Gardening)</option>
+          <option value="P/L">P/L (Poultry/Livestock)</option>
+          <option value="FP">FP (Fishpond)</option>
+        </select>
+      </div>
+      </fieldset>
+      <fieldset>
+      <div>
+        <label>Check If:</label>
+      </div>
+      <div>
+        <label>Household Using Iodized Salt:</label>
+        <input type="checkbox" id="iodizedSalt" name="iodizedSalt" [(ngModel)]="iodizedSalt">
+      </div>
+      
+      <div>
+        <label>Household Using IFR (Iron-Fortified Rice):</label>
+        <input type="checkbox" id="ifr" name="ifr" [(ngModel)]="ifr">
+      </div>
+      </fieldset>
+      <button type="submit">Submit</button>
+    </form>
+    <router-outlet></router-outlet>
+
+

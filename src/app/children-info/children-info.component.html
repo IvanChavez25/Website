@@ -1,0 +1,127 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<body>
+<div class="navbar">
+    <div class="navbar-content">
+      <div class="navbar-logo"></div>
+      <div class="logo-text">SAN JUAN BATANGAS</div>
+    </div>
+    <ul class="navbar-list">
+      <li><a routerLink="/home">Home</a></li>
+      <li><a routerLink="/about">About</a></li>
+      <li><a routerLink="/contacts">Contacts</a></li>
+      <li><a routerLink="/calendar">Calendar</a></li>
+      <li>
+        <button class="menu-button">
+          <i class="fa fa-reorder"></i>
+          <ul class="dropdown-menu">
+            <li><a routerLink="/healthrecords">Records</a></li>
+            <li><a routerLink="/monthlyrecords">Monthly Records</a></li>
+            <li><a routerLink="/bmi">BMI Calculator</a></li>
+            <li><a routerLink="/childreninfo">Profile</a></li>
+            <li><a href="#">Barangay Ranking</a></li>
+          </ul>
+        </button>
+      </li>
+    </ul>
+  </div>
+  <div class="background-image"></div>
+<div class="container">
+    <div class="navigation-buttons">
+        <button routerLink="/childreninfo">Children Info</button>
+        <button routerLink="/familyprofile">Family Profile</button>
+      </div>
+<form #childrenForm="ngForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="firstName">First Name:</label>
+      <input type="text" id="firstName" name="firstName" ngModel required>
+    </div>
+    <div>
+      <label for="middleName">Middle Name:</label>
+      <input type="text" id="middleName" name="middleName" ngModel>
+    </div>
+    <div>
+      <label for="lastName">Last Name:</label>
+      <input type="text" id="lastName" name="lastName" ngModel required>
+    </div>
+    <div>
+      <label for="birthday">Birthday:</label>
+      <input type="date" id="birthday" name="birthday" ngModel required>
+    </div>
+    <div>
+      <label for="age">Age:</label>
+      <input type="text" id="age" name="age" ngModel required>
+    </div>
+    <div>
+      <label for="address">Address:</label>
+      <input type="text" id="address" name="address" ngModel required>
+    </div>
+    <div>
+      <label for="barangay">Barangay:</label>
+      <select id="barangay" name="barangay" ngModel required>
+        <option value="Barangay1">ABUNG</option>
+        <option value="Barangay2">BALAGBAG</option>
+        <option value="Barangay3">BARUALTE</option>
+        <option value="Barangay4">BATAAN</option>
+        <option value="Barangay5">BUHAY NA SAPA</option>
+        <option value="Barangay6">BULSA</option>
+        <option value="Barangay7">CALICANTO</option>
+        <option value="Barangay8">CALITCALIT</option>
+        <option value="Barangay9">CALUBCUB 1</option>
+        <option value="Barangay10">CALUBCUB 2</option>
+        <option value="Barangay11">CATMON</option>
+        <option value="Barangay12">COLOCONTO</option>
+        <option value="Barangay13">ESCRIBANO</option>
+        <option value="Barangay14">HUGOM</option>
+        <option value="Barangay15">IMELDA (TUBOG)</option>
+        <option value="Barangay16">JANAOJANAO</option>
+        <option value="Barangay17">LAIYA-IBABAO</option>
+        <option value="Barangay18">LAIYA-APLAYA</option>
+        <option value="Barangay19">LIBATO</option>
+        <option value="Barangay20">LIPAHAN</option>
+        <option value="Barangay21">MABALANOY</option>
+        <option value="Barangay22">NAGSAULAY</option>
+        <option value="Barangay23">MARAYKIT</option>
+        <option value="Barangay24">MUZON</option>
+        <option value="Barangay25">PALAHANAN 1</option>
+        <option value="Barangay26">PALAHANAN 2</option>
+        <option value="Barangay27">PALINGOWAK</option>
+        <option value="Barangay28">PINAGBAYANAN</option>
+        <option value="Barangay29">POBLACION</option>
+        <option value="Barangay30">POCTOL</option>
+        <option value="Barangay31">PULANGBATO</option>
+        <option value="Barangay32">PUTINGBUHANGIN</option>
+        <option value="Barangay33">QUIPOT</option>
+        <option value="Barangay34">SAMPIRO</option>
+        <option value="Barangay35">SAPANGAN</option>
+        <option value="Barangay36">SICO 1</option>
+        <option value="Barangay37">SICO 2</option>
+        <option value="Barangay38">SUBUKIN</option>
+        <option value="Barangay39">TALAHIBAN 1</option>
+        <option value="Barangay40">TALAHIBAN 2</option>
+        <option value="Barangay41">TICALAN</option>
+        <option value="Barangay42">TIPAZ</option>
+      </select>
+    </div>
+    <div>
+      <label for="fatherName">Father's Name:</label>
+      <input type="text" id="fatherName" name="fatherName" ngModel required>
+    </div>
+    <div>
+      <label for="motherName">Mother's Name:</label>
+      <input type="text" id="motherName" name="motherName" ngModel required>
+    </div>
+    <div>
+      <label>Gender:</label>
+      <input type="radio" id="male" name="gender" ngModel="male" value="male" required>
+      <label for="male">Male</label>
+      <input type="radio" id="female" name="gender" ngModel="female" value="female" required>
+      <label for="female">Female</label>
+    </div>
+    <div>
+      <button type="submit" [disabled]="childrenForm.invalid">Submit</button>
+    </div>
+  </form>
+</div>
+<router-outlet></router-outlet>
+</body>

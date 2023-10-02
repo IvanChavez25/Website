@@ -1,0 +1,150 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<body>
+  <div class="navbar">
+    <div class="navbar-content">
+      <div class="navbar-logo"></div>
+      <div class="logo-text">SAN JUAN BATANGAS</div>
+    </div>
+    <ul class="navbar-list">
+      <li><a routerLink="/home">Home</a></li>
+      <li><a routerLink="/about">About</a></li>
+      <li><a routerLink="/contacts">Contacts</a></li>
+      <li><a routerLink="/calendar">Calendar</a></li>
+      <li>
+        <button class="menu-button">
+          <i class="fa fa-reorder"></i>
+          <ul class="dropdown-menu">
+            <li><a routerLink="/healthrecords">Records</a></li>
+            <li><a routerLink="/monthlyrecords">Monthly Records</a></li>
+            <li><a routerLink="/bmi">BMI Calculator</a></li>
+            <li><a routerLink="/childreninfo">Profile</a></li>
+            <li><a href="#">Barangay Ranking</a></li>
+          </ul>
+        </button>
+      </li>
+    </ul>
+  </div>
+  <div class="background-image"></div>
+  <div class="container">
+      <fieldset id="BMI">
+        <legend><h2>BMI Calculator</h2></legend>
+        <div>
+          <label for="childName" class="label">Child's Name:</label>
+          <input type="text" id="childName" [(ngModel)]="childName" />
+        </div>
+        <div>
+          <label for="barangay">Barangay:</label>
+          <select id="barangay" name="barangay" ngModel required>
+            <option value="Barangay1">ABUNG</option>
+            <option value="Barangay2">BALAGBAG</option>
+            <option value="Barangay3">BARUALTE</option>
+            <option value="Barangay4">BATAAN</option>
+            <option value="Barangay5">BUHAY NA SAPA</option>
+            <option value="Barangay6">BULSA</option>
+            <option value="Barangay7">CALICANTO</option>
+            <option value="Barangay8">CALITCALIT</option>
+            <option value="Barangay9">CALUBCUB 1</option>
+            <option value="Barangay10">CALUBCUB 2</option>
+            <option value="Barangay11">CATMON</option>
+            <option value="Barangay12">COLOCONTO</option>
+            <option value="Barangay13">ESCRIBANO</option>
+            <option value="Barangay14">HUGOM</option>
+            <option value="Barangay15">IMELDA (TUBOG)</option>
+            <option value="Barangay16">JANAOJANAO</option>
+            <option value="Barangay17">LAIYA-IBABAO</option>
+            <option value="Barangay18">LAIYA-APLAYA</option>
+            <option value="Barangay19">LIBATO</option>
+            <option value="Barangay20">LIPAHAN</option>
+            <option value="Barangay21">MABALANOY</option>
+            <option value="Barangay22">NAGSAULAY</option>
+            <option value="Barangay23">MARAYKIT</option>
+            <option value="Barangay24">MUZON</option>
+            <option value="Barangay25">PALAHANAN 1</option>
+            <option value="Barangay26">PALAHANAN 2</option>
+            <option value="Barangay27">PALINGOWAK</option>
+            <option value="Barangay28">PINAGBAYANAN</option>
+            <option value="Barangay29">POBLACION</option>
+            <option value="Barangay30">POCTOL</option>
+            <option value="Barangay31">PULANGBATO</option>
+            <option value="Barangay32">PUTINGBUHANGIN</option>
+            <option value="Barangay33">QUIPOT</option>
+            <option value="Barangay34">SAMPIRO</option>
+            <option value="Barangay35">SAPANGAN</option>
+            <option value="Barangay36">SICO 1</option>
+            <option value="Barangay37">SICO 2</option>
+            <option value="Barangay38">SUBUKIN</option>
+            <option value="Barangay39">TALAHIBAN 1</option>
+            <option value="Barangay40">TALAHIBAN 2</option>
+            <option value="Barangay41">TICALAN</option>
+            <option value="Barangay42">TIPAZ</option>
+          </select>
+        </div>
+        <div>
+          <label for="weight" class="label">Weight (kg):</label>
+          <input type="number" id="weight" [(ngModel)]="weight" />
+        </div>
+        <div>
+          <label for="height" class="label">Height (cm):</label>
+          <input type="number" id="height" [(ngModel)]="height" />
+        </div>
+        <div>
+          <label for="age" class="label">Age (5 and below):</label>
+          <input type="number" id="age" [(ngModel)]="age" max="5" />
+        </div>
+        <div>
+          <button id="btn-calc" (click)="calculateBMI()">Calculate BMI</button>
+        </div>
+        <div class="result">
+          THE BMI: <span>{{ bmi }}</span>
+        </div>
+        <div id="result-message" class="result">
+          RESULT: <span>{{ resultMessage }}</span>
+        </div>
+      </fieldset>
+    </div>
+  
+  <div>
+  <div class="result-container">
+    <fieldset id="BMI">
+      <legend><h3>RESULT TABLE</h3></legend>
+    <div class="result-table">  
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Child's Name</th>
+            <th>Barangay</th>
+            <th>Weight (kg)</th>
+            <th>Height (cm)</th>
+            <th>Age</th>
+            <th>BMI</th>
+            <th>Result</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let result of results; let i = index" id="result-row"
+            [ngClass]="{ 
+              'underweight-row': result.resultMessage === 'Underweight',
+              'healthyweight-row': result.resultMessage === 'Healthy weight',
+              'overweight-row': result.resultMessage === 'Overweight',
+              'obese-row': result.resultMessage === 'Obese',
+            }">
+            <td>{{ i + 1 }}</td>
+            <td>{{ result.childName }}</td>
+            <td>{{ result.barangay}}</td>
+            <td>{{ result.weight }}</td>
+            <td>{{ result.height }}</td>
+            <td>{{ result.age }}</td>
+            <td>{{ result.bmi }}</td>
+            <td>{{ result.resultMessage }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <p *ngIf="results.length === 0">No results available</p>
+    </div>
+    </fieldset>
+  </div>
+</div>
+<router-outlet></router-outlet>
+</body>

@@ -1,0 +1,78 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<body>
+    <div class="navbar">
+        <div class="navbar-content">
+          <div class="navbar-logo"></div>
+          <div class="logo-text">SAN JUAN BATANGAS</div>
+        </div>
+        <ul class="navbar-list">
+          <li><a routerLink="/home">Home</a></li>
+          <li><a routerLink="/about">About</a></li>
+          <li><a routerLink="/contacts">Contacts</a></li>
+          <li><a routerLink="/calendar">Calendar</a></li>
+          <li>
+            <button class="menu-button">
+              <i class="fa fa-reorder"></i>
+              <ul class="dropdown-menu">
+                <li><a routerLink="/healthrecords">Records</a></li>
+                <li><a routerLink="/monthlyrecords">Monthly Records</a></li>
+                <li><a routerLink="/bmi">BMI Calculator</a></li>
+                <li><a routerLink="/childreninfo">Profile</a></li>
+                <li><a href="#">Barangay Ranking</a></li>
+              </ul>
+            </button>
+          </li>
+        </ul>
+      </div>
+      <div class="background-image"></div>
+    <div class="container">
+        <div class="navigation-buttons">
+            <button routerLink="/healthrecords">Health Records</button>
+            <button routerLink="/quarterlyrecords">Quarterly Records</button>
+            <button routerLink="/nutritionalstatus">Nutritional Status</button>
+          </div>
+  <fieldset>
+    <form>
+      <div>
+        <label for="age">Age:</label>
+        <input type="text" id="age" name="age" ngModel required>
+      </div>
+      <div>
+        <label for="weight">Weight:</label>
+        <input type="text" id="weight" name="weight" ngModel required>
+      </div>
+      <div>
+        <label for="height">Height:</label>
+        <input type="text" id="height" name="height" ngModel required>
+      </div>
+      <div>
+        <label for="vitamin">Vitamin:</label>
+        <select id="vitamin" name="vitamin" ngModel required>
+          <option value="vitamin-a">Vitamin A</option>
+          <option value="vitamin-b">Vitamin B</option>
+          
+        </select>
+      </div>
+      <div>
+        <label for="lastDateReceived">Last Date Received:</label>
+        <input type="date" id="lastDateReceived" name="lastDateReceived" ngModel required>
+      </div>
+      <div>
+        <label for="weightForAge">Weight for Age:</label>
+        <input type="text" id="weightForAge" name="weightForAge" ngModel required>
+      </div>
+      <div>
+        <label for="heightForAge">Height for Age:</label>
+        <input type="text" id="heightForAge" name="heightForAge" ngModel required>
+      </div>
+      <div>
+        <label for="heightForWeight">Height for Weight:</label>
+        <input type="text" id="heightForWeight" name="heightForWeight" ngModel required>
+      </div>
+      <button type="submit">Submit</button>
+    </form>
+  </fieldset>
+    <router-outlet></router-outlet>
+
+
