@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./monthly-weight.component.css']
 })
 export class MonthlyWeightComponent {
+    weight: number = 0;
 
 }

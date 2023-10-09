@@ -9,6 +9,7 @@
     background-image: url("../../assets/SanJuan.jpg");
     background-repeat: no-repeat;
     background-size: cover;
+    opacity: 0.8;
   }
   
   * {

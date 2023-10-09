@@ -3,6 +3,7 @@ body{
   background-repeat: no-repeat;
   background-size: cover;
   height: 100vh;
+  opacity: 0.8;
 }
 
 .center-text {
@@ -88,10 +89,24 @@ form {
     border-radius: 5px;
     cursor: pointer;
   }
+
+  form button[type="button"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
   
   form button[type="submit"]:hover {
     background-color: #45a049;
     opacity: 0.8;
+  }
+
+  .Login {
+    text-align: center;
   }
   
   a {

@@ -7,19 +7,65 @@
           <div class="logo-text">SAN JUAN BATANGAS</div>
         </div>
         <ul class="navbar-list">
-          <li><a routerLink="/home">Home</a></li>
-          <li><a routerLink="/about">About</a></li>
-          <li><a routerLink="/contacts">Contacts</a></li>
-          <li><a routerLink="/calendar">Calendar</a></li>
+          <li>
+            <a routerLink="/childreninfo">
+                <i class="fa fa-user-circle"></i> Profile
+            </a>
+          </li>
+          <li>
+            <a routerLink="/healthrecords">
+                <i class="fa fa-file-text-o"></i> Records
+            </a>
+          </li>
+          <li>
+            <a routerLink="/monthlyrecords">
+                <i class="fa fa-calendar"></i> Monthly Records
+            </a>
+          </li>
+          <li>
+            <a routerLink="/bmi">
+                <i class="fa fa-calculator"></i> BMI Calculator
+            </a>
+          </li>
           <li>
             <button class="menu-button">
               <i class="fa fa-reorder"></i>
               <ul class="dropdown-menu">
-                <li><a routerLink="/healthrecords">Records</a></li>
-                <li><a routerLink="/monthlyrecords">Monthly Records</a></li>
-                <li><a routerLink="/bmi">BMI Calculator</a></li>
-                <li><a routerLink="/childreninfo">Profile</a></li>
-                <li><a href="#">Barangay Ranking</a></li>
+                <li>
+                  <a routerLink="/profiletable">
+                      <i class="fa fa-table"></i> Profile Table
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                      <i class="fa fa-bar-chart"></i> Barangay Ranking
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                      <i class="fa fa-heartbeat"></i> BMI Result
+                  </a>
+                </li>
+                <li>
+                  <a routerLink="/healthrecordstable">
+                      <i class="fa fa-table"></i> Children Table
+                  </a>
+                </li>
+                <li>
+                  <a routerLink="/bwirtable">
+                      <i class="fa fa-table"></i> Baseline Weight and Immunization Records table
+                  </a>
+                </li>
+                <li>
+                  <a routerLink="/monthlyheightrecordstable">
+                      <i class="fa fa-table"></i> Monthly Records Result Table
+                  </a>
+                </li>
+                <li>
+                  <a routerLink="/home">
+                      <i class="fa fa-sign-out"></i> Log Out
+                  </a>
+                </li>
               </ul>
             </button>
           </li>
@@ -30,6 +76,7 @@
         <div class="navigation-buttons">
             <button routerLink="/healthrecords">Health Records</button>
             <button routerLink="/quarterlyrecords">Quarterly Records</button>
+            <button routerLink="/baselineweight">BaseLine</button>
             <button routerLink="/nutritionalstatus">Nutritional Status</button>
 
           </div>
@@ -49,16 +96,16 @@
         <input type="text" id="ageinmonth" name="ageinmonth" ngModel required>
       </div>
       <div>
-        <label for="WT">WT:</label>
-        <input type="text" id="WT" name="WT" ngModel required>
+        <label for="weight">Weight:</label>
+        <input type="number" id="weight" name="weight" [(ngModel)]="weight">
       </div>
       <div>
-        <label for="height/length">Height/Length:</label>
-        <input type="text" id="height/length" name="height/length" ngModel required>
+        <label for="heightForLength">Height/Length:</label>
+        <input type="number" id="heightForLength" name="heightForLength" [(ngModel)]="heightForLength">
       </div>
       <div>
-        <label for="weight/length/height">Weight/Length/Height:</label>
-        <input type="text" id="weight/length/height" name="weight/length/height" ngModel required>
+        <label for="weightForLengthOrHeight">Weight/Length/Height:</label>
+        <input type="Number" id="weightForLengthOrHeight" name="weightForLengthOrHeight" [(ngModel)]="weightForLengthOrHeight">
       </div>
       <div>
         <label for="NS">Nutritional Status (Nut1 Status):</label>
@@ -67,48 +114,48 @@
       <div>
         <label for="barangay">Barangay:</label>
         <select id="barangay" name="barangay" ngModel required>
-          <option value="Barangay1">ABUNG</option>
-          <option value="Barangay2">BALAGBAG</option>
-          <option value="Barangay3">BARUALTE</option>
-          <option value="Barangay4">BATAAN</option>
-          <option value="Barangay5">BUHAY NA SAPA</option>
-          <option value="Barangay6">BULSA</option>
-          <option value="Barangay7">CALICANTO</option>
-          <option value="Barangay8">CALITCALIT</option>
-          <option value="Barangay9">CALUBCUB 1</option>
-          <option value="Barangay10">CALUBCUB 2</option>
-          <option value="Barangay11">CATMON</option>
-          <option value="Barangay12">COLOCONTO</option>
-          <option value="Barangay13">ESCRIBANO</option>
-          <option value="Barangay14">HUGOM</option>
-          <option value="Barangay15">IMELDA (TUBOG)</option>
-          <option value="Barangay16">JANAOJANAO</option>
-          <option value="Barangay17">LAIYA-IBABAO</option>
-          <option value="Barangay18">LAIYA-APLAYA</option>
-          <option value="Barangay19">LIBATO</option>
-          <option value="Barangay20">LIPAHAN</option>
-          <option value="Barangay21">MABALANOY</option>
-          <option value="Barangay22">NAGSAULAY</option>
-          <option value="Barangay23">MARAYKIT</option>
-          <option value="Barangay24">MUZON</option>
-          <option value="Barangay25">PALAHANAN 1</option>
-          <option value="Barangay26">PALAHANAN 2</option>
-          <option value="Barangay27">PALINGOWAK</option>
-          <option value="Barangay28">PINAGBAYANAN</option>
-          <option value="Barangay29">POBLACION</option>
-          <option value="Barangay30">POCTOL</option>
-          <option value="Barangay31">PULANGBATO</option>
-          <option value="Barangay32">PUTINGBUHANGIN</option>
-          <option value="Barangay33">QUIPOT</option>
-          <option value="Barangay34">SAMPIRO</option>
-          <option value="Barangay35">SAPANGAN</option>
-          <option value="Barangay36">SICO 1</option>
-          <option value="Barangay37">SICO 2</option>
-          <option value="Barangay38">SUBUKIN</option>
-          <option value="Barangay39">TALAHIBAN 1</option>
-          <option value="Barangay40">TALAHIBAN 2</option>
-          <option value="Barangay41">TICALAN</option>
-          <option value="Barangay42">TIPAZ</option>
+          <option value="ABUNG">ABUNG</option>
+            <option value="BALAGBAG">BALAGBAG</option>
+            <option value="BARUALTE">BARUALTE</option>
+            <option value="BATAAN">BATAAN</option>
+            <option value="BUHAY NA SAPA">BUHAY NA SAPA</option>
+            <option value="BULSA">BULSA</option>
+            <option value="CALICANTO">CALICANTO</option>
+            <option value="CALITCALIT">CALITCALIT</option>
+            <option value="CALUBCUB 1">CALUBCUB 1</option>
+            <option value="CALUBCUB 2">CALUBCUB 2</option>
+            <option value="CATMON">CATMON</option>
+            <option value="COLOCONTO">COLOCONTO</option>
+            <option value="ESCRIBANO">ESCRIBANO</option>
+            <option value="HUGOM">HUGOM</option>
+            <option value="IMELDA (TUBOG)">IMELDA (TUBOG)</option>
+            <option value="JANAOJANAO">JANAOJANAO</option>
+            <option value="LAIYA-IBABAO">LAIYA-IBABAO</option>
+            <option value="LAIYA-APLAYA">LAIYA-APLAYA</option>
+            <option value="LIBATO">LIBATO</option>
+            <option value="LIPAHAN">LIPAHAN</option>
+            <option value="MABALANOY">MABALANOY</option>
+            <option value="NAGSAULAY">NAGSAULAY</option>
+            <option value="MARAYKIT">MARAYKIT</option>
+            <option value="MUZON">MUZON</option>
+            <option value="PALAHANAN 1">PALAHANAN 1</option>
+            <option value="PALAHANAN 2">PALAHANAN 2</option>
+            <option value="PALINGOWAK">PALINGOWAK</option>
+            <option value="PINAGBAYANAN">PINAGBAYANAN</option>
+            <option value="POBLACION">POBLACION</option>
+            <option value="POCTOL">POCTOL</option>
+            <option value="PULANGBATO">PULANGBATO</option>
+            <option value="PUTINGBUHANGIN">PUTINGBUHANGIN</option>
+            <option value="QUIPOT">QUIPOT</option>
+            <option value="SAMPIRO">SAMPIRO</option>
+            <option value="SAPANGAN">SAPANGAN</option>
+            <option value="SICO 1">SICO 1</option>
+            <option value="SICO 2">SICO 2</option>
+            <option value="SUBUKIN">SUBUKIN</option>
+            <option value="TALAHIBAN 1">TALAHIBAN 1</option>
+            <option value="TALAHIBAN 2">TALAHIBAN 2</option>
+            <option value="TICALAN">TICALAN</option>
+            <option value="TIPAZ">TIPAZ</option>
         </select>
       </div>
       <div>

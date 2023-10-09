@@ -9,6 +9,8 @@
   background-image: url("../../assets/SanJuan.jpg");
   background-repeat: no-repeat;
   background-size: cover;
+  opacity: 0.8;
+
 }
 
 * {
@@ -102,7 +104,6 @@ body {
   display: block;
 }
 
-/* Information Box Styles */
 .info-box {
   background-color: rgba(255, 255, 255, 0.8);
   padding: 20px;
@@ -123,22 +124,24 @@ body {
 }
 
 .photo-box {
-  text-align: center; /* Paggitnaan ang larawan */
-  padding: 20px; /* Magdagdag ng padding para sa kahon ng larawan */
-  width: 1155px; /* Specify the width of the box */
-  height: 650px; /* Specify the height of the box */
-  border: 2px solid #333; /* Ibigay ang border sa kahon */
-  background-image: url('../../assets/mayor.png'); /* Set the background image */
-  background-size: cover; /* Cover the entire box with the background image */
-  background-position: center; /* I-center ang background image */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Idagdag ang shadow sa paligid ng larawan */
-  display: flex; /* Gamitin ang flexbox para sa alignment */
-  justify-content: center; /* I-center horizontally */
-  align-items: center; /* I-center vertically */
+  text-align: center;
+  padding: 20px;
+  width: 80vw;
+  height: 500px;
+  border: 2px solid #333;
+  background-image: url('../../assets/mayor.png');
+  background-size: fixed;
+  background-position: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin: 20px;
+  margin-left: 9%;
 }
 
 .photo-box img {
-  display: none; /* Itago ang actual <img> element */
+  display: none;
+  position: fixed;
 }
 

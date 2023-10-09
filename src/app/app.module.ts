@@ -17,6 +17,15 @@ import { NutritionalStatusComponent } from './nutritional-status/nutritional-sta
 import { FamilyProfileComponent } from './family-profile/family-profile.component';
 import { QuarterlyRecordsComponent } from './quarterly-records/quarterly-records.component';
 import { MonthlyWeightComponent } from './monthly-weight/monthly-weight.component';
+import { MonthlyRecordInfantComponent } from './monthly-record-infant/monthly-record-infant.component';
+import { BaselineWeightComponent } from './baseline-weight/baseline-weight.component';
+import { HealthRecordsTableComponent } from './health-records-table/health-records-table.component';
+import { BWIRTableComponent } from './bwir-table/bwir-table.component';
+import { MonthlyHeightRecordsTableComponent } from './monthly-height-records-table/monthly-height-records-table.component';
+import { MonthlyWeightRecordsTableComponent } from './monthly-weight-records-table/monthly-weight-records-table.component';
+import { MonthlyRecordsInfantComponent } from './monthly-records-infant/monthly-records-infant.component';
+import { ProfileTableComponent } from './profile-table/profile-table.component';
+import { FamilyProfileTableComponent } from './family-profile-table/family-profile-table.component';
 
 
 @NgModule({
@@ -34,7 +43,16 @@ import { MonthlyWeightComponent } from './monthly-weight/monthly-weight.componen
     NutritionalStatusComponent,
     FamilyProfileComponent,
     QuarterlyRecordsComponent,
-    MonthlyWeightComponent
+    MonthlyWeightComponent,
+    MonthlyRecordInfantComponent,
+    BaselineWeightComponent,
+    HealthRecordsTableComponent,
+    BWIRTableComponent,
+    MonthlyHeightRecordsTableComponent,
+    MonthlyWeightRecordsTableComponent,
+    MonthlyRecordsInfantComponent,
+    ProfileTableComponent,
+    FamilyProfileTableComponent
   ],
   imports: [
     BrowserModule,

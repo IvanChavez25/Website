@@ -6,6 +6,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./monthly-record.component.css']
 })
 export class MonthlyRecordComponent {
+    weight: number = 0;
+    heightOrLength: number = 0;
   onSubmit() {
     
   }

@@ -8,6 +8,7 @@
     background-image: url("../../assets/SanJuan.jpg");
     background-repeat: no-repeat;
     background-size: cover;
+    opacity: 0.8;
   }
   
   * {
@@ -81,7 +82,7 @@
     list-style: none;
     margin: 0;
     z-index: 1;
-    width: 150px;
+    width: 190px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   }
   
@@ -151,6 +152,7 @@
   
   input[type="text"],
   input[type="date"],
+  input[type="number"], 
   select {
     width: 100%;
     padding: 10px;
