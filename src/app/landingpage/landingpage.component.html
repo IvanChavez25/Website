@@ -1,0 +1,56 @@
+
+<body>
+    <div class="navbar">
+      <div class="navbar-content">
+        <div class="navbar-logo"></div>
+        <div class="logo-text">SAN JUAN BATANGAS</div>
+      </div>
+      <ul class="navbar-list">
+        <li>
+          <a routerLink="/page/home">
+              <i class="fa fa-home"></i> Home
+          </a>
+        </li>
+        <li>
+          <a routerLink="/page/about">
+              <i class="fa fa-info-circle"></i> About
+          </a>
+        </li>
+        <li>
+          <a routerLink="/page/contacts">
+              <i class="fa fa-address-book"></i> Contacts
+          </a>
+        </li>
+        <li>
+          <a routerLink="/page/calendar">
+              <i class="fa fa-calendar"></i> Calendar
+          </a>
+        </li>
+        <li>
+            <button class="menu-button">
+              <i class="fa fa-reorder"></i>
+              <ul class="dropdown-menu">
+                <li>
+                  <a routerLink="/login">
+                      <i class="fa fa-user"></i> BHW Account
+                  </a>
+                </li>
+              </ul>
+            </button>
+        </li>
+      </ul>
+    </div>
+
+    
+
+    <div class="background-image">
+        
+    </div>
+    <div class="div">
+        <router-outlet></router-outlet>
+    </div>
+</body>
+  
+  
+
+

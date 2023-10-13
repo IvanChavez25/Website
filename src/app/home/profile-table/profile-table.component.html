@@ -1,0 +1,49 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<body>
+      <div class="background-image"></div>
+
+<fieldset>
+    <div>
+        <div class="result-container">
+            <fieldset id="childrenProfile">
+              <legend>Children Profile</legend>
+              <div class="result-table">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>First Name</th>
+                      <th>Middle Name</th>
+                      <th>Last Name</th>
+                      <th>Birthday (dd/mm/yyyy)</th>
+                      <th>Age</th>
+                      <th>Address</th>
+                      <th>Barangay</th>
+                      <th>Father's Name</th>
+                      <th>Mother's Name</th>
+                      <th>Gender</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let child of children; let i = index" id="record-row">
+                      <td>{{ i + 1 }}</td>
+                      <td>{{ child.firstName }}</td>
+                      <td>{{ child.middleName }}</td>
+                      <td>{{ child.lastName }}</td>
+                      <td>{{ child.birthday }}</td>
+                      <td>{{ child.age }}</td>
+                      <td>{{ child.address }}</td>
+                      <td>{{ child.barangay }}</td>
+                      <td>{{ child.fathersName }}</td>
+                      <td>{{ child.mothersName }}</td>
+                      <td>{{ child.gender }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <p *ngIf="children.length === 0">No children records available</p>
+              </div>
+            </fieldset>
+          </div>          
+    </div>
+</fieldset>

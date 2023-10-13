@@ -1,0 +1,139 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<body>
+  <div class="background-image"></div>
+  <div class="container">
+    <div class="navigation-buttons">
+        <button routerLink="/home/healthrecords">Health Records</button>
+        <button routerLink="/home/quarterlyrecords">Quarterly Records</button>
+        <button routerLink="/home/baselineweight">BaseLine</button>
+        <button routerLink="/home/nutritionalstatus">Nutritional Status</button>
+    </div>
+  
+    <fieldset class="fieldset1">
+        <legend class="legend1">Nutritional Status, Feeding and Micronutrient Supplementation Record of PreSchool Children</legend>
+    <form>
+      <div>
+        <label for="fatherName">Father's Name:</label>
+        <input type="text" id="fatherName" name="fatherName" ngModel required>
+      </div>
+      <div>
+        <label for="motherName">Mother's Name:</label>
+        <input type="text" id="motherName" name="motherName" ngModel required>
+      </div>
+      <div>
+        <label for="Name-of-Child">Name Of Child:</label>
+        <input type="text" id="Name-of-Child" name="Name-of-Child">
+      </div>
+      <div>
+        <label for="birthday">Date of Birth:</label>
+        <input type="date" id="birthday" name="birthday" ngModel required>
+      </div>
+      <div>
+        <label for="OPTPlus">Data of OPT Plus:</label>
+        <input type="date" id="OPTPlus" name="OPTPlus" ngModel required>
+      </div>
+      <div>
+        <label for="AgeInMonths">Age in Month:</label>
+        <input type="text" id="AgeInMonths" name="AgeInMonths" ngModel required>
+      </div>
+      <div>
+        <label for="weight">Weight(KG):</label>
+        <input type="number" id="weight" name="weight" [(ngModel)]="weight">
+      </div>
+      <div>
+        <label for="height">Height(CM):</label>
+        <input type="number" id="height" name="height" [(ngModel)]="height">
+      </div>
+      <fieldset>
+      <div>
+        <legend>-Nutritional Status-</legend>
+      </div>
+      <div>
+        <label for="weightForAge">Weight for Age:</label>
+        <select id="weightForAge" name="weightForAge" [(ngModel)]="weightForAge">
+          <option value="SUW">SUW (Severely Underweight)</option>
+          <option value="UW">UW (Underweight)</option>
+          <option value="N">N (Normal)</option>
+          <option value="OW">OW (Overweight)</option>
+        </select>
+      </div>
+      <div>
+        <label for="heightForAge">Height for Age:</label>
+        <select id="heightForAge" name="heightForAge" [(ngModel)]="heightForAge">
+          <option value="SSt">SSt (Severely Stunded)</option>
+          <option value="St">St (Stunded)</option>
+          <option value="N">N (Normal)</option>
+          <option value="T">T (Tall)</option>
+        </select>
+      </div>
+      <div>
+        <label for="weightForHeight">Weight for Height:</label>
+        <select id="weightForHeight" name="weightForHeight" [(ngModel)]="weightForHeight">
+          <option value="SUW">SUW (Severely Underweight)</option>
+          <option value="UW">UW (Underweight)</option>
+          <option value="N">N (Normal)</option>
+          <option value="Ob">OW (Obese)</option>
+        </select>
+      </div>
+      </fieldset>
+      <div>
+        <label>Practicing EDF if child is below 6 mos. old:</label>
+        <input type="radio" id="practicingEDFYes" name="practicingEDF" [(ngModel)]="practicingEDF" value="Yes" required>
+        <label for="practicingEDFYes">Yes</label>
+        <input type="radio" id="practicingEDFNo" name="practicingEDF" [(ngModel)]="practicingEDF" value="No" required>
+        <label for="practicingEDFNo">No</label>
+      </div>
+      <fieldset>
+      <div>
+      <legend>-Solid Food Feeding-</legend>
+      </div>
+      <div>
+        <label>Practicing CF if child is 6 months - 23 months old:</label>
+        <input type="radio" id="practicingCFYes" name="practicingCF" [(ngModel)]="practicingCF" value="Yes" required>
+        <label for="practicingCFYes">Yes</label>
+        <input type="radio" id="practicingCFNo" name="practicingCF" [(ngModel)]="practicingCF" value="No" required>
+        <label for="practicingCFNo">No</label>
+      </div>
+      <div>
+        <label for="ageStartedCF">Age in months started CF:</label>
+        <input type="text" id="ageStartedCF" name="ageStartedCF" ngModel>
+      </div>
+      <div>
+        <label>Current beneficiary of SF (Supplementary Food) Y/N:</label>
+        <input type="radio" id="beneficiarySFYes" name="beneficiarySF" [(ngModel)]="beneficiarySF" value="Yes" required>
+        <label for="beneficiarySFYes">Yes</label>
+        <input type="radio" id="beneficiarySFNo" name="beneficiarySF" [(ngModel)]="beneficiarySF" value="No" required>
+        <label for="beneficiarySFNo">No</label>
+      </div>
+      </fieldset>
+      <fieldset>
+      <div>
+      <legend>-Micronutrient Supplementation-</legend>
+      </div>
+      <div>
+        <label for="vitaminALastReceived">Vitamin A Last Date Received:</label>
+        <input type="date" id="vitaminALastReceived" name="vitaminALastReceived" [(ngModel)]="vitaminALastReceived">
+      </div>
+      <div>
+        <label for="ironReceived">Iron Drops / Syrup Received (Y/N):</label>
+        <select id="ironReceived" name="ironReceived" [(ngModel)]="ironReceived">
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+        </select>
+      </div>
+      <div>
+        <label for="usingMNP">Using MNP (Y/N):</label>
+        <select id="usingMNP" name="usingMNP" [(ngModel)]="usingMNP">
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+        </select>
+      </div>
+    </fieldset>
+      <button type="submit">Submit</button>
+    </form>
+    </fieldset>
+  </div>
+    <router-outlet></router-outlet>
+  </body>
+

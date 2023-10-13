@@ -1,0 +1,63 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<body>
+      <div class="background-image"></div>
+<fieldset>
+<div>
+<div class="result-container">      
+<fieldset id="baselineRecords">
+    <legend>Baseline Weight and Immunization Records</legend>
+    <div class="result-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Household Number</th>
+            <th>Name of Household Head</th>
+            <th>Date of Birth</th>
+            <th>NBS Done?</th>
+            <th>BCG</th>
+            <th>DPT 1</th>
+            <th>DPT 2</th>
+            <th>DPT 3</th>
+            <th>Polio 1</th>
+            <th>Polio 2</th>
+            <th>Polio 3</th>
+            <th>Measles</th>
+            <th>Date of Weighing</th>
+            <th>Age in Months</th>
+            <th>Weight (kg.)</th>
+            <th>Weight Status</th>
+            <th>Barangay</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr *ngFor="let record of baselineRecords; let i = index" id="record-row">
+            <td>{{ record.HouseholdNumber }}</td>
+            <td>{{ record.NameOfHouseholdHead }}</td>
+            <td>{{ record.birthday }}</td>
+            <td>{{ record.nbsDone }}</td>
+            <td>{{ record.bcgDate}}</td>
+            <td>{{ record.dpt1Date }}</td>
+            <td>{{ record.dpt2Date }}</td>
+            <td>{{ record.dpt3Date }}</td>
+            <td>{{ record.polio1Date }}</td>
+            <td>{{ record.polio2Date }}</td>
+            <td>{{ record.polio3Date }}</td>
+            <td>{{ record.measlesDate }}</td>
+            <td>{{ record.dateOfWeighing }}</td>
+            <td>{{ record.ageInMonth }}</td>
+            <td>{{ record.weight }}</td>
+            <td>{{ record.weightStatus }}</td>
+            <td>{{ record.barangay }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <p *ngIf="baselineRecords.length === 0">No baseline records available</p>
+    </div>
+  </fieldset>
+</div>
+</div>
+</fieldset>
+</body>
+  <router-outlet></router-outlet>

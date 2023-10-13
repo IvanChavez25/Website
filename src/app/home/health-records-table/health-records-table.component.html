@@ -1,0 +1,49 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<body>
+      <div class="background-image"></div>
+
+<fieldset>
+  <div>
+    <div class="result-container">
+      <fieldset id="healthRecords">
+        <legend>Health Records</legend>
+        <div class="result-table">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Children Name</th>
+                <th>Age</th>
+                <th>Weight (kg)</th>
+                <th>Height (cm)</th>
+                <th>Vitamin</th>
+                <th>Late Date Received</th>
+                <th>Weight for Age</th>
+                <th>Height for Age</th>
+                <th>Weight For Height</th>
+              </tr>
+            </thead>
+            <tbody>
+
+              <tr *ngFor="let record of healthRecords; let i = index" id="record-row">
+                <td>{{ i + 1 }}</td>
+                <td>{{ record.childrenName }}</td>
+                <td>{{ record.age }}</td>
+                <td>{{ record.weight }}</td>
+                <td>{{ record.height }}</td>
+                <td>{{ record.vitamin }}</td>
+                <td>{{ record.lateDateReceived }}</td>
+                <td>{{ record.weightForAge }}</td>
+                <td>{{ record.heightForAge }}</td>
+                <td>{{ record.weightForHeight }}</td>
+              </tr>
+            </tbody>
+          </table>
+          <p *ngIf="healthRecords.length === 0">No health records available</p>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+</fieldset>     
+<router-outlet></router-outlet>

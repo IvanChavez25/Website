@@ -1,0 +1,78 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<body>
+  <div class="background-image"></div>
+  <div class="container">
+    <div class="navigation-buttons">
+        <button routerLink="/home/healthrecords">Health Records</button>
+        <button routerLink="/home/quarterlyrecords">Quarterly Records</button>
+        <button routerLink="/home/baselineweight">BaseLine</button>
+        <button routerLink="/home/nutritionalstatus">Nutritional Status</button>
+    </div>
+  <fieldset class="fieldset1">
+      <legend class="legend1"> Children Health Records </legend>
+    <form>
+      <div>
+        <label for="childrenName">Children Name:</label>
+        <input type="text" id="childrenName" name="childrenName" ngModel required>
+      </div>
+      <div>
+        <label for="age">Age:</label>
+        <input type="text" id="age" name="age" ngModel required>
+      </div>
+      <div>
+        <label for="weight">Weight:</label>
+        <input type="text" id="weight" name="weight" ngModel required>
+      </div>
+      <div>
+        <label for="height">Height:</label>
+        <input type="text" id="height" name="height" ngModel required>
+      </div>
+      <div>
+        <label for="vitamin">Vitamin:</label>
+        <select id="vitamin" name="vitamin" ngModel required>
+          <option value="vitamin-a">Vitamin A</option>
+          <option value="vitamin-b">Vitamin B</option>
+          
+        </select>
+      </div>
+      <div>
+        <label for="lastDateReceived">Last Date Received:</label>
+        <input type="date" id="lastDateReceived" name="lastDateReceived" ngModel required>
+      </div>
+      <div>
+        <label for="weightForAge">Weight for Age:</label>
+        <select id="weightForAge" name="weightForAge" [(ngModel)]="weightForAge">
+          <option value="SUW">SUW (Severely Underweight)</option>
+          <option value="UW">UW (Underweight)</option>
+          <option value="N">N (Normal)</option>
+          <option value="OW">OW (Overweight)</option>
+        </select>
+      </div>
+      <div>
+        <label for="heightForAge">Height for Age:</label>
+        <select id="heightForAge" name="heightForAge" [(ngModel)]="heightForAge">
+          <option value="SSt">SUW (Severely Stunded)</option>
+          <option value="St">St (Stunded)</option>
+          <option value="N">N (Normal)</option>
+          <option value="T">T (Tall)</option>
+        </select>
+      </div>
+      <div>
+        <label for="weightForHeight">Weight for Height:</label>
+        <select id="weightForHeight" name="weightForHeight" [(ngModel)]="weightForHeight">
+          <option value="SUW">SUW (Severely Underweight)</option>
+          <option value="UW">UW (Underweight)</option>
+          <option value="N">N (Normal)</option>
+          <option value="Ob">OW (Obese)</option>
+        </select>
+      </div>
+      <div>
+      <button type="submit">Submit</button>
+      </div>
+    </form>
+  </fieldset>
+  </div>
+    <router-outlet></router-outlet>
+</body>
+

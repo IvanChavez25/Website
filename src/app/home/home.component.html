@@ -1,57 +1,70 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-<body>
-    <div class="navbar">
-      <div class="navbar-content">
-        <div class="navbar-logo"></div>
-        <div class="logo-text">SAN JUAN BATANGAS</div>
-      </div>
-      <ul class="navbar-list">
-        <li>
-          <a routerLink="/home">
-              <i class="fa fa-home"></i> Home
-          </a>
-        </li>
-        <li>
-          <a routerLink="/about">
-              <i class="fa fa-info-circle"></i> About
-          </a>
-        </li>
-        <li>
-          <a routerLink="/contacts">
-              <i class="fa fa-address-book"></i> Contacts
-          </a>
-        </li>
-        <li>
-          <a routerLink="/calendar">
-              <i class="fa fa-calendar"></i> Calendar
-          </a>
-        </li>
-        <li>
-            <button class="menu-button">
-              <i class="fa fa-reorder"></i>
-              <ul class="dropdown-menu">
-                <li>
-                  <a routerLink="/login">
-                      <i class="fa fa-user"></i> BHW Account
-                  </a>
-                </li>
-              </ul>
-            </button>
-        </li>
-      </ul>
-    </div>
-
-    <div class="photo-box"></div>
-
-    <div class="info-box">
-      <h2>Important Information</h2>
-      <p>
-          This is some important information that you want to display in the info-box. You can customize the content as needed.
-      </p>
+<div class="navbar">
+  <div class="navbar-content">
+    <div class="navbar-logo"></div>
+    <div class="logo-text">SAN JUAN BATANGAS</div>
   </div>
-
-    <div class="background-image"></div>
-</body>
-  
-  
+  <ul class="navbar-list">
+    <li>
+      <a routerLink="/home/childreninfo">
+          <i class="fa fa-user-circle"></i> Profile
+      </a>
+    </li>
+    <li>
+      <a routerLink="/home/healthrecords">
+          <i class="fa fa-file-text-o"></i> Records
+      </a>
+    </li>
+    <li>
+      <a routerLink="/home/monthlyrecords">
+          <i class="fa fa-calendar"></i> Monthly Records
+      </a>
+    </li>
+    <li>
+      <a routerLink="/home/bmi">
+          <i class="fa fa-calculator"></i> BMI Calculator
+      </a>
+    </li>
+    <li>
+      <button class="menu-button">
+        <i class="fa fa-reorder"></i>
+        <ul class="dropdown-menu">
+          <li>
+              <app-profile-dropdown></app-profile-dropdown>
+          </li>
+          <li>
+            <a href="#">
+                <i class="fa fa-bar-chart"></i> Barangay Ranking
+            </a>
+          </li>
+          <li>
+            <a href="#">
+                <i class="fa fa-heartbeat"></i> BMI Result
+            </a>
+          </li>
+          <li>
+            <a routerLink="/home/healthrecordstable">
+                <i class="fa fa-table"></i> Children Table
+            </a>
+          </li>
+          <li>
+            <a routerLink="/home/bwirtable">
+                <i class="fa fa-table"></i> Baseline Weight and Immunization Records table
+            </a>
+          </li>
+          <li>
+            <app-monthly-dropdown></app-monthly-dropdown>
+          </li>
+          <li>
+            <a routerLink="/page/home">
+                <i class="fa fa-sign-out"></i> Log Out
+            </a>
+          </li>
+        </ul>
+      </button>
+    </li>
+  </ul>
+</div>
+<div class="background-image"></div>
+<div>
+  <router-outlet></router-outlet>
+</div>

@@ -1,0 +1,64 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<body>
+      <div class="background-image"></div>
+
+<fieldset>
+  <div>
+    <div class="result-container">
+      <fieldset id="familyProfile">
+        <legend>Children Profile</legend>
+        <div class="result-table">
+        <table>
+        <thead>
+        <tr>
+          <th>Household Number</th>
+          <th>No. of Household Members</th>
+          <th>Children (0-5 months)</th>
+          <th>Children (6-23 months)</th>
+          <th>Children (24-59 months)</th>
+          <th>Children (below 60 months)</th>
+          <th>Household Head/Spouse Name</th>
+          <th>Occupation</th>
+          <th>Educational Attainment</th>
+          <th>Pregnant</th>
+          <th>Family Planning</th>
+          <th>EBF</th>
+          <th>Mixed Milk Feeding</th>
+          <th>Bottle Feeding</th>
+          <th>Toilet Type</th>
+          <th>Water Source</th>
+          <th>Food Production Activity</th>
+          <th>Using Iodized Salt</th>
+          <th>Using IFR (Iron-Fortified Rice)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let family of families; let i = index" id="record-row">
+          <td>{{ family.householdNumber }}</td>
+          <td>{{ family.numberOfHouseholdMembers }}</td>
+          <td>{{ family.children.age0To5Months }}</td>
+          <td>{{ family.children.age6To23Months }}</td>
+          <td>{{ family.children.age24To59Months }}</td>
+          <td>{{ family.children.below60Months }}</td>
+          <td>{{ family.householdHeadSpouseName }}</td>
+          <td>{{ family.occupation }}</td>
+          <td>{{ family.educationalAttainment }}</td>
+          <td>{{ family.isPregnant ? 'Yes' : 'No' }}</td>
+          <td>{{ family.practicesFamilyPlanning ? 'Yes' : 'No' }}</td>
+          <td>{{ family.exclusiveBreastfeeding ? 'Yes' : 'No' }}</td>
+          <td>{{ family.mixedMilkFeeding ? 'Yes' : 'No' }}</td>
+          <td>{{ family.bottleFeeding ? 'Yes' : 'No' }}</td>
+          <td>{{ family.toiletType }}</td>
+          <td>{{ family.waterSource }}</td>
+          <td>{{ family.foodProductionActivity }}</td>
+          <td>{{ family.usingIodizedSalt ? 'Yes' : 'No' }}</td>
+          <td>{{ family.usingIFR ? 'Yes' : 'No' }}</td>
+        </tr>
+      </tbody>
+      </table>
+    </div>
+  </fieldset>
+  </div>
+  </div>
+</fieldset>

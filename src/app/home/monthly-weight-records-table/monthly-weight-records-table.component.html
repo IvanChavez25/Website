@@ -1,0 +1,47 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<body>
+      <div class="background-image"></div>
+
+  <fieldset>
+    <div>
+      <div class="result-container">
+        <fieldset id="monthlyWeightRecords">
+          <legend>Monthly Weight Records</legend>
+          <div class="result-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Name of Child</th>
+                  <th>Birthday (dd/mm/yyyy)</th>
+                  <th>Age in Months</th>
+                  <th>Weight (kg.)</th>
+                  <th>Weight Status</th>
+                  <th>Date of Weighing</th>
+                  <th>Barangay</th>
+                </tr>
+              </thead>
+              <tbody>
+                
+                <tr *ngFor="let record of monthlyWeightRecords; let i = index" id="record-row">
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ record.name }}</td>
+                    <td>{{ record.birthday }} </td>
+                    <td>{{ record.ageInMonths }}</td>
+                    <td>{{ record.weight }}</td>
+                    <td>{{ record.weightStatus }}</td>
+                    <td>{{ record.dateOfWeighing }}</td>
+                    <td>{{ record.barangay }}</td>
+                
+              </tbody>
+            </table>
+            <p *ngIf="monthlyWeightRecords.length === 0">No records available</p>
+          </div>
+        </fieldset>
+      </div>
+      </div>
+    </fieldset>
+      <router-outlet></router-outlet>
+      
+

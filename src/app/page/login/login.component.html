@@ -1,0 +1,24 @@
+<body>
+<div class="title">
+  <h1>Municipality Of San Juan, Batangas</h1>
+</div>
+<div class="image-container">
+<form (ngSubmit)="login()">
+    <div>
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username"  required>
+    </div>
+  
+    <div>
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password"  required>
+    </div>
+    
+    <div class="Login">
+    <a routerLink="/home/monthlyrecords" style="margin: auto;"><button type="submit">Login</button></a>
+    <a routerLink="/home" style="margin: auto;"><button type="button">Back</button></a>
+    </div>
+
+  </form>
+</div>
+</body>
