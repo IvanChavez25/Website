@@ -18,36 +18,48 @@ import { ProfileTableComponent } from './profile-table/profile-table.component';
 import { FamilyProfileTableComponent } from './family-profile-table/family-profile-table.component';
 import { BmiCalculatorComponent } from './bmicalculator/bmicalculator.component';
 import { HomeComponent } from './home.component';
-
+import { QuarterlyTableComponent } from './quarterly-table/quarterly-table.component';
+import { NutritionalTableComponent } from './nutritional-table/nutritional-table.component';
 
 const routes: Routes = [
   {
-    path: 'home' , component:HomeComponent,
+    path: 'home',
+    component: HomeComponent,
     children: [
-      {path: 'childreninfo', component:ChildrenInfoComponent},
-      {path: 'healthrecords', component:HealthRecordsComponent},
-      {path: 'monthlyrecords', component:MonthlyRecordComponent},
-      {path: 'nutritionalstatus', component:NutritionalStatusComponent},
-      {path: 'familyprofile', component:FamilyProfileComponent},
-      {path: 'quarterlyrecords', component:QuarterlyRecordsComponent},
-      {path: 'monthlyweight', component:MonthlyWeightComponent},
-      {path: 'monthlyrecordsinfant', component:MonthlyRecordInfantComponent},
-      {path: 'baselineweight', component:BaselineWeightComponent},
-      {path: 'healthrecordstable', component:HealthRecordsTableComponent},
-      {path: 'bwirtable', component:BWIRTableComponent},
-      {path: 'monthlyheightrecordstable', component:MonthlyHeightRecordsTableComponent},
-      {path: 'monthlyweightrecordstable', component:MonthlyWeightRecordsTableComponent},
-      {path: 'monthlyrecordsinfanttable', component:MonthlyRecordsInfantComponent},
-      {path: 'profiletable', component:ProfileTableComponent},
-      {path: 'familyprofiletable', component:FamilyProfileTableComponent},
-      {path:'bmi', component:BmiCalculatorComponent},
-    ]
-  }
-  
+      { path: 'childreninfo', component: ChildrenInfoComponent },
+      { path: 'healthrecords', component: HealthRecordsComponent },
+      { path: 'monthlyrecords', component: MonthlyRecordComponent },
+      { path: 'nutritionalstatus', component: NutritionalStatusComponent },
+      { path: 'familyprofile', component: FamilyProfileComponent },
+      { path: 'quarterlyrecords', component: QuarterlyRecordsComponent },
+      { path: 'monthlyweight', component: MonthlyWeightComponent },
+      { path: 'monthlyrecordsinfant', component: MonthlyRecordInfantComponent },
+      { path: 'baselineweight', component: BaselineWeightComponent },
+      { path: 'healthrecordstable', component: HealthRecordsTableComponent },
+      { path: 'bwirtable', component: BWIRTableComponent },
+      {
+        path: 'monthlyheightrecordstable',
+        component: MonthlyHeightRecordsTableComponent,
+      },
+      {
+        path: 'monthlyweightrecordstable',
+        component: MonthlyWeightRecordsTableComponent,
+      },
+      {
+        path: 'monthlyrecordsinfanttable',
+        component: MonthlyRecordsInfantComponent,
+      },
+      { path: 'profiletable', component: ProfileTableComponent },
+      { path: 'familyprofiletable', component: FamilyProfileTableComponent },
+      { path: 'bmi', component: BmiCalculatorComponent },
+      { path: 'quarterlytable', component: QuarterlyTableComponent },
+      { path: 'nutritionaltable', component: NutritionalTableComponent },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class HomeRoutingModule { }
+export class HomeRoutingModule {}

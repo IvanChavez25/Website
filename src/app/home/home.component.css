@@ -17,7 +17,6 @@
 
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
 }
 
 .navbar {
@@ -85,7 +84,6 @@ body {
   width: 190px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
-
 
 .dropdown-menu li {
   margin-bottom: 5px;
@@ -178,24 +176,24 @@ button[type="submit"]:hover {
   background-color: #0056b3;
 }
 
-.fieldset1{
+.fieldset1 {
   border-style: hidden;
 }
 
-.legend1{
+.legend1 {
   text-align: center;
   font-size: 1.6vw;
   font-weight: bold;
 }
 
-fieldset{
+fieldset {
   border-radius: 4%;
   border-color: #ccc;
   margin-bottom: 3%;
   margin-top: 3%;
 }
 
-legend{
+legend {
   text-align: center;
   font-weight: bold;
 }

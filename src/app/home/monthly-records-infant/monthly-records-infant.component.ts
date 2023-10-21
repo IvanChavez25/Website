@@ -1,33 +1,33 @@
 import { Component } from '@angular/core';
+import { Database, ref, get, update, remove } from '@angular/fire/database';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-monthly-records-infant',
   templateUrl: './monthly-records-infant.component.html',
-  styleUrls: ['./monthly-records-infant.component.css']
+  styleUrls: ['./monthly-records-infant.component.css'],
 })
 export class MonthlyRecordsInfantComponent {
-  infantRecords: any[]; // Replace 'any[]' with the actual type of your data
+  monthlyInfantRecords: any[] = [];
+  monthlyInfantRecordsData: any = {};
 
-  constructor() {
-    // Initialize the data source with sample data (replace this with your actual data)
-    this.infantRecords = [
-      {
-        name: 'Child 1',
-        birthday: '01/01/2022',
-        ageInMonths: 6,
-        measurements: {
-          weight: '6.2 kg',
-          heightOrLength: '60 cm',
-          weightForLengthOrHeight: 'Normal'
-        },
-        nutritionalStatus: {
-          weightForAge: 'Normal',
-          heightOrLengthForAge: 'Normal',
-          weightForLengthOrHeight: 'Normal'
-        },
-        barangay: 'Barangay 1'
-      },
-      // Add more records as needed
-    ];
+  constructor(public database: Database, private location: Location) {
+    this.fetchmonthlyInfantRecords();
+  }
+
+  fetchmonthlyInfantRecords() {
+    const monthlyInfantRef = ref(this.database, 'MonthlyInfantRecord');
+
+    get(monthlyInfantRef)
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          this.monthlyInfantRecords = Object.values(snapshot.val());
+        } else {
+          this.monthlyInfantRecords = [];
+        }
+      })
+      .catch((error) => {
+        console.error('Error retrieving monthlyInfantRecords:', error);
+      });
   }
 }

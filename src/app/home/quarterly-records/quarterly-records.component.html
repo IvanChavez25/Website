@@ -1,96 +1,149 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+/>
 
-<body>
-  <div class="background-image"></div>
-  <div class="container">
-    <div class="navigation-buttons">
-        <button routerLink="/home/healthrecords">Health Records</button>
-        <button routerLink="/home/quarterlyrecords">Quarterly Records</button>
-        <button routerLink="/home/baselineweight">BaseLine</button>
-        <button routerLink="/home/nutritionalstatus">Nutritional Status</button>
-    </div>
-    
-  <fieldset>
-      <legend> Quarterly Record of Weight and Weight Status 24-59 Months Pre-Schoolers </legend>
-    <form>
+<div class="container">
+  <div class="navigation-buttons">
+    <button routerLink="/home/healthrecords">Health Records</button>
+    <button routerLink="/home/quarterlyrecords">Quarterly Records</button>
+    <button routerLink="/home/baselineweight">BaseLine</button>
+    <button routerLink="/home/nutritionalstatus">Nutritional Status</button>
+  </div>
+  <fieldset class="fieldset1">
+    <legend class="legend1">
+      Quarterly Record of Weight and Weight Status 24-59 Months Pre-Schoolers
+    </legend>
+    <form (ngSubmit)="onSubmit()">
       <div>
-        <label for="Name-of-Child">Name Of Child:</label>
-        <input type="text" id="Name-of-Child" name="Name-of-Child" ngModel required>
+        <label for="nameOfChild">Name Of Child:</label>
+        <input
+          type="text"
+          id="nameOfChild"
+          name="nameOfChild"
+          [(ngModel)]="quarterlyData.nameOfChild"
+          required
+        />
       </div>
       <div>
         <label for="birthday">Birthday:</label>
-        <input type="date" id="birthday" name="birthday" ngModel required>
+        <input
+          type="date"
+          id="birthday"
+          name="birthday"
+          [(ngModel)]="quarterlyData.birthday"
+          required
+        />
       </div>
       <div>
-        <label for="ageinmonth.">Age in Month:</label>
-        <input type="text" id="ageinmonth" name="ageinmonth" ngModel required>
+        <label for="ageInMonth">Age in Month:</label>
+        <input
+          type="text"
+          id="ageInMonth"
+          name="ageInMonth"
+          [(ngModel)]="quarterlyData.ageInMonth"
+          required
+        />
       </div>
       <div>
         <label for="weight">Weight:</label>
-        <input type="number" id="weight" name="weight" [(ngModel)]="weight">
+        <input
+          type="number"
+          id="weight"
+          name="weight"
+          [(ngModel)]="quarterlyData.weight"
+          required
+        />
       </div>
       <div>
         <label for="heightOrLength">Height/Length:</label>
-        <input type="number" id="heightOrLength" name="heightOrLength" [(ngModel)]="heightOrLength">
+        <input
+          type="number"
+          id="heightOrLength"
+          name="heightOrLength"
+          [(ngModel)]="quarterlyData.heightOrLength"
+          required
+        />
       </div>
       <div>
         <label for="weightForLengthOrHeight">Weight for Length/Height:</label>
-        <input type="Number" id="weightForLengthOrHeight" name="weightForLengthOrHeight" [(ngModel)]="weightForLengthOrHeight">
+        <input
+          type="number"
+          id="weightForLengthOrHeight"
+          name="weightForLengthOrHeight"
+          [(ngModel)]="quarterlyData.weightForLengthOrHeight"
+          required
+        />
       </div>
       <div>
-        <label for="NS">Nutritional Status (Nut1 Status):</label>
-        <input type="text" id="NS" name="NS" ngModel required>
+        <label for="nutritionalStatus">Nutritional Status (Nut1 Status):</label>
+        <input
+          type="text"
+          id="nutritionalStatus"
+          name="nutritionalStatus"
+          [(ngModel)]="quarterlyData.nutritionalStatus"
+          required
+        />
       </div>
       <div>
         <label for="barangay">Barangay:</label>
-        <select id="barangay" name="barangay" ngModel required>
+        <select
+          id="barangay"
+          name="barangay"
+          [(ngModel)]="quarterlyData.barangay"
+          required
+        >
           <option value="ABUNG">ABUNG</option>
-            <option value="BALAGBAG">BALAGBAG</option>
-            <option value="BARUALTE">BARUALTE</option>
-            <option value="BATAAN">BATAAN</option>
-            <option value="BUHAY NA SAPA">BUHAY NA SAPA</option>
-            <option value="BULSA">BULSA</option>
-            <option value="CALICANTO">CALICANTO</option>
-            <option value="CALITCALIT">CALITCALIT</option>
-            <option value="CALUBCUB 1">CALUBCUB 1</option>
-            <option value="CALUBCUB 2">CALUBCUB 2</option>
-            <option value="CATMON">CATMON</option>
-            <option value="COLOCONTO">COLOCONTO</option>
-            <option value="ESCRIBANO">ESCRIBANO</option>
-            <option value="HUGOM">HUGOM</option>
-            <option value="IMELDA (TUBOG)">IMELDA (TUBOG)</option>
-            <option value="JANAOJANAO">JANAOJANAO</option>
-            <option value="LAIYA-IBABAO">LAIYA-IBABAO</option>
-            <option value="LAIYA-APLAYA">LAIYA-APLAYA</option>
-            <option value="LIBATO">LIBATO</option>
-            <option value="LIPAHAN">LIPAHAN</option>
-            <option value="MABALANOY">MABALANOY</option>
-            <option value="NAGSAULAY">NAGSAULAY</option>
-            <option value="MARAYKIT">MARAYKIT</option>
-            <option value="MUZON">MUZON</option>
-            <option value="PALAHANAN 1">PALAHANAN 1</option>
-            <option value="PALAHANAN 2">PALAHANAN 2</option>
-            <option value="PALINGOWAK">PALINGOWAK</option>
-            <option value="PINAGBAYANAN">PINAGBAYANAN</option>
-            <option value="POBLACION">POBLACION</option>
-            <option value="POCTOL">POCTOL</option>
-            <option value="PULANGBATO">PULANGBATO</option>
-            <option value="PUTINGBUHANGIN">PUTINGBUHANGIN</option>
-            <option value="QUIPOT">QUIPOT</option>
-            <option value="SAMPIRO">SAMPIRO</option>
-            <option value="SAPANGAN">SAPANGAN</option>
-            <option value="SICO 1">SICO 1</option>
-            <option value="SICO 2">SICO 2</option>
-            <option value="SUBUKIN">SUBUKIN</option>
-            <option value="TALAHIBAN 1">TALAHIBAN 1</option>
-            <option value="TALAHIBAN 2">TALAHIBAN 2</option>
-            <option value="TICALAN">TICALAN</option>
-            <option value="TIPAZ">TIPAZ</option>
+          <option value="BALAGBAG">BALAGBAG</option>
+          <option value="BARUALTE">BARUALTE</option>
+          <option value="BATAAN">BATAAN</option>
+          <option value="BUHAY NA SAPA">BUHAY NA SAPA</option>
+          <option value="BULSA">BULSA</option>
+          <option value="CALICANTO">CALICANTO</option>
+          <option value="CALITCALIT">CALITCALIT</option>
+          <option value="CALUBCUB 1">CALUBCUB 1</option>
+          <option value="CALUBCUB 2">CALUBCUB 2</option>
+          <option value="CATMON">CATMON</option>
+          <option value="COLOCONTO">COLOCONTO</option>
+          <option value="ESCRIBANO">ESCRIBANO</option>
+          <option value="HUGOM">HUGOM</option>
+          <option value="IMELDA (TUBOG)">IMELDA (TUBOG)</option>
+          <option value="JANAOJANAO">JANAOJANAO</option>
+          <option value="LAIYA-IBABAO">LAIYA-IBABAO</option>
+          <option value="LAIYA-APLAYA">LAIYA-APLAYA</option>
+          <option value="LIBATO">LIBATO</option>
+          <option value="LIPAHAN">LIPAHAN</option>
+          <option value="MABALANOY">MABALANOY</option>
+          <option value="NAGSAULAY">NAGSAULAY</option>
+          <option value="MARAYKIT">MARAYKIT</option>
+          <option value="MUZON">MUZON</option>
+          <option value="PALAHANAN 1">PALAHANAN 1</option>
+          <option value="PALAHANAN 2">PALAHANAN 2</option>
+          <option value="PALINGOWAK">PALINGOWAK</option>
+          <option value="PINAGBAYANAN">PINAGBAYANAN</option>
+          <option value="POBLACION">POBLACION</option>
+          <option value="POCTOL">POCTOL</option>
+          <option value="PULANGBATO">PULANGBATO</option>
+          <option value="PUTINGBUHANGIN">PUTINGBUHANGIN</option>
+          <option value="QUIPOT">QUIPOT</option>
+          <option value="SAMPIRO">SAMPIRO</option>
+          <option value="SAPANGAN">SAPANGAN</option>
+          <option value="SICO 1">SICO 1</option>
+          <option value="SICO 2">SICO 2</option>
+          <option value="SUBUKIN">SUBUKIN</option>
+          <option value="TALAHIBAN 1">TALAHIBAN 1</option>
+          <option value="TALAHIBAN 2">TALAHIBAN 2</option>
+          <option value="TICALAN">TICALAN</option>
+          <option value="TIPAZ">TIPAZ</option>
         </select>
       </div>
       <div>
         <label for="measurementMonth">Measurement Month:</label>
-        <select id="measurementMonth" name="measurementMonth" ngModel required>
+        <select
+          id="measurementMonth"
+          name="measurementMonth"
+          [(ngModel)]="quarterlyData.measurementMonth"
+        >
           <option value="January">January</option>
           <option value="March">March</option>
           <option value="June">June</option>
@@ -98,10 +151,10 @@
           <option value="December">December</option>
         </select>
       </div>
-      
-      <button type="submit">Submit</button>
+      <div>
+        <button type="submit">Submit</button>
+      </div>
     </form>
   </fieldset>
-  </div>
-    <router-outlet></router-outlet>
-</body>
+</div>
+<router-outlet></router-outlet>

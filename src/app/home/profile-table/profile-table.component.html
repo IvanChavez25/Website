@@ -1,49 +1,234 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+/>
 
-<body>
-      <div class="background-image"></div>
+<div id="updateCon">
+  <div id="updateChildModal" #updateChildModal class="modal">
+    <div class="modal-content">
+      <form (ngSubmit)="updateChild()">
+        <div>
+          <label for="firstName">First Name:</label>
+          <input
+            type="text"
+            id="firstName"
+            name="firstName"
+            [(ngModel)]="childRecordsData.firstName"
+            required
+          />
+        </div>
+        <div>
+          <label for="middleName">Middle Name:</label>
+          <input
+            type="text"
+            id="middleName"
+            name="middleName"
+            [(ngModel)]="childRecordsData.middleName"
+          />
+        </div>
+        <div>
+          <label for="lastName">Last Name:</label>
+          <input
+            type="text"
+            id="lastName"
+            name="lastName"
+            [(ngModel)]="childRecordsData.lastName"
+            required
+          />
+        </div>
+        <div>
+          <label for="birthday">Birthday:</label>
+          <input
+            type="date"
+            id="birthday"
+            name="birthday"
+            [(ngModel)]="childRecordsData.birthday"
+            required
+          />
+        </div>
+        <div>
+          <label for="age">Age:</label>
+          <input
+            type="text"
+            id="age"
+            name="age"
+            [(ngModel)]="childRecordsData.age"
+            required
+          />
+        </div>
+        <div>
+          <label for="address">Address:</label>
+          <input
+            type="text"
+            id="address"
+            name="address"
+            [(ngModel)]="childRecordsData.address"
+            required
+          />
+        </div>
+        <div>
+          <label for="barangay">Barangay:</label>
+          <select
+            id="barangay"
+            name="barangay"
+            [(ngModel)]="childRecordsData.barangay"
+            required
+          >
+            <option value="ABUNG">ABUNG</option>
+            <option value="BALAGBAG">BALAGBAG</option>
+            <option value="BARUALTE">BARUALTE</option>
+            <option value="BATAAN">BATAAN</option>
+            <option value="BUHAY NA SAPA">BUHAY NA SAPA</option>
+            <option value="BULSA">BULSA</option>
+            <option value="CALICANTO">CALICANTO</option>
+            <option value="CALITCALIT">CALITCALIT</option>
+            <option value="CALUBCUB 1">CALUBCUB 1</option>
+            <option value="CALUBCUB 2">CALUBCUB 2</option>
+            <option value="CATMON">CATMON</option>
+            <option value="COLOCONTO">COLOCONTO</option>
+            <option value="ESCRIBANO">ESCRIBANO</option>
+            <option value="HUGOM">HUGOM</option>
+            <option value="IMELDA (TUBOG)">IMELDA (TUBOG)</option>
+            <option value="JANAOJANAO">JANAOJANAO</option>
+            <option value="LAIYA-IBABAO">LAIYA-IBABAO</option>
+            <option value="LAIYA-APLAYA">LAIYA-APLAYA</option>
+            <option value="LIBATO">LIBATO</option>
+            <option value="LIPAHAN">LIPAHAN</option>
+            <option value="MABALANOY">MABALANOY</option>
+            <option value="NAGSAULAY">NAGSAULAY</option>
+            <option value="MARAYKIT">MARAYKIT</option>
+            <option value="MUZON">MUZON</option>
+            <option value="PALAHANAN 1">PALAHANAN 1</option>
+            <option value="PALAHANAN 2">PALAHANAN 2</option>
+            <option value="PALINGOWAK">PALINGOWAK</option>
+            <option value="PINAGBAYANAN">PINAGBAYANAN</option>
+            <option value="POBLACION">POBLACION</option>
+            <option value="POCTOL">POCTOL</option>
+            <option value="PULANGBATO">PULANGBATO</option>
+            <option value="PUTINGBUHANGIN">PUTINGBUHANGIN</option>
+            <option value="QUIPOT">QUIPOT</option>
+            <option value="SAMPIRO">SAMPIRO</option>
+            <option value="SAPANGAN">SAPANGAN</option>
+            <option value="SICO 1">SICO 1</option>
+            <option value="SICO 2">SICO 2</option>
+            <option value="SUBUKIN">SUBUKIN</option>
+            <option value="TALAHIBAN 1">TALAHIBAN 1</option>
+            <option value="TALAHIBAN 2">TALAHIBAN 2</option>
+            <option value="TICALAN">TICALAN</option>
+            <option value="TIPAZ">TIPAZ</option>
+          </select>
+        </div>
+        <div>
+          <label for="fatherName">Father's Name:</label>
+          <input
+            type="text"
+            id="fatherName"
+            name="fatherName"
+            [(ngModel)]="childRecordsData.fatherName"
+            required
+          />
+        </div>
+        <div>
+          <label for="motherName">Mother's Name:</label>
+          <input
+            type="text"
+            id="motherName"
+            name="motherName"
+            [(ngModel)]="childRecordsData.motherName"
+            required
+          />
+        </div>
+        <div>
+          <label>Gender:</label>
+          <input
+            type="radio"
+            id="male"
+            name="gender"
+            [(ngModel)]="childRecordsData.gender"
+            value="male"
+            required
+          />
+          <label for="male">Male</label>
+          <input
+            type="radio"
+            id="female"
+            name="gender"
+            [(ngModel)]="childRecordsData.gender"
+            value="female"
+            required
+          />
+          <label for="female">Female</label>
+        </div>
+      </form>
+
+      <button class="close" (click)="closeUpdateChildModal()">Cancel</button>
+
+      <button class="btn btn-primary" (click)="updateChild()">
+        Update Child
+      </button>
+    </div>
+  </div>
+</div>
 
 <fieldset>
-    <div>
-        <div class="result-container">
-            <fieldset id="childrenProfile">
-              <legend>Children Profile</legend>
-              <div class="result-table">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>#</th>
-                      <th>First Name</th>
-                      <th>Middle Name</th>
-                      <th>Last Name</th>
-                      <th>Birthday (dd/mm/yyyy)</th>
-                      <th>Age</th>
-                      <th>Address</th>
-                      <th>Barangay</th>
-                      <th>Father's Name</th>
-                      <th>Mother's Name</th>
-                      <th>Gender</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let child of children; let i = index" id="record-row">
-                      <td>{{ i + 1 }}</td>
-                      <td>{{ child.firstName }}</td>
-                      <td>{{ child.middleName }}</td>
-                      <td>{{ child.lastName }}</td>
-                      <td>{{ child.birthday }}</td>
-                      <td>{{ child.age }}</td>
-                      <td>{{ child.address }}</td>
-                      <td>{{ child.barangay }}</td>
-                      <td>{{ child.fathersName }}</td>
-                      <td>{{ child.mothersName }}</td>
-                      <td>{{ child.gender }}</td>
-                    </tr>
-                  </tbody>
-                </table>
-                <p *ngIf="children.length === 0">No children records available</p>
-              </div>
-            </fieldset>
-          </div>          
+  <div>
+    <div class="result-container">
+      <fieldset id="childrenProfile">
+        <legend>Children Profile</legend>
+        <div class="result-table">
+          <table>
+            <thead>
+              <tr>
+                <th>Children ID</th>
+                <th>First Name</th>
+                <th>Middle Name</th>
+                <th>Last Name</th>
+                <th>Birthday (dd/mm/yyyy)</th>
+                <th>Age</th>
+                <th>Address</th>
+                <th>Barangay</th>
+                <th>Father's Name</th>
+                <th>Mother's Name</th>
+                <th>Gender</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let child of childRecords">
+                <td>{{ child.childrenId }}</td>
+                <td>{{ child.firstName }}</td>
+                <td>{{ child.middleName }}</td>
+                <td>{{ child.lastName }}</td>
+                <td>{{ child.birthday }}</td>
+                <td>{{ child.age }}</td>
+                <td>{{ child.address }}</td>
+                <td>{{ child.barangay }}</td>
+                <td>{{ child.fatherName }}</td>
+                <td>{{ child.motherName }}</td>
+                <td>{{ child.gender }}</td>
+                <td>
+                  <a class="btn btn-sm btn-outline-dark"
+                    ><i class="fas fa-up-right-from-square"></i
+                  ></a>
+                  <button
+                    (click)="openUpdateChildModal(child)"
+                    class="update btn btn-sm btn-outline-warning"
+                  >
+                    Update
+                  </button>
+                  <button
+                    (click)="removeChild(child)"
+                    class="delete btn btn-sm btn-outline-danger"
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <p *ngIf="childRecords.length === 0">No children records available</p>
+        </div>
+      </fieldset>
     </div>
+  </div>
 </fieldset>

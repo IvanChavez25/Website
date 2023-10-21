@@ -1,17 +1,26 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-form',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
 export class LoginFormComponent {
-  model: any = {};
+  model: any = {
+    username: '',
+    password: '',
+  };
+
+  constructor(private router: Router) {}
 
   login() {
+    if (this.model.username === 'admin' && this.model.password === 'admin') {
+      alert('Login successful');
 
-    console.log('Username:', this.model.username);
-    console.log('Password:', this.model.password);
-
+      this.router.navigate(['/home']);
+    } else {
+      alert('Login failed');
+    }
   }
 }

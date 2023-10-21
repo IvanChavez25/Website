@@ -6,22 +6,22 @@
   <ul class="navbar-list">
     <li>
       <a routerLink="/home/childreninfo">
-          <i class="fa fa-user-circle"></i> Profile
+        <i class="fa fa-user-circle"></i> Profile
       </a>
     </li>
     <li>
       <a routerLink="/home/healthrecords">
-          <i class="fa fa-file-text-o"></i> Records
+        <i class="fa fa-file-text-o"></i> Records
       </a>
     </li>
     <li>
       <a routerLink="/home/monthlyrecords">
-          <i class="fa fa-calendar"></i> Monthly Records
+        <i class="fa fa-calendar"></i> Monthly Records
       </a>
     </li>
     <li>
       <a routerLink="/home/bmi">
-          <i class="fa fa-calculator"></i> BMI Calculator
+        <i class="fa fa-calculator"></i> BMI Calculator
       </a>
     </li>
     <li>
@@ -29,26 +29,33 @@
         <i class="fa fa-reorder"></i>
         <ul class="dropdown-menu">
           <li>
-              <app-profile-dropdown></app-profile-dropdown>
+            <app-profile-dropdown></app-profile-dropdown>
           </li>
           <li>
-            <a href="#">
-                <i class="fa fa-bar-chart"></i> Barangay Ranking
-            </a>
+            <a href="#"> <i class="fa fa-bar-chart"></i> Barangay Ranking </a>
           </li>
           <li>
-            <a href="#">
-                <i class="fa fa-heartbeat"></i> BMI Result
-            </a>
+            <a href="#"> <i class="fa fa-heartbeat"></i> BMI Result </a>
           </li>
           <li>
             <a routerLink="/home/healthrecordstable">
-                <i class="fa fa-table"></i> Children Table
+              <i class="fa fa-table"></i> Children Health Records Table
+            </a>
+          </li>
+          <li>
+            <a routerLink="/home/quarterlytable">
+              <i class="fa fa-table"></i> Quarterly Records Table
+            </a>
+          </li>
+          <li>
+            <a routerLink="/home/nutritionaltable">
+              <i class="fa fa-table"></i> Nutritional Records Table
             </a>
           </li>
           <li>
             <a routerLink="/home/bwirtable">
-                <i class="fa fa-table"></i> Baseline Weight and Immunization Records table
+              <i class="fa fa-table"></i> Baseline Weight and Immunization
+              Records table
             </a>
           </li>
           <li>
@@ -56,7 +63,7 @@
           </li>
           <li>
             <a routerLink="/page/home">
-                <i class="fa fa-sign-out"></i> Log Out
+              <i class="fa fa-sign-out"></i> Log Out
             </a>
           </li>
         </ul>

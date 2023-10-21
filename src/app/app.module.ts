@@ -10,16 +10,12 @@ import { LandingpageModule } from './landingpage/landingpage.module';
 import { LandingpageRoutingModule } from './landingpage/landingpage-routing.module';
 import { HomeRoutingModule } from './home/home-routing.module';
 import { SharedModule } from './shared/shared.module';
-
-
+import { environment } from 'src/environtment/environtment';
+import { provideDatabase, getDatabase } from '@angular/fire/database';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    LoginFormComponent,
-
-    
-  ],
+  declarations: [AppComponent, LoginFormComponent,],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -29,8 +25,10 @@ import { SharedModule } from './shared/shared.module';
     LandingpageRoutingModule,
     HomeRoutingModule,
     SharedModule,
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideDatabase(() => getDatabase()),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

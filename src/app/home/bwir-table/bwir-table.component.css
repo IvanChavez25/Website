@@ -1,75 +1,70 @@
+* {
+  box-sizing: border-box;
+}
 
-  
-  body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-  }
+fieldset {
+  border-radius: 4%;
+  border-color: #ccc;
+  margin-bottom: 3%;
+  margin-top: 3%;
+  border-style: hidden;
+}
 
-
-  fieldset{
-    border-radius: 4%;
-    border-color: #ccc;
-    margin-bottom: 3%;
-    margin-top: 3%;
-    border-style: hidden;
-  }
-
-  legend{
-    text-align: center;
-    font-weight: bold;
-    font-size: 1.6vw;
-  }
+legend {
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.6vw;
+}
 
 #baselineRecords {
-    border: 1px solid #ccc;
-    padding: 20px;
-    margin-top: 20px;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-  }
-  
-  #baselineRecords legend {
-    font-size: 20px;
-    font-weight: bold;
-  }
-  
-  .result-table table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .result-table th,
-  .result-table td {
-    padding: 10px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .result-table th {
-    background-color: #f2f2f2;
-  }
-  
-  #record-row:hover {
-    background-color: #e0e0e0;
-  }
-  
- 
-  .result-table p {
-    margin: 10px 0;
-    font-style: italic;
-    color: #999;
-  }
-  
-  .result-table th {
-    background-color: #f2f2f2;
-    font-weight: bold;
-  }
-  
-  .result-table td {
-    padding: 8px 12px;
-  }
-  
-  #record-row:hover {
-    background-color: #e0e0e0;
-  }
-  
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+#baselineRecords legend {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.result-table table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 50%;
+}
+
+.result-table th,
+.result-table td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.result-table th {
+  background-color: #f2f2f2;
+}
+
+#record-row:hover {
+  background-color: #e0e0e0;
+}
+
+.result-table p {
+  margin: 10px 0;
+  font-style: italic;
+  color: #999;
+}
+
+.result-table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.result-table td {
+  padding: 8px 12px;
+}
+
+#record-row:hover {
+  background-color: #e0e0e0;
+}

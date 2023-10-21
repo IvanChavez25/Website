@@ -22,6 +22,8 @@ import { FamilyProfileTableComponent } from './family-profile-table/family-profi
 import { FormsModule } from '@angular/forms';
 import { HomeComponent } from './home.component';
 import { SharedModule } from '../shared/shared.module';
+import { QuarterlyTableComponent } from './quarterly-table/quarterly-table.component';
+import { NutritionalTableComponent } from './nutritional-table/nutritional-table.component';
 
 
 
@@ -45,7 +47,9 @@ import { SharedModule } from '../shared/shared.module';
     MonthlyRecordsInfantComponent,
     ProfileTableComponent,
     FamilyProfileTableComponent,
-    HomeComponent   
+    HomeComponent,
+    QuarterlyTableComponent,
+    NutritionalTableComponent
   ],
 
 

@@ -1,64 +1,320 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+/>
 
-<body>
-      <div class="background-image"></div>
+<div id="updateCon">
+  <div id="updateFamilyModal" #updateFamilyModal class="modal">
+    <div class="modal-content">
+      <form (ngSubmit)="updateFamily()">
+        <div>
+          <label for="houseHoldMember">No. of Household Members:</label>
+          <input
+            type="text"
+            id="houseHoldMember"
+            name="houseHoldMember"
+            [(ngModel)]="familyData.houseHoldMember"
+            required
+          />
+        </div>
+        <fieldset>
+          <div>
+            <legend>-NUMBER OF CHILDREN-</legend>
+          </div>
+          <div>
+            <label for="zeroToFiveMonthsOld">0-5 Months Old:</label>
+            <input
+              type="text"
+              id="zeroToFiveMonthsOld"
+              name="zeroToFiveMonthsOld"
+              [(ngModel)]="familyData.zeroToFiveMonthsOld"
+            />
+          </div>
+          <div>
+            <label for="sixToTwentyThreeMonthsOld">6-23 Months Old:</label>
+            <input
+              type="text"
+              id="sixToTwentyThreeMonthsOld"
+              name="sixToTwentyThreeMonthsOld"
+              [(ngModel)]="familyData.sixToTwentyThreeMonthsOld"
+            />
+          </div>
+          <div>
+            <label for="twentyFourToFiftyNineMonthsOld"
+              >24-59 Months Old:</label
+            >
+            <input
+              type="text"
+              id="twentyFourToFiftyNineMonthsOld"
+              name="twentyFourToFiftyNineMonthsOld"
+              [(ngModel)]="familyData.twentyFourToFiftyNineMonthsOld"
+            />
+          </div>
+          <div>
+            <label for="belowSixtyMonthsOld">Below 60 Months Old:</label>
+            <input
+              type="text"
+              id="belowSixtyMonthsOld"
+              name="belowSixtyMonthsOld"
+              [(ngModel)]="familyData.belowSixtyMonthsOld"
+            />
+          </div>
+        </fieldset>
+        <div>
+          <label for="headOrSpouse">Name of Household Head/Spouse:</label>
+          <input
+            type="text"
+            id="headOrSpouse"
+            name="headOrSpouse"
+            [(ngModel)]="familyData.headOrSpouse"
+            required
+          />
+        </div>
+        <div>
+          <label for="occupation">Occupation:</label>
+          <input
+            type="text"
+            id="occupation"
+            name="occupation"
+            [(ngModel)]="familyData.occupation"
+            required
+          />
+        </div>
+        <div>
+          <label for="educationalAttainment">Educational Attainment:</label>
+          <select
+            id="educationalAttainment"
+            name="educationalAttainment"
+            [(ngModel)]="familyData.educationalAttainment"
+          >
+            <option value="EU">EU (Elementary Undergraduate)</option>
+            <option value="EG">EG (Elementary Graduate)</option>
+            <option value="HU">HU (Highschool Undergraduate)</option>
+            <option value="HG">HG (Highschool Graduate)</option>
+            <option value="CU">CU (College Undergraduate)</option>
+            <option value="CG">CG (College Graduate)</option>
+            <option value="V">V (Vocational)</option>
+            <option value="O">O (Other)</option>
+          </select>
+        </div>
+        <fieldset>
+          <div>
+            <legend>Check If:</legend>
+          </div>
+          <div>
+            <label for="motherPregnant">Mother Pregnant:</label>
+            <input
+              type="checkbox"
+              id="motherPregnant"
+              name="motherPregnant"
+              [(ngModel)]="familyData.motherPregnant"
+            />
+          </div>
+          <div>
+            <label for="familyPlanning"
+              >Couple Practices Family Planning:</label
+            >
+            <input
+              type="checkbox"
+              id="familyPlanning"
+              name="familyPlanning"
+              [(ngModel)]="familyData.familyPlanning"
+            />
+          </div>
+        </fieldset>
+        <fieldset>
+          <div>
+            <legend>-BREASTFEEDING ≤ 6 MONTHS OLD-</legend>
+          </div>
+          <div>
+            <legend>Check If:</legend>
+          </div>
+          <div>
+            <label for="exclusiveBreastfeeding"
+              >Exclusive Breastfeeding (EBF):</label
+            >
+            <input
+              type="checkbox"
+              id="exclusiveBreastfeeding"
+              name="exclusiveBreastfeeding"
+              [(ngModel)]="familyData.exclusiveBreastfeeding"
+            />
+          </div>
+          <div>
+            <label for="mixedMilkFeeding">Mixed Milk Feeding:</label>
+            <input
+              type="checkbox"
+              id="mixedMilkFeeding"
+              name="mixedMilkFeeding"
+              [(ngModel)]="familyData.mixedMilkFeeding"
+            />
+          </div>
+          <div>
+            <label for="bottleFeeding">Bottle Feeding:</label>
+            <input
+              type="checkbox"
+              id="bottleFeeding"
+              name="bottleFeeding"
+              [(ngModel)]="familyData.bottleFeeding"
+            />
+          </div>
+        </fieldset>
+        <fieldset>
+          <div>
+            <legend>Fill In:</legend>
+          </div>
+          <div>
+            <label for="toiletType">Toilet Type:</label>
+            <select
+              id="toiletType"
+              name="toiletType"
+              [(ngModel)]="familyData.toiletType"
+            >
+              <option value="WS">WS (Water-Sealed)</option>
+              <option value="OP">OP (Open Pit)</option>
+              <option value="O">O (Other)</option>
+              <option value="N">N (None)</option>
+            </select>
+          </div>
+          <div>
+            <label for="waterSource">Water Source:</label>
+            <select
+              id="waterSource"
+              name="waterSource"
+              [(ngModel)]="familyData.waterSource"
+            >
+              <option value="P">P (Piped)</option>
+              <option value="W">W (Well)</option>
+              <option value="S">S (Spring)</option>
+            </select>
+          </div>
+          <div>
+            <label for="foodProductionActivity"
+              >Food Production Activity:</label
+            >
+            <select
+              id="foodProductionActivity"
+              name="foodProductionActivity"
+              [(ngModel)]="familyData.foodProductionActivity"
+            >
+              <option value="VG">VG (Vegetable Gardening)</option>
+              <option value="P/L">P/L (Poultry/Livestock)</option>
+              <option value="FP">FP (Fishpond)</option>
+            </select>
+          </div>
+        </fieldset>
+        <fieldset>
+          <div>
+            <label>Check If:</label>
+          </div>
+          <div>
+            <label>Household Using Iodized Salt:</label>
+            <input
+              type="checkbox"
+              id="iodizedSalt"
+              name="iodizedSalt"
+              [(ngModel)]="familyData.iodizedSalt"
+            />
+          </div>
+
+          <div>
+            <label>Household Using IFR (Iron-Fortified Rice):</label>
+            <input
+              type="checkbox"
+              id="ifr"
+              name="ifr"
+              [(ngModel)]="familyData.ifr"
+            />
+          </div>
+        </fieldset>
+      </form>
+
+      <button class="close" (click)="closeUpdateFamilyModal()">Cancel</button>
+
+      <button class="btn btn-primary" (click)="updateFamily()">
+        Update Child
+      </button>
+    </div>
+  </div>
+</div>
 
 <fieldset>
   <div>
     <div class="result-container">
       <fieldset id="familyProfile">
-        <legend>Children Profile</legend>
+        <legend>Family Profile</legend>
         <div class="result-table">
-        <table>
-        <thead>
-        <tr>
-          <th>Household Number</th>
-          <th>No. of Household Members</th>
-          <th>Children (0-5 months)</th>
-          <th>Children (6-23 months)</th>
-          <th>Children (24-59 months)</th>
-          <th>Children (below 60 months)</th>
-          <th>Household Head/Spouse Name</th>
-          <th>Occupation</th>
-          <th>Educational Attainment</th>
-          <th>Pregnant</th>
-          <th>Family Planning</th>
-          <th>EBF</th>
-          <th>Mixed Milk Feeding</th>
-          <th>Bottle Feeding</th>
-          <th>Toilet Type</th>
-          <th>Water Source</th>
-          <th>Food Production Activity</th>
-          <th>Using Iodized Salt</th>
-          <th>Using IFR (Iron-Fortified Rice)</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let family of families; let i = index" id="record-row">
-          <td>{{ family.householdNumber }}</td>
-          <td>{{ family.numberOfHouseholdMembers }}</td>
-          <td>{{ family.children.age0To5Months }}</td>
-          <td>{{ family.children.age6To23Months }}</td>
-          <td>{{ family.children.age24To59Months }}</td>
-          <td>{{ family.children.below60Months }}</td>
-          <td>{{ family.householdHeadSpouseName }}</td>
-          <td>{{ family.occupation }}</td>
-          <td>{{ family.educationalAttainment }}</td>
-          <td>{{ family.isPregnant ? 'Yes' : 'No' }}</td>
-          <td>{{ family.practicesFamilyPlanning ? 'Yes' : 'No' }}</td>
-          <td>{{ family.exclusiveBreastfeeding ? 'Yes' : 'No' }}</td>
-          <td>{{ family.mixedMilkFeeding ? 'Yes' : 'No' }}</td>
-          <td>{{ family.bottleFeeding ? 'Yes' : 'No' }}</td>
-          <td>{{ family.toiletType }}</td>
-          <td>{{ family.waterSource }}</td>
-          <td>{{ family.foodProductionActivity }}</td>
-          <td>{{ family.usingIodizedSalt ? 'Yes' : 'No' }}</td>
-          <td>{{ family.usingIFR ? 'Yes' : 'No' }}</td>
-        </tr>
-      </tbody>
-      </table>
+          <table>
+            <thead>
+              <tr>
+                <th>Household Number</th>
+                <th>No. of Household Members</th>
+                <th>Children (0-5 months)</th>
+                <th>Children (6-23 months)</th>
+                <th>Children (24-59 months)</th>
+                <th>Children (below 60 months)</th>
+                <th>Household Head/Spouse Name</th>
+                <th>Occupation</th>
+                <th>Educational Attainment</th>
+                <th>Pregnant</th>
+                <th>Family Planning</th>
+                <th>EBF</th>
+                <th>Mixed Milk Feeding</th>
+                <th>Bottle Feeding</th>
+                <th>Toilet Type</th>
+                <th>Water Source</th>
+                <th>Food Production Activity</th>
+                <th>Using Iodized Salt</th>
+                <th>Using IFR (Iron-Fortified Rice)</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let record of family">
+                <td>{{ record.houseHoldNumberId }}</td>
+                <td>{{ record.houseHoldMember }}</td>
+                <td>{{ record.zeroToFiveMonthsOld }}</td>
+                <td>{{ record.sixToTwentyThreeMonthsOld }}</td>
+                <td>{{ record.twentyFourToFiftyNineMonthsOld }}</td>
+                <td>{{ record.belowSixtyMonthsOld }}</td>
+                <td>{{ record.headOrSpouse }}</td>
+                <td>{{ record.occupation }}</td>
+                <td>{{ record.educationalAttainment }}</td>
+                <td>{{ record.motherPregnant ? "Yes" : "No" }}</td>
+                <td>{{ record.familyPlanning ? "Yes" : "No" }}</td>
+                <td>
+                  {{ record.exclusiveBreastfeeding ? "Yes" : "No" }}
+                </td>
+                <td>{{ record.mixedMilkFeeding ? "Yes" : "No" }}</td>
+                <td>{{ record.bottleFeeding ? "Yes" : "No" }}</td>
+                <td>{{ record.toiletType }}</td>
+                <td>{{ record.waterSource }}</td>
+                <td>{{ record.foodProductionActivity }}</td>
+                <td>{{ record.iodizedSalt ? "Yes" : "No" }}</td>
+                <td>{{ record.ifr ? "Yes" : "No" }}</td>
+                <td>
+                  <a class="btn btn-sm btn-outline-dark"
+                    ><i class="fas fa-up-right-from-square"></i
+                  ></a>
+                  <button
+                    (click)="openUpdateFamilyModal(record)"
+                    class="update btn btn-sm btn-outline-warning"
+                  >
+                    Update
+                  </button>
+                  <button
+                    (click)="removeFamily(record)"
+                    class="delete btn btn-sm btn-outline-danger"
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <p *ngIf="family.length === 0">No family records available</p>
+        </div>
+      </fieldset>
     </div>
-  </fieldset>
-  </div>
   </div>
 </fieldset>

@@ -1,128 +1,130 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+/>
 
-
-<body>
-  <div class="background-image"></div>
-  <div class="container">
-      <fieldset id="BMI">
-        <legend><h2>BMI Calculator</h2></legend>
-        <div>
-          <label for="childName" class="label">Child's Name:</label>
-          <input type="text" id="childName" [(ngModel)]="childName" />
-        </div>
-        <div>
-          <label for="barangay">Barangay:</label>
-          <select id="barangay" name="barangay" [(ngModel)]="barangay" required>
-            <option value="ABUNG">ABUNG</option>
-            <option value="BALAGBAG">BALAGBAG</option>
-            <option value="BARUALTE">BARUALTE</option>
-            <option value="BATAAN">BATAAN</option>
-            <option value="BUHAY NA SAPA">BUHAY NA SAPA</option>
-            <option value="BULSA">BULSA</option>
-            <option value="CALICANTO">CALICANTO</option>
-            <option value="CALITCALIT">CALITCALIT</option>
-            <option value="CALUBCUB 1">CALUBCUB 1</option>
-            <option value="CALUBCUB 2">CALUBCUB 2</option>
-            <option value="CATMON">CATMON</option>
-            <option value="COLOCONTO">COLOCONTO</option>
-            <option value="ESCRIBANO">ESCRIBANO</option>
-            <option value="HUGOM">HUGOM</option>
-            <option value="IMELDA (TUBOG)">IMELDA (TUBOG)</option>
-            <option value="JANAOJANAO">JANAOJANAO</option>
-            <option value="LAIYA-IBABAO">LAIYA-IBABAO</option>
-            <option value="LAIYA-APLAYA">LAIYA-APLAYA</option>
-            <option value="LIBATO">LIBATO</option>
-            <option value="LIPAHAN">LIPAHAN</option>
-            <option value="MABALANOY">MABALANOY</option>
-            <option value="NAGSAULAY">NAGSAULAY</option>
-            <option value="MARAYKIT">MARAYKIT</option>
-            <option value="MUZON">MUZON</option>
-            <option value="PALAHANAN 1">PALAHANAN 1</option>
-            <option value="PALAHANAN 2">PALAHANAN 2</option>
-            <option value="PALINGOWAK">PALINGOWAK</option>
-            <option value="PINAGBAYANAN">PINAGBAYANAN</option>
-            <option value="POBLACION">POBLACION</option>
-            <option value="POCTOL">POCTOL</option>
-            <option value="PULANGBATO">PULANGBATO</option>
-            <option value="PUTINGBUHANGIN">PUTINGBUHANGIN</option>
-            <option value="QUIPOT">QUIPOT</option>
-            <option value="SAMPIRO">SAMPIRO</option>
-            <option value="SAPANGAN">SAPANGAN</option>
-            <option value="SICO 1">SICO 1</option>
-            <option value="SICO 2">SICO 2</option>
-            <option value="SUBUKIN">SUBUKIN</option>
-            <option value="TALAHIBAN 1">TALAHIBAN 1</option>
-            <option value="TALAHIBAN 2">TALAHIBAN 2</option>
-            <option value="TICALAN">TICALAN</option>
-            <option value="TIPAZ">TIPAZ</option>
-          </select>
-        </div>
-        <div>
-          <label for="weight" class="label">Weight (kg):</label>
-          <input type="number" id="weight" [(ngModel)]="weight" />
-        </div>
-        <div>
-          <label for="height" class="label">Height (cm):</label>
-          <input type="number" id="height" [(ngModel)]="height" />
-        </div>
-        <div>
-          <label for="age" class="label">Age (5 and below):</label>
-          <input type="number" id="age" [(ngModel)]="age" max="5" />
-        </div>
-        <div>
-          <button id="btn-calc" (click)="calculateBMI()">Calculate BMI</button>
-        </div>
-        <div class="result">
-          THE BMI: <span>{{ bmi }}</span>
-        </div>
-        <div id="result-message" class="result">
-          RESULT: <span>{{ resultMessage }}</span>
-        </div>
-      </fieldset>
+<div class="container">
+  <fieldset id="BMI">
+    <legend><h2>BMI Calculator</h2></legend>
+    <div>
+      <label for="childName" class="label">Child's Name:</label>
+      <input type="text" id="childName" [(ngModel)]="childName" />
     </div>
-  
-  <div>
+    <div>
+      <label for="barangay" class="label">Barangay:</label>
+      <select id="barangay" name="barangay" [(ngModel)]="barangay" required>
+        <option value="ABUNG">ABUNG</option>
+        <option value="BALAGBAG">BALAGBAG</option>
+        <option value="BARUALTE">BARUALTE</option>
+        <option value="BATAAN">BATAAN</option>
+        <option value="BUHAY NA SAPA">BUHAY NA SAPA</option>
+        <option value="BULSA">BULSA</option>
+        <option value="CALICANTO">CALICANTO</option>
+        <option value="CALITCALIT">CALITCALIT</option>
+        <option value="CALUBCUB 1">CALUBCUB 1</option>
+        <option value="CALUBCUB 2">CALUBCUB 2</option>
+        <option value="CATMON">CATMON</option>
+        <option value="COLOCONTO">COLOCONTO</option>
+        <option value="ESCRIBANO">ESCRIBANO</option>
+        <option value="HUGOM">HUGOM</option>
+        <option value="IMELDA (TUBOG)">IMELDA (TUBOG)</option>
+        <option value="JANAOJANAO">JANAOJANAO</option>
+        <option value="LAIYA-IBABAO">LAIYA-IBABAO</option>
+        <option value="LAIYA-APLAYA">LAIYA-APLAYA</option>
+        <option value="LIBATO">LIBATO</option>
+        <option value="LIPAHAN">LIPAHAN</option>
+        <option value="MABALANOY">MABALANOY</option>
+        <option value="NAGSAULAY">NAGSAULAY</option>
+        <option value="MARAYKIT">MARAYKIT</option>
+        <option value="MUZON">MUZON</option>
+        <option value="PALAHANAN 1">PALAHANAN 1</option>
+        <option value="PALAHANAN 2">PALAHANAN 2</option>
+        <option value="PALINGOWAK">PALINGOWAK</option>
+        <option value="PINAGBAYANAN">PINAGBAYANAN</option>
+        <option value="POBLACION">POBLACION</option>
+        <option value="POCTOL">POCTOL</option>
+        <option value="PULANGBATO">PULANGBATO</option>
+        <option value="PUTINGBUHANGIN">PUTINGBUHANGIN</option>
+        <option value="QUIPOT">QUIPOT</option>
+        <option value="SAMPIRO">SAMPIRO</option>
+        <option value="SAPANGAN">SAPANGAN</option>
+        <option value="SICO 1">SICO 1</option>
+        <option value="SICO 2">SICO 2</option>
+        <option value="SUBUKIN">SUBUKIN</option>
+        <option value="TALAHIBAN 1">TALAHIBAN 1</option>
+        <option value="TALAHIBAN 2">TALAHIBAN 2</option>
+        <option value="TICALAN">TICALAN</option>
+        <option value="TIPAZ">TIPAZ</option>
+      </select>
+    </div>
+    <div>
+      <label for="weight" class="label">Weight (kg):</label>
+      <input type="number" id="weight" [(ngModel)]="weight" />
+    </div>
+    <div>
+      <label for="height" class="label">Height (cm):</label>
+      <input type="number" id="height" [(ngModel)]="height" />
+    </div>
+    <div>
+      <label for="age" class="label">Age (5 and below):</label>
+      <input type="number" id="age" [(ngModel)]="age" max="5" />
+    </div>
+    <div>
+      <button id="btn-calc" (click)="calculateBMI()">Calculate BMI</button>
+    </div>
+    <div class="result">
+      THE BMI: <span>{{ bmi }}</span>
+    </div>
+    <div id="result-message" class="result">
+      RESULT: <span>{{ resultMessage }}</span>
+    </div>
+  </fieldset>
+</div>
+
+<div>
   <div class="result-container">
     <fieldset id="BMI">
       <legend><h3>RESULT TABLE</h3></legend>
-    <div class="result-table">  
-      <table>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Child's Name</th>
-            <th>Barangay</th>
-            <th>Weight (kg)</th>
-            <th>Height (cm)</th>
-            <th>Age</th>
-            <th>BMI</th>
-            <th>Result</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let result of results; let i = index" id="result-row"
-            [ngClass]="{ 
-              'severely-underweight-row': result.resultMessage === 'Severely Underweight',
+      <div class="result-table">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Child's Name</th>
+              <th>Barangay</th>
+              <th>Weight (kg)</th>
+              <th>Height (cm)</th>
+              <th>Age</th>
+              <th>BMI</th>
+              <th>Result</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="let result of results; let i = index"
+              id="result-row"
+              [ngClass]="{ 
+              'severelyunderweight-row': result.resultMessage === 'Severely Underweight',
               'underweight-row': result.resultMessage === 'Underweight',
               'healthyweight-row': result.resultMessage === 'Healthy weight',
               'overweight-row': result.resultMessage === 'Overweight',
               'obese-row': result.resultMessage === 'Obese',
-            }">
-            <td>{{ i + 1 }}</td>
-            <td>{{ result.childName }}</td>
-            <td>{{ result.barangay}}</td>
-            <td>{{ result.weight }}</td>
-            <td>{{ result.height }}</td>
-            <td>{{ result.age }}</td>
-            <td>{{ result.bmi }}</td>
-            <td>{{ result.resultMessage }}</td>
-          </tr>
-        </tbody>
-      </table>
-      <p *ngIf="results.length === 0">No results available</p>
-    </div>
+            }"
+            >
+              <td>{{ i + 1 }}</td>
+              <td>{{ result.childName }}</td>
+              <td>{{ result.barangay }}</td>
+              <td>{{ result.weight }}</td>
+              <td>{{ result.height }}</td>
+              <td>{{ result.age }}</td>
+              <td>{{ result.bmi }}</td>
+              <td>{{ result.resultMessage }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <p *ngIf="results.length === 0">No results available</p>
+      </div>
     </fieldset>
   </div>
 </div>
 <router-outlet></router-outlet>
-</body>

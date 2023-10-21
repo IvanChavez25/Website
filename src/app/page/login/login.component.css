@@ -1,4 +1,4 @@
-body{
+body {
   background-image: url("/assets/SanJuan.jpg");
   background-repeat: no-repeat;
   background-size: cover;
@@ -18,7 +18,7 @@ h1 {
   text-shadow: 3px 3px 3px black;
 }
 
-.title{
+.title {
   width: 73%;
   float: right;
   padding-top: 3%;
@@ -34,6 +34,7 @@ h1 {
   width: 160px;
   height: 160px;
   float: left;
+  margin-top: -170px;
 }
 
 .image-container img {
@@ -61,57 +62,58 @@ form {
   border-radius: 30px;
   border-style: solid;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-  }
-  
-  form div {
-    margin-bottom: 10px;
-  }
-  
-  form label {
-    display: block;
-    margin-bottom: 5px;
-  }
-  
-  form input[type="text"],
-  form input[type="password"] {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    box-sizing: border-box;
-  }
-  
-  form button[type="submit"] {
-    width: 100%;
-    padding: 10px;
-    background-color: #4CAF50;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
+}
 
-  form button[type="button"] {
-    width: 100%;
-    padding: 10px;
-    background-color: #4CAF50;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  form button[type="submit"]:hover {
-    background-color: #45a049;
-    opacity: 0.8;
-  }
+form div {
+  margin-bottom: 10px;
+}
 
-  .Login {
-    text-align: center;
-  }
-  
-  a {
-    display: inline-block;
-    text-decoration: none;
-    color: #fff;
-  }
-  
+form label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+form input[type="text"],
+form input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+form button[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+form button[type="button"] {
+  width: 100%;
+  padding: 10px;
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+form button[type="submit"]:hover {
+  background-color: #45a049;
+  opacity: 0.8;
+}
+
+.Login {
+  text-align: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+a {
+  display: inline-block;
+  text-decoration: none;
+  color: #fff;
+}

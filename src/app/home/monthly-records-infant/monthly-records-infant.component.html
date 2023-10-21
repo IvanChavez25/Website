@@ -1,53 +1,69 @@
-<body>
-      <div class="background-image"></div>
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+/>
 
-<fieldset>    
-<div>
-<div class="result-container">
-    <fieldset id="monthlyRecordsInfant">
-      <legend>Monthly Records (Infant)</legend>
-      <div class="result-table">
-        <table>
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Name of Child</th>
-              <th>Birthday (dd/mm/yyyy)</th>
-              <th>Age (months)</th>
-              <th>Measurements</th>
-              <th>Nutritional Status</th>
-              <th>Barangay</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let record of infantRecords; let i = index" id="record-row">
-              <td>{{ i + 1 }}</td>
-              <td>{{ record.name }}</td>
-              <td>{{ record.birthday }}</td>
-              <td>{{ record.ageInMonths }}</td>
-              <td>
-                <ul>
-                  <li><strong>W:</strong> {{ record.measurements.weight }}</li>
-                  <li><strong>H/L:</strong> {{ record.measurements.heightOrLength }}</li>
-                  <li><strong>W/L/H:</strong> {{ record.measurements.weightForLengthOrHeight }}</li>
-                </ul>
-              </td>
-              <td>
-                <ul>
-                  <li><strong>WF/A:</strong> {{ record.nutritionalStatus.weightForAge }}</li>
-                  <li><strong>H/L:</strong> {{ record.nutritionalStatus.heightOrLengthForAge }}</li>
-                  <li><strong>W/L/H:</strong> {{ record.nutritionalStatus.weightForLengthOrHeight }}</li>
-                </ul>
-              </td>
-              <td>{{ record.barangay }}</td>
-            </tr>
-          </tbody>
-        </table>
-        <p *ngIf="infantRecords.length === 0">No records available</p>
-      </div>
-    </fieldset>
+<fieldset>
+  <div>
+    <div class="result-container">
+      <fieldset id="monthlyRecordsInfant">
+        <legend>Monthly Records (Infant)</legend>
+        <div class="result-table">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Name of Child</th>
+                <th>Birthday (dd/mm/yyyy)</th>
+                <th>Age (months)</th>
+                <th>Measurements</th>
+                <th>Nutritional Status</th>
+                <th>Barangay</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let record of monthlyInfantRecords">
+                <td>{{ record.monthlyInfantRecordsId }}</td>
+                <td>{{ record.nameOfChild }}</td>
+                <td>{{ record.birthday }}</td>
+                <td>{{ record.ageInMonth }}</td>
+                <td>
+                  <ul>
+                    <li><strong>W:</strong> {{ record.weight }}</li>
+                    <li>
+                      <strong>H/L:</strong>
+                      {{ record.heightOrLength }}
+                    </li>
+                    <li>
+                      <strong>W/L/H:</strong>
+                      {{ record.weightForLengthOrHeight }}
+                    </li>
+                  </ul>
+                </td>
+                <td>
+                  <ul>
+                    <li>
+                      <strong>WF/A:</strong>
+                      {{ record.weightForAge }}
+                    </li>
+                    <li>
+                      <strong>H/L:</strong>
+                      {{ record.heightOrLengths }}
+                    </li>
+                    <li>
+                      <strong>W/L/H:</strong>
+                      {{ record.weightForLengthorHeight }}
+                    </li>
+                  </ul>
+                </td>
+                <td>{{ record.barangay }}</td>
+              </tr>
+            </tbody>
+          </table>
+          <p *ngIf="monthlyInfantRecords.length === 0">No records available</p>
+        </div>
+      </fieldset>
+    </div>
   </div>
-</div>
 </fieldset>
-    <router-outlet></router-outlet>
-  
+<router-outlet></router-outlet>

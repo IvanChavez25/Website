@@ -1,0 +1,339 @@
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+/>
+
+<div id="updateCon">
+  <div id="updateNutritionalModal" #updateNutritionalModal class="modal">
+    <div class="modal-content">
+      <form (ngSubmit)="updateNutritional()">
+        <div>
+          <label for="fatherName">Father's Name:</label>
+          <input
+            type="text"
+            id="fatherName"
+            name="fatherName"
+            [(ngModel)]="nutritionalRecordsData.fatherName"
+            required
+          />
+        </div>
+        <div>
+          <label for="motherName">Mother's Name:</label>
+          <input
+            type="text"
+            id="motherName"
+            name="motherName"
+            [(ngModel)]="nutritionalRecordsData.motherName"
+            required
+          />
+        </div>
+        <div>
+          <label for="nameOfChild">Name Of Child:</label>
+          <input
+            type="text"
+            id="nameOfChild"
+            name="nameOfChild"
+            [(ngModel)]="nutritionalRecordsData.nameOfChild"
+            required
+          />
+        </div>
+        <div>
+          <label for="birthday">Date of Birth:</label>
+          <input
+            type="date"
+            id="birthday"
+            name="birthday"
+            [(ngModel)]="nutritionalRecordsData.birthday"
+            required
+          />
+        </div>
+        <div>
+          <label for="OPTPlus">Data of OPT Plus:</label>
+          <input
+            type="date"
+            id="OPTPlus"
+            name="OPTPlus"
+            [(ngModel)]="nutritionalRecordsData.OPTPlus"
+            required
+          />
+        </div>
+        <div>
+          <label for="ageInMonths">Age in Month:</label>
+          <input
+            type="text"
+            id="ageInMonths"
+            name="ageInMonths"
+            [(ngModel)]="nutritionalRecordsData.ageInMonths"
+            required
+          />
+        </div>
+        <div>
+          <label for="weight">Weight(KG):</label>
+          <input
+            type="number"
+            id="weight"
+            name="weight"
+            [(ngModel)]="nutritionalRecordsData.weight"
+          />
+        </div>
+        <div>
+          <label for="height">Height(CM):</label>
+          <input
+            type="number"
+            id="height"
+            name="height"
+            [(ngModel)]="nutritionalRecordsData.height"
+          />
+        </div>
+        <fieldset>
+          <div>
+            <legend>-Nutritional Status-</legend>
+          </div>
+          <div>
+            <label for="weightForAge">Weight for Age:</label>
+            <select
+              id="weightForAge"
+              name="weightForAge"
+              [(ngModel)]="nutritionalRecordsData.weightForAge"
+            >
+              <option value="SUW">SUW (Severely Underweight)</option>
+              <option value="UW">UW (Underweight)</option>
+              <option value="N">N (Normal)</option>
+              <option value="OW">OW (Overweight)</option>
+            </select>
+          </div>
+          <div>
+            <label for="heightForAge">Height for Age:</label>
+            <select
+              id="heightForAge"
+              name="heightForAge"
+              [(ngModel)]="nutritionalRecordsData.heightForAge"
+            >
+              <option value="SSt">SSt (Severely Stunded)</option>
+              <option value="St">St (Stunded)</option>
+              <option value="N">N (Normal)</option>
+              <option value="T">T (Tall)</option>
+            </select>
+          </div>
+          <div>
+            <label for="weightForHeight">Weight for Height:</label>
+            <select
+              id="weightForHeight"
+              name="weightForHeight"
+              [(ngModel)]="nutritionalRecordsData.weightForHeight"
+            >
+              <option value="SUW">SUW (Severely Underweight)</option>
+              <option value="UW">UW (Underweight)</option>
+              <option value="N">N (Normal)</option>
+              <option value="Ob">OW (Obese)</option>
+            </select>
+          </div>
+        </fieldset>
+        <div>
+          <label>Practicing EDF if child is below 6 mos. old:</label>
+          <input
+            type="radio"
+            id="practicingEDFYes"
+            name="practicingEDF"
+            [(ngModel)]="nutritionalRecordsData.practicingEDF"
+            value="Yes"
+            required
+          />
+          <label for="practicingEDFYes">Yes</label>
+          <input
+            type="radio"
+            id="practicingEDFNo"
+            name="practicingEDF"
+            [(ngModel)]="nutritionalRecordsData.practicingEDF"
+            value="No"
+            required
+          />
+          <label for="practicingEDFNo">No</label>
+        </div>
+        <fieldset>
+          <div>
+            <legend>-Solid Food Feeding-</legend>
+          </div>
+          <div>
+            <label>Practicing CF if child is 6 months - 23 months old:</label>
+            <input
+              type="radio"
+              id="practicingCFYes"
+              name="practicingCF"
+              [(ngModel)]="nutritionalRecordsData.practicingCF"
+              value="Yes"
+              required
+            />
+            <label for="practicingCFYes">Yes</label>
+            <input
+              type="radio"
+              id="practicingCFNo"
+              name="practicingCF"
+              [(ngModel)]="nutritionalRecordsData.practicingCF"
+              value="No"
+              required
+            />
+            <label for="practicingCFNo">No</label>
+          </div>
+          <div>
+            <label for="ageStartedCF">Age in months started CF:</label>
+            <input
+              type="text"
+              id="ageStartedCF"
+              name="ageStartedCF"
+              [(ngModel)]="nutritionalRecordsData.ageStartedCF"
+            />
+          </div>
+          <div>
+            <label>Current beneficiary of SF (Supplementary Food) Y/N:</label>
+            <input
+              type="radio"
+              id="beneficiarySFYes"
+              name="beneficiarySF"
+              [(ngModel)]="nutritionalRecordsData.beneficiarySF"
+              value="Yes"
+              required
+            />
+            <label for="beneficiarySFYes">Yes</label>
+            <input
+              type="radio"
+              id="beneficiarySFNo"
+              name="beneficiarySF"
+              [(ngModel)]="nutritionalRecordsData.beneficiarySF"
+              value="No"
+              required
+            />
+            <label for="beneficiarySFNo">No</label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <div>
+            <legend>-Micronutrient Supplementation-</legend>
+          </div>
+          <div>
+            <label for="vitaminALastReceived"
+              >Vitamin A Last Date Received:</label
+            >
+            <input
+              type="date"
+              id="vitaminALastReceived"
+              name="vitaminALastReceived"
+              [(ngModel)]="nutritionalRecordsData.vitaminALastReceived"
+            />
+          </div>
+          <div>
+            <label for="ironReceived">Iron Drops / Syrup Received (Y/N):</label>
+            <select
+              id="ironReceived"
+              name="ironReceived"
+              [(ngModel)]="nutritionalRecordsData.ironReceived"
+            >
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+            </select>
+          </div>
+          <div>
+            <label for="usingMNP">Using MNP (Y/N):</label>
+            <select
+              id="usingMNP"
+              name="usingMNP"
+              [(ngModel)]="nutritionalRecordsData.usingMNP"
+            >
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+            </select>
+          </div>
+        </fieldset>
+      </form>
+
+      <button class="close" (click)="closeUpdateNutritionalModal()">
+        Cancel
+      </button>
+
+      <button class="btn btn-primary" (click)="updateNutritional()">
+        Update Child
+      </button>
+    </div>
+  </div>
+</div>
+
+<fieldset>
+  <div>
+    <div class="result-container">
+      <fieldset id="nutritionalStatus">
+        <legend>Nutritional Status</legend>
+        <div class="result-table">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Father's Name</th>
+                <th>Mother's Name</th>
+                <th>Name Of Child</th>
+                <th>Date Of Birth</th>
+                <th>Date Of OPTs</th>
+                <th>Age In Month</th>
+                <th>Weight (Kg.)</th>
+                <th>Height (CM)</th>
+                <th>Weigth For Age</th>
+                <th>Height For Age</th>
+                <th>Weigth For Height</th>
+                <th>Practicing EDF Below 6Months?</th>
+                <th>Practicing CF 6-23Months</th>
+                <th>Age In Months Starting CF</th>
+                <th>Current beneficiary of SF</th>
+                <th>Vitamin A Last Date Received</th>
+                <th>Iron Drops / Syrup Received</th>
+                <th>Using MNP</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let record of nutritionalRecords">
+                <td>{{ record.nutritionalId }}</td>
+                <td>{{ record.fatherName }}</td>
+                <td>{{ record.motherName }}</td>
+                <td>{{ record.nameOfChild }}</td>
+                <td>{{ record.birthday }}</td>
+                <td>{{ record.OPTPlus }}</td>
+                <td>{{ record.ageInMonths }}</td>
+                <td>{{ record.weight }}</td>
+                <td>{{ record.height }}</td>
+                <td>{{ record.weightForAge }}</td>
+                <td>{{ record.heightForAge }}</td>
+                <td>{{ record.weightForHeight }}</td>
+                <td>{{ record.practicingEDF }}</td>
+                <td>{{ record.practicingCF }}</td>
+                <td>{{ record.ageStartedCF }}</td>
+                <td>{{ record.beneficiarySF }}</td>
+                <td>{{ record.vitaminALastReceived }}</td>
+                <td>{{ record.ironReceived }}</td>
+                <td>{{ record.usingMNP }}</td>
+                <td>
+                  <a class="btn btn-sm btn-outline-dark"
+                    ><i class="fas fa-up-right-from-square"></i
+                  ></a>
+                  <button
+                    (click)="openUpdateNutritionalModal(record)"
+                    class="update btn btn-sm btn-outline-warning"
+                  >
+                    Update
+                  </button>
+                  <button
+                    (click)="removeNutritional(record)"
+                    class="delete btn btn-sm btn-outline-danger"
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <p *ngIf="nutritionalRecords.length === 0">
+            No nutritional records available
+          </p>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+</fieldset>

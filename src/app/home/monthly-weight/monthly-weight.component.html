@@ -1,96 +1,148 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+/>
 
-<body>
-      <div class="background-image"></div>
-    <div class="container">
-        <div class="navigation-buttons">
-            <button routerLink="/home/monthlyrecords">Monthly Height Records</button>
-            <button routerLink="/home/monthlyweight">Monthly Weight Records</button>
-            <button routerLink="/home/monthlyrecordsinfant">Monthly Records (Infant)</button>
-          </div>
+<div class="container">
+  <div class="navigation-buttons">
+    <button routerLink="/home/monthlyrecords">Monthly Height Records</button>
+    <button routerLink="/home/monthlyweight">Monthly Weight Records</button>
+    <button routerLink="/home/monthlyrecordsinfant">
+      Monthly Records (Infant)
+    </button>
+  </div>
   <fieldset>
-      <legend> Monthly Records of Weight and Weight Status Underweight and Severely Underweight Cases </legend>
-    <form>
+    <legend>
+      Monthly Records of Weight and Weight Status Underweight and Severely
+      Underweight Cases
+    </legend>
+    <form (ngSubmit)="onSubmit()">
       <div>
-        <label for="Name-of-Child">Name Of Child:</label>
-        <input type="text" id="Name-of-Child" name="Name-of-Child" ngModel required>
+        <label for="nameOfChild">Name Of Child:</label>
+        <select
+          id="nameOfChild"
+          name="nameOfChild"
+          [(ngModel)]="monthlyWeightRecordData.nameOfChild"
+          required
+        >
+          <option value="">Select a Child</option>
+          <option *ngFor="let child of childRecords" [ngValue]="child">
+            {{ child.firstName }} {{ child.lastName }}
+          </option>
+        </select>
       </div>
       <div>
         <label for="birthday">Birthday:</label>
-        <input type="date" id="birthday" name="birthday" ngModel required>
+        <input
+          type="date"
+          id="birthday"
+          name="birthday"
+          [value]="getSelectedChildBirthday()"
+          [(ngModel)]="monthlyWeightRecordData.birthday"
+          required
+        />
       </div>
       <div>
-        <label for="ageinmonth.">Age in Month:</label>
-        <input type="text" id="ageinmonth" name="ageinmonth" ngModel required>
+        <label for="ageInMonth.">Age in Month:</label>
+        <input
+          type="text"
+          id="ageInMonth"
+          name="ageInMonth"
+          [value]="getSelectedChildAge()"
+          [(ngModel)]="monthlyWeightRecordData.ageInMonth"
+          required
+        />
       </div>
       <div>
         <label for="weight">Weight (kgs):</label>
-        <input type="number" id="weight" name="weight" [(ngModel)]="weight">
+        <input
+          type="number"
+          id="weight"
+          name="weight"
+          [(ngModel)]="monthlyWeightRecordData.weight"
+        />
       </div>
       <div>
         <label for="weightStatus">Weight Status:</label>
-        <select id="weightStatus" name="weightStatus" ngModel required>
+        <select
+          id="weightStatus"
+          name="weightStatus"
+          [(ngModel)]="monthlyWeightRecordData.weightStatus"
+          required
+        >
           <option value="Severely Underweight">Severely Underweight</option>
           <option value="Underweight">Underweight</option>
           <option value="Normal Weight">Normal Weight</option>
           <option value="OverWeight">OverWeight</option>
           <option value="Obese">Obese</option>
-
         </select>
       </div>
       <div>
         <label for="dateOfWeighing">Date of Weighing:</label>
-        <input type="date" id="dateOfWeighing" name="dateOfWeighing" ngModel required>
+        <input
+          type="date"
+          id="dateOfWeighing"
+          name="dateOfWeighing"
+          [(ngModel)]="monthlyWeightRecordData.dateOfWeighing"
+          required
+        />
       </div>
-      
+
       <div>
         <label for="barangay">Barangay:</label>
-        <select id="barangay" name="barangay" ngModel required>
+        <select
+          id="barangay"
+          name="barangay"
+          [value]="getSelectedChildBarangay()"
+          [(ngModel)]="monthlyWeightRecordData.barangay"
+          required
+        >
           <option value="ABUNG">ABUNG</option>
-            <option value="BALAGBAG">BALAGBAG</option>
-            <option value="BARUALTE">BARUALTE</option>
-            <option value="BATAAN">BATAAN</option>
-            <option value="BUHAY NA SAPA">BUHAY NA SAPA</option>
-            <option value="BULSA">BULSA</option>
-            <option value="CALICANTO">CALICANTO</option>
-            <option value="CALITCALIT">CALITCALIT</option>
-            <option value="CALUBCUB 1">CALUBCUB 1</option>
-            <option value="CALUBCUB 2">CALUBCUB 2</option>
-            <option value="CATMON">CATMON</option>
-            <option value="COLOCONTO">COLOCONTO</option>
-            <option value="ESCRIBANO">ESCRIBANO</option>
-            <option value="HUGOM">HUGOM</option>
-            <option value="IMELDA (TUBOG)">IMELDA (TUBOG)</option>
-            <option value="JANAOJANAO">JANAOJANAO</option>
-            <option value="LAIYA-IBABAO">LAIYA-IBABAO</option>
-            <option value="LAIYA-APLAYA">LAIYA-APLAYA</option>
-            <option value="LIBATO">LIBATO</option>
-            <option value="LIPAHAN">LIPAHAN</option>
-            <option value="MABALANOY">MABALANOY</option>
-            <option value="NAGSAULAY">NAGSAULAY</option>
-            <option value="MARAYKIT">MARAYKIT</option>
-            <option value="MUZON">MUZON</option>
-            <option value="PALAHANAN 1">PALAHANAN 1</option>
-            <option value="PALAHANAN 2">PALAHANAN 2</option>
-            <option value="PALINGOWAK">PALINGOWAK</option>
-            <option value="PINAGBAYANAN">PINAGBAYANAN</option>
-            <option value="POBLACION">POBLACION</option>
-            <option value="POCTOL">POCTOL</option>
-            <option value="PULANGBATO">PULANGBATO</option>
-            <option value="PUTINGBUHANGIN">PUTINGBUHANGIN</option>
-            <option value="QUIPOT">QUIPOT</option>
-            <option value="SAMPIRO">SAMPIRO</option>
-            <option value="SAPANGAN">SAPANGAN</option>
-            <option value="SICO 1">SICO 1</option>
-            <option value="SICO 2">SICO 2</option>
-            <option value="SUBUKIN">SUBUKIN</option>
-            <option value="TALAHIBAN 1">TALAHIBAN 1</option>
-            <option value="TALAHIBAN 2">TALAHIBAN 2</option>
-            <option value="TICALAN">TICALAN</option>
-            <option value="TIPAZ">TIPAZ</option>
+          <option value="BALAGBAG">BALAGBAG</option>
+          <option value="BARUALTE">BARUALTE</option>
+          <option value="BATAAN">BATAAN</option>
+          <option value="BUHAY NA SAPA">BUHAY NA SAPA</option>
+          <option value="BULSA">BULSA</option>
+          <option value="CALICANTO">CALICANTO</option>
+          <option value="CALITCALIT">CALITCALIT</option>
+          <option value="CALUBCUB 1">CALUBCUB 1</option>
+          <option value="CALUBCUB 2">CALUBCUB 2</option>
+          <option value="CATMON">CATMON</option>
+          <option value="COLOCONTO">COLOCONTO</option>
+          <option value="ESCRIBANO">ESCRIBANO</option>
+          <option value="HUGOM">HUGOM</option>
+          <option value="IMELDA (TUBOG)">IMELDA (TUBOG)</option>
+          <option value="JANAOJANAO">JANAOJANAO</option>
+          <option value="LAIYA-IBABAO">LAIYA-IBABAO</option>
+          <option value="LAIYA-APLAYA">LAIYA-APLAYA</option>
+          <option value="LIBATO">LIBATO</option>
+          <option value="LIPAHAN">LIPAHAN</option>
+          <option value="MABALANOY">MABALANOY</option>
+          <option value="NAGSAULAY">NAGSAULAY</option>
+          <option value="MARAYKIT">MARAYKIT</option>
+          <option value="MUZON">MUZON</option>
+          <option value="PALAHANAN 1">PALAHANAN 1</option>
+          <option value="PALAHANAN 2">PALAHANAN 2</option>
+          <option value="PALINGOWAK">PALINGOWAK</option>
+          <option value="PINAGBAYANAN">PINAGBAYANAN</option>
+          <option value="POBLACION">POBLACION</option>
+          <option value="POCTOL">POCTOL</option>
+          <option value="PULANGBATO">PULANGBATO</option>
+          <option value="PUTINGBUHANGIN">PUTINGBUHANGIN</option>
+          <option value="QUIPOT">QUIPOT</option>
+          <option value="SAMPIRO">SAMPIRO</option>
+          <option value="SAPANGAN">SAPANGAN</option>
+          <option value="SICO 1">SICO 1</option>
+          <option value="SICO 2">SICO 2</option>
+          <option value="SUBUKIN">SUBUKIN</option>
+          <option value="TALAHIBAN 1">TALAHIBAN 1</option>
+          <option value="TALAHIBAN 2">TALAHIBAN 2</option>
+          <option value="TICALAN">TICALAN</option>
+          <option value="TIPAZ">TIPAZ</option>
         </select>
       </div>
       <button type="submit">Submit</button>
     </form>
   </fieldset>
-    <router-outlet></router-outlet>
+  <router-outlet></router-outlet>
+</div>

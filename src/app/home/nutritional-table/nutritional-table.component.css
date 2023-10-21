@@ -1,3 +1,17 @@
+#updateCon {
+  background-color: white;
+  border-radius: 10px;
+  border: 2px solid #ccc;
+  padding: 5px;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
 * {
   box-sizing: border-box;
 }
@@ -16,7 +30,7 @@ legend {
   font-size: 1.6vw;
 }
 
-#monthlyRecordsInfant {
+#nutritionalStatus {
   border: 1px solid #ccc;
   padding: 20px;
   margin-top: 20px;
@@ -24,7 +38,7 @@ legend {
   background-color: #f9f9f9;
 }
 
-#monthlyRecordsInfant legend {
+#nutritionalStatus legend {
   font-size: 20px;
   font-weight: bold;
 }
@@ -32,7 +46,7 @@ legend {
 .result-table table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 80%;
+  font-size: 50%;
 }
 
 .result-table th,
