@@ -105,3 +105,45 @@ legend {
   text-align: center;
   font-weight: bold;
 }
+
+@media (max-width: 768px) {
+  .container {
+    max-width: 400px;
+    margin: 10px auto;
+    padding: 10px;
+    border: 1px solid #ccc;
+  }
+
+  .legend1 {
+    font-size: 3vw;
+  }
+
+  input[type="text"],
+  input[type="date"],
+  input[type="number"],
+  select {
+    width: 100%;
+    padding: 5px;
+    font-size: 10px;
+    border-radius: 4px;
+  }
+
+  option {
+    font-size: 10px;
+    width: 100%;
+  }
+
+  .navigation-buttons {
+    margin-bottom: 20px;
+  }
+
+  .navigation-buttons button {
+    padding: 5px 15px;
+    font-size: 10px;
+  }
+
+  button[type="submit"] {
+    padding: 5px 15px;
+    font-size: 10px;
+  }
+}

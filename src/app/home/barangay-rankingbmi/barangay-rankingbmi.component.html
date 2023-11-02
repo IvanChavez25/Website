@@ -1,0 +1,23 @@
+<div class="barangay-ranking">
+  <fieldset id="bmiranking">
+    <legend><h3>BMI BARANGAY RANKING TABLE</h3></legend>
+    <div class="ranking-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Barangay</th>
+            <th>Severely Underweight and Underweight Count</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let barangay of rankedBarangays; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ barangay.barangay }}</td>
+            <td>{{ barangay.count }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </fieldset>
+</div>

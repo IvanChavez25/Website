@@ -1,0 +1,32 @@
+<div class="barangay-ranking">
+  <fieldset id="bmiranking">
+    <section class="barangay-nutritional-status">
+      <h2>Barangay WeightForAge Nutritional Status</h2>
+      <table class="nutritional-status-table">
+        <thead>
+          <tr>
+            <th>Barangay</th>
+            <th>Severely Underweight</th>
+            <th>Underweight</th>
+            <th>Normal</th>
+            <th>Overweight</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let barangay of barangayData">
+            <td>{{ barangay.barangay }}</td>
+            <td>{{ barangay.severelyUnderweight }}</td>
+            <td>{{ barangay.underweight }}</td>
+            <td>{{ barangay.normalWeight }}</td>
+            <td>{{ barangay.overweight }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </fieldset>
+</div>
+<div class="container">
+  <div class="chart-container">
+    <canvas id="lineGraph"></canvas>
+  </div>
+</div>

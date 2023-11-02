@@ -7,46 +7,10 @@
   <div id="updateNutritionalModal" #updateNutritionalModal class="modal">
     <div class="modal-content">
       <form (ngSubmit)="updateNutritional()">
-        <div>
-          <label for="fatherName">Father's Name:</label>
-          <input
-            type="text"
-            id="fatherName"
-            name="fatherName"
-            [(ngModel)]="nutritionalRecordsData.fatherName"
-            required
-          />
-        </div>
-        <div>
-          <label for="motherName">Mother's Name:</label>
-          <input
-            type="text"
-            id="motherName"
-            name="motherName"
-            [(ngModel)]="nutritionalRecordsData.motherName"
-            required
-          />
-        </div>
-        <div>
-          <label for="nameOfChild">Name Of Child:</label>
-          <input
-            type="text"
-            id="nameOfChild"
-            name="nameOfChild"
-            [(ngModel)]="nutritionalRecordsData.nameOfChild"
-            required
-          />
-        </div>
-        <div>
-          <label for="birthday">Date of Birth:</label>
-          <input
-            type="date"
-            id="birthday"
-            name="birthday"
-            [(ngModel)]="nutritionalRecordsData.birthday"
-            required
-          />
-        </div>
+        <legend class="legend1">
+          Nutritional Status, Feeding and Micronutrient Supplementation Record
+          of PreSchool Children
+        </legend>
         <div>
           <label for="OPTPlus">Data of OPT Plus:</label>
           <input
@@ -55,34 +19,6 @@
             name="OPTPlus"
             [(ngModel)]="nutritionalRecordsData.OPTPlus"
             required
-          />
-        </div>
-        <div>
-          <label for="ageInMonths">Age in Month:</label>
-          <input
-            type="text"
-            id="ageInMonths"
-            name="ageInMonths"
-            [(ngModel)]="nutritionalRecordsData.ageInMonths"
-            required
-          />
-        </div>
-        <div>
-          <label for="weight">Weight(KG):</label>
-          <input
-            type="number"
-            id="weight"
-            name="weight"
-            [(ngModel)]="nutritionalRecordsData.weight"
-          />
-        </div>
-        <div>
-          <label for="height">Height(CM):</label>
-          <input
-            type="number"
-            id="height"
-            name="height"
-            [(ngModel)]="nutritionalRecordsData.height"
           />
         </div>
         <fieldset>
@@ -244,6 +180,16 @@
             </select>
           </div>
         </fieldset>
+        <div>
+          <label for="date">Date:</label>
+          <input
+            type="date"
+            id="date"
+            name="date"
+            [(ngModel)]="nutritionalRecordsData.date"
+            required
+          />
+        </div>
       </form>
 
       <button class="close" (click)="closeUpdateNutritionalModal()">
@@ -257,6 +203,105 @@
   </div>
 </div>
 
+<fieldset class="fieldset1">
+  <div class="filter-container">
+    <label for="barangay">Barangay:</label>
+    <select
+      id="barangay"
+      name="barangay"
+      [(ngModel)]="selectedBarangay"
+      (change)="filterRecords()"
+      required
+    >
+      <option value="">ALL</option>
+      <option value="ABUNG">ABUNG</option>
+      <option value="BALAGBAG">BALAGBAG</option>
+      <option value="BARUALTE">BARUALTE</option>
+      <option value="BATAAN">BATAAN</option>
+      <option value="BUHAY NA SAPA">BUHAY NA SAPA</option>
+      <option value="BULSA">BULSA</option>
+      <option value="CALICANTO">CALICANTO</option>
+      <option value="CALITCALIT">CALITCALIT</option>
+      <option value="CALUBCUB 1">CALUBCUB 1</option>
+      <option value="CALUBCUB 2">CALUBCUB 2</option>
+      <option value="CATMON">CATMON</option>
+      <option value="COLOCONTO">COLOCONTO</option>
+      <option value="ESCRIBANO">ESCRIBANO</option>
+      <option value="HUGOM">HUGOM</option>
+      <option value="IMELDA (TUBOG)">IMELDA (TUBOG)</option>
+      <option value="JANAOJANAO">JANAOJANAO</option>
+      <option value="LAIYA-IBABAO">LAIYA-IBABAO</option>
+      <option value="LAIYA-APLAYA">LAIYA-APLAYA</option>
+      <option value="LIBATO">LIBATO</option>
+      <option value="LIPAHAN">LIPAHAN</option>
+      <option value="MABALANOY">MABALANOY</option>
+      <option value="NAGSAULAY">NAGSAULAY</option>
+      <option value="MARAYKIT">MARAYKIT</option>
+      <option value="MUZON">MUZON</option>
+      <option value="PALAHANAN 1">PALAHANAN 1</option>
+      <option value="PALAHANAN 2">PALAHANAN 2</option>
+      <option value="PALINGOWAK">PALINGOWAK</option>
+      <option value="PINAGBAYANAN">PINAGBAYANAN</option>
+      <option value="POBLACION">POBLACION</option>
+      <option value="POCTOL">POCTOL</option>
+      <option value="PULANGBATO">PULANGBATO</option>
+      <option value="PUTINGBUHANGIN">PUTINGBUHANGIN</option>
+      <option value="QUIPOT">QUIPOT</option>
+      <option value="SAMPIRO">SAMPIRO</option>
+      <option value="SAPANGAN">SAPANGAN</option>
+      <option value="SICO 1">SICO 1</option>
+      <option value="SICO 2">SICO 2</option>
+      <option value="SUBUKIN">SUBUKIN</option>
+      <option value="TALAHIBAN 1">TALAHIBAN 1</option>
+      <option value="TALAHIBAN 2">TALAHIBAN 2</option>
+      <option value="TICALAN">TICALAN</option>
+      <option value="TIPAZ">TIPAZ</option>
+    </select>
+
+    <label for="fromDate">FromDate:</label>
+    <input
+      type="date"
+      id="fromDate"
+      name="fromDate"
+      [(ngModel)]="fromDate"
+      (input)="filterRecords()"
+    />
+
+    <label for="toDate">ToDate:</label>
+    <input
+      type="date"
+      id="toDate"
+      name="toDate"
+      [(ngModel)]="toDate"
+      (input)="filterRecords()"
+    />
+
+    <label for="measurementMonth">Measurement Month:</label>
+    <select
+      id="measurementMonth"
+      name="measurementMonth"
+      [(ngModel)]="selectedMeasurementMonth"
+      (change)="filterRecords()"
+      required
+    >
+      <option value="">ALL</option>
+      <option value="January">January</option>
+      <option value="February">February</option>
+      <option value="March">March</option>
+      <option value="May">May</option>
+      <option value="June">June</option>
+      <option value="July">July</option>
+      <option value="August">August</option>
+      <option value="September">September</option>
+      <option value="October">October</option>
+      <option value="November">November</option>
+      <option value="December">December</option>
+    </select>
+
+    <button (click)="clearFilters()">Clear_Filters</button>
+  </div>
+</fieldset>
+
 <fieldset>
   <div>
     <div class="result-container">
@@ -266,10 +311,11 @@
           <table>
             <thead>
               <tr>
-                <th>#</th>
+                <th>Nutritional ID</th>
+                <th>Name Of Child</th>
                 <th>Father's Name</th>
                 <th>Mother's Name</th>
-                <th>Name Of Child</th>
+                <th>Barangay</th>
                 <th>Date Of Birth</th>
                 <th>Date Of OPTs</th>
                 <th>Age In Month</th>
@@ -285,15 +331,23 @@
                 <th>Vitamin A Last Date Received</th>
                 <th>Iron Drops / Syrup Received</th>
                 <th>Using MNP</th>
+                <th>Date</th>
                 <th>Action</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let record of nutritionalRecords">
                 <td>{{ record.nutritionalId }}</td>
+                <td>
+                  {{
+                    record.nameOfChild.firstName +
+                      " " +
+                      record.nameOfChild?.lastName
+                  }}
+                </td>
                 <td>{{ record.fatherName }}</td>
                 <td>{{ record.motherName }}</td>
-                <td>{{ record.nameOfChild }}</td>
+                <td>{{ record.barangay }}</td>
                 <td>{{ record.birthday }}</td>
                 <td>{{ record.OPTPlus }}</td>
                 <td>{{ record.ageInMonths }}</td>
@@ -309,6 +363,7 @@
                 <td>{{ record.vitaminALastReceived }}</td>
                 <td>{{ record.ironReceived }}</td>
                 <td>{{ record.usingMNP }}</td>
+                <td>{{ record.date }}</td>
                 <td>
                   <a class="btn btn-sm btn-outline-dark"
                     ><i class="fas fa-up-right-from-square"></i
@@ -335,5 +390,22 @@
         </div>
       </fieldset>
     </div>
+  </div>
+  <div class="pagination">
+    <button
+      class="paginationButton"
+      (click)="goToPage(currentPage - 1)"
+      [disabled]="currentPage === 1"
+    >
+      Previous
+    </button>
+    <span>Children Profile Page {{ currentPage }}</span>
+    <button
+      class="paginationButton"
+      (click)="goToPage(currentPage + 1)"
+      [disabled]="endIndex >= nutritionalRecords.length"
+    >
+      Next
+    </button>
   </div>
 </fieldset>

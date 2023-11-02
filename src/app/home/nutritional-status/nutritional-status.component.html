@@ -5,7 +5,6 @@
 
 <div class="container">
   <div class="navigation-buttons">
-    <button routerLink="/home/healthrecords">Health Records</button>
     <button routerLink="/home/quarterlyrecords">Quarterly Records</button>
     <button routerLink="/home/baselineweight">BaseLine</button>
     <button routerLink="/home/nutritionalstatus">Nutritional Status</button>
@@ -18,11 +17,36 @@
     </legend>
     <form (ngSubmit)="onSubmit()">
       <div>
+        <label for="searchChild">Search Child:</label>
+        <input
+          type="text"
+          id="searchChild"
+          name="searchChild"
+          [(ngModel)]="searchInput"
+          (input)="onSearchInputChange()"
+        />
+      </div>
+      <div>
+        <label for="nameOfChild">Name Of Child:</label>
+        <select
+          id="nameOfChild"
+          name="nameOfChild"
+          [(ngModel)]="nutritionalData.nameOfChild"
+          required
+        >
+          <option value="">Select a Child</option>
+          <option *ngFor="let child of filteredChildRecords" [ngValue]="child">
+            {{ child.firstName }} {{ child.lastName }}
+          </option>
+        </select>
+      </div>
+      <div>
         <label for="fatherName">Father's Name:</label>
         <input
           type="text"
           id="fatherName"
           name="fatherName"
+          [value]="getSelectedChildFather()"
           [(ngModel)]="nutritionalData.fatherName"
           required
         />
@@ -33,19 +57,63 @@
           type="text"
           id="motherName"
           name="motherName"
+          [value]="getSelectedChildMother()"
           [(ngModel)]="nutritionalData.motherName"
           required
         />
       </div>
       <div>
-        <label for="nameOfChild">Name Of Child:</label>
-        <input
-          type="text"
-          id="nameOfChild"
-          name="nameOfChild"
-          [(ngModel)]="nutritionalData.nameOfChild"
+        <label for="barangay">Barangay:</label>
+        <select
+          id="barangay"
+          name="barangay"
+          [value]="getSelectedChildBarangay()"
+          [(ngModel)]="nutritionalData.barangay"
           required
-        />
+        >
+          <option value="ABUNG">ABUNG</option>
+          <option value="BALAGBAG">BALAGBAG</option>
+          <option value="BARUALTE">BARUALTE</option>
+          <option value="BATAAN">BATAAN</option>
+          <option value="BUHAY NA SAPA">BUHAY NA SAPA</option>
+          <option value="BULSA">BULSA</option>
+          <option value="CALICANTO">CALICANTO</option>
+          <option value="CALITCALIT">CALITCALIT</option>
+          <option value="CALUBCUB 1">CALUBCUB 1</option>
+          <option value="CALUBCUB 2">CALUBCUB 2</option>
+          <option value="CATMON">CATMON</option>
+          <option value="COLOCONTO">COLOCONTO</option>
+          <option value="ESCRIBANO">ESCRIBANO</option>
+          <option value="HUGOM">HUGOM</option>
+          <option value="IMELDA (TUBOG)">IMELDA (TUBOG)</option>
+          <option value="JANAOJANAO">JANAOJANAO</option>
+          <option value="LAIYA-IBABAO">LAIYA-IBABAO</option>
+          <option value="LAIYA-APLAYA">LAIYA-APLAYA</option>
+          <option value="LIBATO">LIBATO</option>
+          <option value="LIPAHAN">LIPAHAN</option>
+          <option value="MABALANOY">MABALANOY</option>
+          <option value="NAGSAULAY">NAGSAULAY</option>
+          <option value="MARAYKIT">MARAYKIT</option>
+          <option value="MUZON">MUZON</option>
+          <option value="PALAHANAN 1">PALAHANAN 1</option>
+          <option value="PALAHANAN 2">PALAHANAN 2</option>
+          <option value="PALINGOWAK">PALINGOWAK</option>
+          <option value="PINAGBAYANAN">PINAGBAYANAN</option>
+          <option value="POBLACION">POBLACION</option>
+          <option value="POCTOL">POCTOL</option>
+          <option value="PULANGBATO">PULANGBATO</option>
+          <option value="PUTINGBUHANGIN">PUTINGBUHANGIN</option>
+          <option value="QUIPOT">QUIPOT</option>
+          <option value="SAMPIRO">SAMPIRO</option>
+          <option value="SAPANGAN">SAPANGAN</option>
+          <option value="SICO 1">SICO 1</option>
+          <option value="SICO 2">SICO 2</option>
+          <option value="SUBUKIN">SUBUKIN</option>
+          <option value="TALAHIBAN 1">TALAHIBAN 1</option>
+          <option value="TALAHIBAN 2">TALAHIBAN 2</option>
+          <option value="TICALAN">TICALAN</option>
+          <option value="TIPAZ">TIPAZ</option>
+        </select>
       </div>
       <div>
         <label for="birthday">Date of Birth:</label>
@@ -53,6 +121,7 @@
           type="date"
           id="birthday"
           name="birthday"
+          [value]="getSelectedChildBirthday()"
           [(ngModel)]="nutritionalData.birthday"
           required
         />
@@ -73,6 +142,7 @@
           type="text"
           id="ageInMonths"
           name="ageInMonths"
+          [value]="getSelectedChildAge()"
           [(ngModel)]="nutritionalData.ageInMonths"
           required
         />
@@ -83,6 +153,7 @@
           type="number"
           id="weight"
           name="weight"
+          [value]="getSelectedChildWeight()"
           [(ngModel)]="nutritionalData.weight"
         />
       </div>
@@ -92,6 +163,7 @@
           type="number"
           id="height"
           name="height"
+          [value]="getSelectedChildHeight()"
           [(ngModel)]="nutritionalData.height"
         />
       </div>
@@ -119,8 +191,8 @@
             name="heightForAge"
             [(ngModel)]="nutritionalData.heightForAge"
           >
-            <option value="SSt">SSt (Severely Stunded)</option>
-            <option value="St">St (Stunded)</option>
+            <option value="SSt">SSt (Severely Stunted)</option>
+            <option value="St">St (Stunted)</option>
             <option value="N">N (Normal)</option>
             <option value="T">T (Tall)</option>
           </select>
@@ -254,6 +326,15 @@
           </select>
         </div>
       </fieldset>
+      <div>
+        <label for="date">Date Input:</label>
+        <input
+          type="date"
+          id="date"
+          name="date"
+          [(ngModel)]="nutritionalData.date"
+        />
+      </div>
       <button type="submit">Submit</button>
     </form>
   </fieldset>

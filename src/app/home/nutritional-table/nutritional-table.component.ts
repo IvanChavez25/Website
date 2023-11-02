@@ -1,6 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Database, ref, get, update, remove } from '@angular/fire/database';
 import { Location } from '@angular/common';
+import { SharedDataServiceService } from '../shared-data-service.service';
 
 @Component({
   selector: 'app-nutritional-table',
@@ -8,12 +9,26 @@ import { Location } from '@angular/common';
   styleUrls: ['./nutritional-table.component.css'],
 })
 export class NutritionalTableComponent {
+  originalNutritionalRecords: any[] = [];
+  userRole: string = '';
   nutritionalRecords: any[] = [];
   nutritionalRecordsData: any = {};
 
+  selectedBarangay: string = '';
+  fromDate: string = '';
+  toDate: string = '';
+  selectedMeasurementMonth: string = '';
+
   @ViewChild('updateNutritionalModal') updateNutritionalModal!: ElementRef;
 
-  constructor(public database: Database, private location: Location) {
+  currentPage: number = 1;
+  itemsPerPage: number = 10;
+
+  constructor(
+    public database: Database,
+    private location: Location,
+    private sharedDataService: SharedDataServiceService
+  ) {
     this.fetchNutritionalRecords();
   }
 
@@ -28,6 +43,7 @@ export class NutritionalTableComponent {
     get(nutritionalRef)
       .then((snapshot) => {
         if (snapshot.exists()) {
+          this.originalNutritionalRecords = Object.values(snapshot.val());
           this.nutritionalRecords = Object.values(snapshot.val());
         } else {
           this.nutritionalRecords = [];
@@ -36,6 +52,71 @@ export class NutritionalTableComponent {
       .catch((error) => {
         console.error('Error retrieving records:', error);
       });
+  }
+
+  get startIndex(): number {
+    return (this.currentPage - 1) * this.itemsPerPage;
+  }
+
+  get endIndex(): number {
+    return this.startIndex + this.itemsPerPage;
+  }
+
+  filterRecords() {
+    // Create a copy of the original data
+    let filteredRecords = [...this.originalNutritionalRecords];
+
+    // Apply the barangay filter
+    if (this.selectedBarangay) {
+      filteredRecords = filteredRecords.filter(
+        (record) => record.barangay === this.selectedBarangay
+      );
+    }
+
+    // Apply the date range filter if either fromDate or toDate is provided
+    if (this.fromDate || this.toDate) {
+      filteredRecords = filteredRecords.filter((record) => {
+        const recordDate = new Date(record.Date);
+        recordDate.setHours(23, 59, 59, 999);
+
+        if (this.fromDate && this.toDate) {
+          const fromDateObj = new Date(this.fromDate);
+          const toDateObj = new Date(this.toDate);
+          toDateObj.setHours(23, 59, 59, 999);
+
+          return recordDate >= fromDateObj && recordDate <= toDateObj;
+        } else if (this.fromDate) {
+          const fromDateObj = new Date(this.fromDate);
+          return recordDate >= fromDateObj;
+        } else if (this.toDate) {
+          const toDateObj = new Date(this.toDate);
+          toDateObj.setHours(23, 59, 59, 999);
+          return recordDate <= toDateObj;
+        }
+
+        return true; // No date filter applied
+      });
+    }
+
+    if (this.selectedMeasurementMonth) {
+      filteredRecords = filteredRecords.filter(
+        (record) => record.measurementMonth === this.selectedMeasurementMonth
+      );
+    }
+
+    // Update the monthlyHeightRecords with the filtered data
+    this.nutritionalRecords = filteredRecords;
+  }
+
+  clearFilters() {
+    // Clear the selected barangay, from date, and to date
+    this.selectedBarangay = '';
+    this.fromDate = '';
+    this.toDate = '';
+    this.selectedMeasurementMonth = '';
+
+    // Reset the monthlyHeightRecords to the original data
+    this.nutritionalRecords = [...this.originalNutritionalRecords];
   }
 
   openUpdateNutritionalModal(record: any) {
@@ -72,6 +153,7 @@ export class NutritionalTableComponent {
       vitaminALastReceived: this.nutritionalRecordsData.vitaminALastReceived,
       ironReceived: this.nutritionalRecordsData.ironReceived,
       usingMNP: this.nutritionalRecordsData.usingMNP,
+      date: this.nutritionalRecordsData.date,
     })
       .then(() => {
         alert('Nutritional Data Updated successfully');
@@ -107,5 +189,8 @@ export class NutritionalTableComponent {
       .catch((error) => {
         alert('Error deleting nutritional status: ' + error);
       });
+  }
+  goToPage(pageNumber: number) {
+    this.currentPage = pageNumber;
   }
 }

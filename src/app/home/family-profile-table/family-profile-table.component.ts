@@ -8,10 +8,19 @@ import { Location } from '@angular/common';
   styleUrls: ['./family-profile-table.component.css'],
 })
 export class FamilyProfileTableComponent {
+  originalFamily: any[] = [];
   family: any[] = [];
   familyData: any = {};
 
+  selectedBarangay: string = '';
+  fromDate: string = '';
+  toDate: string = '';
+  selectedMeasurementMonth: string = '';
+
   @ViewChild('updateFamilyModal') updateFamilyModal!: ElementRef;
+
+  currentPage: number = 1;
+  itemsPerPage: number = 10;
 
   constructor(public database: Database, private location: Location) {
     this.fetchfamily();
@@ -28,6 +37,7 @@ export class FamilyProfileTableComponent {
     get(familyRef)
       .then((snapshot) => {
         if (snapshot.exists()) {
+          this.originalFamily = Object.values(snapshot.val());
           this.family = Object.values(snapshot.val());
         } else {
           this.family = [];
@@ -37,6 +47,72 @@ export class FamilyProfileTableComponent {
         console.error('Error retrieving familyrecords:', error);
       });
   }
+
+  get startIndex(): number {
+    return (this.currentPage - 1) * this.itemsPerPage;
+  }
+
+  get endIndex(): number {
+    return this.startIndex + this.itemsPerPage;
+  }
+
+  filterRecords() {
+    // Create a copy of the original data
+    let filteredRecords = [...this.originalFamily];
+
+    // Apply the barangay filter
+    if (this.selectedBarangay) {
+      filteredRecords = filteredRecords.filter(
+        (record) => record.barangay === this.selectedBarangay
+      );
+    }
+
+    if (this.selectedMeasurementMonth) {
+      filteredRecords = filteredRecords.filter(
+        (record) => record.measurementMonth === this.selectedMeasurementMonth
+      );
+    }
+
+    // Apply the date range filter if either fromDate or toDate is provided
+    if (this.fromDate || this.toDate) {
+      filteredRecords = filteredRecords.filter((record) => {
+        const recordDate = new Date(record.Date);
+        recordDate.setHours(23, 59, 59, 999);
+
+        if (this.fromDate && this.toDate) {
+          const fromDateObj = new Date(this.fromDate);
+          const toDateObj = new Date(this.toDate);
+          toDateObj.setHours(23, 59, 59, 999);
+
+          return recordDate >= fromDateObj && recordDate <= toDateObj;
+        } else if (this.fromDate) {
+          const fromDateObj = new Date(this.fromDate);
+          return recordDate >= fromDateObj;
+        } else if (this.toDate) {
+          const toDateObj = new Date(this.toDate);
+          toDateObj.setHours(23, 59, 59, 999);
+          return recordDate <= toDateObj;
+        }
+
+        return true; // No date filter applied
+      });
+    }
+
+    // Update the monthlyHeightRecords with the filtered data
+    this.family = filteredRecords;
+  }
+
+  clearFilters() {
+    // Clear the selected barangay, from date, and to date
+    this.selectedBarangay = '';
+    this.fromDate = '';
+    this.toDate = '';
+    this.selectedMeasurementMonth = '';
+
+    // Reset the monthlyHeightRecords to the original data
+    this.family = [...this.originalFamily];
+  }
+
   openUpdateFamilyModal(child: any) {
     // Set the family data in the component to be used in the modal form
     this.familyData = { ...child };
@@ -44,7 +120,7 @@ export class FamilyProfileTableComponent {
     // Open the update family modal
     this.updateFamilyModal.nativeElement.style.display = 'block';
   }
- 
+
   updateFamily() {
     const familyRef = ref(
       this.database,
@@ -73,6 +149,8 @@ export class FamilyProfileTableComponent {
       foodProductionActivity: this.familyData.foodProductionActivity,
       iodizedSalt: this.familyData.iodizedSalt,
       ifr: this.familyData.ifr,
+      date: this.familyData.date,
+      measurementMonth: this.familyData.measurementMonth,
     })
       .then(() => {
         alert('Family Data Updated successfully');
@@ -107,5 +185,9 @@ export class FamilyProfileTableComponent {
       .catch((error) => {
         alert('Error deleting child: ' + error);
       });
+  }
+
+  goToPage(pageNumber: number) {
+    this.currentPage = pageNumber;
   }
 }

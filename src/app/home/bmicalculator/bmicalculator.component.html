@@ -6,13 +6,43 @@
 <div class="container">
   <fieldset id="BMI">
     <legend><h2>BMI Calculator</h2></legend>
+
     <div>
-      <label for="childName" class="label">Child's Name:</label>
-      <input type="text" id="childName" [(ngModel)]="childName" />
+      <label for="searchChild" class="label">Search Child:</label>
+      <input
+        type="text"
+        id="searchChild"
+        name="searchChild"
+        [(ngModel)]="searchInput"
+        (input)="onSearchInputChange()"
+      />
     </div>
+
+    <div>
+      <label for="childName" class="label">Children Name:</label>
+      <select
+        id="childName"
+        name="childName"
+        [(ngModel)]="bmiRecordData.childName"
+        required
+      >
+        <option value="">Select a Child</option>
+
+        <option *ngFor="let child of filteredChildRecords" [ngValue]="child">
+          {{ child.firstName }} {{ child.lastName }}
+        </option>
+      </select>
+    </div>
+
     <div>
       <label for="barangay" class="label">Barangay:</label>
-      <select id="barangay" name="barangay" [(ngModel)]="barangay" required>
+      <select
+        id="barangay"
+        name="barangay"
+        [value]="getSelectedChildBarangay()"
+        [(ngModel)]="bmiRecordData.barangay"
+        required
+      >
         <option value="ABUNG">ABUNG</option>
         <option value="BALAGBAG">BALAGBAG</option>
         <option value="BARUALTE">BARUALTE</option>
@@ -59,24 +89,40 @@
     </div>
     <div>
       <label for="weight" class="label">Weight (kg):</label>
-      <input type="number" id="weight" [(ngModel)]="weight" />
+      <input
+        type="number"
+        id="weight"
+        [value]="getSelectedChildWeight()"
+        [(ngModel)]="bmiRecordData.weight"
+      />
     </div>
     <div>
       <label for="height" class="label">Height (cm):</label>
-      <input type="number" id="height" [(ngModel)]="height" />
+      <input
+        type="number"
+        id="height"
+        [value]="getSelectedChildHeight()"
+        [(ngModel)]="bmiRecordData.height"
+      />
     </div>
     <div>
       <label for="age" class="label">Age (5 and below):</label>
-      <input type="number" id="age" [(ngModel)]="age" max="5" />
+      <input
+        type="number"
+        id="age"
+        [value]="getSelectedChildAge()"
+        [(ngModel)]="bmiRecordData.age"
+        max="5"
+      />
     </div>
     <div>
-      <button id="btn-calc" (click)="calculateBMI()">Calculate BMI</button>
+      <button id="btn-calc" (click)="onSubmit()">Calculate BMI</button>
     </div>
     <div class="result">
-      THE BMI: <span>{{ bmi }}</span>
+      THE BMI: <span>{{ bmiRecordData.bmi }}</span>
     </div>
     <div id="result-message" class="result">
-      RESULT: <span>{{ resultMessage }}</span>
+      RESULT: <span>{{ bmiRecordData.resultMessage }}</span>
     </div>
   </fieldset>
 </div>

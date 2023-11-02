@@ -5,7 +5,6 @@
 
 <div class="container">
   <div class="navigation-buttons">
-    <button routerLink="/home/healthrecords">Health Records</button>
     <button routerLink="/home/quarterlyrecords">Quarterly Records</button>
     <button routerLink="/home/baselineweight">BaseLine</button>
     <button routerLink="/home/nutritionalstatus">Nutritional Status</button>
@@ -229,6 +228,36 @@
           <option value="TALAHIBAN 2">TALAHIBAN 2</option>
           <option value="TICALAN">TICALAN</option>
           <option value="TIPAZ">TIPAZ</option>
+        </select>
+      </div>
+      <div>
+        <label for="date">Date:</label>
+        <input
+          type="date"
+          id="date"
+          name="date"
+          [(ngModel)]="baselineData.date"
+          required
+        />
+      </div>
+      <div>
+        <label for="measurementMonth">Measurement Month:</label>
+        <select
+          id="measurementMonth"
+          name="measurementMonth"
+          [(ngModel)]="baselineData.measurementMonth"
+        >
+          <option value="January">January</option>
+          <option value="February">February</option>
+          <option value="March">March</option>
+          <option value="May">May</option>
+          <option value="June">June</option>
+          <option value="July">July</option>
+          <option value="August">August</option>
+          <option value="September">September</option>
+          <option value="October">October</option>
+          <option value="November">November</option>
+          <option value="December">December</option>
         </select>
       </div>
       <div>

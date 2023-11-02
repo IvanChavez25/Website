@@ -1,28 +1,49 @@
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <div class="navbar">
   <div class="navbar-content">
     <div class="navbar-logo"></div>
     <div class="logo-text">SAN JUAN BATANGAS</div>
   </div>
   <ul class="navbar-list">
-    <li>
+    <li *ngIf="userRole === 'bhw'">
       <a routerLink="/home/childreninfo">
-        <i class="fa fa-user-circle"></i> Profile
+        Profile
+        <i class="fa fa-user-circle"></i>
       </a>
     </li>
-    <li>
-      <a routerLink="/home/healthrecords">
-        <i class="fa fa-file-text-o"></i> Records
+    <li *ngIf="userRole === 'bhw'">
+      <a routerLink="/home/quarterlyrecords">
+        Records
+        <i class="fa fa-file-text-o"></i>
       </a>
     </li>
-    <li>
+    <li *ngIf="userRole === 'bhw'">
       <a routerLink="/home/monthlyrecords">
-        <i class="fa fa-calendar"></i> Monthly Records
+        Monthly Records
+        <i class="fa fa-calendar"></i>
       </a>
     </li>
-    <li>
+    <li *ngIf="userRole === 'bhw'">
       <a routerLink="/home/bmi">
-        <i class="fa fa-calculator"></i> BMI Calculator
+        BMI Calculator
+        <i class="fa fa-calculator"></i>
       </a>
+    </li>
+    <li *ngIf="userRole === 'admin'">
+      <a routerLink="/home/dashboard">
+        <i class="fa fa-bar-chart"></i> Dashboard
+      </a>
+    </li>
+    <li li *ngIf="userRole === 'admin'">
+      <a routerLink="/home/useraccount"> <i class="fa fa-user"></i> Account </a>
+    </li>
+    <li *ngIf="userRole === 'admin'">
+      <a routerLink="/home/userlist">
+        <i class="fa fa-user"></i> BHW User List
+      </a>
+    </li>
+    <li *ngIf="userRole === 'admin'">
+      <app-nutritional-dropdown></app-nutritional-dropdown>
     </li>
     <li>
       <button class="menu-button">
@@ -32,15 +53,33 @@
             <app-profile-dropdown></app-profile-dropdown>
           </li>
           <li>
-            <a href="#"> <i class="fa fa-bar-chart"></i> Barangay Ranking </a>
-          </li>
-          <li>
-            <a href="#"> <i class="fa fa-heartbeat"></i> BMI Result </a>
-          </li>
-          <li>
-            <a routerLink="/home/healthrecordstable">
-              <i class="fa fa-table"></i> Children Health Records Table
+            <a routerLink="/home/rankingbmi">
+              <i class="fa fa-bar-chart"></i> BMI Barangay Ranking
             </a>
+          </li>
+          <li *ngIf="userRole === 'bhw'">
+            <a routerLink="/home/nutritionalsummary">
+              <i class="fa fa-bar-chart"></i> WeightForAge Nutritional Summary
+            </a>
+          </li>
+          <li *ngIf="userRole === 'bhw'">
+            <a routerLink="/home/nutritionalsummaryheight">
+              <i class="fa fa-bar-chart"></i> HeightForAge Nutritional Summary
+            </a>
+          </li>
+          <li *ngIf="userRole === 'bhw'">
+            <a routerLink="/home/nutritionalsummaryweight">
+              <i class="fa fa-bar-chart"></i> WeightForHeight Nutritional
+              Summary
+            </a>
+          </li>
+          <li>
+            <a routerLink="/home/bmiresult">
+              <i class="fa fa-table"></i> Children BMI Result Table
+            </a>
+          </li>
+          <li>
+            <app-monthly-dropdown></app-monthly-dropdown>
           </li>
           <li>
             <a routerLink="/home/quarterlytable">
@@ -59,12 +98,7 @@
             </a>
           </li>
           <li>
-            <app-monthly-dropdown></app-monthly-dropdown>
-          </li>
-          <li>
-            <a routerLink="/page/home">
-              <i class="fa fa-sign-out"></i> Log Out
-            </a>
+            <a routerLink="/login"> <i class="fa fa-sign-out"></i> Log Out </a>
           </li>
         </ul>
       </button>

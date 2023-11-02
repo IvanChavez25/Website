@@ -3,6 +3,197 @@
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
 />
 
+<div id="updateCon">
+  <div id="updateQuarterlyModal" #updateQuarterlyModal class="modal">
+    <div class="modal-content">
+      <form (ngSubmit)="updateQuarterly()">
+        <legend class="legend1">
+          Quarterly Record of Weight and Weight Status 24-59 Months
+          Pre-Schoolers
+        </legend>
+        <div>
+          <label for="weight">Weight:</label>
+          <input
+            type="number"
+            id="weight"
+            name="weight"
+            [(ngModel)]="quarterlyTableData.weight"
+            required
+          />
+        </div>
+        <div>
+          <label for="heightOrLength">Height/Length:</label>
+          <input
+            type="number"
+            id="heightOrLength"
+            name="heightOrLength"
+            [(ngModel)]="quarterlyTableData.heightOrLength"
+            required
+          />
+        </div>
+        <div>
+          <label for="weightForLengthOrHeight">Weight for Length/Height:</label>
+          <input
+            type="number"
+            id="weightForLengthOrHeight"
+            name="weightForLengthOrHeight"
+            [(ngModel)]="quarterlyTableData.weightForLengthOrHeight"
+            required
+          />
+        </div>
+        <div>
+          <label for="nutritionalStatus"
+            >Nutritional Status (Nut1 Status):</label
+          >
+          <input
+            type="text"
+            id="nutritionalStatus"
+            name="nutritionalStatus"
+            [(ngModel)]="quarterlyTableData.nutritionalStatus"
+            required
+          />
+        </div>
+        <div>
+          <label for="date">Date:</label>
+          <input
+            type="date"
+            id="date"
+            name="date"
+            [(ngModel)]="quarterlyTableData.date"
+            required
+          />
+        </div>
+        <div>
+          <label for="measurementMonth">Measurement Month:</label>
+          <select
+            id="measurementMonth"
+            name="measurementMonth"
+            [(ngModel)]="quarterlyTableData.measurementMonth"
+          >
+            <option value="January">January</option>
+            <option value="February">February</option>
+            <option value="March">March</option>
+            <option value="May">May</option>
+            <option value="June">June</option>
+            <option value="July">July</option>
+            <option value="August">August</option>
+            <option value="September">September</option>
+            <option value="October">October</option>
+            <option value="November">November</option>
+            <option value="December">December</option>
+          </select>
+        </div>
+      </form>
+      <button class="close" (click)="closeUpdateQuarterlyModal()">
+        Cancel
+      </button>
+
+      <button class="btn btn-primary" (click)="updateQuarterly()">
+        Update Child
+      </button>
+    </div>
+  </div>
+</div>
+
+<fieldset class="fieldset1">
+  <div class="filter-container">
+    <label for="barangay">Barangay:</label>
+    <select
+      id="barangay"
+      name="barangay"
+      [(ngModel)]="selectedBarangay"
+      (change)="filterRecords()"
+      required
+    >
+      <option value="">ALL</option>
+      <option value="ABUNG">ABUNG</option>
+      <option value="BALAGBAG">BALAGBAG</option>
+      <option value="BARUALTE">BARUALTE</option>
+      <option value="BATAAN">BATAAN</option>
+      <option value="BUHAY NA SAPA">BUHAY NA SAPA</option>
+      <option value="BULSA">BULSA</option>
+      <option value="CALICANTO">CALICANTO</option>
+      <option value="CALITCALIT">CALITCALIT</option>
+      <option value="CALUBCUB 1">CALUBCUB 1</option>
+      <option value="CALUBCUB 2">CALUBCUB 2</option>
+      <option value="CATMON">CATMON</option>
+      <option value="COLOCONTO">COLOCONTO</option>
+      <option value="ESCRIBANO">ESCRIBANO</option>
+      <option value="HUGOM">HUGOM</option>
+      <option value="IMELDA (TUBOG)">IMELDA (TUBOG)</option>
+      <option value="JANAOJANAO">JANAOJANAO</option>
+      <option value="LAIYA-IBABAO">LAIYA-IBABAO</option>
+      <option value="LAIYA-APLAYA">LAIYA-APLAYA</option>
+      <option value="LIBATO">LIBATO</option>
+      <option value="LIPAHAN">LIPAHAN</option>
+      <option value="MABALANOY">MABALANOY</option>
+      <option value="NAGSAULAY">NAGSAULAY</option>
+      <option value="MARAYKIT">MARAYKIT</option>
+      <option value="MUZON">MUZON</option>
+      <option value="PALAHANAN 1">PALAHANAN 1</option>
+      <option value="PALAHANAN 2">PALAHANAN 2</option>
+      <option value="PALINGOWAK">PALINGOWAK</option>
+      <option value="PINAGBAYANAN">PINAGBAYANAN</option>
+      <option value="POBLACION">POBLACION</option>
+      <option value="POCTOL">POCTOL</option>
+      <option value="PULANGBATO">PULANGBATO</option>
+      <option value="PUTINGBUHANGIN">PUTINGBUHANGIN</option>
+      <option value="QUIPOT">QUIPOT</option>
+      <option value="SAMPIRO">SAMPIRO</option>
+      <option value="SAPANGAN">SAPANGAN</option>
+      <option value="SICO 1">SICO 1</option>
+      <option value="SICO 2">SICO 2</option>
+      <option value="SUBUKIN">SUBUKIN</option>
+      <option value="TALAHIBAN 1">TALAHIBAN 1</option>
+      <option value="TALAHIBAN 2">TALAHIBAN 2</option>
+      <option value="TICALAN">TICALAN</option>
+      <option value="TIPAZ">TIPAZ</option>
+    </select>
+
+    <label for="fromDate">FromDate:</label>
+    <input
+      type="date"
+      id="fromDate"
+      name="fromDate"
+      [(ngModel)]="fromDate"
+      (input)="filterRecords()"
+    />
+
+    <label for="toDate">ToDate:</label>
+    <input
+      type="date"
+      id="toDate"
+      name="toDate"
+      [(ngModel)]="toDate"
+      (input)="filterRecords()"
+    />
+
+    <label for="measurementMonth">Measurement Month:</label>
+    <select
+      id="measurementMonth"
+      name="measurementMonth"
+      [(ngModel)]="selectedMeasurementMonth"
+      (change)="filterRecords()"
+      required
+    >
+      <option value="">ALL</option>
+      <option value="January">January</option>
+      <option value="February">February</option>
+      <option value="March">March</option>
+      <option value="May">May</option>
+      <option value="June">June</option>
+      <option value="July">July</option>
+      <option value="August">August</option>
+      <option value="September">September</option>
+      <option value="October">October</option>
+      <option value="November">November</option>
+      <option value="December">December</option>
+    </select>
+
+    <button (click)="clearFilters()">Clear_Filters</button>
+  </div>
+</fieldset>
+
 <fieldset>
   <div>
     <div class="result-container">
@@ -21,13 +212,21 @@
                 <th>Weight for Length/Height</th>
                 <th>Nutritional Status (Nut1 Status)</th>
                 <th>Barangay</th>
+                <th>Date</th>
                 <th>Measurement Month</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let record of quarterlyTable">
-                <td>{{ record.childrenId }}</td>
-                <td>{{ record.nameOfChild }}</td>
+                <td>{{ record.quarterlyId }}</td>
+                <td>
+                  {{
+                    record.nameOfChild.firstName +
+                      " " +
+                      record.nameOfChild?.lastName
+                  }}
+                </td>
                 <td>{{ record.birthday }}</td>
                 <td>{{ record.ageInMonth }}</td>
                 <td>{{ record.weight }}</td>
@@ -35,7 +234,25 @@
                 <td>{{ record.weightForLengthOrHeight }}</td>
                 <td>{{ record.nutritionalStatus }}</td>
                 <td>{{ record.barangay }}</td>
+                <td>{{ record.date }}</td>
                 <td>{{ record.measurementMonth }}</td>
+                <td>
+                  <a class="btn btn-sm btn-outline-dark"
+                    ><i class="fas fa-up-right-from-square"></i
+                  ></a>
+                  <button
+                    (click)="openUpdateQuarterlyModal(record)"
+                    class="update btn btn-sm btn-outline-warning"
+                  >
+                    Update
+                  </button>
+                  <button
+                    (click)="removeQuarterly(record)"
+                    class="delete btn btn-sm btn-outline-danger"
+                  >
+                    Delete
+                  </button>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -44,5 +261,24 @@
       </fieldset>
     </div>
   </div>
+  <div class="pagination">
+    <button
+      class="paginationButton"
+      (click)="goToPage(currentPage - 1)"
+      [disabled]="currentPage === 1"
+    >
+      Previous
+    </button>
+    <span>Children Profile Page {{ currentPage }}</span>
+    <button
+      class="paginationButton"
+      (click)="goToPage(currentPage + 1)"
+      [disabled]="endIndex >= quarterlyTable.length"
+    >
+      Next
+    </button>
+  </div>
 </fieldset>
-<router-outlet></router-outlet>
+<div>
+  <router-outlet></router-outlet>
+</div>

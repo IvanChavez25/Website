@@ -18,6 +18,17 @@
     </legend>
     <form (ngSubmit)="onSubmit()">
       <div>
+        <label for="searchChild">Search Child:</label>
+        <input
+          type="text"
+          id="searchChild"
+          name="searchChild"
+          [(ngModel)]="searchInput"
+          (input)="onSearchInputChange()"
+        />
+      </div>
+
+      <div>
         <label for="nameOfChild">Name Of Child:</label>
         <select
           id="nameOfChild"
@@ -26,7 +37,7 @@
           required
         >
           <option value="">Select a Child</option>
-          <option *ngFor="let child of childRecords" [ngValue]="child">
+          <option *ngFor="let child of filteredChildRecords" [ngValue]="child">
             {{ child.firstName }} {{ child.lastName }}
           </option>
         </select>
@@ -57,18 +68,20 @@
       <div>
         <label for="weight">Weight:</label>
         <input
-          type="number"
+          type="text"
           id="weight"
           name="weight"
+          [value]="getSelectedChildWeight()"
           [(ngModel)]="monthlyHeightRecordData.weight"
         />
       </div>
       <div>
-        <label for="heightOrLength">Height/Length:</label>
+        <label for="heightOrLength">Height Length:</label>
         <input
-          type="number"
+          type="text"
           id="heightOrLength"
           name="heightOrLength"
+          [value]="getSelectedChildHeight()"
           [(ngModel)]="monthlyHeightRecordData.heightOrLength"
         />
       </div>
@@ -87,6 +100,7 @@
         <select
           id="barangay"
           name="barangay"
+          [value]="getSelectedChildBarangay()"
           [(ngModel)]="monthlyHeightRecordData.barangay"
           required
         >
@@ -134,6 +148,37 @@
           <option value="TIPAZ">TIPAZ</option>
         </select>
       </div>
+      <div>
+        <label for="Date">Date:</label>
+        <input
+          type="date"
+          id="Date"
+          name="Date"
+          [(ngModel)]="monthlyHeightRecordData.Date"
+          required
+        />
+      </div>
+      <div>
+        <label for="measurementMonth">Measurement Month:</label>
+        <select
+          id="measurementMonth"
+          name="measurementMonth"
+          [(ngModel)]="monthlyHeightRecordData.measurementMonth"
+        >
+          <option value="January">January</option>
+          <option value="February">February</option>
+          <option value="March">March</option>
+          <option value="May">May</option>
+          <option value="June">June</option>
+          <option value="July">July</option>
+          <option value="August">August</option>
+          <option value="September">September</option>
+          <option value="October">October</option>
+          <option value="November">November</option>
+          <option value="December">December</option>
+        </select>
+      </div>
+
       <button type="submit">Submit</button>
     </form>
   </fieldset>

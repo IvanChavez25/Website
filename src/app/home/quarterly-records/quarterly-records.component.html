@@ -5,7 +5,6 @@
 
 <div class="container">
   <div class="navigation-buttons">
-    <button routerLink="/home/healthrecords">Health Records</button>
     <button routerLink="/home/quarterlyrecords">Quarterly Records</button>
     <button routerLink="/home/baselineweight">BaseLine</button>
     <button routerLink="/home/nutritionalstatus">Nutritional Status</button>
@@ -16,14 +15,28 @@
     </legend>
     <form (ngSubmit)="onSubmit()">
       <div>
-        <label for="nameOfChild">Name Of Child:</label>
+        <label for="searchChild">Search Child:</label>
         <input
           type="text"
+          id="searchChild"
+          name="searchChild"
+          [(ngModel)]="searchInput"
+          (input)="onSearchInputChange()"
+        />
+      </div>
+      <div>
+        <label for="nameOfChild">Name Of Child:</label>
+        <select
           id="nameOfChild"
           name="nameOfChild"
           [(ngModel)]="quarterlyData.nameOfChild"
           required
-        />
+        >
+          <option value="">Select a Child</option>
+          <option *ngFor="let child of filteredChildRecords" [ngValue]="child">
+            {{ child.firstName }} {{ child.lastName }}
+          </option>
+        </select>
       </div>
       <div>
         <label for="birthday">Birthday:</label>
@@ -31,6 +44,7 @@
           type="date"
           id="birthday"
           name="birthday"
+          [value]="getSelectedChildBirthday()"
           [(ngModel)]="quarterlyData.birthday"
           required
         />
@@ -41,6 +55,7 @@
           type="text"
           id="ageInMonth"
           name="ageInMonth"
+          [value]="getSelectedChildAge()"
           [(ngModel)]="quarterlyData.ageInMonth"
           required
         />
@@ -48,27 +63,29 @@
       <div>
         <label for="weight">Weight:</label>
         <input
-          type="number"
+          type="text"
           id="weight"
           name="weight"
+          [value]="getSelectedChildWeight()"
           [(ngModel)]="quarterlyData.weight"
           required
         />
       </div>
       <div>
-        <label for="heightOrLength">Height/Length:</label>
+        <label for="heightOrLength">Height Length:</label>
         <input
-          type="number"
+          type="text"
           id="heightOrLength"
           name="heightOrLength"
+          [value]="getSelectedChildHeight()"
           [(ngModel)]="quarterlyData.heightOrLength"
           required
         />
       </div>
       <div>
-        <label for="weightForLengthOrHeight">Weight for Length/Height:</label>
+        <label for="weightForLengthOrHeight">Weight for Height Length:</label>
         <input
-          type="number"
+          type="text"
           id="weightForLengthOrHeight"
           name="weightForLengthOrHeight"
           [(ngModel)]="quarterlyData.weightForLengthOrHeight"
@@ -90,6 +107,7 @@
         <select
           id="barangay"
           name="barangay"
+          [value]="getSelectedChildBarangay()"
           [(ngModel)]="quarterlyData.barangay"
           required
         >
@@ -138,6 +156,16 @@
         </select>
       </div>
       <div>
+        <label for="date">Date:</label>
+        <input
+          type="date"
+          id="date"
+          name="date"
+          [(ngModel)]="quarterlyData.date"
+          required
+        />
+      </div>
+      <div>
         <label for="measurementMonth">Measurement Month:</label>
         <select
           id="measurementMonth"
@@ -145,9 +173,15 @@
           [(ngModel)]="quarterlyData.measurementMonth"
         >
           <option value="January">January</option>
+          <option value="February">February</option>
           <option value="March">March</option>
+          <option value="May">May</option>
           <option value="June">June</option>
+          <option value="July">July</option>
+          <option value="August">August</option>
           <option value="September">September</option>
+          <option value="October">October</option>
+          <option value="November">November</option>
           <option value="December">December</option>
         </select>
       </div>

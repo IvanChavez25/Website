@@ -3,6 +3,271 @@
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
 />
 
+<div id="updateCon">
+  <div id="updateMonthlyWeightModal" #updateMonthlyWeightModal class="modal">
+    <div class="modal-content">
+      <form (ngSubmit)="updateMonthlyWeight()">
+        <legend>
+          Monthly Records of Weight and Weight Status Underweight and Severely
+          Underweight Cases
+        </legend>
+        <div>
+          <label for="birthday">Birthday:</label>
+          <input
+            type="date"
+            id="birthday"
+            name="birthday"
+            [(ngModel)]="monthlyWeightRecordsData.birthday"
+            required
+          />
+        </div>
+        <div>
+          <label for="birthday">Birthday:</label>
+          <input
+            type="date"
+            id="birthday"
+            name="birthday"
+            [(ngModel)]="monthlyWeightRecordsData.birthday"
+            required
+          />
+        </div>
+        <div>
+          <label for="ageInMonths">Age in Month:</label>
+          <input
+            type="text"
+            id="ageInMonths"
+            name="ageInMonths"
+            [(ngModel)]="monthlyWeightRecordsData.ageInMonths"
+            required
+          />
+        </div>
+        <div>
+          <label for="weight">Weight (kgs):</label>
+          <input
+            type="text"
+            id="weight"
+            name="weight"
+            [(ngModel)]="monthlyWeightRecordsData.weight"
+          />
+        </div>
+        <div>
+          <label for="weightStatus">Weight Status:</label>
+          <select
+            id="weightStatus"
+            name="weightStatus"
+            [(ngModel)]="monthlyWeightRecordsData.weightStatus"
+            required
+          >
+            <option value="Severely Underweight">Severely Underweight</option>
+            <option value="Underweight">Underweight</option>
+            <option value="Normal Weight">Normal Weight</option>
+            <option value="OverWeight">OverWeight</option>
+            <option value="Obese">Obese</option>
+          </select>
+        </div>
+        <div>
+          <label for="dateOfWeighing">Date of Weighing:</label>
+          <input
+            type="date"
+            id="dateOfWeighing"
+            name="dateOfWeighing"
+            [(ngModel)]="monthlyWeightRecordsData.dateOfWeighing"
+            required
+          />
+        </div>
+
+        <div>
+          <label for="barangay">Barangay:</label>
+          <select
+            id="barangay"
+            name="barangay"
+            [(ngModel)]="monthlyWeightRecordsData.barangay"
+            required
+          >
+            <option value="ABUNG">ABUNG</option>
+            <option value="BALAGBAG">BALAGBAG</option>
+            <option value="BARUALTE">BARUALTE</option>
+            <option value="BATAAN">BATAAN</option>
+            <option value="BUHAY NA SAPA">BUHAY NA SAPA</option>
+            <option value="BULSA">BULSA</option>
+            <option value="CALICANTO">CALICANTO</option>
+            <option value="CALITCALIT">CALITCALIT</option>
+            <option value="CALUBCUB 1">CALUBCUB 1</option>
+            <option value="CALUBCUB 2">CALUBCUB 2</option>
+            <option value="CATMON">CATMON</option>
+            <option value="COLOCONTO">COLOCONTO</option>
+            <option value="ESCRIBANO">ESCRIBANO</option>
+            <option value="HUGOM">HUGOM</option>
+            <option value="IMELDA (TUBOG)">IMELDA (TUBOG)</option>
+            <option value="JANAOJANAO">JANAOJANAO</option>
+            <option value="LAIYA-IBABAO">LAIYA-IBABAO</option>
+            <option value="LAIYA-APLAYA">LAIYA-APLAYA</option>
+            <option value="LIBATO">LIBATO</option>
+            <option value="LIPAHAN">LIPAHAN</option>
+            <option value="MABALANOY">MABALANOY</option>
+            <option value="NAGSAULAY">NAGSAULAY</option>
+            <option value="MARAYKIT">MARAYKIT</option>
+            <option value="MUZON">MUZON</option>
+            <option value="PALAHANAN 1">PALAHANAN 1</option>
+            <option value="PALAHANAN 2">PALAHANAN 2</option>
+            <option value="PALINGOWAK">PALINGOWAK</option>
+            <option value="PINAGBAYANAN">PINAGBAYANAN</option>
+            <option value="POBLACION">POBLACION</option>
+            <option value="POCTOL">POCTOL</option>
+            <option value="PULANGBATO">PULANGBATO</option>
+            <option value="PUTINGBUHANGIN">PUTINGBUHANGIN</option>
+            <option value="QUIPOT">QUIPOT</option>
+            <option value="SAMPIRO">SAMPIRO</option>
+            <option value="SAPANGAN">SAPANGAN</option>
+            <option value="SICO 1">SICO 1</option>
+            <option value="SICO 2">SICO 2</option>
+            <option value="SUBUKIN">SUBUKIN</option>
+            <option value="TALAHIBAN 1">TALAHIBAN 1</option>
+            <option value="TALAHIBAN 2">TALAHIBAN 2</option>
+            <option value="TICALAN">TICALAN</option>
+            <option value="TIPAZ">TIPAZ</option>
+          </select>
+        </div>
+        <div>
+          <label for="Date">Date:</label>
+          <input
+            type="date"
+            id="Date"
+            name="Date"
+            [(ngModel)]="monthlyWeightRecordsData.Date"
+            required
+          />
+        </div>
+        <div>
+          <label for="measurementMonth">Measurement Month:</label>
+          <select
+            id="measurementMonth"
+            name="measurementMonth"
+            [(ngModel)]="monthlyWeightRecordsData.measurementMonth"
+          >
+            <option value="January">January</option>
+            <option value="February">February</option>
+            <option value="March">March</option>
+            <option value="May">May</option>
+            <option value="June">June</option>
+            <option value="July">July</option>
+            <option value="August">August</option>
+            <option value="September">September</option>
+            <option value="October">October</option>
+            <option value="November">November</option>
+            <option value="December">December</option>
+          </select>
+        </div>
+      </form>
+      <button class="close" (click)="closeUpdateMonthlyWeightModal()">
+        Cancel
+      </button>
+
+      <button class="btn btn-primary" (click)="updateMonthlyWeight()">
+        Update Child
+      </button>
+    </div>
+  </div>
+</div>
+
+<fieldset class="fieldset1">
+  <div class="filter-container">
+    <label for="barangay">Barangay:</label>
+    <select
+      id="barangay"
+      name="barangay"
+      [(ngModel)]="selectedBarangay"
+      (change)="filterRecords()"
+      required
+    >
+      <option value="">ALL</option>
+      <option value="ABUNG">ABUNG</option>
+      <option value="BALAGBAG">BALAGBAG</option>
+      <option value="BARUALTE">BARUALTE</option>
+      <option value="BATAAN">BATAAN</option>
+      <option value="BUHAY NA SAPA">BUHAY NA SAPA</option>
+      <option value="BULSA">BULSA</option>
+      <option value="CALICANTO">CALICANTO</option>
+      <option value="CALITCALIT">CALITCALIT</option>
+      <option value="CALUBCUB 1">CALUBCUB 1</option>
+      <option value="CALUBCUB 2">CALUBCUB 2</option>
+      <option value="CATMON">CATMON</option>
+      <option value="COLOCONTO">COLOCONTO</option>
+      <option value="ESCRIBANO">ESCRIBANO</option>
+      <option value="HUGOM">HUGOM</option>
+      <option value="IMELDA (TUBOG)">IMELDA (TUBOG)</option>
+      <option value="JANAOJANAO">JANAOJANAO</option>
+      <option value="LAIYA-IBABAO">LAIYA-IBABAO</option>
+      <option value="LAIYA-APLAYA">LAIYA-APLAYA</option>
+      <option value="LIBATO">LIBATO</option>
+      <option value="LIPAHAN">LIPAHAN</option>
+      <option value="MABALANOY">MABALANOY</option>
+      <option value="NAGSAULAY">NAGSAULAY</option>
+      <option value="MARAYKIT">MARAYKIT</option>
+      <option value="MUZON">MUZON</option>
+      <option value="PALAHANAN 1">PALAHANAN 1</option>
+      <option value="PALAHANAN 2">PALAHANAN 2</option>
+      <option value="PALINGOWAK">PALINGOWAK</option>
+      <option value="PINAGBAYANAN">PINAGBAYANAN</option>
+      <option value="POBLACION">POBLACION</option>
+      <option value="POCTOL">POCTOL</option>
+      <option value="PULANGBATO">PULANGBATO</option>
+      <option value="PUTINGBUHANGIN">PUTINGBUHANGIN</option>
+      <option value="QUIPOT">QUIPOT</option>
+      <option value="SAMPIRO">SAMPIRO</option>
+      <option value="SAPANGAN">SAPANGAN</option>
+      <option value="SICO 1">SICO 1</option>
+      <option value="SICO 2">SICO 2</option>
+      <option value="SUBUKIN">SUBUKIN</option>
+      <option value="TALAHIBAN 1">TALAHIBAN 1</option>
+      <option value="TALAHIBAN 2">TALAHIBAN 2</option>
+      <option value="TICALAN">TICALAN</option>
+      <option value="TIPAZ">TIPAZ</option>
+    </select>
+
+    <label for="fromDate">FromDate:</label>
+    <input
+      type="date"
+      id="fromDate"
+      name="fromDate"
+      [(ngModel)]="fromDate"
+      (input)="filterRecords()"
+    />
+
+    <label for="toDate">ToDate:</label>
+    <input
+      type="date"
+      id="toDate"
+      name="toDate"
+      [(ngModel)]="toDate"
+      (input)="filterRecords()"
+    />
+
+    <label for="measurementMonth">Measurement Month:</label>
+    <select
+      id="measurementMonth"
+      name="measurementMonth"
+      [(ngModel)]="selectedMeasurementMonth"
+      (change)="filterRecords()"
+      required
+    >
+      <option value="">ALL</option>
+      <option value="January">January</option>
+      <option value="February">February</option>
+      <option value="March">March</option>
+      <option value="May">May</option>
+      <option value="June">June</option>
+      <option value="July">July</option>
+      <option value="August">August</option>
+      <option value="September">September</option>
+      <option value="October">October</option>
+      <option value="November">November</option>
+      <option value="December">December</option>
+    </select>
+
+    <button (click)="clearFilters()">Clear_Filters</button>
+  </div>
+</fieldset>
 <fieldset>
   <div>
     <div class="result-container">
@@ -20,18 +285,46 @@
                 <th>Weight Status</th>
                 <th>Date of Weighing</th>
                 <th>Barangay</th>
+                <th>Date</th>
+                <th>Measurement Month</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let record of monthlyWeightRecords">
                 <td>{{ record.monthlyWeightRecordsId }}</td>
-                <td>{{ record.nameOfChild }}</td>
+                <td>
+                  {{
+                    record.nameOfChild.firstName +
+                      " " +
+                      record.nameOfChild?.lastName
+                  }}
+                </td>
                 <td>{{ record.birthday }}</td>
-                <td>{{ record.ageInMonth }}</td>
+                <td>{{ record.ageInMonths }}</td>
                 <td>{{ record.weight }}</td>
                 <td>{{ record.weightStatus }}</td>
                 <td>{{ record.dateOfWeighing }}</td>
                 <td>{{ record.barangay }}</td>
+                <td>{{ record.Date }}</td>
+                <td>{{ record.measurementMonth }}</td>
+                <td>
+                  <a class="btn btn-sm btn-outline-dark"
+                    ><i class="fas fa-up-right-from-square"></i
+                  ></a>
+                  <button
+                    (click)="openUpdateMonthlyWeightModal(record)"
+                    class="update btn btn-sm btn-outline-warning"
+                  >
+                    Update
+                  </button>
+                  <button
+                    (click)="removeMonthlyWeight(record)"
+                    class="delete btn btn-sm btn-outline-danger"
+                  >
+                    Delete
+                  </button>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -40,5 +333,21 @@
       </fieldset>
     </div>
   </div>
+  <div class="pagination">
+    <button
+      class="paginationButton"
+      (click)="goToPage(currentPage - 1)"
+      [disabled]="currentPage === 1"
+    >
+      Previous
+    </button>
+    <span>Children Profile Page {{ currentPage }}</span>
+    <button
+      class="paginationButton"
+      (click)="goToPage(currentPage + 1)"
+      [disabled]="endIndex >= monthlyWeightRecords.length"
+    >
+      Next
+    </button>
+  </div>
 </fieldset>
-<router-outlet></router-outlet>

@@ -1,6 +1,17 @@
 import { Component } from '@angular/core';
-import { Database, set, ref, get } from '@angular/fire/database';
+import { AngularFireDatabase } from '@angular/fire/compat/database';
+import { NgForm } from '@angular/forms';
 import { Location } from '@angular/common';
+
+import {
+  Database,
+  set,
+  ref,
+  push,
+  update,
+  remove,
+  get,
+} from '@angular/fire/database';
 
 @Component({
   selector: 'app-monthly-weight',
@@ -9,6 +20,8 @@ import { Location } from '@angular/common';
 })
 export class MonthlyWeightComponent {
   childRecords: any[] = [];
+  searchInput: string = '';
+  filteredChildRecords: any[] = [];
 
   weight: number = 0;
 
@@ -16,11 +29,13 @@ export class MonthlyWeightComponent {
     monthlyWeightRecordsId: null,
     nameOfChild: '',
     birthday: '',
-    ageInMonth: '',
+    ageInMonths: '',
     weight: '',
     weightStatus: '',
     dateOfWeighing: '',
     barangay: '',
+    Date: '',
+    measurementMonth: '',
   };
 
   constructor(public database: Database, private location: Location) {
@@ -72,11 +87,13 @@ export class MonthlyWeightComponent {
     this.monthlyWeightRecordData = {
       nameOfChild: '',
       birthday: '',
-      ageInMonth: '',
+      ageInMonths: '',
       weight: '',
       weightStatus: '',
       dateOfWeighing: '',
       barangay: '',
+      Date: '',
+      measurementMonth: '',
     };
   }
 
@@ -84,11 +101,13 @@ export class MonthlyWeightComponent {
     return (
       this.monthlyWeightRecordData.nameOfChild &&
       this.monthlyWeightRecordData.birthday &&
-      this.monthlyWeightRecordData.ageInMonth &&
+      this.monthlyWeightRecordData.ageInMonths &&
       this.monthlyWeightRecordData.weight &&
       this.monthlyWeightRecordData.weightStatus &&
       this.monthlyWeightRecordData.dateOfWeighing &&
-      this.monthlyWeightRecordData.barangay
+      this.monthlyWeightRecordData.barangay &&
+      this.monthlyWeightRecordData.Date &&
+      this.monthlyWeightRecordData.measurementMonth
     );
   }
 
@@ -99,8 +118,10 @@ export class MonthlyWeightComponent {
       .then((snapshot) => {
         if (snapshot.exists()) {
           this.childRecords = Object.values(snapshot.val());
+          this.filteredChildRecords = this.childRecords; // Initialize filtered records
         } else {
           this.childRecords = [];
+          this.filteredChildRecords = [];
         }
       })
       .catch((error) => {
@@ -108,33 +129,81 @@ export class MonthlyWeightComponent {
       });
   }
 
+  onSearchInputChange() {
+    if (this.searchInput === '') {
+      // Show all children records when the search input is empty
+      this.filteredChildRecords = this.childRecords;
+    } else {
+      // Filter children records based on the search input
+      this.filteredChildRecords = this.childRecords.filter((child) => {
+        return (child.firstName + ' ' + child.lastName)
+          .toLowerCase()
+          .includes(this.searchInput.toLowerCase());
+      });
+    }
+  }
+
   getSelectedChildAge() {
-    const selectedChild = this.monthlyWeightRecordData.nameOfChild;
+    const selectedChildName = this.monthlyWeightRecordData.nameOfChild;
 
-    // Find the selected child in the childRecords array
-    const child = this.childRecords.find((c) => c === selectedChild);
+    const selectedChild = this.childRecords.find(
+      (c) => c === selectedChildName
+    );
 
-    // If a child is found, return its age
-    return child ? child.age : '';
+    if (selectedChild) {
+      this.monthlyWeightRecordData.ageInMonths = selectedChild.ageInMonths;
+      return selectedChild.ageInMonths;
+    } else {
+      this.monthlyWeightRecordData.ageInMonths = '';
+      return '';
+    }
   }
 
   getSelectedChildBirthday() {
-    const selectedChild = this.monthlyWeightRecordData.nameOfChild;
+    const selectedChildName = this.monthlyWeightRecordData.nameOfChild;
 
-    // Find the selected child in the childRecords array
-    const child = this.childRecords.find((c) => c === selectedChild);
+    const selectedChild = this.childRecords.find(
+      (c) => c === selectedChildName
+    );
 
-    // If a child is found, return its birthday
-    return child ? child.birthday : '';
+    if (selectedChild) {
+      this.monthlyWeightRecordData.birthday = selectedChild.birthday;
+      return selectedChild.birthday;
+    } else {
+      this.monthlyWeightRecordData.birthday = '';
+      return '';
+    }
+  }
+
+  getSelectedChildWeight() {
+    const selectedChildName = this.monthlyWeightRecordData.nameOfChild;
+
+    const selectedChild = this.childRecords.find(
+      (c) => c === selectedChildName
+    );
+
+    if (selectedChild) {
+      this.monthlyWeightRecordData.weight = selectedChild.weight;
+      return selectedChild.weight;
+    } else {
+      this.monthlyWeightRecordData.weight = '';
+      return '';
+    }
   }
 
   getSelectedChildBarangay() {
-    const selectedChild = this.monthlyWeightRecordData.nameOfChild;
+    const selectedChildName = this.monthlyWeightRecordData.nameOfChild;
 
-    // Find the selected child in the childRecords array
-    const child = this.childRecords.find((c) => c === selectedChild);
+    const selectedChild = this.childRecords.find(
+      (c) => c === selectedChildName
+    );
 
-    // If a child is found, return its barangay
-    return child ? child.barangay : '';
+    if (selectedChild) {
+      this.monthlyWeightRecordData.barangay = selectedChild.barangay;
+      return selectedChild.barangay;
+    } else {
+      this.monthlyWeightRecordData.barangay = '';
+      return '';
+    }
   }
 }

@@ -39,6 +39,8 @@ export class FamilyProfileComponent {
     foodProductionActivity: '',
     iodizedSalt: null,
     ifr: null,
+    date: '',
+    measurementMonth: '',
   };
 
   constructor(public database: Database) {}
@@ -98,6 +100,8 @@ export class FamilyProfileComponent {
       foodProductionActivity: '',
       iodizedSalt: '',
       ifr: '',
+      date: '',
+      measurementMonth: '',
     };
   }
 
@@ -120,7 +124,9 @@ export class FamilyProfileComponent {
       this.familyData.waterSource &&
       this.familyData.foodProductionActivity &&
       this.familyData.iodizedSalt ||
-      this.familyData.ifr
+      this.familyData.ifr ||
+      this.familyData.date &&
+      this.familyData.measurementMonth
     );
   }
 }

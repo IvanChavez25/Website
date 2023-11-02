@@ -26,11 +26,16 @@ export class ChildrenInfoComponent {
     lastName: '',
     birthday: null,
     age: null,
+    ageInMonths: '',
+    weight: '',
+    height: '',
     address: '',
     barangay: '',
     fatherName: '',
     motherName: '',
     gender: null,
+    date: '',
+    measurementMonth: '',
   };
 
   constructor(public database: Database) {}
@@ -74,11 +79,16 @@ export class ChildrenInfoComponent {
       lastName: '',
       birthday: '',
       age: '',
+      ageInMonths: '',
+      weight: '',
+      height: '',
       address: '',
       barangay: '',
       fatherName: '',
       motherName: '',
       gender: '',
+      date: '',
+      measurementMonth: '',
     };
   }
 
@@ -89,11 +99,18 @@ export class ChildrenInfoComponent {
       this.childData.lastName &&
       this.childData.birthday &&
       this.childData.age &&
+      this.childData.ageInMonths &&
+      this.childData.weight &&
+      this.childData.height &&
       this.childData.address &&
       this.childData.barangay &&
       this.childData.fatherName &&
       this.childData.motherName &&
-      this.childData.gender
+      this.childData.gender &&
+      this.childData.date &&
+      this.childData.measurementMonth
     );
   }
+
+  
 }

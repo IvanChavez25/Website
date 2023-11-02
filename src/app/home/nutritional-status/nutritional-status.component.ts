@@ -19,11 +19,14 @@ import {
   styleUrls: ['./nutritional-status.component.css'],
 })
 export class NutritionalStatusComponent {
+  childRecords: any[] = [];
+
   nutritionalData: any = {
     nutritionalId: null,
+    nameOfChild: '',
     fatherName: '',
     motherName: '',
-    nameOfChild: '',
+    barangay: '',
     birthday: '',
     OPTPlus: '',
     ageInMonths: '',
@@ -39,9 +42,15 @@ export class NutritionalStatusComponent {
     vitaminALastReceived: '',
     ironReceived: '',
     usingMNP: '',
+    date: '',
   };
 
-  constructor(public database: Database) {}
+  searchInput: string = '';
+  filteredChildRecords: any[] = [];
+
+  constructor(public database: Database, private location: Location) {
+    this.fetchChildRecords();
+  }
 
   onSubmit() {
     if (this.isValidnutritionalData()) {
@@ -60,8 +69,7 @@ export class NutritionalStatusComponent {
         }
 
         this.nutritionalData.nutritionalId = nutritionalId;
-
-        // Add nutritionalData to NutritionalRecord
+        
         set(
           ref(this.database, 'NutritionalRecord/' + nutritionalId),
           this.nutritionalData
@@ -82,9 +90,10 @@ export class NutritionalStatusComponent {
 
   private clearForm() {
     this.nutritionalData = {
+      nameOfChild: '',
       fatherName: '',
       motherName: '',
-      nameOfChild: '',
+      barangay: '',
       birthday: '',
       OPTPlus: '',
       ageInMonths: '',
@@ -100,14 +109,16 @@ export class NutritionalStatusComponent {
       vitaminALastReceived: '',
       ironReceived: '',
       usingMNP: '',
+      date: '',
     };
   }
 
   private isValidnutritionalData(): boolean {
     return (
+      this.nutritionalData.nameOfChild &&
       this.nutritionalData.fatherName &&
       this.nutritionalData.motherName &&
-      this.nutritionalData.nameOfChild &&
+      this.nutritionalData.barangay &&
       this.nutritionalData.birthday &&
       this.nutritionalData.OPTPlus &&
       this.nutritionalData.ageInMonths &&
@@ -122,7 +133,152 @@ export class NutritionalStatusComponent {
       this.nutritionalData.beneficiarySF &&
       this.nutritionalData.vitaminALastReceived &&
       this.nutritionalData.ironReceived &&
-      this.nutritionalData.usingMNP
+      this.nutritionalData.usingMNP &&
+      this.nutritionalData.date
     );
+  }
+
+  fetchChildRecords() {
+    const childRef = ref(this.database, 'ChildRecord');
+
+    get(childRef)
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          this.childRecords = Object.values(snapshot.val());
+          this.filteredChildRecords = this.childRecords;
+        } else {
+          this.childRecords = [];
+          this.filteredChildRecords = [];
+        }
+      })
+      .catch((error) => {
+        console.error('Error retrieving records:', error);
+      });
+  }
+
+  onSearchInputChange() {
+    if (this.searchInput === '') {
+      // Show all children records when the search input is empty
+      this.filteredChildRecords = this.childRecords;
+    } else {
+      // Filter children records based on the search input
+      this.filteredChildRecords = this.childRecords.filter((child) => {
+        return (child.firstName + ' ' + child.lastName)
+          .toLowerCase()
+          .includes(this.searchInput.toLowerCase());
+      });
+    }
+  }
+
+  getSelectedChildMother() {
+    const selectedChildName = this.nutritionalData.nameOfChild;
+
+    const selectedChild = this.childRecords.find(
+      (c) => c === selectedChildName
+    );
+
+    if (selectedChild) {
+      this.nutritionalData.motherName = selectedChild.motherName;
+      return selectedChild.motherName;
+    } else {
+      this.nutritionalData.motherName = '';
+      return '';
+    }
+  }
+
+  getSelectedChildFather() {
+    const selectedChildName = this.nutritionalData.nameOfChild;
+
+    const selectedChild = this.childRecords.find(
+      (c) => c === selectedChildName
+    );
+
+    if (selectedChild) {
+      this.nutritionalData.fatherName = selectedChild.fatherName;
+      return selectedChild.fatherName;
+    } else {
+      this.nutritionalData.fatherName = '';
+      return '';
+    }
+  }
+
+  getSelectedChildBirthday() {
+    const selectedChildName = this.nutritionalData.nameOfChild;
+
+    const selectedChild = this.childRecords.find(
+      (c) => c === selectedChildName
+    );
+
+    if (selectedChild) {
+      this.nutritionalData.birthday = selectedChild.birthday;
+      return selectedChild.birthday;
+    } else {
+      this.nutritionalData.birthday = '';
+      return '';
+    }
+  }
+
+  getSelectedChildAge() {
+    const selectedChildName = this.nutritionalData.nameOfChild;
+
+    const selectedChild = this.childRecords.find(
+      (c) => c === selectedChildName
+    );
+
+    if (selectedChild) {
+      this.nutritionalData.ageInMonths = selectedChild.ageInMonths;
+      return selectedChild.ageInMonths;
+    } else {
+      this.nutritionalData.ageInMonths = '';
+      return '';
+    }
+  }
+
+  getSelectedChildWeight() {
+    const selectedChildName = this.nutritionalData.nameOfChild;
+
+    const selectedChild = this.childRecords.find(
+      (c) => c === selectedChildName
+    );
+
+    if (selectedChild) {
+      this.nutritionalData.weight = selectedChild.weight;
+      return selectedChild.weight;
+    } else {
+      this.nutritionalData.weight = '';
+      return '';
+    }
+  }
+
+  getSelectedChildHeight() {
+    const selectedChildName = this.nutritionalData.nameOfChild;
+
+    const selectedChild = this.childRecords.find(
+      (c) => c === selectedChildName
+    );
+
+    if (selectedChild) {
+      this.nutritionalData.height = selectedChild.height;
+      return selectedChild.height;
+    } else {
+      this.nutritionalData.height = '';
+      return '';
+    }
+  }
+
+  getSelectedChildBarangay() {
+    const selectedChildName = this.nutritionalData.nameOfChild;
+
+    const selectedChild = this.childRecords.find(
+      (c) => c === selectedChildName
+    );
+
+    if (selectedChild) {
+      this.nutritionalData.barangay = selectedChild.barangay;
+      return selectedChild.barangay;
+    } else {
+      this.nutritionalData.barangay = '';
+      return '';
+    }
   }
 }

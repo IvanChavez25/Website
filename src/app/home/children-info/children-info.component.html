@@ -3,12 +3,13 @@
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
 />
 
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <div class="container">
   <div class="navigation-buttons">
     <button routerLink="/home/childreninfo">Children Info</button>
     <button routerLink="/home/familyprofile">Family Profile</button>
   </div>
- 
+
   <fieldset class="fieldset1">
     <legend class="legend1">Children Profile</legend>
     <form (ngSubmit)="onSubmit()">
@@ -58,6 +59,36 @@
           id="age"
           name="age"
           [(ngModel)]="childData.age"
+          required
+        />
+      </div>
+      <div>
+        <label for="ageInMonths">Age in Months:</label>
+        <input
+          type="text"
+          id="ageInMonths"
+          name="ageInMonths"
+          [(ngModel)]="childData.ageInMonths"
+          required
+        />
+      </div>
+      <div>
+        <label for="weight">Weight (kgs):</label>
+        <input
+          type="text"
+          id="weight"
+          name="weight"
+          [(ngModel)]="childData.weight"
+          required
+        />
+      </div>
+      <div>
+        <label for="height">Height (cm):</label>
+        <input
+          type="text"
+          id="height"
+          name="height"
+          [(ngModel)]="childData.height"
           required
         />
       </div>
@@ -163,6 +194,36 @@
           required
         />
         <label for="female">Female</label>
+      </div>
+      <div>
+        <label for="date">Date:</label>
+        <input
+          type="date"
+          id="date"
+          name="date"
+          [(ngModel)]="childData.date"
+          required
+        />
+      </div>
+      <div>
+        <label for="measurementMonth">Measurement Month:</label>
+        <select
+          id="measurementMonth"
+          name="measurementMonth"
+          [(ngModel)]="childData.measurementMonth"
+        >
+          <option value="January">January</option>
+          <option value="February">February</option>
+          <option value="March">March</option>
+          <option value="May">May</option>
+          <option value="June">June</option>
+          <option value="July">July</option>
+          <option value="August">August</option>
+          <option value="September">September</option>
+          <option value="October">October</option>
+          <option value="November">November</option>
+          <option value="December">December</option>
+        </select>
       </div>
       <div>
         <button type="submit">Submit</button>

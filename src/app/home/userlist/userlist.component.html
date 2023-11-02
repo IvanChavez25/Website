@@ -1,0 +1,50 @@
+<div *ngIf="selectedUser" class="edit-form">
+  <h2>Edit User</h2>
+  <div>
+    <label>Username:</label>
+    <input [(ngModel)]="selectedUser.username" name="username" />
+  </div>
+  <div>
+    <label>Password</label>
+    <input [(ngModel)]="selectedUser.password" name="username" />
+  </div>
+  <div>
+    <label>Email:</label>
+    <input [(ngModel)]="selectedUser.email" name="email" />
+  </div>
+  <div class="button-container">
+    <button (click)="updateUser()">Save</button>
+    <button (click)="cancelEdit()">Cancel</button>
+  </div>
+</div>
+
+<fieldset>
+  <div>
+    <div class="userList">
+      <fieldset id="userRecords">
+        <label class="legend1">Create User</label>
+        <table>
+          <thead>
+            <tr>
+              <th>User ID</th>
+              <th>Username</th>
+              <th>Email</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of userList">
+              <td>{{ user.uid }}</td>
+              <td>{{ user.username }}</td>
+              <td>{{ user.email }}</td>
+              <td>
+                <button (click)="editUser(user)">Edit</button>
+                <button (click)="deleteUser(user)">Delete</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </fieldset>
+    </div>
+  </div>
+</fieldset>

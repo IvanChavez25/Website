@@ -17,6 +17,17 @@
     </legend>
     <form (ngSubmit)="onSubmit()">
       <div>
+        <label for="searchChild">Search Child:</label>
+        <input
+          type="text"
+          id="searchChild"
+          name="searchChild"
+          [(ngModel)]="searchInput"
+          (input)="onSearchInputChange()"
+        />
+      </div>
+
+      <div>
         <label for="nameOfChild">Name Of Child:</label>
         <select
           id="nameOfChild"
@@ -25,7 +36,7 @@
           required
         >
           <option value="">Select a Child</option>
-          <option *ngFor="let child of childRecords" [ngValue]="child">
+          <option *ngFor="let child of filteredChildRecords" [ngValue]="child">
             {{ child.firstName }} {{ child.lastName }}
           </option>
         </select>
@@ -44,13 +55,13 @@
       </div>
 
       <div>
-        <label for="ageInMonth.">Age in Month:</label>
+        <label for="ageInMonths.">Age in Month:</label>
         <input
           type="text"
-          id="ageInMonth"
-          name="ageInMonth"
+          id="ageInMonths"
+          name="ageInMonths"
           [value]="getSelectedChildAge()"
-          [(ngModel)]="monthlyInfantRecordData.ageInMonth"
+          [(ngModel)]="monthlyInfantRecordData.ageInMonths"
           required
         />
       </div>
@@ -61,25 +72,27 @@
         <div>
           <label for="weight">Weight:</label>
           <input
-            type="number"
+            type="text"
             id="weight"
             name="weight"
+            [value]="getSelectedChildWeight()"
             [(ngModel)]="monthlyInfantRecordData.weight"
           />
         </div>
         <div>
-          <label for="heightOrLength">Height/Length:</label>
+          <label for="heightOrLength">Height Length:</label>
           <input
-            type="number"
+            type="text"
             id="heightOrLength"
             name="heightOrLength"
+            [value]="getSelectedChildHeight()"
             [(ngModel)]="monthlyInfantRecordData.heightOrLength"
           />
         </div>
         <div>
-          <label for="weightForLengthOrHeight">Weight for Length/Height:</label>
+          <label for="weightForLengthOrHeight">Weight for Height Length:</label>
           <input
-            type="number"
+            type="text"
             id="weightForLengthOrHeight"
             name="weightForLengthOrHeight"
             [(ngModel)]="monthlyInfantRecordData.weightForLengthOrHeight"
@@ -104,7 +117,7 @@
           </select>
         </div>
         <div>
-          <label for="heightOrLengths">Height/Length (H/L):</label>
+          <label for="heightOrLengths">Height Length (H/L):</label>
           <input
             type="text"
             id="heightOrLengths"
@@ -115,7 +128,7 @@
         </div>
         <div>
           <label for="weightForLengthorHeight"
-            >Weight for Length/Height (W/L/H):</label
+            >Weight for Height Length (W/L/H):</label
           >
           <input
             type="text"
@@ -177,7 +190,36 @@
           <option value="TALAHIBAN 2">TALAHIBAN 2</option>
           <option value="TICALAN">TICALAN</option>
           <option value="TIPAZ">TIPAZ</option>
-          >
+        </select>
+      </div>
+      <div>
+        <label for="Date">Date:</label>
+        <input
+          type="date"
+          id="Date"
+          name="Date"
+          [(ngModel)]="monthlyInfantRecordData.Date"
+          required
+        />
+      </div>
+      <div>
+        <label for="measurementMonth">Measurement Month:</label>
+        <select
+          id="measurementMonth"
+          name="measurementMonth"
+          [(ngModel)]="monthlyInfantRecordData.measurementMonth"
+        >
+          <option value="January">January</option>
+          <option value="February">February</option>
+          <option value="March">March</option>
+          <option value="May">May</option>
+          <option value="June">June</option>
+          <option value="July">July</option>
+          <option value="August">August</option>
+          <option value="September">September</option>
+          <option value="October">October</option>
+          <option value="November">November</option>
+          <option value="December">December</option>
         </select>
       </div>
       <button type="submit">Submit</button>

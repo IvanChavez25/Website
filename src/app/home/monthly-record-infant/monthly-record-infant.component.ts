@@ -1,6 +1,17 @@
 import { Component } from '@angular/core';
-import { Database, set, ref, get } from '@angular/fire/database';
+import { AngularFireDatabase } from '@angular/fire/compat/database';
+import { NgForm } from '@angular/forms';
 import { Location } from '@angular/common';
+
+import {
+  Database,
+  set,
+  ref,
+  push,
+  update,
+  remove,
+  get,
+} from '@angular/fire/database';
 
 @Component({
   selector: 'app-monthly-record-infant',
@@ -19,7 +30,7 @@ export class MonthlyRecordInfantComponent {
     monthlyInfantRecordsId: null,
     nameOfChild: '',
     birthday: '',
-    ageInMonth: '',
+    ageInMonths: '',
     weight: '',
     heightOrLength: '',
     weightForLengthOrHeight: '',
@@ -27,7 +38,12 @@ export class MonthlyRecordInfantComponent {
     heightOrLengths: '',
     weightForLengthorHeight: '',
     barangay: '',
+    Date: '',
+    measurementMonth: '',
   };
+
+  searchInput: string = '';
+  filteredChildRecords: any[] = [];
 
   constructor(public database: Database, private location: Location) {
     this.fetchChildRecords();
@@ -78,7 +94,7 @@ export class MonthlyRecordInfantComponent {
     this.monthlyInfantRecordData = {
       nameOfChild: '',
       birthday: '',
-      ageInMonth: '',
+      ageInMonths: '',
       weight: '',
       heightOrLength: '',
       weightForLengthOrHeight: '',
@@ -86,6 +102,8 @@ export class MonthlyRecordInfantComponent {
       heightOrLengths: '',
       weightForLengthorHeight: '',
       barangay: '',
+      Date: '',
+      measurementMonth: '',
     };
   }
 
@@ -93,14 +111,16 @@ export class MonthlyRecordInfantComponent {
     return (
       this.monthlyInfantRecordData.nameOfChild &&
       this.monthlyInfantRecordData.birthday &&
-      this.monthlyInfantRecordData.ageInMonth &&
+      this.monthlyInfantRecordData.ageInMonths &&
       this.monthlyInfantRecordData.weight &&
       this.monthlyInfantRecordData.heightOrLength &&
       this.monthlyInfantRecordData.weightForLengthOrHeight &&
       this.monthlyInfantRecordData.weightForAge &&
       this.monthlyInfantRecordData.heightOrLengths &&
       this.monthlyInfantRecordData.weightForLengthorHeight &&
-      this.monthlyInfantRecordData.barangay
+      this.monthlyInfantRecordData.barangay &&
+      this.monthlyInfantRecordData.Date &&
+      this.monthlyInfantRecordData.measurementMonth
     );
   }
 
@@ -111,8 +131,10 @@ export class MonthlyRecordInfantComponent {
       .then((snapshot) => {
         if (snapshot.exists()) {
           this.childRecords = Object.values(snapshot.val());
+          this.filteredChildRecords = this.childRecords; // Initialize filtered records
         } else {
           this.childRecords = [];
+          this.filteredChildRecords = [];
         }
       })
       .catch((error) => {
@@ -120,33 +142,97 @@ export class MonthlyRecordInfantComponent {
       });
   }
 
+  onSearchInputChange() {
+    if (this.searchInput === '') {
+      // Show all children records when the search input is empty
+      this.filteredChildRecords = this.childRecords;
+    } else {
+      // Filter children records based on the search input
+      this.filteredChildRecords = this.childRecords.filter((child) => {
+        return (child.firstName + ' ' + child.lastName)
+          .toLowerCase()
+          .includes(this.searchInput.toLowerCase());
+      });
+    }
+  }
+
   getSelectedChildAge() {
-    const selectedChild = this.monthlyInfantRecordData.nameOfChild;
+    const selectedChildName = this.monthlyInfantRecordData.nameOfChild;
 
-    // Find the selected child in the childRecords array
-    const child = this.childRecords.find((c) => c === selectedChild);
+    const selectedChild = this.childRecords.find(
+      (c) => c === selectedChildName
+    );
 
-    // If a child is found, return its age
-    return child ? child.age : '';
+    if (selectedChild) {
+      this.monthlyInfantRecordData.ageInMonths = selectedChild.ageInMonths;
+      return selectedChild.ageInMonths;
+    } else {
+      this.monthlyInfantRecordData.ageInMonths = '';
+      return '';
+    }
+  }
+
+  getSelectedChildWeight() {
+    const selectedChildName = this.monthlyInfantRecordData.nameOfChild;
+
+    const selectedChild = this.childRecords.find(
+      (c) => c === selectedChildName
+    );
+
+    if (selectedChild) {
+      this.monthlyInfantRecordData.weight = selectedChild.weight;
+      return selectedChild.weight;
+    } else {
+      this.monthlyInfantRecordData.weight = '';
+      return '';
+    }
+  }
+
+  getSelectedChildHeight() {
+    const selectedChildName = this.monthlyInfantRecordData.nameOfChild;
+
+    const selectedChild = this.childRecords.find(
+      (c) => c === selectedChildName
+    );
+
+    if (selectedChild) {
+      this.monthlyInfantRecordData.heightOrLength = selectedChild.height;
+      return selectedChild.height;
+    } else {
+      this.monthlyInfantRecordData.heightOrLength = '';
+      return '';
+    }
   }
 
   getSelectedChildBirthday() {
-    const selectedChild = this.monthlyInfantRecordData.nameOfChild;
+    const selectedChildName = this.monthlyInfantRecordData.nameOfChild;
 
-    // Find the selected child in the childRecords array
-    const child = this.childRecords.find((c) => c === selectedChild);
+    const selectedChild = this.childRecords.find(
+      (c) => c === selectedChildName
+    );
 
-    // If a child is found, return its birthday
-    return child ? child.birthday : '';
+    if (selectedChild) {
+      this.monthlyInfantRecordData.birthday = selectedChild.birthday;
+      return selectedChild.birthday;
+    } else {
+      this.monthlyInfantRecordData.birthday = '';
+      return '';
+    }
   }
 
   getSelectedChildBarangay() {
-    const selectedChild = this.monthlyInfantRecordData.nameOfChild;
+    const selectedChildName = this.monthlyInfantRecordData.nameOfChild;
 
-    // Find the selected child in the childRecords array
-    const child = this.childRecords.find((c) => c === selectedChild);
+    const selectedChild = this.childRecords.find(
+      (c) => c === selectedChildName
+    );
 
-    // If a child is found, return its barangay
-    return child ? child.barangay : '';
+    if (selectedChild) {
+      this.monthlyInfantRecordData.barangay = selectedChild.barangay;
+      return selectedChild.barangay;
+    } else {
+      this.monthlyInfantRecordData.barangay = '';
+      return '';
+    }
   }
 }

@@ -30,6 +30,8 @@ export class BaselineWeightComponent {
     weight: '',
     weightStatus: '',
     barangay: '',
+    date: '',
+    measumentMonth: '',
   };
 
   constructor(public database: Database) {}
@@ -88,6 +90,7 @@ export class BaselineWeightComponent {
       weight: '',
       weightStatus: '',
       barangay: '',
+      date: '',
     };
   }
 
@@ -108,7 +111,9 @@ export class BaselineWeightComponent {
         this.baselineData.ageInMonth &&
         this.baselineData.weight &&
         this.baselineData.weightStatus &&
-        this.baselineData.barangay)
+        this.baselineData.barangay &&
+        this.baselineData.date &&
+        this.baselineData.measumentMonth )
     );
   }
 }

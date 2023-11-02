@@ -1,0 +1,32 @@
+<div class="barangay-ranking">
+  <fieldset id="bmiranking">
+    <section class="barangay-nutritional-status">
+      <h2>Barangay HeightForAge Nutritional Status</h2>
+      <table class="nutritional-status-table">
+        <thead>
+          <tr>
+            <th>Barangay</th>
+            <th>Severely Stunted</th>
+            <th>Stunted</th>
+            <th>Normal</th>
+            <th>Tall</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let barangay of barangayData">
+            <td>{{ barangay.barangay }}</td>
+            <td>{{ barangay.severelyStunted }}</td>
+            <td>{{ barangay.stunted }}</td>
+            <td>{{ barangay.normal }}</td>
+            <td>{{ barangay.tall }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </fieldset>
+</div>
+<div class="container">
+  <div class="chart-container">
+    <canvas id="lineGraphHeight"></canvas>
+  </div>
+</div>
