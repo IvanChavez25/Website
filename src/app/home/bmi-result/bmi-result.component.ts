@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Database, ref, get, remove } from '@angular/fire/database';
 import { Location } from '@angular/common';
 
@@ -17,9 +17,6 @@ export class BMIResultComponent {
   toDate: string = '';
   selectedMeasurementMonth: string = '';
 
-  currentPage: number = 1;
-  itemsPerPage: number = 10;
-
   resultMessage: string = '';
   showResult: boolean = false;
   results: {
@@ -31,6 +28,9 @@ export class BMIResultComponent {
     bmi: number;
     resultMessage: string;
   }[] = [];
+
+  currentPage: number = 1;
+  itemsPerPage: number = 10;
 
   constructor(public database: Database, private location: Location) {
     this.fetchBmiRecords();
@@ -171,6 +171,12 @@ export class BMIResultComponent {
   }
 
   goToPage(pageNumber: number) {
+    if (
+      pageNumber < 1 ||
+      pageNumber * this.itemsPerPage > this.bmiRecords.length
+    ) {
+      return;
+    }
     this.currentPage = pageNumber;
   }
 }

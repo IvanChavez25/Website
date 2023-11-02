@@ -70,7 +70,7 @@ body {
 .dropdown-menu {
   display: none;
   position: absolute;
-  top: 100%;
+  top: 120%;
   right: 0;
   background-color: #fff;
   padding: 10px;
@@ -82,7 +82,7 @@ body {
 }
 
 .dropdown-menu li {
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 }
 
 .dropdown-menu li a {
@@ -94,16 +94,6 @@ body {
 
 .menu-button:hover .dropdown-menu {
   display: block;
-}
-
-.container {
-  max-width: 600px;
-  margin: 20px auto;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: #f9f9f9;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .navigation-buttons {
@@ -125,27 +115,6 @@ body {
   background-color: #0056b3;
 }
 
-form {
-  max-width: 400px;
-  margin: 0 auto;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: #f9f9f9;
-}
-
-/* Style form input fields and labels */
-form div {
-  margin-bottom: 10px;
-}
-
-label {
-  display: block;
-  font-weight: bold;
-  margin-bottom: 5px;
-}
-
-/* dropdown.component.css */
 .dropdown {
   position: relative;
   display: inline-block;
@@ -160,7 +129,7 @@ label {
 }
 
 .dropdown-content {
-  display: none; /* Initially hide the dropdown content */
+  display: none;
   position: absolute;
   background-color: #fff;
   min-width: 160px;
@@ -179,7 +148,6 @@ label {
   background-color: #f2f2f2;
 }
 
-/* Show the dropdown content when hovering over the parent .dropdown element */
 .dropdown:hover .dropdown-content {
   display: block;
 }

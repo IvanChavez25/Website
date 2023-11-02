@@ -99,6 +99,7 @@ export class NutritionalStatusSummaryWeightforheightComponent {
 
     this.barangayData = groupedData;
   }
+  
   createLineGraph() {
     const ctx = document.getElementById(
       'lineGraphWeightHeight'
