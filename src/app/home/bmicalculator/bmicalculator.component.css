@@ -32,7 +32,7 @@ select {
 #btn-calc {
   width: 100%;
   padding: 10px;
-  background-color: #4caf50;
+  background-color: #79AC78;
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -43,7 +43,7 @@ input:hover,
 input:focus,
 select:hover,
 select:focus {
-  border-color: #4caf50;
+  border-color: #B0D9B1;
 }
 
 .result {

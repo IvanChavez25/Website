@@ -43,7 +43,9 @@
       </a>
     </li>
     <li *ngIf="userRole === 'admin'">
-      <app-nutritional-dropdown></app-nutritional-dropdown>
+      <a routerLink="/home/rankingbmi">
+        <i class="fa fa-bar-chart"></i> BMI Barangay Ranking
+      </a>
     </li>
     <li>
       <button class="menu-button">
@@ -52,25 +54,9 @@
           <li>
             <app-profile-dropdown></app-profile-dropdown>
           </li>
-          <li>
+          <li *ngIf="userRole === 'bhw'">
             <a routerLink="/home/rankingbmi">
               <i class="fa fa-bar-chart"></i> BMI Barangay Ranking
-            </a>
-          </li>
-          <li *ngIf="userRole === 'bhw'">
-            <a routerLink="/home/nutritionalsummary">
-              <i class="fa fa-bar-chart"></i> WeightForAge Nutritional Summary
-            </a>
-          </li>
-          <li *ngIf="userRole === 'bhw'">
-            <a routerLink="/home/nutritionalsummaryheight">
-              <i class="fa fa-bar-chart"></i> HeightForAge Nutritional Summary
-            </a>
-          </li>
-          <li *ngIf="userRole === 'bhw'">
-            <a routerLink="/home/nutritionalsummaryweight">
-              <i class="fa fa-bar-chart"></i> WeightForHeight Nutritional
-              Summary
             </a>
           </li>
           <li>
@@ -80,6 +66,9 @@
           </li>
           <li>
             <app-monthly-dropdown></app-monthly-dropdown>
+          </li>
+          <li *ngIf="userRole === 'admin'">
+            <app-nutritional-dropdown></app-nutritional-dropdown>
           </li>
           <li>
             <a routerLink="/home/quarterlytable">

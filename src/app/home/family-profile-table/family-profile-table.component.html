@@ -258,13 +258,12 @@
             <option value="December">December</option>
           </select>
         </div>
+        <button class="close" (click)="closeUpdateFamilyModal()">Cancel</button>
+
+        <button class="btn btn-primary" (click)="updateFamily()">
+          Update Child
+        </button>
       </form>
-
-      <button class="close" (click)="closeUpdateFamilyModal()">Cancel</button>
-
-      <button class="btn btn-primary" (click)="updateFamily()">
-        Update Child
-      </button>
     </div>
   </div>
 </div>
@@ -424,8 +423,8 @@
                 <td>{{ record.foodProductionActivity }}</td>
                 <td>{{ record.iodizedSalt ? "Yes" : "No" }}</td>
                 <td>{{ record.ifr ? "Yes" : "No" }}</td>
-                <td>{{ record.date}}</td>
-                <td>{{ record.measurementMonth}}</td>
+                <td>{{ record.date }}</td>
+                <td>{{ record.measurementMonth }}</td>
                 <td>
                   <a class="btn btn-sm btn-outline-dark"
                     ><i class="fas fa-up-right-from-square"></i

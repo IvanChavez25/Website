@@ -43,6 +43,7 @@ export class NutritionalStatusComponent {
     ironReceived: '',
     usingMNP: '',
     date: '',
+    measurementMonth: '',
   };
 
   searchInput: string = '';
@@ -110,6 +111,7 @@ export class NutritionalStatusComponent {
       ironReceived: '',
       usingMNP: '',
       date: '',
+      measurementMonth: '',
     };
   }
 
@@ -134,7 +136,8 @@ export class NutritionalStatusComponent {
       this.nutritionalData.vitaminALastReceived &&
       this.nutritionalData.ironReceived &&
       this.nutritionalData.usingMNP &&
-      this.nutritionalData.date
+      this.nutritionalData.date &&
+      this.nutritionalData.measurementMonth
     );
   }
 

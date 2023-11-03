@@ -1,14 +1,25 @@
-<div class="dropdown">
-  <button class="dropdown-button"><i class="fa fa-table"></i> Monthly Records<i class="fa fa-arrow-down"></i> Result Table</button>
+<div class="dropdown" [ngClass]="{ open: isDropdownOpen }">
+  <button class="dropdown-button" (click)="toggleDropdown()">
+    <i class="fa fa-table"></i> Monthly Records
+    <i class="fa fa-arrow-down"></i> Result Table
+  </button>
   <div class="dropdown-content">
-    <li>
-      <a routerLink="/home/monthlyheightrecordstable"><i class="fa fa-table"></i> Monthly Height Records Table</a>
-    </li>
-    <li>
-      <a routerLink="/home/monthlyweightrecordstable"><i class="fa fa-table"></i> Monthly Weight Records Table</a>
-    </li>
-    <li>
-      <a  routerLink="/home/monthlyrecordsinfanttable"><i class="fa fa-table"></i> Monthly Records (Infant) Table</a>
-    </li>
+    <ul>
+      <li>
+        <a routerLink="/home/monthlyheightrecordstable"
+          ><i class="fa fa-table"></i> Monthly Height Records Table</a
+        >
+      </li>
+      <li>
+        <a routerLink="/home/monthlyweightrecordstable"
+          ><i class="fa fa-table"></i> Monthly Weight Records Table</a
+        >
+      </li>
+      <li>
+        <a routerLink="/home/monthlyrecordsinfanttable"
+          ><i class="fa fa-table"></i> Monthly Records (Infant) Table</a
+        >
+      </li>
+    </ul>
   </div>
 </div>

@@ -1,7 +1,5 @@
 #updateCon {
-  background-color: white;
   border-radius: 10px;
-  border: 2px solid #ccc;
   padding: 5px;
   position: absolute;
   justify-content: center;
@@ -10,7 +8,7 @@
   font-weight: bold;
 
   left: 50%;
-  top: 80%;
+  top: 95%;
   transform: translate(-50%, -50%);
 }
 
@@ -78,7 +76,7 @@ legend {
 .result-table table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 50%;
+  font-size: 43%;
 }
 
 .result-table th,
@@ -137,7 +135,7 @@ legend {
 .filter-container label {
   flex: 2;
   text-align: center;
-  background-color: #4caf50;
+  background-color: #79AC78;
   border-radius: 4px;
   padding: 5px 10px;
   margin-bottom: 2px;
@@ -159,7 +157,7 @@ legend {
 
 .filter-container button {
   flex: 1;
-  background-color: #4caf50;
+  background-color: #79AC78;
   color: #fff;
   border: none;
   border-radius: 4px;
@@ -171,7 +169,7 @@ legend {
 }
 
 .filter-container button:hover {
-  background-color: #138a17;
+  background-color: #B0D9B1;
 }
 
 .pagination {
@@ -198,9 +196,9 @@ legend {
   cursor: pointer;
   font-size: 15px;
   margin: 0 5px;
-  background-color: #4caf50;
+  background-color: #79AC78;
 }
 
 .pagination button:hover {
-  background-color: #138a17;
+  background-color: #B0D9B1;
 }

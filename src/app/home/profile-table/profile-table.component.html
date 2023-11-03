@@ -220,13 +220,12 @@
             <option value="December">December</option>
           </select>
         </div>
+        <button (click)="closeUpdateChildModal()">Cancel</button>
+
+        <button class="btn btn-primary" (click)="updateChild()">
+          Update Child
+        </button>
       </form>
-
-      <button class="close" (click)="closeUpdateChildModal()">Cancel</button>
-
-      <button class="btn btn-primary" (click)="updateChild()">
-        Update Child
-      </button>
     </div>
   </div>
 </div>

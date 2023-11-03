@@ -154,6 +154,7 @@ export class NutritionalTableComponent {
       ironReceived: this.nutritionalRecordsData.ironReceived,
       usingMNP: this.nutritionalRecordsData.usingMNP,
       date: this.nutritionalRecordsData.date,
+      measurementMonth: this.nutritionalRecordsData.measurementMonth,
     })
       .then(() => {
         alert('Nutritional Data Updated successfully');

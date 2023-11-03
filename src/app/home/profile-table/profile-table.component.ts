@@ -19,7 +19,6 @@ export class ProfileTableComponent {
 
   @ViewChild('updateChildModal') updateChildModal!: ElementRef;
 
-  // Add pagination variables
   currentPage: number = 1;
   itemsPerPage: number = 10;
 
@@ -28,7 +27,6 @@ export class ProfileTableComponent {
   }
 
   ngAfterViewInit() {
-    // Hide the updateChildModal on page load
     this.updateChildModal.nativeElement.style.display = 'none';
   }
 
@@ -49,7 +47,6 @@ export class ProfileTableComponent {
       });
   }
 
-  // Calculate the index range to display based on the current page
   get startIndex(): number {
     return (this.currentPage - 1) * this.itemsPerPage;
   }
@@ -59,17 +56,14 @@ export class ProfileTableComponent {
   }
 
   filterRecords() {
-    // Create a copy of the original data
     let filteredRecords = [...this.originalChildRecords];
 
-    // Apply the barangay filter
     if (this.selectedBarangay) {
       filteredRecords = filteredRecords.filter(
         (record) => record.barangay === this.selectedBarangay
       );
     }
 
-    // Apply the date range filter if either fromDate or toDate is provided
     if (this.fromDate || this.toDate) {
       filteredRecords = filteredRecords.filter((record) => {
         const recordDate = new Date(record.Date);
@@ -90,7 +84,7 @@ export class ProfileTableComponent {
           return recordDate <= toDateObj;
         }
 
-        return true; // No date filter applied
+        return true;
       });
     }
 
@@ -100,26 +94,19 @@ export class ProfileTableComponent {
       );
     }
 
-    // Update the monthlyHeightRecords with the filtered data
     this.childRecords = filteredRecords;
   }
 
   clearFilters() {
-    // Clear the selected barangay, from date, and to date
     this.selectedBarangay = '';
     this.fromDate = '';
     this.toDate = '';
     this.selectedMeasurementMonth = '';
-
-    // Reset the monthlyHeightRecords to the original data
     this.childRecords = [...this.originalChildRecords];
   }
 
   openUpdateChildModal(child: any) {
-    // Set the children data in the component to be used in the modal form
     this.childRecordsData = { ...child };
-
-    // Open the update children modal
     this.updateChildModal.nativeElement.style.display = 'block';
   }
 
@@ -129,7 +116,6 @@ export class ProfileTableComponent {
       `ChildRecord/${this.childRecordsData.childrenId}`
     );
 
-    // Update the children's data in the database
     update(childRef, {
       childrenId: this.childRecordsData.childrenId,
       firstName: this.childRecordsData.firstName,
@@ -156,7 +142,6 @@ export class ProfileTableComponent {
         console.error('Error updating children:', error);
       });
 
-    // Close the update children modal
     this.updateChildModal.nativeElement.style.display = 'none';
   }
 
@@ -177,7 +162,6 @@ export class ProfileTableComponent {
       });
   }
 
-  // Handle pagination
   goToPage(pageNumber: number) {
     this.currentPage = pageNumber;
   }

@@ -33,7 +33,11 @@ interface HeightForAgeTotals {
 })
 export class DashboardComponent implements OnInit {
   barangaylist: any[] = [];
-  rankedBarangays: { barangay: string; count: number }[] = [];
+  rankedBarangays: {
+    barangay: string;
+    severelyUnderweight: number;
+    underweight: number;
+  }[] = [];
 
   nutritionalRecords: any[] = [];
   barangayDataAge: WeightForAgeTotals[] = [];
@@ -98,34 +102,48 @@ export class DashboardComponent implements OnInit {
   }
 
   rankBarangays() {
-    const counts: { [key: string]: number } = {};
+    const counts: {
+      [key: string]: { severelyUnderweight: number; underweight: number };
+    } = {};
 
     this.fetchBmiRecord();
 
     // Group and count by barangay
     const filteredRecords = this.barangaylist.filter(
       (record) =>
-        record.resultMessage === 'Underweight' ||
-        record.resultMessage === 'Severely underweight'
+        record.resultMessage === 'Severely underweight' ||
+        record.resultMessage === 'Underweight'
     );
 
     // Group and count by barangay
-    for (const record of filteredRecords) {
-      if (counts[record.barangay]) {
-        counts[record.barangay]++;
-      } else {
-        counts[record.barangay] = 1;
+    for (const record of this.barangaylist) {
+      if (!counts[record.barangay]) {
+        counts[record.barangay] = { severelyUnderweight: 0, underweight: 0 };
+      }
+    }
+
+    for (const record of this.barangaylist) {
+      if (record.resultMessage === 'Severely underweight') {
+        counts[record.barangay].severelyUnderweight++;
+      } else if (record.resultMessage === 'Underweight') {
+        counts[record.barangay].underweight++;
       }
     }
 
     // Convert to an array of objects
     this.rankedBarangays = Object.entries(counts).map(([barangay, count]) => ({
       barangay,
-      count,
+      ...count,
     }));
 
     // Sort by count in descending order
-    this.rankedBarangays.sort((a, b) => b.count - a.count);
+    this.rankedBarangays.sort((a, b) => {
+      if (b.severelyUnderweight !== a.severelyUnderweight) {
+        return b.severelyUnderweight - a.severelyUnderweight;
+      } else {
+        return b.underweight - a.underweight;
+      }
+    });
   }
 
   calculateTotalsByBarangayAge() {
@@ -308,7 +326,12 @@ export class DashboardComponent implements OnInit {
   createBarGraph() {
     const ctx = document.getElementById('barGraph') as HTMLCanvasElement;
     const labels = this.rankedBarangays.map((barangay) => barangay.barangay);
-    const data = this.rankedBarangays.map((barangay) => barangay.count);
+    const severelyUnderweightData = this.rankedBarangays.map(
+      (barangay) => barangay.severelyUnderweight
+    );
+    const underweightData = this.rankedBarangays.map(
+      (barangay) => barangay.underweight
+    );
 
     new Chart(ctx, {
       type: 'bar',
@@ -316,8 +339,15 @@ export class DashboardComponent implements OnInit {
         labels,
         datasets: [
           {
-            label: 'Severely Underweight and Underweight Count',
-            data,
+            label: 'Severely Underweight Count',
+            data: severelyUnderweightData,
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            borderColor: 'rgba(255, 99, 132, 1)',
+            borderWidth: 1,
+          },
+          {
+            label: 'Underweight Count',
+            data: underweightData,
             backgroundColor: 'rgba(75, 192, 192, 0.2)',
             borderColor: 'rgba(75, 192, 192, 1)',
             borderWidth: 1,

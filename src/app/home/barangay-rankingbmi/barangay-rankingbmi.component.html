@@ -7,14 +7,16 @@
           <tr>
             <th>Rank</th>
             <th>Barangay</th>
-            <th>Severely Underweight and Underweight Count</th>
+            <th>Severely Underweight Count</th>
+            <th>Underweight Count</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let barangay of rankedBarangays; let i = index">
             <td>{{ i + 1 }}</td>
             <td>{{ barangay.barangay }}</td>
-            <td>{{ barangay.count }}</td>
+            <td>{{ barangay.severelyUnderweight }}</td>
+            <td>{{ barangay.underweight }}</td>
           </tr>
         </tbody>
       </table>

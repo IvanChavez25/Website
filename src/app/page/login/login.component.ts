@@ -9,6 +9,7 @@ import { AuthServiceService } from './auth-service.service'
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
+
 export class LoginFormComponent {
   userRecords: any[] = [];
 
