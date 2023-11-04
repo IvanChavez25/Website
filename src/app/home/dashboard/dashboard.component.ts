@@ -10,22 +10,6 @@ interface WeightForAgeTotals {
   overweight: number;
 }
 
-interface WeightForHeightTotals {
-  barangay: string;
-  severelyUnderweight: number;
-  underweight: number;
-  normal: number;
-  obese: number;
-}
-
-interface HeightForAgeTotals {
-  barangay: string;
-  severelyStunted: number;
-  stunted: number;
-  normal: number;
-  tall: number;
-}
-
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -35,14 +19,19 @@ export class DashboardComponent implements OnInit {
   barangaylist: any[] = [];
   rankedBarangays: {
     barangay: string;
+    measurementMonth: string;
     severelyUnderweight: number;
     underweight: number;
   }[] = [];
 
   nutritionalRecords: any[] = [];
   barangayDataAge: WeightForAgeTotals[] = [];
-  barangayDataHeight: WeightForHeightTotals[] = [];
-  barangayDataHeightAge: HeightForAgeTotals[] = [];
+
+  originalChildRecords: any[] = [];
+  childRecords: any[] = [];
+
+  girlsCount: number = 0;
+  boysCount: number = 0;
 
   constructor(public database: Database) {
     this.fetchData();
@@ -50,10 +39,9 @@ export class DashboardComponent implements OnInit {
 
   async ngOnInit() {
     await this.fetchData();
+    await this.fetchChildRecords();
     this.createBarGraph();
     this.createLineGraphAge();
-    this.createLineGraphHeight();
-    this.createLineGraphHeightAge();
   }
 
   async fetchData() {
@@ -61,9 +49,7 @@ export class DashboardComponent implements OnInit {
       await this.fetchBmiRecord();
       await this.fetchNutritionalRecords();
       this.rankBarangays();
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
+    } catch (error) {}
   }
 
   async fetchBmiRecord() {
@@ -90,8 +76,6 @@ export class DashboardComponent implements OnInit {
       if (snapshot.exists()) {
         this.nutritionalRecords = Object.values(snapshot.val());
         this.calculateTotalsByBarangayAge();
-        this.calculateTotalsByBarangayHeight();
-        this.calculateTotalsByBarangayHeightAge();
       } else {
         this.nutritionalRecords = [];
       }
@@ -101,48 +85,77 @@ export class DashboardComponent implements OnInit {
     }
   }
 
+  async fetchChildRecords() {
+    const childRef = ref(this.database, 'ChildRecord');
+
+    get(childRef)
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          this.originalChildRecords = Object.values(snapshot.val());
+          this.childRecords = Object.values(snapshot.val());
+          this.calculateGirlsAndBoysCount(this.originalChildRecords);
+        } else {
+          this.childRecords = [];
+        }
+      })
+      .catch((error) => {
+        console.error('Error retrieving records:', error);
+      });
+  }
+
+  calculateGirlsAndBoysCount(records: any[]) {
+    this.girlsCount = records.filter(
+      (record) => record.gender === 'female'
+    ).length;
+    this.boysCount = records.filter(
+      (record) => record.gender === 'male'
+    ).length;
+  }
+
+  onMonthSelect() {
+    this.createBarGraph();
+  }
+
   rankBarangays() {
     const counts: {
       [key: string]: { severelyUnderweight: number; underweight: number };
     } = {};
-
-    this.fetchBmiRecord();
-
-    // Group and count by barangay
-    const filteredRecords = this.barangaylist.filter(
-      (record) =>
-        record.resultMessage === 'Severely underweight' ||
-        record.resultMessage === 'Underweight'
-    );
 
     // Group and count by barangay
     for (const record of this.barangaylist) {
       if (!counts[record.barangay]) {
         counts[record.barangay] = { severelyUnderweight: 0, underweight: 0 };
       }
-    }
-
-    for (const record of this.barangaylist) {
+      const key = `${record.barangay}_${record.measurementMonth}`;
+      if (!counts[key]) {
+        counts[key] = { severelyUnderweight: 0, underweight: 0 };
+      }
       if (record.resultMessage === 'Severely underweight') {
-        counts[record.barangay].severelyUnderweight++;
+        counts[key].severelyUnderweight++;
       } else if (record.resultMessage === 'Underweight') {
-        counts[record.barangay].underweight++;
+        counts[key].underweight++;
       }
     }
 
-    // Convert to an array of objects
-    this.rankedBarangays = Object.entries(counts).map(([barangay, count]) => ({
-      barangay,
-      ...count,
-    }));
+    // Convert to an array of objects with 'measurementMonth'
+    this.rankedBarangays = Object.entries(counts).map(([key, count]) => {
+      const [barangay, measurementMonth] = key.split('_');
+      return {
+        barangay,
+        measurementMonth, // Add measurementMonth property
+        ...count,
+      };
+    });
 
-    // Sort by count in descending order
+    // Sort by measurementMonth and then by barangay
     this.rankedBarangays.sort((a, b) => {
-      if (b.severelyUnderweight !== a.severelyUnderweight) {
-        return b.severelyUnderweight - a.severelyUnderweight;
-      } else {
-        return b.underweight - a.underweight;
+      const monthComparison = a.measurementMonth.localeCompare(
+        b.measurementMonth
+      );
+      if (monthComparison !== 0) {
+        return monthComparison;
       }
+      return a.barangay.localeCompare(b.barangay);
     });
   }
 
@@ -205,148 +218,46 @@ export class DashboardComponent implements OnInit {
     this.barangayDataAge = groupedData;
   }
 
-  calculateTotalsByBarangayHeight() {
-    const groupedData: WeightForHeightTotals[] = [];
-
-    this.nutritionalRecords.forEach((record) => {
-      const barangayName = record.barangay;
-      const existingBarangay = groupedData.find(
-        (data) => data.barangay === barangayName
-      );
-
-      if (existingBarangay) {
-        switch (record.weightForHeight) {
-          case 'SUW':
-            existingBarangay.severelyUnderweight++;
-            break;
-          case 'UW':
-            existingBarangay.underweight++;
-            break;
-          case 'N':
-            existingBarangay.normal++;
-            break;
-          case 'OW':
-            existingBarangay.obese++;
-            break;
-          default:
-            break;
-        }
-      } else {
-        const totals: WeightForHeightTotals = {
-          barangay: barangayName,
-          severelyUnderweight: 0,
-          underweight: 0,
-          normal: 0,
-          obese: 0,
-        };
-
-        switch (record.weightForHeight) {
-          case 'SUW':
-            totals.severelyUnderweight++;
-            break;
-          case 'UW':
-            totals.underweight++;
-            break;
-          case 'N':
-            totals.normal++;
-            break;
-          case 'OW':
-            totals.obese++;
-            break;
-          default:
-            break;
-        }
-
-        groupedData.push(totals);
-      }
-    });
-
-    this.barangayDataHeight = groupedData;
-  }
-
-  calculateTotalsByBarangayHeightAge() {
-    const groupedData: HeightForAgeTotals[] = [];
-
-    this.nutritionalRecords.forEach((record) => {
-      const barangayName = record.barangay;
-      const existingBarangay = groupedData.find(
-        (data) => data.barangay === barangayName
-      );
-
-      if (existingBarangay) {
-        switch (record.heightForAge) {
-          case 'SSt':
-            existingBarangay.severelyStunted++;
-            break;
-          case 'St':
-            existingBarangay.stunted++;
-            break;
-          case 'N':
-            existingBarangay.normal++;
-            break;
-          case 'T':
-            existingBarangay.tall++;
-            break;
-          default:
-            break;
-        }
-      } else {
-        const totals: HeightForAgeTotals = {
-          barangay: barangayName,
-          severelyStunted: 0,
-          stunted: 0,
-          normal: 0,
-          tall: 0,
-        };
-
-        switch (record.heightForAge) {
-          case 'SSt':
-            totals.severelyStunted++;
-            break;
-          case 'St':
-            totals.stunted++;
-            break;
-          case 'N':
-            totals.normal++;
-            break;
-          case 'T':
-            totals.tall++;
-            break;
-          default:
-            break;
-        }
-
-        groupedData.push(totals);
-      }
-    });
-
-    this.barangayDataHeightAge = groupedData;
-  }
-
   createBarGraph() {
     const ctx = document.getElementById('barGraph') as HTMLCanvasElement;
-    const labels = this.rankedBarangays.map((barangay) => barangay.barangay);
-    const severelyUnderweightData = this.rankedBarangays.map(
-      (barangay) => barangay.severelyUnderweight
+
+    // Extract unique months from the rankedBarangays data
+    const uniqueMonths = Array.from(
+      new Set(this.rankedBarangays.map((entry) => entry.measurementMonth))
     );
-    const underweightData = this.rankedBarangays.map(
-      (barangay) => barangay.underweight
-    );
+
+    // Initialize data arrays for severely underweight and underweight counts
+    const severelyUnderweightData: number[] = []; // Specify the type as number[]
+    const underweightData: number[] = [];
+
+    // Loop through unique months and calculate the total counts for each month
+    uniqueMonths.forEach((month) => {
+      const severelyUnderweightCount = this.rankedBarangays
+        .filter((entry) => entry.measurementMonth === month)
+        .reduce((total, entry) => total + entry.severelyUnderweight, 0);
+
+      const underweightCount = this.rankedBarangays
+        .filter((entry) => entry.measurementMonth === month)
+        .reduce((total, entry) => total + entry.underweight, 0);
+
+      severelyUnderweightData.push(severelyUnderweightCount);
+      underweightData.push(underweightCount);
+    });
 
     new Chart(ctx, {
       type: 'bar',
       data: {
-        labels,
+        labels: uniqueMonths,
         datasets: [
           {
-            label: 'Severely Underweight Count',
+            label: 'Total Severely Underweight Count',
             data: severelyUnderweightData,
             backgroundColor: 'rgba(255, 99, 132, 0.2)',
             borderColor: 'rgba(255, 99, 132, 1)',
             borderWidth: 1,
           },
           {
-            label: 'Underweight Count',
+            label: 'Total Underweight Count',
             data: underweightData,
             backgroundColor: 'rgba(75, 192, 192, 0.2)',
             borderColor: 'rgba(75, 192, 192, 1)',
@@ -358,7 +269,7 @@ export class DashboardComponent implements OnInit {
         plugins: {
           title: {
             display: true,
-            text: 'BMI Result SUW and UW',
+            text: 'Total Severely Underweight and Underweight Cases by Month',
           },
         },
         scales: {
@@ -435,154 +346,6 @@ export class DashboardComponent implements OnInit {
           title: {
             display: true,
             text: 'Weight For Age', // Add your chart title here
-          },
-        },
-        scales: {
-          x: {
-            ticks: {
-              font: {
-                size: 5, // Adjust the font size for x-axis labels
-              },
-            },
-          },
-          y: {
-            beginAtZero: true,
-            ticks: {
-              font: {
-                size: 5, // Adjust the font size for y-axis labels
-              },
-            },
-          },
-        },
-      },
-    });
-  }
-
-  createLineGraphHeight() {
-    const ctx = document.getElementById(
-      'lineGraphWeightHeight'
-    ) as HTMLCanvasElement;
-
-    const labels = this.barangayDataHeight.map((record) => record.barangay);
-    const severelyUnderweightData = this.barangayDataHeight.map(
-      (record) => record.severelyUnderweight
-    );
-    const underweightData = this.barangayDataHeight.map(
-      (record) => record.underweight
-    );
-    const normalData = this.barangayDataHeight.map((record) => record.normal);
-    const obeseData = this.barangayDataHeight.map((record) => record.obese);
-
-    new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels,
-        datasets: [
-          {
-            label: 'SUW',
-            data: severelyUnderweightData,
-            borderColor: 'rgba(255, 99, 132, 1)', // Customize color as needed
-            fill: false,
-          },
-          {
-            label: 'UW',
-            data: underweightData,
-            borderColor: 'rgba(54, 162, 235, 1)', // Customize color as needed
-            fill: false,
-          },
-          {
-            label: 'N',
-            data: normalData,
-            borderColor: 'rgba(75, 192, 192, 1)', // Customize color as needed
-            fill: false,
-          },
-          {
-            label: 'O',
-            data: obeseData,
-            borderColor: 'rgba(255, 206, 86, 1)', // Customize color as needed
-            fill: false,
-          },
-        ],
-      },
-      options: {
-        plugins: {
-          title: {
-            display: true,
-            text: 'Weight For Height', // Add your chart title here
-          },
-        },
-        scales: {
-          x: {
-            ticks: {
-              font: {
-                size: 5, // Adjust the font size for x-axis labels
-              },
-            },
-          },
-          y: {
-            beginAtZero: true,
-            ticks: {
-              font: {
-                size: 5, // Adjust the font size for y-axis labels
-              },
-            },
-          },
-        },
-      },
-    });
-  }
-
-  createLineGraphHeightAge() {
-    const ctx = document.getElementById('lineGraphHeight') as HTMLCanvasElement;
-
-    const labels = this.barangayDataHeightAge.map((record) => record.barangay);
-    const severelyStuntedData = this.barangayDataHeightAge.map(
-      (record) => record.severelyStunted
-    );
-    const stuntedData = this.barangayDataHeightAge.map(
-      (record) => record.stunted
-    );
-    const normalData = this.barangayDataHeightAge.map(
-      (record) => record.normal
-    );
-    const tallData = this.barangayDataHeightAge.map((record) => record.tall);
-
-    new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels,
-        datasets: [
-          {
-            label: 'SSt',
-            data: severelyStuntedData,
-            borderColor: 'rgba(255, 99, 132, 1)', // Customize color as needed
-            fill: false,
-          },
-          {
-            label: 'St',
-            data: stuntedData,
-            borderColor: 'rgba(54, 162, 235, 1)', // Customize color as needed
-            fill: false,
-          },
-          {
-            label: 'N',
-            data: normalData,
-            borderColor: 'rgba(75, 192, 192, 1)', // Customize color as needed
-            fill: false,
-          },
-          {
-            label: 'T',
-            data: tallData,
-            borderColor: 'rgba(255, 206, 86, 1)', // Customize color as needed
-            fill: false,
-          },
-        ],
-      },
-      options: {
-        plugins: {
-          title: {
-            display: true,
-            text: 'Height For Age', // Add your chart title here
           },
         },
         scales: {

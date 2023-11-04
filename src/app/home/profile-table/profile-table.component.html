@@ -68,26 +68,6 @@
           />
         </div>
         <div>
-          <label for="weight">Weight (kgs):</label>
-          <input
-            type="text"
-            id="weight"
-            name="weight"
-            [(ngModel)]="childRecordsData.weight"
-            required
-          />
-        </div>
-        <div>
-          <label for="height">Height (cm):</label>
-          <input
-            type="text"
-            id="height"
-            name="height"
-            [(ngModel)]="childRecordsData.height"
-            required
-          />
-        </div>
-        <div>
           <label for="address">Address:</label>
           <input
             type="text"
@@ -200,26 +180,6 @@
             required
           />
         </div>
-        <div>
-          <label for="measurementMonth">Measurement Month:</label>
-          <select
-            id="measurementMonth"
-            name="measurementMonth"
-            [(ngModel)]="childRecordsData.measurementMonth"
-          >
-            <option value="January">January</option>
-            <option value="February">February</option>
-            <option value="March">March</option>
-            <option value="May">May</option>
-            <option value="June">June</option>
-            <option value="July">July</option>
-            <option value="August">August</option>
-            <option value="September">September</option>
-            <option value="October">October</option>
-            <option value="November">November</option>
-            <option value="December">December</option>
-          </select>
-        </div>
         <button (click)="closeUpdateChildModal()">Cancel</button>
 
         <button class="btn btn-primary" (click)="updateChild()">
@@ -303,28 +263,6 @@
       (input)="filterRecords()"
     />
 
-    <label for="measurementMonth">Measurement Month:</label>
-    <select
-      id="measurementMonth"
-      name="measurementMonth"
-      [(ngModel)]="selectedMeasurementMonth"
-      (change)="filterRecords()"
-      required
-    >
-      <option value="">ALL</option>
-      <option value="January">January</option>
-      <option value="February">February</option>
-      <option value="March">March</option>
-      <option value="May">May</option>
-      <option value="June">June</option>
-      <option value="July">July</option>
-      <option value="August">August</option>
-      <option value="September">September</option>
-      <option value="October">October</option>
-      <option value="November">November</option>
-      <option value="December">December</option>
-    </select>
-
     <button (click)="clearFilters()">Clear_Filters</button>
   </div>
 </fieldset>
@@ -345,15 +283,12 @@
                 <th>Birthday (dd/mm/yyyy)</th>
                 <th>Age</th>
                 <th>Age in Months</th>
-                <th>Weight (kgs)</th>
-                <th>Height (cm)</th>
                 <th>Address</th>
                 <th>Barangay</th>
                 <th>Father's Name</th>
                 <th>Mother's Name</th>
                 <th>Gender</th>
                 <th>Date</th>
-                <th>Measurement Month</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -368,15 +303,12 @@
                 <td>{{ child.birthday }}</td>
                 <td>{{ child.age }}</td>
                 <td>{{ child.ageInMonths }}</td>
-                <td>{{ child.weight }}</td>
-                <td>{{ child.height }}</td>
                 <td>{{ child.address }}</td>
                 <td>{{ child.barangay }}</td>
                 <td>{{ child.fatherName }}</td>
                 <td>{{ child.motherName }}</td>
                 <td>{{ child.gender }}</td>
                 <td>{{ child.date }}</td>
-                <td>{{ child.measurementMonth }}</td>
                 <td>
                   <a class="btn btn-sm btn-outline-dark"
                     ><i class="fas fa-up-right-from-square"></i

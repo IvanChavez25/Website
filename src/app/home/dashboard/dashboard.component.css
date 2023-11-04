@@ -25,3 +25,40 @@ canvas {
   height: auto;
   background-color: #ccc;
 }
+
+.card {
+  background-color: #008000; /* This will set the background color of the card to green */
+  border-radius: 25px; /* This will make the corners of the card rounded */
+  color: white; /* This will set the text color to white */
+  padding: 20px; /* This will add some space around the content inside the card */
+  width: 300px; /* This will set the width of the card */
+  height: 100px; /* This will set the height of the card */
+  display: flex; /* This will arrange the child elements in a row */
+  align-items: center; /* This will center the child elements vertically */
+  justify-content: space-between;
+  margin-left: 10px; /* This will add some space between the child elements */
+}
+
+/* On mouse-over, add a deeper shadow */
+.card .circle {
+  background-color: white; /* This will set the background color of the circle to white */
+  border-radius: 50%; /* This will make the circle round */
+  width: 50px; /* This will set the width of the circle */
+  height: 50px; /* This will set the height of the circle */
+  display: flex; /* This will arrange the child elements in a row */
+  align-items: center; /* This will center the child elements vertically */
+  justify-content: center; /* This will center the child elements horizontally */
+}
+/* Add some padding inside the card container */
+.card .circle .arrow {
+  color: #008000; /* This will set the color of the arrow to green */
+}
+
+.cardbody {
+  justify-content: space-between;
+  display: flex;
+}
+
+.card-text {
+  text-align: center;
+}

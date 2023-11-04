@@ -237,38 +237,6 @@ export class NutritionalStatusComponent {
     }
   }
 
-  getSelectedChildWeight() {
-    const selectedChildName = this.nutritionalData.nameOfChild;
-
-    const selectedChild = this.childRecords.find(
-      (c) => c === selectedChildName
-    );
-
-    if (selectedChild) {
-      this.nutritionalData.weight = selectedChild.weight;
-      return selectedChild.weight;
-    } else {
-      this.nutritionalData.weight = '';
-      return '';
-    }
-  }
-
-  getSelectedChildHeight() {
-    const selectedChildName = this.nutritionalData.nameOfChild;
-
-    const selectedChild = this.childRecords.find(
-      (c) => c === selectedChildName
-    );
-
-    if (selectedChild) {
-      this.nutritionalData.height = selectedChild.height;
-      return selectedChild.height;
-    } else {
-      this.nutritionalData.height = '';
-      return '';
-    }
-  }
-
   getSelectedChildBarangay() {
     const selectedChildName = this.nutritionalData.nameOfChild;
 

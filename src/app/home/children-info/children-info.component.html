@@ -73,26 +73,6 @@
         />
       </div>
       <div>
-        <label for="weight">Weight (kgs):</label>
-        <input
-          type="text"
-          id="weight"
-          name="weight"
-          [(ngModel)]="childData.weight"
-          required
-        />
-      </div>
-      <div>
-        <label for="height">Height (cm):</label>
-        <input
-          type="text"
-          id="height"
-          name="height"
-          [(ngModel)]="childData.height"
-          required
-        />
-      </div>
-      <div>
         <label for="address">Address:</label>
         <input
           type="text"
@@ -204,26 +184,6 @@
           [(ngModel)]="childData.date"
           required
         />
-      </div>
-      <div>
-        <label for="measurementMonth">Measurement Month:</label>
-        <select
-          id="measurementMonth"
-          name="measurementMonth"
-          [(ngModel)]="childData.measurementMonth"
-        >
-          <option value="January">January</option>
-          <option value="February">February</option>
-          <option value="March">March</option>
-          <option value="May">May</option>
-          <option value="June">June</option>
-          <option value="July">July</option>
-          <option value="August">August</option>
-          <option value="September">September</option>
-          <option value="October">October</option>
-          <option value="November">November</option>
-          <option value="December">December</option>
-        </select>
       </div>
       <div>
         <button type="submit">Submit</button>

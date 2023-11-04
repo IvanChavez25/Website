@@ -175,22 +175,6 @@ export class MonthlyWeightComponent {
     }
   }
 
-  getSelectedChildWeight() {
-    const selectedChildName = this.monthlyWeightRecordData.nameOfChild;
-
-    const selectedChild = this.childRecords.find(
-      (c) => c === selectedChildName
-    );
-
-    if (selectedChild) {
-      this.monthlyWeightRecordData.weight = selectedChild.weight;
-      return selectedChild.weight;
-    } else {
-      this.monthlyWeightRecordData.weight = '';
-      return '';
-    }
-  }
-
   getSelectedChildBarangay() {
     const selectedChildName = this.monthlyWeightRecordData.nameOfChild;
 

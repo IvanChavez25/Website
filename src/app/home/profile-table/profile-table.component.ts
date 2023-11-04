@@ -15,7 +15,6 @@ export class ProfileTableComponent {
   selectedBarangay: string = '';
   fromDate: string = '';
   toDate: string = '';
-  selectedMeasurementMonth: string = '';
 
   @ViewChild('updateChildModal') updateChildModal!: ElementRef;
 
@@ -88,12 +87,6 @@ export class ProfileTableComponent {
       });
     }
 
-    if (this.selectedMeasurementMonth) {
-      filteredRecords = filteredRecords.filter(
-        (record) => record.measurementMonth === this.selectedMeasurementMonth
-      );
-    }
-
     this.childRecords = filteredRecords;
   }
 
@@ -101,7 +94,6 @@ export class ProfileTableComponent {
     this.selectedBarangay = '';
     this.fromDate = '';
     this.toDate = '';
-    this.selectedMeasurementMonth = '';
     this.childRecords = [...this.originalChildRecords];
   }
 
@@ -124,15 +116,12 @@ export class ProfileTableComponent {
       birthday: this.childRecordsData.birthday,
       age: this.childRecordsData.age,
       ageInMonths: this.childRecordsData.ageInMonths,
-      weight: this.childRecordsData.weight,
-      height: this.childRecordsData.height,
       address: this.childRecordsData.address,
       barangay: this.childRecordsData.barangay,
       fatherName: this.childRecordsData.fatherName,
       motherName: this.childRecordsData.motherName,
       gender: this.childRecordsData.gender,
       date: this.childRecordsData.date,
-      measurementMonth: this.childRecordsData.measurementMonth,
     })
       .then(() => {
         alert('Children Data Updated successfully');

@@ -19,6 +19,9 @@ export class NutritionalStatusSummaryWeightforheightComponent {
   nutritionalRecords: any[] = [];
   barangayData: WeightForHeightTotals[] = [];
 
+  selectedMonth: string = 'January';
+  lineChart: Chart | null = null;
+
   constructor(public database: Database) {
     this.fetchNutritionalRecords();
   }
@@ -41,65 +44,71 @@ export class NutritionalStatusSummaryWeightforheightComponent {
       });
   }
 
+  onMonthSelect() {
+    this.fetchNutritionalRecords();
+  }
+
   calculateTotalsByBarangay() {
     const groupedData: WeightForHeightTotals[] = [];
 
-    this.nutritionalRecords.forEach((record) => {
-      const barangayName = record.barangay;
-      const existingBarangay = groupedData.find(
-        (data) => data.barangay === barangayName
-      );
+    this.nutritionalRecords
+      .filter((record) => record.measurementMonth === this.selectedMonth) // Filter by selected month
+      .forEach((record) => {
+        const barangayName = record.barangay;
+        const existingBarangay = groupedData.find(
+          (data) => data.barangay === barangayName
+        );
 
-      if (existingBarangay) {
-        switch (record.weightForHeight) {
-          case 'SUW':
-            existingBarangay.severelyUnderweight++;
-            break;
-          case 'UW':
-            existingBarangay.underweight++;
-            break;
-          case 'N':
-            existingBarangay.normal++;
-            break;
-          case 'OW':
-            existingBarangay.obese++;
-            break;
-          default:
-            break;
+        if (existingBarangay) {
+          switch (record.weightForHeight) {
+            case 'SUW':
+              existingBarangay.severelyUnderweight++;
+              break;
+            case 'UW':
+              existingBarangay.underweight++;
+              break;
+            case 'N':
+              existingBarangay.normal++;
+              break;
+            case 'OW':
+              existingBarangay.obese++;
+              break;
+            default:
+              break;
+          }
+        } else {
+          const totals: WeightForHeightTotals = {
+            barangay: barangayName,
+            severelyUnderweight: 0,
+            underweight: 0,
+            normal: 0,
+            obese: 0,
+          };
+
+          switch (record.weightForHeight) {
+            case 'SUW':
+              totals.severelyUnderweight++;
+              break;
+            case 'UW':
+              totals.underweight++;
+              break;
+            case 'N':
+              totals.normal++;
+              break;
+            case 'OW':
+              totals.obese++;
+              break;
+            default:
+              break;
+          }
+
+          groupedData.push(totals);
         }
-      } else {
-        const totals: WeightForHeightTotals = {
-          barangay: barangayName,
-          severelyUnderweight: 0,
-          underweight: 0,
-          normal: 0,
-          obese: 0,
-        };
-
-        switch (record.weightForHeight) {
-          case 'SUW':
-            totals.severelyUnderweight++;
-            break;
-          case 'UW':
-            totals.underweight++;
-            break;
-          case 'N':
-            totals.normal++;
-            break;
-          case 'OW':
-            totals.obese++;
-            break;
-          default:
-            break;
-        }
-
-        groupedData.push(totals);
-      }
-    });
+      });
 
     this.barangayData = groupedData;
   }
-  
+
   createLineGraph() {
     const ctx = document.getElementById(
       'lineGraphWeightHeight'

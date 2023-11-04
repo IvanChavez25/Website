@@ -161,38 +161,6 @@ export class MonthlyRecordComponent {
     }
   }
 
-  getSelectedChildWeight() {
-    const selectedChildName = this.monthlyHeightRecordData.nameOfChild;
-
-    const selectedChild = this.childRecords.find(
-      (c) => c === selectedChildName
-    );
-
-    if (selectedChild) {
-      this.monthlyHeightRecordData.weight = selectedChild.weight;
-      return selectedChild.weight;
-    } else {
-      this.monthlyHeightRecordData.weight = '';
-      return '';
-    }
-  }
-
-  getSelectedChildHeight() {
-    const selectedChildName = this.monthlyHeightRecordData.nameOfChild;
-
-    const selectedChild = this.childRecords.find(
-      (c) => c === selectedChildName
-    );
-
-    if (selectedChild) {
-      this.monthlyHeightRecordData.heightOrLength = selectedChild.height;
-      return selectedChild.height;
-    } else {
-      this.monthlyHeightRecordData.heightOrLength = '';
-      return '';
-    }
-  }
-
   getSelectedChildBirthday() {
     const selectedChildName = this.monthlyHeightRecordData.nameOfChild;
 

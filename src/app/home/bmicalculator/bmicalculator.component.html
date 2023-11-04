@@ -33,7 +33,26 @@
         </option>
       </select>
     </div>
-
+    <div>
+      <label for="measurementMonth">Measurement Month:</label>
+      <select
+        id="measurementMonth"
+        name="measurementMonth"
+        [(ngModel)]="bmiRecordData.measurementMonth"
+      >
+        <option value="January">January</option>
+        <option value="February">February</option>
+        <option value="March">March</option>
+        <option value="May">May</option>
+        <option value="June">June</option>
+        <option value="July">July</option>
+        <option value="August">August</option>
+        <option value="September">September</option>
+        <option value="October">October</option>
+        <option value="November">November</option>
+        <option value="December">December</option>
+      </select>
+    </div>
     <div>
       <label for="barangay" class="label">Barangay:</label>
       <select
@@ -92,7 +111,6 @@
       <input
         type="number"
         id="weight"
-        [value]="getSelectedChildWeight()"
         [(ngModel)]="bmiRecordData.weight"
       />
     </div>
@@ -101,7 +119,6 @@
       <input
         type="number"
         id="height"
-        [value]="getSelectedChildHeight()"
         [(ngModel)]="bmiRecordData.height"
       />
     </div>
@@ -137,6 +154,7 @@
             <tr>
               <th>#</th>
               <th>Child's Name</th>
+              <th>Month</th>
               <th>Barangay</th>
               <th>Weight (kg)</th>
               <th>Height (cm)</th>
@@ -159,6 +177,7 @@
             >
               <td>{{ i + 1 }}</td>
               <td>{{ result.childName }}</td>
+              <td>{{ result.measurementMonth }}</td>
               <td>{{ result.barangay }}</td>
               <td>{{ result.weight }}</td>
               <td>{{ result.height }}</td>

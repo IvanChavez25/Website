@@ -8,12 +8,12 @@ import { Database, ref, get } from '@angular/fire/database';
 })
 export class BarangayRankingbmiComponent implements OnInit {
   barangaylist: any[] = [];
-
   rankedBarangays: {
     barangay: string;
     severelyUnderweight: number;
     underweight: number;
   }[] = [];
+  selectedMonth: string = 'January';
 
   constructor(public database: Database) {
     this.fetchBmiRecord().then(() => {
@@ -36,8 +36,14 @@ export class BarangayRankingbmiComponent implements OnInit {
         this.barangaylist = [];
       }
     } catch (error) {
-      console.error('Error retrieving BMIrecords:', error);
+      console.error('Error retrieving BMI records:', error);
     }
+  }
+
+  // Event handler for month selection
+  onMonthSelect() {
+    this.fetchBmiRecord();
+    this.rankBarangays();
   }
 
   rankBarangays() {
@@ -45,23 +51,18 @@ export class BarangayRankingbmiComponent implements OnInit {
       [key: string]: { severelyUnderweight: number; underweight: number };
     } = {};
 
-    this.fetchBmiRecord();
-
-    // Group and count by barangay
-    const filteredRecords = this.barangaylist.filter(
-      (record) =>
-        record.resultMessage === 'Severely underweight' ||
-        record.resultMessage === 'Underweight'
-    );
+    // Filter records based on the selected month
+    if (this.selectedMonth) {
+      this.barangaylist = this.barangaylist.filter(
+        (record) => record.measurementMonth === this.selectedMonth
+      );
+    }
 
     // Group and count by barangay
     for (const record of this.barangaylist) {
       if (!counts[record.barangay]) {
         counts[record.barangay] = { severelyUnderweight: 0, underweight: 0 };
       }
-    }
-
-    for (const record of this.barangaylist) {
       if (record.resultMessage === 'Severely underweight') {
         counts[record.barangay].severelyUnderweight++;
       } else if (record.resultMessage === 'Underweight') {

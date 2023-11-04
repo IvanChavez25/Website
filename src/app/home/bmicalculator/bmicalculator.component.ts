@@ -1,15 +1,10 @@
 import { Component } from '@angular/core';
-import { AngularFireDatabase } from '@angular/fire/compat/database';
-import { NgForm } from '@angular/forms';
 import { Location } from '@angular/common';
 
 import {
   Database,
   set,
   ref,
-  push,
-  update,
-  remove,
   get,
 } from '@angular/fire/database';
 
@@ -24,6 +19,7 @@ export class BmiCalculatorComponent {
   bmiRecordData: any = {
     bmiRecordsId: null,
     childName: '',
+    measurementMonth: '',
     barangay: '',
     weight: '',
     height: '',
@@ -39,6 +35,7 @@ export class BmiCalculatorComponent {
   showResult: boolean = false;
   results: {
     childName: string;
+    measurementMonth: string;
     barangay: string;
     weight: number;
     height: number;
@@ -88,6 +85,7 @@ export class BmiCalculatorComponent {
   private clearForm() {
     this.bmiRecordData = {
       childName: '',
+      measurementMonth: '',
       barangay: '',
       weight: '',
       height: '',
@@ -100,6 +98,7 @@ export class BmiCalculatorComponent {
   private isValidbmiRecordData(): boolean {
     return (
       this.bmiRecordData.childName &&
+      this.bmiRecordData.measurementMonth &&
       this.bmiRecordData.barangay &&
       this.bmiRecordData.weight &&
       this.bmiRecordData.height &&
@@ -157,38 +156,6 @@ export class BmiCalculatorComponent {
     }
   }
 
-  getSelectedChildWeight() {
-    const selectedChildName = this.bmiRecordData.childName;
-
-    const selectedChild = this.childRecords.find(
-      (c) => c === selectedChildName
-    );
-
-    if (selectedChild) {
-      this.bmiRecordData.weight = selectedChild.weight;
-      return selectedChild.weight;
-    } else {
-      this.bmiRecordData.weight = '';
-      return '';
-    }
-  }
-
-  getSelectedChildHeight() {
-    const selectedChildName = this.bmiRecordData.childName;
-
-    const selectedChild = this.childRecords.find(
-      (c) => c === selectedChildName
-    );
-
-    if (selectedChild) {
-      this.bmiRecordData.height = selectedChild.height;
-      return selectedChild.height;
-    } else {
-      this.bmiRecordData.height = '';
-      return '';
-    }
-  }
-
   getSelectedChildAge() {
     const selectedChildName = this.bmiRecordData.childName;
 
@@ -228,6 +195,7 @@ export class BmiCalculatorComponent {
 
     const newResult = {
       childName: this.bmiRecordData.childName,
+      measurementMonth: this.bmiRecordData.measurementMonth,
       barangay: this.bmiRecordData.barangay,
       weight: this.bmiRecordData.weight,
       height: this.bmiRecordData.height,

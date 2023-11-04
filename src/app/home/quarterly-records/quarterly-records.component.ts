@@ -160,38 +160,6 @@ export class QuarterlyRecordsComponent {
     }
   }
 
-  getSelectedChildWeight() {
-    const selectedChildName = this.quarterlyData.nameOfChild;
-
-    const selectedChild = this.childRecords.find(
-      (c) => c === selectedChildName
-    );
-
-    if (selectedChild) {
-      this.quarterlyData.weight = selectedChild.weight;
-      return selectedChild.weight;
-    } else {
-      this.quarterlyData.weight = '';
-      return '';
-    }
-  }
-
-  getSelectedChildHeight() {
-    const selectedChildName = this.quarterlyData.nameOfChild;
-
-    const selectedChild = this.childRecords.find(
-      (c) => c === selectedChildName
-    );
-
-    if (selectedChild) {
-      this.quarterlyData.heightOrLength = selectedChild.height;
-      return selectedChild.height;
-    } else {
-      this.quarterlyData.heightOrLength = '';
-      return '';
-    }
-  }
-
   getSelectedChildBirthday() {
     const selectedChildName = this.quarterlyData.nameOfChild;
 

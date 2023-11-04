@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { Database, ref, get, remove } from '@angular/fire/database';
 import { Location } from '@angular/common';
 
@@ -21,6 +21,7 @@ export class BMIResultComponent {
   showResult: boolean = false;
   results: {
     childName: string;
+    measurementMonth: string;
     barangay: string;
     weight: number;
     height: number;
@@ -141,6 +142,7 @@ export class BMIResultComponent {
 
     const newResult = {
       childName: this.bmiData.childName,
+      measurementMonth: this.bmiData.measurementMonth,
       barangay: this.bmiData.barangay,
       weight: this.bmiData.weight,
       height: this.bmiData.height,

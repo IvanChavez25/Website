@@ -19,6 +19,8 @@ export class NutritionalStatusSummaryHeightforageComponent {
   nutritionalRecords: any[] = [];
   barangayData: HeightForAgeTotals[] = [];
 
+  selectedMonth: string = 'January';
+
   constructor(public database: Database) {
     this.fetchNutritionalRecords();
   }
@@ -41,14 +43,20 @@ export class NutritionalStatusSummaryHeightforageComponent {
       });
   }
 
+  onMonthSelect() {
+    this.fetchNutritionalRecords();
+  }
+
   calculateTotalsByBarangay() {
     const groupedData: HeightForAgeTotals[] = [];
 
-    this.nutritionalRecords.forEach((record) => {
-      const barangayName = record.barangay;
-      const existingBarangay = groupedData.find(
-        (data) => data.barangay === barangayName
-      );
+    this.nutritionalRecords
+      .filter((record) => record.measurementMonth === this.selectedMonth) // Filter by selected month
+      .forEach((record) => {
+        const barangayName = record.barangay;
+        const existingBarangay = groupedData.find(
+          (data) => data.barangay === barangayName
+        );
 
       if (existingBarangay) {
         switch (record.heightForAge) {
