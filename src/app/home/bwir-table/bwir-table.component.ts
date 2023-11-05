@@ -170,7 +170,7 @@ export class BWIRTableComponent {
     remove(baselineRef)
       .then(() => {
         alert('Baseline record deleted successfully');
-        this.reloadPage();
+        this.fetchBaselineRecords();
       })
       .catch((error) => {
         alert('Error deleting Baseline records: ' + error);

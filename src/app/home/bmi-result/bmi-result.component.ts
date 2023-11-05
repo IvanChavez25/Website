@@ -166,6 +166,7 @@ export class BMIResultComponent {
     remove(baselineRef)
       .then(() => {
         alert('BMI record deleted successfully');
+        this.fetchBmiRecords();
       })
       .catch((error) => {
         alert('Error deleting BMI records: ' + error);
@@ -173,12 +174,7 @@ export class BMIResultComponent {
   }
 
   goToPage(pageNumber: number) {
-    if (
-      pageNumber < 1 ||
-      pageNumber * this.itemsPerPage > this.bmiRecords.length
-    ) {
-      return;
-    }
     this.currentPage = pageNumber;
   }
+  
 }

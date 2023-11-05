@@ -163,7 +163,7 @@ export class MonthlyWeightRecordsTableComponent {
     remove(monthlyWeightRef)
       .then(() => {
         alert('Children Monthly Weight record deleted successfully');
-        this.reloadPage();
+        this.fetchmonthlyWeightRecords();
       })
       .catch((error) => {
         alert('Error deleting children Monthly Weight records: ' + error);

@@ -180,7 +180,7 @@ export class FamilyProfileTableComponent {
     remove(familyRef)
       .then(() => {
         alert('Family record deleted successfully');
-        this.reloadPage();
+        this.fetchfamily();
       })
       .catch((error) => {
         alert('Error deleting child: ' + error);

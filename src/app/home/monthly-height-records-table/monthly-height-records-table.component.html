@@ -5,11 +5,29 @@
 <div id="updateCon">
   <div id="updateMonthlyHeightModal" #updateMonthlyHeightModal class="modal">
     <div class="modal-content">
-      <form (ngSubmit)="updateMonthlyHeight()">
+      <form>
         <legend>
           Monthly Records of Height and Height Status Wasted and Severely Wasted
           Cases
         </legend>
+        <div>
+          <label for="weight">Weight:</label>
+          <input
+            type="text"
+            id="weight"
+            name="weight"
+            [(ngModel)]="monthlyHeightRecordsData.weight"
+          />
+        </div>
+        <div>
+          <label for="heightOrLength">Height Length:</label>
+          <input
+            type="text"
+            id="heightOrLength"
+            name="heightOrLength"
+            [(ngModel)]="monthlyHeightRecordsData.heightOrLength"
+          />
+        </div>
         <div>
           <label for="nutritionalStatus">Nutritional Status:</label>
           <input

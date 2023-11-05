@@ -42,7 +42,6 @@ export class BarangayRankingbmiComponent implements OnInit {
 
   // Event handler for month selection
   onMonthSelect() {
-    this.fetchBmiRecord();
     this.rankBarangays();
   }
 
@@ -51,6 +50,8 @@ export class BarangayRankingbmiComponent implements OnInit {
       [key: string]: { severelyUnderweight: number; underweight: number };
     } = {};
 
+    this.fetchBmiRecord();
+    
     // Filter records based on the selected month
     if (this.selectedMonth) {
       this.barangaylist = this.barangaylist.filter(

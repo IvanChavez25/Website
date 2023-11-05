@@ -8,7 +8,7 @@
   font-weight: bold;
 
   left: 50%;
-  top: 100%;
+  top: 80%;
   transform: translate(-50%, -50%);
 
   background-color: rgba(255, 255, 255, 0.8);
@@ -226,4 +226,52 @@ legend {
 .custom-card-text {
   font-size: 1rem;
   color: #666;
+}
+
+@media (max-width: 768px) {
+  fieldset {
+    max-width: 50px;
+    border-style: hidden;
+  }
+
+  legend {
+    text-align: center;
+    font-weight: bold;
+    font-size: 20%;
+  }
+
+  #childrenProfile {
+    padding: 5px;
+    margin-top: 10px;
+  }
+
+  #childrenProfile legend {
+    font-size: 20%;
+  }
+
+  .result-table table {
+    border-collapse: collapse;
+    font-size: 5%;
+  }
+
+  .result-table th,
+  .result-table td {
+    max-width: 30px;
+    font-size: 4px;
+  }
+
+  .result-table p {
+    margin: 10px 0;
+    font-style: italic;
+    color: #999;
+  }
+
+  .result-table th {
+    background-color: #f2f2f2;
+    font-weight: lighter;
+  }
+
+  button {
+    font-size: 3px;
+  }
 }

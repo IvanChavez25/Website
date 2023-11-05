@@ -37,8 +37,50 @@ export class ChildrenInfoComponent {
 
   constructor(public database: Database) {}
 
+  onBirthdayChange() {
+    this.calculateAge(this.childData.birthday);
+    this.calculateAgeInMonths(this.childData.birthday);
+  }
+
+  calculateAge(birthdate: string) {
+    const today = new Date();
+    const birthDate = new Date(birthdate);
+    let age = today.getFullYear() - birthDate.getFullYear();
+
+    // Check if the birthday has occurred this year
+    if (
+      today.getMonth() < birthDate.getMonth() ||
+      (today.getMonth() === birthDate.getMonth() &&
+        today.getDate() < birthDate.getDate())
+    ) {
+      age--;
+    }
+
+    // Set age to zero if it's negative
+    if (age < 0) {
+      age = 0;
+    }
+
+    this.childData.age = age.toString();
+  }
+
+  calculateAgeInMonths(birthdate: string) {
+    const today = new Date();
+    const birthDate = new Date(birthdate);
+    const years = today.getFullYear() - birthDate.getFullYear();
+    const months = today.getMonth() - birthDate.getMonth();
+    const ageInMonths = years * 12 + months;
+
+    // Set ageInMonths to zero if it's negative
+    if (ageInMonths < 0) {
+      this.childData.ageInMonths = '0';
+    } else {
+      this.childData.ageInMonths = ageInMonths.toString();
+    }
+  }
+
   onSubmit() {
-    if (this.isValidchildData()) {
+    if (this.isValidChildData()) {
       // Query the latest child ID from the ChildRecord
       const latestChildIdRef = ref(this.database, 'ChildRecord');
       get(latestChildIdRef).then((snapshot) => {
@@ -56,7 +98,7 @@ export class ChildrenInfoComponent {
         // Add childData to ChildRecord
         set(ref(this.database, 'ChildRecord/' + childrenId), this.childData)
           .then(() => {
-            alert('ChildRecoded added successfully');
+            alert('ChildRecord added successfully');
             this.clearForm();
           })
           .catch((error) => {
@@ -75,31 +117,31 @@ export class ChildrenInfoComponent {
       middleName: '',
       lastName: '',
       birthday: '',
-      age: '',
+      age: null, // Clear the age field
       ageInMonths: '',
       address: '',
       barangay: '',
       fatherName: '',
       motherName: '',
-      gender: '',
+      gender: null,
       date: '',
     };
   }
 
-  private isValidchildData(): boolean {
+  private isValidChildData(): boolean {
     return (
       this.childData.firstName &&
       this.childData.middleName &&
       this.childData.lastName &&
       this.childData.birthday &&
-      this.childData.age &&
+      (this.childData.age || this.childData.age === 0) &&
       this.childData.ageInMonths &&
       this.childData.address &&
       this.childData.barangay &&
       this.childData.fatherName &&
       this.childData.motherName &&
       this.childData.gender &&
-      this.childData.date 
+      this.childData.date
     );
   }
 }

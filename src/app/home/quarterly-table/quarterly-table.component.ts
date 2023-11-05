@@ -160,7 +160,7 @@ export class QuarterlyTableComponent {
     remove(quarterlyRef)
       .then(() => {
         alert('Children quarterly record deleted successfully');
-        this.reloadPage();
+        this.fetchquarterlyTable();
       })
       .catch((error) => {
         alert('Error deleting children quarterly records: ' + error);

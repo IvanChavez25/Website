@@ -6,7 +6,7 @@
 <div id="updateCon">
   <div id="updateBaselineModal" #updateBaselineModal class="modal">
     <div class="modal-content">
-      <form (ngSubmit)="updateBaseline()">
+      <form>
         <legend class="legend1">
           Baseline Weight and Immunization Records of PreSchool Children (0-23
           Months)
@@ -255,12 +255,14 @@
             <option value="December">December</option>
           </select>
         </div>
-      </form>
-      <button class="close" (click)="closeUpdateBaselineModal()">Cancel</button>
+        <button class="close" (click)="closeUpdateBaselineModal()">
+          Cancel
+        </button>
 
-      <button class="btn btn-primary" (click)="updateBaseline()">
-        Update Child
-      </button>
+        <button class="btn btn-primary" (click)="updateBaseline()">
+          Update Child
+        </button>
+      </form>
     </div>
   </div>
 </div>

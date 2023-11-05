@@ -49,6 +49,7 @@
           id="birthday"
           name="birthday"
           [(ngModel)]="childData.birthday"
+          (ngModelChange)="onBirthdayChange()"
           required
         />
       </div>

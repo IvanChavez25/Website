@@ -124,7 +124,7 @@
             </thead>
             <tbody>
               <tr
-                *ngFor="let result of bmiRecords; let i = index"
+              *ngFor="let result of bmiRecords.slice(startIndex, endIndex)"
                 id="result-row"
                 [ngClass]="{ 
                 'severelyunderweight-row': result.resultMessage === 'Severely Underweight',

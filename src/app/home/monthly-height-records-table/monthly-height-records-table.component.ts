@@ -163,7 +163,7 @@ export class MonthlyHeightRecordsTableComponent {
     remove(monthlyHeightRef)
       .then(() => {
         alert('Children Monthly height record deleted successfully');
-        this.reloadPage();
+        this.fetchmonthlyHeightRecords();
       })
       .catch((error) => {
         alert('Error deleting children Monthly height records: ' + error);

@@ -161,7 +161,7 @@ export class MonthlyRecordsInfantComponent {
     remove(monthlyInfantRef)
       .then(() => {
         alert('Children Monthly Infant record deleted successfully');
-        this.reloadPage();
+        this.fetchmonthlyInfantRecords();
       })
       .catch((error) => {
         alert('Error deleting children Monthly Infant records: ' + error);

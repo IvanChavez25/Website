@@ -185,7 +185,7 @@ export class NutritionalTableComponent {
     remove(nutritionalRef)
       .then(() => {
         alert('nutritional record deleted successfully');
-        this.reloadPage();
+        this.fetchNutritionalRecords();
       })
       .catch((error) => {
         alert('Error deleting nutritional status: ' + error);
