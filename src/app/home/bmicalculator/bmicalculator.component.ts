@@ -1,12 +1,7 @@
 import { Component } from '@angular/core';
 import { Location } from '@angular/common';
 
-import {
-  Database,
-  set,
-  ref,
-  get,
-} from '@angular/fire/database';
+import { Database, set, ref, get } from '@angular/fire/database';
 
 @Component({
   selector: 'app-bmi-calculator',
@@ -173,13 +168,16 @@ export class BmiCalculatorComponent {
   }
 
   calculateBMI() {
-    const height_m = this.bmiRecordData.height / 100;
-    this.bmiRecordData.bmi = this.bmiRecordData.weight / height_m ** 2;
-
     if (this.bmiRecordData.age > 5) {
       this.bmiRecordData.resultMessage = 'Age must be 5 or below';
       return;
     }
+
+    const height_m = this.bmiRecordData.height / 100;
+    this.bmiRecordData.bmi = (
+      this.bmiRecordData.weight /
+      height_m ** 2
+    ).toFixed(2);
 
     if (this.bmiRecordData.bmi >= 30) {
       this.bmiRecordData.resultMessage = 'Obese';
@@ -187,7 +185,7 @@ export class BmiCalculatorComponent {
       this.bmiRecordData.resultMessage = 'Overweight';
     } else if (this.bmiRecordData.bmi >= 15) {
       this.bmiRecordData.resultMessage = 'Healthy weight';
-    } else if (this.bmiRecordData.bmi >= 12) {
+    } else if (this.bmiRecordData.bmi >= 8) {
       this.bmiRecordData.resultMessage = 'Underweight';
     } else {
       this.bmiRecordData.resultMessage = 'Severely underweight';
@@ -208,4 +206,41 @@ export class BmiCalculatorComponent {
 
     this.results.sort((a, b) => a.bmi - b.bmi);
   }
+
+  // calculateBMI() {
+  //   const height_m = this.bmiRecordData.height / 100;
+  //   this.bmiRecordData.bmi = this.bmiRecordData.weight / height_m ** 2;
+
+  //   if (this.bmiRecordData.age > 5) {
+  //     this.bmiRecordData.resultMessage = 'Age must be 5 or below';
+  //     return;
+  //   }
+
+  //   if (this.bmiRecordData.bmi >= 30) {
+  //     this.bmiRecordData.resultMessage = 'Obese';
+  //   } else if (this.bmiRecordData.bmi >= 25) {
+  //     this.bmiRecordData.resultMessage = 'Overweight';
+  //   } else if (this.bmiRecordData.bmi >= 15) {
+  //     this.bmiRecordData.resultMessage = 'Healthy weight';
+  //   } else if (this.bmiRecordData.bmi >= 12) {
+  //     this.bmiRecordData.resultMessage = 'Underweight';
+  //   } else {
+  //     this.bmiRecordData.resultMessage = 'Severely underweight';
+  //   }
+
+  //   const newResult = {
+  //     childName: this.bmiRecordData.childName,
+  //     measurementMonth: this.bmiRecordData.measurementMonth,
+  //     barangay: this.bmiRecordData.barangay,
+  //     weight: this.bmiRecordData.weight,
+  //     height: this.bmiRecordData.height,
+  //     age: this.bmiRecordData.age,
+  //     bmi: this.bmiRecordData.bmi,
+  //     resultMessage: this.bmiRecordData.resultMessage,
+  //   };
+
+  //   this.results.push(newResult);
+
+  //   this.results.sort((a, b) => a.bmi - b.bmi);
+  // }
 }

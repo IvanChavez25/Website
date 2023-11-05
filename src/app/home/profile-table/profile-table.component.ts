@@ -17,9 +17,10 @@ export class ProfileTableComponent {
   toDate: string = '';
 
   @ViewChild('updateChildModal') updateChildModal!: ElementRef;
+  
 
   currentPage: number = 1;
-  itemsPerPage: number = 10;
+  itemsPerPage: number = 15;
 
   constructor(public database: Database, private location: Location) {
     this.fetchChildRecords();

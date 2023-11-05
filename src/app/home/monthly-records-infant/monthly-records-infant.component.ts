@@ -32,7 +32,8 @@ export class MonthlyRecordsInfantComponent {
     get(monthlyInfantRef)
       .then((snapshot) => {
         if (snapshot.exists()) {
-          this.monthlyInfantRecords = Object.values(snapshot.val());
+          this.originalMonthlyInfantRecords = Object.values(snapshot.val());
+          this.monthlyInfantRecords = [...this.originalMonthlyInfantRecords];
         } else {
           this.monthlyInfantRecords = [];
         }
@@ -84,6 +85,12 @@ export class MonthlyRecordsInfantComponent {
 
         return true; // No date filter applied
       });
+    }
+
+    if (this.selectedMeasurementMonth) {
+      filteredRecords = filteredRecords.filter(
+        (record) => record.measurementMonth === this.selectedMeasurementMonth
+      );
     }
 
     // Update the monthlyInfantRecords with the filtered data
