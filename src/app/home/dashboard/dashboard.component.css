@@ -20,10 +20,11 @@
 
 canvas {
   display: block;
-  width: 100%;
+  width: 80%;
   max-width: 100%;
   height: auto;
   background-color: #ccc;
+  border-radius: 5px;
 }
 
 .card {

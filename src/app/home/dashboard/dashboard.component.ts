@@ -41,7 +41,7 @@ export class DashboardComponent implements OnInit {
     await this.fetchData();
     await this.fetchChildRecords();
     this.createBarGraph();
-    this.createLineGraphAge();
+    this.createBarGraphAge();
   }
 
   async fetchData() {
@@ -88,19 +88,22 @@ export class DashboardComponent implements OnInit {
   async fetchChildRecords() {
     const childRef = ref(this.database, 'ChildRecord');
 
-    get(childRef)
-      .then((snapshot) => {
-        if (snapshot.exists()) {
-          this.originalChildRecords = Object.values(snapshot.val());
-          this.childRecords = Object.values(snapshot.val());
-          this.calculateGirlsAndBoysCount(this.originalChildRecords);
-        } else {
-          this.childRecords = [];
-        }
-      })
-      .catch((error) => {
-        console.error('Error retrieving records:', error);
-      });
+    try {
+      const snapshot = await get(childRef);
+
+      if (snapshot.exists()) {
+        const records = Object.values(snapshot.val());
+
+        this.calculateGirlsAndBoysCount(records);
+
+        // Update the pie chart
+        this.updatePieChart();
+      } else {
+        this.childRecords = [];
+      }
+    } catch (error) {
+      console.error('Error retrieving records:', error);
+    }
   }
 
   calculateGirlsAndBoysCount(records: any[]) {
@@ -110,6 +113,45 @@ export class DashboardComponent implements OnInit {
     this.boysCount = records.filter(
       (record) => record.gender === 'male'
     ).length;
+  }
+
+  updatePieChart() {
+    const chartElement = document.getElementById(
+      'genderChart'
+    ) as HTMLCanvasElement;
+
+    if (chartElement) {
+      const ctx = chartElement.getContext('2d') as CanvasRenderingContext2D;
+
+      if (ctx) {
+        const data = {
+          labels: ['Girls', 'Boys'],
+          datasets: [
+            {
+              data: [this.girlsCount, this.boysCount],
+              backgroundColor: ['#FF5733', '#3498DB'], // Colors for Girls and Boys
+            },
+          ],
+        };
+
+        new Chart(ctx, {
+          type: 'pie',
+          data: data,
+          options: {
+            plugins: {
+              title: {
+                display: true,
+                text: 'Number Of Children In San Juan Batangas',
+              },
+            },
+          },
+        });
+      } else {
+        console.error('Context is null.');
+      }
+    } else {
+      console.error('Element with id "genderChart" not found.');
+    }
   }
 
   onMonthSelect() {
@@ -293,8 +335,8 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  createLineGraphAge() {
-    const ctx = document.getElementById('lineGraph') as HTMLCanvasElement;
+  createBarGraphAge() {
+    const ctx = document.getElementById('barGraphAge') as HTMLCanvasElement;
 
     const labels = this.barangayDataAge.map((record) => record.barangay);
     const severelyUnderweightData = this.barangayDataAge.map(
@@ -311,33 +353,29 @@ export class DashboardComponent implements OnInit {
     );
 
     new Chart(ctx, {
-      type: 'line',
+      type: 'bar', // Change the type to 'bar' for a bar graph
       data: {
         labels,
         datasets: [
           {
             label: 'SUW',
             data: severelyUnderweightData,
-            borderColor: 'rgba(255, 99, 132, 1)', // Customize color as needed
-            fill: false,
+            backgroundColor: 'rgba(255, 99, 132, 0.6)', // Customize bar color as needed
           },
           {
             label: 'UW',
             data: underweightData,
-            borderColor: 'rgba(54, 162, 235, 1)', // Customize color as needed
-            fill: false,
+            backgroundColor: 'rgba(54, 162, 235, 0.6)', // Customize bar color as needed
           },
           {
             label: 'NW',
             data: normalWeightData,
-            borderColor: 'rgba(75, 192, 192, 1)', // Customize color as needed
-            fill: false,
+            backgroundColor: 'rgba(75, 192, 192, 0.6)', // Customize bar color as needed
           },
           {
             label: 'OW',
             data: overweightData,
-            borderColor: 'rgba(255, 206, 86, 1)', // Customize color as needed
-            fill: false,
+            backgroundColor: 'rgba(255, 206, 86, 0.6)', // Customize bar color as needed
           },
         ],
       },
