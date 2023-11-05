@@ -33,6 +33,7 @@
           id="birthday"
           name="birthday"
           [(ngModel)]="baselineData.birthday"
+          (ngModelChange)="onBirthdayChange()"
           required
         />
       </div>

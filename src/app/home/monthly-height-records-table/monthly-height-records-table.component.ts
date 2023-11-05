@@ -11,7 +11,7 @@ export class MonthlyHeightRecordsTableComponent {
   originalMonthlyHeightRecords: any[] = []; // Store the original data
   monthlyHeightRecords: any[] = [];
   monthlyHeightRecordsData: any = {};
-  selectedBarangay: string = ''; // Declare the property here
+  selectedBarangay: string = '';
 
   fromDate: string = ''; // Declare property for From Date
   toDate: string = ''; // Declare property for To Date
@@ -172,5 +172,57 @@ export class MonthlyHeightRecordsTableComponent {
 
   goToPage(pageNumber: number) {
     this.currentPage = pageNumber;
+  }
+
+  downloadChildData() {
+    // Create a CSV header row
+    const csvHeader = [
+      'Monthly Height Records Id',
+      'Name Of Child',
+      'Birthday (dd/mm/yyyy)',
+      'Age in Months',
+      'Weight',
+      'Height Or Length',
+      'Nutritional Status',
+      'Barangay',
+      'Date',
+      'Measurement Month',
+    ];
+
+    // Convert the child records to a CSV format
+    const csvData = this.monthlyHeightRecords.map((record) => [
+      record.monthlyHeightRecordsId,
+      record.nameOfChild.firstName + ' ' + record.nameOfChild?.lastName,
+      record.birthday,
+      record.ageInMonths,
+      record.weight,
+      record.heightOrLength,
+      record.nutritionalStatus,
+      record.barangay,
+      record.Date,
+      record.measurementMonth,
+    ]);
+
+    // Combine the header and data
+    const csvContent = [csvHeader, ...csvData]
+      .map((row) => row.map((cell) => `"${cell}"`).join(','))
+      .join('\n');
+
+    // Create a Blob containing the CSV data
+    const blob = new Blob([csvContent], { type: 'text/csv' });
+
+    // Create a download URL for the Blob
+    const url = window.URL.createObjectURL(blob);
+
+    // Create a link element to trigger the download
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'monthlyheight_data.csv';
+
+    // Trigger the download
+    a.click();
+
+    // Clean up the URL and link element
+    window.URL.revokeObjectURL(url);
   }
 }

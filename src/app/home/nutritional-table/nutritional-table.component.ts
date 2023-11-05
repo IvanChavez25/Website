@@ -194,4 +194,78 @@ export class NutritionalTableComponent {
   goToPage(pageNumber: number) {
     this.currentPage = pageNumber;
   }
+
+  downloadChildData() {
+    // Create a CSV header row
+    const csvHeader = [
+      'Nutritional ID',
+      'Name Of Child',
+      'Father Name',
+      'Mother Name',
+      'Barangay',
+      'Birthday',
+      'OPT Plus',
+      'Age In Months',
+      'Weight',
+      'Height',
+      'Weight For Age',
+      'Practicing EDF',
+      'Practicing CF',
+      'Age Started CF',
+      'Beneficiary SF',
+      'Vitamin A Last Received',
+      'Iron Received',
+      'Using MNP',
+      'Date',
+      'Measurement Month',
+    ];
+
+    // Convert the child records to a CSV format
+    const csvData = this.nutritionalRecords.map((record) => [
+      record.nutritionalId,
+      record.nameOfChild.firstName + ' ' + record.nameOfChild?.lastName,
+      record.fatherName,
+      record.motherName,
+      record.barangay,
+      record.birthday,
+      record.OPTPlus,
+      record.ageInMonths,
+      record.weight,
+      record.height,
+      record.weightForAge,
+      record.heightForAge,
+      record.weightForHeight,
+      record.practicingEDF,
+      record.practicingCF,
+      record.ageStartedCF,
+      record.beneficiarySF,
+      record.vitaminALastReceived,
+      record.ironReceived,
+      record.usingMNP,
+      record.date,
+      record.measurementMonth,
+    ]);
+
+    // Combine the header and data
+    const csvContent = [csvHeader, ...csvData]
+      .map((row) => row.map((cell) => `"${cell}"`).join(','))
+      .join('\n');
+
+    // Create a Blob containing the CSV data
+    const blob = new Blob([csvContent], { type: 'text/csv' });
+
+    // Create a download URL for the Blob
+    const url = window.URL.createObjectURL(blob);
+
+    // Create a link element to trigger the download
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'nutritional_data.csv';
+
+    // Trigger the download
+    a.click();
+
+    // Clean up the URL and link element
+    window.URL.revokeObjectURL(url);
+  }
 }

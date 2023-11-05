@@ -76,7 +76,7 @@ legend {
 .result-table table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 50%;
+  font-size: 40%;
 }
 
 .result-table th,
@@ -135,7 +135,7 @@ legend {
 .filter-container label {
   flex: 2;
   text-align: center;
-  background-color: #79AC78;
+  background-color: #79ac78;
   border-radius: 4px;
   padding: 5px 10px;
   margin-bottom: 2px;
@@ -157,7 +157,7 @@ legend {
 
 .filter-container button {
   flex: 1;
-  background-color: #79AC78;
+  background-color: #79ac78;
   color: #fff;
   border: none;
   border-radius: 4px;
@@ -169,7 +169,7 @@ legend {
 }
 
 .filter-container button:hover {
-  background-color: #B0D9B1;
+  background-color: #b0d9b1;
 }
 
 .pagination {
@@ -196,9 +196,9 @@ legend {
   cursor: pointer;
   font-size: 15px;
   margin: 0 5px;
-  background-color: #79AC78;
+  background-color: #79ac78;
 }
 
 .pagination button:hover {
-  background-color: #B0D9B1;
+  background-color: #b0d9b1;
 }

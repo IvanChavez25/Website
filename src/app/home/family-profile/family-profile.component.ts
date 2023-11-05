@@ -39,6 +39,7 @@ export class FamilyProfileComponent {
     foodProductionActivity: '',
     iodizedSalt: null,
     ifr: null,
+    barangay: '',
     date: '',
     measurementMonth: '',
   };

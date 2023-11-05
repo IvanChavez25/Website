@@ -171,4 +171,62 @@ export class MonthlyRecordsInfantComponent {
   goToPage(pageNumber: number) {
     this.currentPage = pageNumber;
   }
+
+  downloadChildData() {
+    // Create a CSV header row
+    const csvHeader = [
+      'Monthly Infant Records Id',
+      'Name Of Child',
+      'Birthday (dd/mm/yyyy)',
+      'Age in Months',
+      'Weight',
+      'Height Or Length',
+      'Weight For Length Or Height',
+      'Weight For Age',
+      'Height Or Lengths',
+      'Weight For Length Or Height',
+      'Barangay',
+      'Date',
+      'Measurement Month',
+    ];
+
+    // Convert the child records to a CSV format
+    const csvData = this.monthlyInfantRecords.map((record) => [
+      record.monthlyInfantRecordsId,
+      record.nameOfChild.firstName + ' ' + record.nameOfChild?.lastName,
+      record.birthday,
+      record.ageInMonths,
+      record.weight,
+      record.heightOrLength,
+      record.weightForLengthOrHeight,
+      record.weightForAge,
+      record.heightOrLengths,
+      record.weightForLengthorHeight,
+      record.barangay,
+      record.Date,
+      record.measurementMonth,
+    ]);
+
+    // Combine the header and data
+    const csvContent = [csvHeader, ...csvData]
+      .map((row) => row.map((cell) => `"${cell}"`).join(','))
+      .join('\n');
+
+    // Create a Blob containing the CSV data
+    const blob = new Blob([csvContent], { type: 'text/csv' });
+
+    // Create a download URL for the Blob
+    const url = window.URL.createObjectURL(blob);
+
+    // Create a link element to trigger the download
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'monthlyinfant_data.csv';
+
+    // Trigger the download
+    a.click();
+
+    // Clean up the URL and link element
+    window.URL.revokeObjectURL(url);
+  }
 }

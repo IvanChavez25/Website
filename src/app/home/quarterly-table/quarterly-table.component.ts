@@ -170,4 +170,58 @@ export class QuarterlyTableComponent {
   goToPage(pageNumber: number) {
     this.currentPage = pageNumber;
   }
+
+  downloadChildData() {
+    // Create a CSV header row
+    const csvHeader = [
+      'Quarterly ID',
+      'Name Of Child',
+      'Birthday (dd/mm/yyyy)',
+      'Age in Months',
+      'Weight',
+      'Height Or Length',
+      'Weight For Length Or Height',
+      'Nutritional Status',
+      'Barangay',
+      'Date',
+      'Measurement Month',
+    ];
+
+    // Convert the child records to a CSV format
+    const csvData = this.quarterlyTable.map((record) => [
+      record.quarterlyId,
+      record.nameOfChild.firstName + ' ' + record.nameOfChild?.lastName,
+      record.birthday,
+      record.ageInMonth,
+      record.weight,
+      record.heightOrLength,
+      record.weightForLengthOrHeight,
+      record.nutritionalStatus,
+      record.barangay,
+      record.date,
+      record.measurementMonth,
+    ]);
+
+    // Combine the header and data
+    const csvContent = [csvHeader, ...csvData]
+      .map((row) => row.map((cell) => `"${cell}"`).join(','))
+      .join('\n');
+
+    // Create a Blob containing the CSV data
+    const blob = new Blob([csvContent], { type: 'text/csv' });
+
+    // Create a download URL for the Blob
+    const url = window.URL.createObjectURL(blob);
+
+    // Create a link element to trigger the download
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'quarterly_data.csv';
+
+    // Trigger the download
+    a.click();
+
+    // Clean up the URL and link element
+    window.URL.revokeObjectURL(url);
+  }
 }

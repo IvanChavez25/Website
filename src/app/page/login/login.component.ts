@@ -2,14 +2,13 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Database, ref, get, update, remove } from '@angular/fire/database';
 import { Location } from '@angular/common';
-import { AuthServiceService } from './auth-service.service'
+import { AuthServiceService } from './auth-service.service';
 
 @Component({
   selector: 'app-login-form',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
-
 export class LoginFormComponent {
   userRecords: any[] = [];
 
@@ -30,8 +29,12 @@ export class LoginFormComponent {
   login() {
     const { username, password } = this.model;
     const user = this.userRecords.find(
-      (u) => u.username === username && u.password === password
+      (u) =>
+        (u.username === username && u.password === password) ||
+        (u.email === username && u.password === password)
     );
+
+    console.log(username, password);
 
     if (user) {
       if (user.role === 'admin') {

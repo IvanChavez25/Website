@@ -149,6 +149,7 @@ export class FamilyProfileTableComponent {
       foodProductionActivity: this.familyData.foodProductionActivity,
       iodizedSalt: this.familyData.iodizedSalt,
       ifr: this.familyData.ifr,
+      barangay: this.familyData.barangay,
       date: this.familyData.date,
       measurementMonth: this.familyData.measurementMonth,
     })
@@ -189,5 +190,79 @@ export class FamilyProfileTableComponent {
 
   goToPage(pageNumber: number) {
     this.currentPage = pageNumber;
+  }
+
+  downloadChildData() {
+    // Create a CSV header row
+    const csvHeader = [
+      'HouseHold Number Id',
+      'HouseHold Member',
+      'Zero To Five Months Old',
+      'Six To Twenty Three Months Old',
+      'Twenty Four To Fifty Nine Months Old',
+      'Below Sixty Months Old',
+      'Head Or Spouse',
+      'Occupation',
+      'Educational Attainment',
+      'Mother Pregnant',
+      'Family Planning',
+      'Exclusive Breastfeeding',
+      'Mixed Milk Feeding',
+      'Bottle Feeding',
+      'Toilet Type',
+      'Water Source',
+      'Food Production Activity',
+      'Iodized Salt',
+      'IFR',
+      'Date',
+      'Measurement Month',
+    ];
+
+    // Convert the child records to a CSV format
+    const csvData = this.family.map((record) => [
+      record.houseHoldNumberId,
+      record.houseHoldMember,
+      record.zeroToFiveMonthsOld,
+      record.sixToTwentyThreeMonthsOld,
+      record.twentyFourToFiftyNineMonthsOld,
+      record.belowSixtyMonthsOld,
+      record.headOrSpouse,
+      record.occupation,
+      record.educationalAttainment,
+      record.motherPregnant,
+      record.familyPlanning,
+      record.exclusiveBreastfeeding,
+      record.mixedMilkFeeding,
+      record.bottleFeeding,
+      record.toiletType,
+      record.waterSource,
+      record.foodProductionActivity,
+      record.iodizedSalt,
+      record.ifr,
+      record.date,
+      record.measurementMonth,
+    ]);
+
+    // Combine the header and data
+    const csvContent = [csvHeader, ...csvData]
+      .map((row) => row.map((cell) => `"${cell}"`).join(','))
+      .join('\n');
+
+    // Create a Blob containing the CSV data
+    const blob = new Blob([csvContent], { type: 'text/csv' });
+
+    // Create a download URL for the Blob
+    const url = window.URL.createObjectURL(blob);
+
+    // Create a link element to trigger the download
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'family_data.csv';
+
+    // Trigger the download
+    a.click();
+
+    // Clean up the URL and link element
+    window.URL.revokeObjectURL(url);
   }
 }

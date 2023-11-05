@@ -26,9 +26,11 @@
     "angular-calendar-scheduler": "^16.0.0",
     "chart.js": "^4.4.0",
     "date-fns": "^2.30.0",
+    "file-saver": "^2.0.5",
     "firebase": "^10.5.0",
     "fullcalendar": "^6.1.8",
     "moment": "^2.29.4",
+    "papaparse": "^5.4.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.0"

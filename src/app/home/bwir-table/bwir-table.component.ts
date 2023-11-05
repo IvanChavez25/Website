@@ -180,4 +180,74 @@ export class BWIRTableComponent {
   goToPage(pageNumber: number) {
     this.currentPage = pageNumber;
   }
+
+  downloadChildData() {
+    // Create a CSV header row
+    const csvHeader = [
+      'Household Number',
+      'Name Of Household Head',
+      'Birthday',
+      'NBS Done',
+      'BCG Date',
+      'DPT1 Date',
+      'DPT2 Date',
+      'DPT3 Date',
+      'Polio1 Date',
+      'Polio2 Date',
+      'Polio3 Date',
+      'Measles Date',
+      'Date Of Weighing',
+      'Age In Month',
+      'Weight',
+      'Weight Status',
+      'Barangay',
+      'Date',
+      'Measurement Month',
+    ];
+
+    // Convert the child records to a CSV format
+    const csvData = this.baselineRecords.map((record) => [
+      record.HouseholdNumber,
+      record.NameOfHouseholdHead,
+      record.birthday,
+      record.nbsDone,
+      record.bcgDate,
+      record.dpt1Date,
+      record.dpt2Date,
+      record.dpt3Date,
+      record.polio1Date,
+      record.polio2Date,
+      record.polio3Date,
+      record.measlesDate,
+      record.dateOfWeighing,
+      record.ageInMonth,
+      record.weight,
+      record.weightStatus,
+      record.barangay,
+      record.date,
+      record.measurementMonth,
+    ]);
+
+    // Combine the header and data
+    const csvContent = [csvHeader, ...csvData]
+      .map((row) => row.map((cell) => `"${cell}"`).join(','))
+      .join('\n');
+
+    // Create a Blob containing the CSV data
+    const blob = new Blob([csvContent], { type: 'text/csv' });
+
+    // Create a download URL for the Blob
+    const url = window.URL.createObjectURL(blob);
+
+    // Create a link element to trigger the download
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'bwir_data.csv';
+
+    // Trigger the download
+    a.click();
+
+    // Clean up the URL and link element
+    window.URL.revokeObjectURL(url);
+  }
 }

@@ -36,6 +36,25 @@ export class BaselineWeightComponent {
 
   constructor(public database: Database) {}
 
+  onBirthdayChange() {
+    this.calculateAgeInMonths(this.baselineData.birthday);
+  }
+
+  calculateAgeInMonths(birthdate: string) {
+    const today = new Date();
+    const birthDate = new Date(birthdate);
+    const years = today.getFullYear() - birthDate.getFullYear();
+    const months = today.getMonth() - birthDate.getMonth();
+    const ageInMonths = years * 12 + months;
+
+    // Set ageInMonths to zero if it's negative
+    if (ageInMonths < 0) {
+      this.baselineData.ageInMonth = '0';
+    } else {
+      this.baselineData.ageInMonth = ageInMonths.toString();
+    }
+  }
+
   onSubmit() {
     if (this.isValidbaselineData()) {
       // Query the latest child ID from the BaselineRecord
@@ -113,7 +132,7 @@ export class BaselineWeightComponent {
         this.baselineData.weightStatus &&
         this.baselineData.barangay &&
         this.baselineData.date &&
-        this.baselineData.measumentMonth )
+        this.baselineData.measumentMonth)
     );
   }
 }

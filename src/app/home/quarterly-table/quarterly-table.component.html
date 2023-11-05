@@ -82,15 +82,15 @@
             <option value="November">November</option>
             <option value="December">December</option>
           </select>
+          <button class="close" (click)="closeUpdateQuarterlyModal()">
+            Cancel
+          </button>
+
+          <button class="btn btn-primary" (click)="updateQuarterly()">
+            Update Child
+          </button>
         </div>
       </form>
-      <button class="close" (click)="closeUpdateQuarterlyModal()">
-        Cancel
-      </button>
-
-      <button class="btn btn-primary" (click)="updateQuarterly()">
-        Update Child
-      </button>
     </div>
   </div>
 </div>
@@ -191,6 +191,10 @@
     </select>
 
     <button (click)="clearFilters()">Clear_Filters</button>
+
+    <button (click)="downloadChildData()">
+      <i class="fa fa-download"></i>Download
+    </button>
   </div>
 </fieldset>
 

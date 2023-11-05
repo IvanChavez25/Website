@@ -1,17 +1,7 @@
 import { Component } from '@angular/core';
-import { AngularFireDatabase } from '@angular/fire/compat/database';
-import { NgForm } from '@angular/forms';
 import { Location } from '@angular/common';
 
-import {
-  Database,
-  set,
-  ref,
-  push,
-  update,
-  remove,
-  get,
-} from '@angular/fire/database';
+import { Database, set, ref, get } from '@angular/fire/database';
 
 @Component({
   selector: 'app-quarterly-records',

@@ -154,4 +154,62 @@ export class ProfileTableComponent {
   goToPage(pageNumber: number) {
     this.currentPage = pageNumber;
   }
+
+  downloadChildData() {
+    // Create a CSV header row
+    const csvHeader = [
+      'Children ID',
+      'First Name',
+      'Middle Name',
+      'Last Name',
+      'Birthday (dd/mm/yyyy)',
+      'Age',
+      'Age in Months',
+      'Address',
+      'Barangay',
+      "Father's Name",
+      "Mother's Name",
+      'Gender',
+      'Date',
+    ];
+
+    // Convert the child records to a CSV format
+    const csvData = this.childRecords.map((child) => [
+      child.childrenId,
+      child.firstName,
+      child.middleName,
+      child.lastName,
+      child.birthday,
+      child.age,
+      child.ageInMonths,
+      child.address,
+      child.barangay,
+      child.fatherName,
+      child.motherName,
+      child.gender,
+      child.date,
+    ]);
+
+    // Combine the header and data
+    const csvContent = [csvHeader, ...csvData]
+      .map((row) => row.map((cell) => `"${cell}"`).join(','))
+      .join('\n');
+
+    // Create a Blob containing the CSV data
+    const blob = new Blob([csvContent], { type: 'text/csv' });
+
+    // Create a download URL for the Blob
+    const url = window.URL.createObjectURL(blob);
+
+    // Create a link element to trigger the download
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'child_data.csv';
+
+    // Trigger the download
+    a.click();
+
+    // Clean up the URL and link element
+    window.URL.revokeObjectURL(url);
+  }
 }
