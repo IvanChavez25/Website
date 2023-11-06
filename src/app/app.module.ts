@@ -11,6 +11,7 @@ import { SharedModule } from './shared/shared.module';
 import { environment } from 'src/environtment/environtment';
 import { provideDatabase, getDatabase } from '@angular/fire/database';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [AppComponent, LoginFormComponent],
@@ -23,6 +24,7 @@ import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
     SharedModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideDatabase(() => getDatabase()),
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

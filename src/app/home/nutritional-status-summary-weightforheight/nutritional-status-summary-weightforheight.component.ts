@@ -34,7 +34,6 @@ export class NutritionalStatusSummaryWeightforheightComponent {
         if (snapshot.exists()) {
           this.nutritionalRecords = Object.values(snapshot.val());
           this.calculateTotalsByBarangay();
-          this.createLineGraph();
         } else {
           this.nutritionalRecords = [];
         }
@@ -109,71 +108,4 @@ export class NutritionalStatusSummaryWeightforheightComponent {
     this.barangayData = groupedData;
   }
 
-  createLineGraph() {
-    const ctx = document.getElementById(
-      'lineGraphWeightHeight'
-    ) as HTMLCanvasElement;
-
-    const labels = this.barangayData.map((record) => record.barangay);
-    const severelyUnderweightData = this.barangayData.map(
-      (record) => record.severelyUnderweight
-    );
-    const underweightData = this.barangayData.map(
-      (record) => record.underweight
-    );
-    const normalData = this.barangayData.map((record) => record.normal);
-    const obeseData = this.barangayData.map((record) => record.obese);
-
-    new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels,
-        datasets: [
-          {
-            label: 'Severely Underweight',
-            data: severelyUnderweightData,
-            borderColor: 'rgba(255, 99, 132, 1)', // Customize color as needed
-            fill: false,
-          },
-          {
-            label: 'Underweight',
-            data: underweightData,
-            borderColor: 'rgba(54, 162, 235, 1)', // Customize color as needed
-            fill: false,
-          },
-          {
-            label: 'Normal',
-            data: normalData,
-            borderColor: 'rgba(75, 192, 192, 1)', // Customize color as needed
-            fill: false,
-          },
-          {
-            label: 'Obese',
-            data: obeseData,
-            borderColor: 'rgba(255, 206, 86, 1)', // Customize color as needed
-            fill: false,
-          },
-        ],
-      },
-      options: {
-        scales: {
-          x: {
-            ticks: {
-              font: {
-                size: 12, // Adjust the font size for x-axis labels
-              },
-            },
-          },
-          y: {
-            beginAtZero: true,
-            ticks: {
-              font: {
-                size: 12, // Adjust the font size for y-axis labels
-              },
-            },
-          },
-        },
-      },
-    });
-  }
 }

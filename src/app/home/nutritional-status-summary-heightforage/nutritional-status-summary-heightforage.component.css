@@ -70,19 +70,6 @@ h2 {
   overflow-x: auto;
 }
 
-.container {
-  width: 80%;
-  margin: 0 auto;
-}
-
-.chart-container {
-  margin-top: 20px;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: #fff;
-}
-
 /* Adjust table responsiveness for small screens */
 @media (max-width: 600px) {
   table {

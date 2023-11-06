@@ -10,6 +10,22 @@ interface WeightForAgeTotals {
   overweight: number;
 }
 
+interface HeightForAgeTotals {
+  barangay: string;
+  severelyStunted: number;
+  stunted: number;
+  normal: number;
+  tall: number;
+}
+
+interface WeightForHeightTotals {
+  barangay: string;
+  severelyUnderweight: number;
+  underweight: number;
+  normal: number;
+  obese: number;
+}
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -26,6 +42,8 @@ export class DashboardComponent implements OnInit {
 
   nutritionalRecords: any[] = [];
   barangayDataAge: WeightForAgeTotals[] = [];
+  barangayData: HeightForAgeTotals[] = [];
+  barangayDataWH: WeightForHeightTotals[] = [];
 
   originalChildRecords: any[] = [];
   childRecords: any[] = [];
@@ -42,6 +60,8 @@ export class DashboardComponent implements OnInit {
     await this.fetchChildRecords();
     this.createBarGraph();
     this.createBarGraphAge();
+    this.createBarGraphHeight();
+    this.createBarGraphWH();
   }
 
   async fetchData() {
@@ -76,6 +96,8 @@ export class DashboardComponent implements OnInit {
       if (snapshot.exists()) {
         this.nutritionalRecords = Object.values(snapshot.val());
         this.calculateTotalsByBarangayAge();
+        this.calculateTotalsByBarangayHeight();
+        this.calculateTotalsByBarangayWH();
       } else {
         this.nutritionalRecords = [];
       }
@@ -260,6 +282,124 @@ export class DashboardComponent implements OnInit {
     this.barangayDataAge = groupedData;
   }
 
+  calculateTotalsByBarangayHeight() {
+    const groupedData: HeightForAgeTotals[] = [];
+
+    this.nutritionalRecords.forEach((record) => {
+      const barangayName = record.barangay;
+      const existingBarangay = groupedData.find(
+        (data) => data.barangay === barangayName
+      );
+
+      if (existingBarangay) {
+        switch (record.heightForAge) {
+          case 'SSt':
+            existingBarangay.severelyStunted++;
+            break;
+          case 'St':
+            existingBarangay.stunted++;
+            break;
+          case 'N':
+            existingBarangay.normal++;
+            break;
+          case 'T':
+            existingBarangay.tall++;
+            break;
+          default:
+            break;
+        }
+      } else {
+        const totals: HeightForAgeTotals = {
+          barangay: barangayName,
+          severelyStunted: 0,
+          stunted: 0,
+          normal: 0,
+          tall: 0,
+        };
+
+        switch (record.heightForAge) {
+          case 'SSt':
+            totals.severelyStunted++;
+            break;
+          case 'St':
+            totals.stunted++;
+            break;
+          case 'N':
+            totals.normal++;
+            break;
+          case 'T':
+            totals.tall++;
+            break;
+          default:
+            break;
+        }
+
+        groupedData.push(totals);
+      }
+    });
+
+    this.barangayData = groupedData;
+  }
+
+  calculateTotalsByBarangayWH() {
+    const groupedData: WeightForHeightTotals[] = [];
+
+    this.nutritionalRecords.forEach((record) => {
+      const barangayName = record.barangay;
+      const existingBarangay = groupedData.find(
+        (data) => data.barangay === barangayName
+      );
+
+        if (existingBarangay) {
+          switch (record.weightForHeight) {
+            case 'SUW':
+              existingBarangay.severelyUnderweight++;
+              break;
+            case 'UW':
+              existingBarangay.underweight++;
+              break;
+            case 'N':
+              existingBarangay.normal++;
+              break;
+            case 'OW':
+              existingBarangay.obese++;
+              break;
+            default:
+              break;
+          }
+        } else {
+          const totals: WeightForHeightTotals = {
+            barangay: barangayName,
+            severelyUnderweight: 0,
+            underweight: 0,
+            normal: 0,
+            obese: 0,
+          };
+
+          switch (record.weightForHeight) {
+            case 'SUW':
+              totals.severelyUnderweight++;
+              break;
+            case 'UW':
+              totals.underweight++;
+              break;
+            case 'N':
+              totals.normal++;
+              break;
+            case 'OW':
+              totals.obese++;
+              break;
+            default:
+              break;
+          }
+
+          groupedData.push(totals);
+        }
+      });
+
+    this.barangayDataWH = groupedData;
+  }
+
   createBarGraph() {
     const ctx = document.getElementById('barGraph') as HTMLCanvasElement;
 
@@ -384,6 +524,150 @@ export class DashboardComponent implements OnInit {
           title: {
             display: true,
             text: 'Weight For Age', // Add your chart title here
+          },
+        },
+        scales: {
+          x: {
+            ticks: {
+              font: {
+                size: 5, // Adjust the font size for x-axis labels
+              },
+            },
+          },
+          y: {
+            beginAtZero: true,
+            ticks: {
+              font: {
+                size: 5, // Adjust the font size for y-axis labels
+              },
+            },
+          },
+        },
+      },
+    });
+  }
+
+  createBarGraphHeight() {
+    const ctx = document.getElementById('barGraphHeight') as HTMLCanvasElement;
+
+    const labels = this.barangayDataAge.map((record) => record.barangay);
+    const severelyStuntedData = this.barangayData.map(
+      (record) => record.severelyStunted
+    );
+    const stuntedData = this.barangayData.map(
+      (record) => record.stunted
+    );
+    const normalData = this.barangayData.map(
+      (record) => record.normal
+    );
+    const tallData = this.barangayData.map(
+      (record) => record.tall
+    );
+
+    new Chart(ctx, {
+      type: 'bar', // Change the type to 'bar' for a bar graph
+      data: {
+        labels,
+        datasets: [
+          {
+            label: 'SSt',
+            data: severelyStuntedData,
+            backgroundColor: 'rgba(255, 99, 132, 0.6)', // Customize bar color as needed
+          },
+          {
+            label: 'St',
+            data: stuntedData,
+            backgroundColor: 'rgba(54, 162, 235, 0.6)', // Customize bar color as needed
+          },
+          {
+            label: 'N',
+            data: normalData,
+            backgroundColor: 'rgba(75, 192, 192, 0.6)', // Customize bar color as needed
+          },
+          {
+            label: 'T',
+            data: tallData,
+            backgroundColor: 'rgba(255, 206, 86, 0.6)', // Customize bar color as needed
+          },
+        ],
+      },
+      options: {
+        plugins: {
+          title: {
+            display: true,
+            text: 'Height For Age', // Add your chart title here
+          },
+        },
+        scales: {
+          x: {
+            ticks: {
+              font: {
+                size: 5, // Adjust the font size for x-axis labels
+              },
+            },
+          },
+          y: {
+            beginAtZero: true,
+            ticks: {
+              font: {
+                size: 5, // Adjust the font size for y-axis labels
+              },
+            },
+          },
+        },
+      },
+    });
+  }
+
+  createBarGraphWH() {
+    const ctx = document.getElementById('barGraphWH') as HTMLCanvasElement;
+
+    const labels = this.barangayDataWH.map((record) => record.barangay);
+    const severelyUnderweightData = this.barangayData.map(
+      (record) => record.severelyStunted
+    );
+    const underweightData = this.barangayDataWH.map(
+      (record) => record.underweight
+    );
+    const normalData = this.barangayDataWH.map(
+      (record) => record.normal
+    );
+    const obeseData = this.barangayDataWH.map(
+      (record) => record.obese
+    );
+
+    new Chart(ctx, {
+      type: 'bar', // Change the type to 'bar' for a bar graph
+      data: {
+        labels,
+        datasets: [
+          {
+            label: 'SSt',
+            data: severelyUnderweightData,
+            backgroundColor: 'rgba(255, 99, 132, 0.6)', // Customize bar color as needed
+          },
+          {
+            label: 'St',
+            data: underweightData,
+            backgroundColor: 'rgba(54, 162, 235, 0.6)', // Customize bar color as needed
+          },
+          {
+            label: 'N',
+            data: normalData,
+            backgroundColor: 'rgba(75, 192, 192, 0.6)', // Customize bar color as needed
+          },
+          {
+            label: 'T',
+            data: obeseData,
+            backgroundColor: 'rgba(255, 206, 86, 0.6)', // Customize bar color as needed
+          },
+        ],
+      },
+      options: {
+        plugins: {
+          title: {
+            display: true,
+            text: 'Height For Age', // Add your chart title here
           },
         },
         scales: {
