@@ -1,12 +1,21 @@
-body {
+.background-image {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
   background-image: url("/assets/SanJuan.jpg");
   background-repeat: no-repeat;
   background-size: cover;
-  height: 100vh;
-  opacity: 0.8;
+  opacity: 0.5;
 }
 
-.center-text {
+.title {
+  width: 85%;
+  float: right;
+  padding-top: 3%;
+  padding-right: 15%;
   text-align: center;
 }
 
@@ -18,38 +27,15 @@ h1 {
   text-shadow: 3px 3px 3px black;
 }
 
-.title {
-  width: 73%;
-  float: right;
-  padding-top: 3%;
-  padding-right: 15%;
-  padding-left: 0%;
-  text-align: left;
-}
-
 .image-container {
   background-image: url("/assets/SanJuan1.png");
   background-size: cover;
   background-repeat: no-repeat;
-  width: 160px;
-  height: 160px;
+  width: 200px;
+  height: 200px;
   float: left;
   margin-top: -170px;
-}
-
-.image-container img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.background-image {
-  position: fixed;
-  top: 10;
-  left: 10;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
+  margin-left: 50px;
 }
 
 form {
@@ -59,9 +45,8 @@ form {
   transform: translate(-50%, -50%);
   background-color: rgb(113, 238, 128);
   padding: 25px 30px;
-  border-radius: 30px;
-  border-style: solid;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  border-radius: 25px;
+  border-style: outset;
 }
 
 form div {
@@ -91,29 +76,7 @@ form button[type="submit"] {
   cursor: pointer;
 }
 
-form button[type="button"] {
-  width: 100%;
-  padding: 10px;
-  background-color: #4caf50;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
 form button[type="submit"]:hover {
   background-color: #45a049;
   opacity: 0.8;
-}
-
-.Login {
-  text-align: center;
-  display: flex;
-  justify-content: space-between;
-}
-
-a {
-  display: inline-block;
-  text-decoration: none;
-  color: #fff;
 }

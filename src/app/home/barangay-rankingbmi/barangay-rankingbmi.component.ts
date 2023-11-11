@@ -12,6 +12,9 @@ export class BarangayRankingbmiComponent implements OnInit {
     barangay: string;
     severelyUnderweight: number;
     underweight: number;
+    healthyweight: number;
+    overweight: number;
+    obese: number;
   }[] = [];
   selectedMonth: string = 'January';
 
@@ -47,11 +50,17 @@ export class BarangayRankingbmiComponent implements OnInit {
 
   rankBarangays() {
     const counts: {
-      [key: string]: { severelyUnderweight: number; underweight: number };
+      [key: string]: {
+        severelyUnderweight: number;
+        underweight: number;
+        healthyweight: number;
+        overweight: number;
+        obese: number;
+      };
     } = {};
 
     this.fetchBmiRecord();
-    
+
     // Filter records based on the selected month
     if (this.selectedMonth) {
       this.barangaylist = this.barangaylist.filter(
@@ -62,12 +71,24 @@ export class BarangayRankingbmiComponent implements OnInit {
     // Group and count by barangay
     for (const record of this.barangaylist) {
       if (!counts[record.barangay]) {
-        counts[record.barangay] = { severelyUnderweight: 0, underweight: 0 };
+        counts[record.barangay] = {
+          severelyUnderweight: 0,
+          underweight: 0,
+          healthyweight: 0,
+          overweight: 0,
+          obese: 0,
+        };
       }
       if (record.resultMessage === 'Severely underweight') {
         counts[record.barangay].severelyUnderweight++;
       } else if (record.resultMessage === 'Underweight') {
         counts[record.barangay].underweight++;
+      } else if (record.resultMessage === 'Healthy weight') {
+        counts[record.barangay].healthyweight++;
+      } else if (record.resultMessage === 'Overweight') {
+        counts[record.barangay].overweight++;
+      } else if (record.resultMessage === 'Obese') {
+        counts[record.barangay].obese++;
       }
     }
 
@@ -81,8 +102,14 @@ export class BarangayRankingbmiComponent implements OnInit {
     this.rankedBarangays.sort((a, b) => {
       if (b.severelyUnderweight !== a.severelyUnderweight) {
         return b.severelyUnderweight - a.severelyUnderweight;
-      } else {
+      } else if (b.underweight !== a.underweight) {
         return b.underweight - a.underweight;
+      } else if (b.healthyweight !== a.healthyweight) {
+        return b.healthyweight - a.healthyweight;
+      } else if (b.overweight !== a.overweight) {
+        return b.overweight - a.overweight;
+      } else {
+        return b.obese - a.obese;
       }
     });
   }

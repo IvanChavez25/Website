@@ -1,8 +1,8 @@
 <div class="barangay-ranking">
   <fieldset id="bmiranking">
-    <legend><h3>BMI BARANGAY RANKING TABLE</h3></legend>
+    <legend><h3>BMI RESULT BARANGAY RANKING TABLE</h3></legend>
     <div class="ranking-table">
-      <label for="monthSelect">Select Month:</label>
+      <label for="monthSelect">Select Month: </label>
       <select
         id="monthSelect"
         [(ngModel)]="selectedMonth"
@@ -27,6 +27,9 @@
             <th>Barangay</th>
             <th>Severely Underweight Count</th>
             <th>Underweight Count</th>
+            <th>Healthy Weight Count</th>
+            <th>Overweight Count</th>
+            <th>Obese Count</th>
           </tr>
         </thead>
         <tbody>
@@ -35,6 +38,9 @@
             <td>{{ barangay.barangay }}</td>
             <td>{{ barangay.severelyUnderweight }}</td>
             <td>{{ barangay.underweight }}</td>
+            <td>{{ barangay.healthyweight }}</td>
+            <td>{{ barangay.overweight }}</td>
+            <td>{{ barangay.obese }}</td>
           </tr>
         </tbody>
       </table>

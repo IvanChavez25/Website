@@ -42,13 +42,65 @@ export class MonthlyWeightComponent {
     this.fetchChildRecords();
   }
 
+
+  onWeightStatusChange() {
+    this.calculateNutritionalStatus(this.monthlyWeightRecordData.ageInMonths, this.monthlyWeightRecordData.weight );
+   
+  }
+
+  calculateNutritionalStatus(age: number, weight: number) {
+    if (age = 0) {
+      if (weight <= 2.0) {
+        this.monthlyWeightRecordData.weightStatus = 'Severely Underweight';
+      } else if (weight <= 2.3) {
+        this.monthlyWeightRecordData.weightStatus = 'Underweight';
+      } else if (weight <= 4.2) {
+        this.monthlyWeightRecordData.weightStatus = 'Normal';
+      } else if (weight <= 4.3) {
+        this.monthlyWeightRecordData.weightStatus = 'Overweight';
+      }
+    } else if (age = 1) {
+      if (weight <= 2.7) {
+        this.monthlyWeightRecordData.weightStatus = 'Severely Underweight';
+      } else if (weight <= 3.1) {
+        this.monthlyWeightRecordData.weightStatus = 'Underweight';
+      } else if (weight <= 5.5) {
+        this.monthlyWeightRecordData.weightStatus = 'Normal';
+      } else if (weight <= 5.6) {
+        this.monthlyWeightRecordData.weightStatus = 'Overweight';
+      }
+    } else if (age = 2) {
+      if (weight <= 3.4) {
+        this.monthlyWeightRecordData.weightStatus = 'Severely Underweight';
+      } else if (weight <= 3.8) {
+        this.monthlyWeightRecordData.weightStatus = 'Underweight';
+      } else if (weight <= 6.6) {
+        this.monthlyWeightRecordData.weightStatus = 'Normal';
+      } else if (weight <= 6.7) {
+        this.monthlyWeightRecordData.weightStatus = 'Overweight';
+      }
+    } else if (age = 3) {
+      if (weight <= 4.0) {
+        this.monthlyWeightRecordData.weightStatus = 'Severely Underweight';
+      } else if (weight <= 4.4) {
+        this.monthlyWeightRecordData.weightStatus = 'Underweight';
+      } else if (weight <= 7.5) {
+        this.monthlyWeightRecordData.weightStatus = 'Normal';
+      } else if (weight <= 7.6) {
+        this.monthlyWeightRecordData.weightStatus = 'Overweight';
+      }
+    } else {
+      this.monthlyWeightRecordData.weightStatus = 'Unknown';
+    }
+  }
+  
   onSubmit() {
     if (this.isValidmonthlyWeightRecordData()) {
-      // Query the latest child ID from the MonthlyWeightRecord
       const latestmonthlyWeightRecordsIdRef = ref(
         this.database,
         'MonthlyWeightRecord'
       );
+
       get(latestmonthlyWeightRecordsIdRef).then((snapshot) => {
         let monthlyWeightRecordsId = '10001'; // Initialize with '10001'
 

@@ -350,52 +350,52 @@ export class DashboardComponent implements OnInit {
         (data) => data.barangay === barangayName
       );
 
-        if (existingBarangay) {
-          switch (record.weightForHeight) {
-            case 'SUW':
-              existingBarangay.severelyUnderweight++;
-              break;
-            case 'UW':
-              existingBarangay.underweight++;
-              break;
-            case 'N':
-              existingBarangay.normal++;
-              break;
-            case 'OW':
-              existingBarangay.obese++;
-              break;
-            default:
-              break;
-          }
-        } else {
-          const totals: WeightForHeightTotals = {
-            barangay: barangayName,
-            severelyUnderweight: 0,
-            underweight: 0,
-            normal: 0,
-            obese: 0,
-          };
-
-          switch (record.weightForHeight) {
-            case 'SUW':
-              totals.severelyUnderweight++;
-              break;
-            case 'UW':
-              totals.underweight++;
-              break;
-            case 'N':
-              totals.normal++;
-              break;
-            case 'OW':
-              totals.obese++;
-              break;
-            default:
-              break;
-          }
-
-          groupedData.push(totals);
+      if (existingBarangay) {
+        switch (record.weightForHeight) {
+          case 'SUW':
+            existingBarangay.severelyUnderweight++;
+            break;
+          case 'UW':
+            existingBarangay.underweight++;
+            break;
+          case 'N':
+            existingBarangay.normal++;
+            break;
+          case 'OW':
+            existingBarangay.obese++;
+            break;
+          default:
+            break;
         }
-      });
+      } else {
+        const totals: WeightForHeightTotals = {
+          barangay: barangayName,
+          severelyUnderweight: 0,
+          underweight: 0,
+          normal: 0,
+          obese: 0,
+        };
+
+        switch (record.weightForHeight) {
+          case 'SUW':
+            totals.severelyUnderweight++;
+            break;
+          case 'UW':
+            totals.underweight++;
+            break;
+          case 'N':
+            totals.normal++;
+            break;
+          case 'OW':
+            totals.obese++;
+            break;
+          default:
+            break;
+        }
+
+        groupedData.push(totals);
+      }
+    });
 
     this.barangayDataWH = groupedData;
   }
@@ -458,7 +458,7 @@ export class DashboardComponent implements OnInit {
           x: {
             ticks: {
               font: {
-                size: 5, // Adjust the font size for x-axis labels
+                size: 7, // Adjust the font size for x-axis labels
               },
             },
           },
@@ -466,7 +466,7 @@ export class DashboardComponent implements OnInit {
             beginAtZero: true,
             ticks: {
               font: {
-                size: 5, // Adjust the font size for y-axis labels
+                size: 7, // Adjust the font size for y-axis labels
               },
             },
           },
@@ -554,15 +554,9 @@ export class DashboardComponent implements OnInit {
     const severelyStuntedData = this.barangayData.map(
       (record) => record.severelyStunted
     );
-    const stuntedData = this.barangayData.map(
-      (record) => record.stunted
-    );
-    const normalData = this.barangayData.map(
-      (record) => record.normal
-    );
-    const tallData = this.barangayData.map(
-      (record) => record.tall
-    );
+    const stuntedData = this.barangayData.map((record) => record.stunted);
+    const normalData = this.barangayData.map((record) => record.normal);
+    const tallData = this.barangayData.map((record) => record.tall);
 
     new Chart(ctx, {
       type: 'bar', // Change the type to 'bar' for a bar graph
@@ -629,12 +623,8 @@ export class DashboardComponent implements OnInit {
     const underweightData = this.barangayDataWH.map(
       (record) => record.underweight
     );
-    const normalData = this.barangayDataWH.map(
-      (record) => record.normal
-    );
-    const obeseData = this.barangayDataWH.map(
-      (record) => record.obese
-    );
+    const normalData = this.barangayDataWH.map((record) => record.normal);
+    const obeseData = this.barangayDataWH.map((record) => record.obese);
 
     new Chart(ctx, {
       type: 'bar', // Change the type to 'bar' for a bar graph
@@ -642,12 +632,12 @@ export class DashboardComponent implements OnInit {
         labels,
         datasets: [
           {
-            label: 'SSt',
+            label: 'SUW',
             data: severelyUnderweightData,
             backgroundColor: 'rgba(255, 99, 132, 0.6)', // Customize bar color as needed
           },
           {
-            label: 'St',
+            label: 'UW',
             data: underweightData,
             backgroundColor: 'rgba(54, 162, 235, 0.6)', // Customize bar color as needed
           },
@@ -657,7 +647,7 @@ export class DashboardComponent implements OnInit {
             backgroundColor: 'rgba(75, 192, 192, 0.6)', // Customize bar color as needed
           },
           {
-            label: 'T',
+            label: 'O',
             data: obeseData,
             backgroundColor: 'rgba(255, 206, 86, 0.6)', // Customize bar color as needed
           },
@@ -667,7 +657,7 @@ export class DashboardComponent implements OnInit {
         plugins: {
           title: {
             display: true,
-            text: 'Height For Age', // Add your chart title here
+            text: 'Weight For Height', // Add your chart title here
           },
         },
         scales: {

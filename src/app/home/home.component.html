@@ -6,6 +6,12 @@
   </div>
   <ul class="navbar-list">
     <li *ngIf="userRole === 'bhw'">
+      <a routerLink="/home/dashboard">
+        Dashboard
+        <i class="fa fa-bar-chart"></i>
+      </a>
+    </li>
+    <li *ngIf="userRole === 'bhw'">
       <a routerLink="/home/childreninfo">
         Profile
         <i class="fa fa-user-circle"></i>
@@ -67,7 +73,7 @@
           <li>
             <app-monthly-dropdown></app-monthly-dropdown>
           </li>
-          <li *ngIf="userRole === 'admin'">
+          <li>
             <app-nutritional-dropdown></app-nutritional-dropdown>
           </li>
           <li>

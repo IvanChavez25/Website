@@ -46,7 +46,7 @@ export class LoginFormComponent {
       // Set uid in AuthService
       this.authService.uid = user.uid;
 
-      this.router.navigate(['/home']);
+      this.router.navigate(['/home/dashboard']);
     } else {
       alert('Login failed');
     }

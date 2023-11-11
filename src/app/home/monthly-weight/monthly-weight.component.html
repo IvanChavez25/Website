@@ -71,22 +71,19 @@
           id="weight"
           name="weight"
           [(ngModel)]="monthlyWeightRecordData.weight"
+          (ngModelChange)="onWeightStatusChange()"
+          required
         />
       </div>
       <div>
         <label for="weightStatus">Weight Status:</label>
-        <select
+        <input
+          type="text"
           id="weightStatus"
           name="weightStatus"
           [(ngModel)]="monthlyWeightRecordData.weightStatus"
           required
-        >
-          <option value="Severely Underweight">Severely Underweight</option>
-          <option value="Underweight">Underweight</option>
-          <option value="Normal Weight">Normal Weight</option>
-          <option value="OverWeight">OverWeight</option>
-          <option value="Obese">Obese</option>
-        </select>
+        />
       </div>
       <div>
         <label for="dateOfWeighing">Date of Weighing:</label>
