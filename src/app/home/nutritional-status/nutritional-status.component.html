@@ -165,6 +165,8 @@
           id="height"
           name="height"
           [(ngModel)]="nutritionalData.height"
+          (ngModelChange)="onWeightForAgeChange()"
+          required
         />
       </div>
       <fieldset>
@@ -183,16 +185,11 @@
         </div>
         <div>
           <label for="heightForAge">Height for Age:</label>
-          <select
+          <input
             id="heightForAge"
             name="heightForAge"
             [(ngModel)]="nutritionalData.heightForAge"
-          >
-            <option value="SSt">SSt (Severely Stunted)</option>
-            <option value="St">St (Stunted)</option>
-            <option value="N">N (Normal)</option>
-            <option value="T">T (Tall)</option>
-          </select>
+          />
         </div>
         <div>
           <label for="weightForHeight">Weight for Height:</label>

@@ -117,18 +117,35 @@ export class BarangayRankingbmiComponent implements OnInit {
   }
 
   // Function to show detailed information for severely underweight individuals
-  showDetailedInfoByCategory(barangayName: string, category: string) {
-       // Filter records based on the selected month
-       let filteredRecords = this.barangaylist;
-       if (this.selectedMonth) {
-           filteredRecords = this.barangaylist.filter(
-               (record) => record.measurementMonth === this.selectedMonth
-           );
-       }
-   
-       // Filter records for the specific barangay and category
-       this.selectedBarangayInfo = filteredRecords.filter(
-           (record) => record.barangay === barangayName && record.resultMessage === category
-       );
+  showModal = false;
+
+  showDetailedInfoByCategory(
+    barangayName: string,
+    category: string,
+    barangayValue: number
+  ) {
+    // Filter records based on the selected month
+    let filteredRecords = this.barangaylist;
+    if (this.selectedMonth) {
+      filteredRecords = this.barangaylist.filter(
+        (record) => record.measurementMonth === this.selectedMonth
+      );
+    }
+
+    if (barangayValue === 0) {
+      return;
+    }
+
+    // Filter records for the specific barangay and category
+    this.selectedBarangayInfo = filteredRecords.filter(
+      (record) =>
+        record.barangay === barangayName && record.resultMessage === category
+    );
+
+    this.showModal = true;
+  }
+
+  closeModal() {
+    this.showModal = false;
   }
 }

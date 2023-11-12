@@ -40,7 +40,8 @@
               (click)="
                 showDetailedInfoByCategory(
                   barangay.barangay,
-                  'Severely underweight'
+                  'Severely underweight',
+                  barangay.severelyUnderweight
                 )
               "
             >
@@ -48,27 +49,45 @@
             </td>
             <td
               (click)="
-                showDetailedInfoByCategory(barangay.barangay, 'Underweight')
+                showDetailedInfoByCategory(
+                  barangay.barangay,
+                  'Underweight',
+                  barangay.underweight
+                )
               "
             >
               {{ barangay.underweight }}
             </td>
             <td
               (click)="
-                showDetailedInfoByCategory(barangay.barangay, 'Healthy weight')
+                showDetailedInfoByCategory(
+                  barangay.barangay,
+                  'Healthy weight',
+                  barangay.healthyweight
+                )
               "
             >
               {{ barangay.healthyweight }}
             </td>
             <td
               (click)="
-                showDetailedInfoByCategory(barangay.barangay, 'Overweight')
+                showDetailedInfoByCategory(
+                  barangay.barangay,
+                  'Overweight',
+                  barangay.overweight
+                )
               "
             >
               {{ barangay.overweight }}
             </td>
             <td
-              (click)="showDetailedInfoByCategory(barangay.barangay, 'Obese')"
+              (click)="
+                showDetailedInfoByCategory(
+                  barangay.barangay,
+                  'Obese',
+                  barangay.obese
+                )
+              "
             >
               {{ barangay.obese }}
             </td>
@@ -77,17 +96,22 @@
       </table>
 
       <!-- Display detailed information without using a separate dialog -->
-      <div *ngIf="selectedBarangayInfo.length > 0">
-        <div *ngFor="let info of selectedBarangayInfo">
-          <h4>
-            Details for {{ info.childName.firstName }}
-            {{ info.childName.lastName }}
-          </h4>
-          <ul>
-            <li><strong>Height:</strong> {{ info.height }}</li>
-            <li><strong>Weight:</strong> {{ info.weight }}</li>
-            <li><strong>Result:</strong> {{ info.resultMessage }}</li>
-          </ul>
+      <div class="modal" *ngIf="showModal">
+        <div class="modal-content">
+          <span (click)="closeModal()">&times;</span>
+          <div *ngIf="selectedBarangayInfo.length > 0">
+            <div *ngFor="let info of selectedBarangayInfo">
+              <h4>
+                Details for {{ info.childName.firstName }}
+                {{ info.childName.lastName }}
+              </h4>
+              <ul>
+                <li><strong>Height:</strong> {{ info.height }}</li>
+                <li><strong>Weight:</strong> {{ info.weight }}</li>
+                <li><strong>Result:</strong> {{ info.resultMessage }}</li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     </div>
