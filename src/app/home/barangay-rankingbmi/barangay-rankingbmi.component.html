@@ -36,14 +36,60 @@
           <tr *ngFor="let barangay of rankedBarangays; let i = index">
             <td>{{ i + 1 }}</td>
             <td>{{ barangay.barangay }}</td>
-            <td>{{ barangay.severelyUnderweight }}</td>
-            <td>{{ barangay.underweight }}</td>
-            <td>{{ barangay.healthyweight }}</td>
-            <td>{{ barangay.overweight }}</td>
-            <td>{{ barangay.obese }}</td>
+            <td
+              (click)="
+                showDetailedInfoByCategory(
+                  barangay.barangay,
+                  'Severely underweight'
+                )
+              "
+            >
+              {{ barangay.severelyUnderweight }}
+            </td>
+            <td
+              (click)="
+                showDetailedInfoByCategory(barangay.barangay, 'Underweight')
+              "
+            >
+              {{ barangay.underweight }}
+            </td>
+            <td
+              (click)="
+                showDetailedInfoByCategory(barangay.barangay, 'Healthy weight')
+              "
+            >
+              {{ barangay.healthyweight }}
+            </td>
+            <td
+              (click)="
+                showDetailedInfoByCategory(barangay.barangay, 'Overweight')
+              "
+            >
+              {{ barangay.overweight }}
+            </td>
+            <td
+              (click)="showDetailedInfoByCategory(barangay.barangay, 'Obese')"
+            >
+              {{ barangay.obese }}
+            </td>
           </tr>
         </tbody>
       </table>
+
+      <!-- Display detailed information without using a separate dialog -->
+      <div *ngIf="selectedBarangayInfo.length > 0">
+        <div *ngFor="let info of selectedBarangayInfo">
+          <h4>
+            Details for {{ info.childName.firstName }}
+            {{ info.childName.lastName }}
+          </h4>
+          <ul>
+            <li><strong>Height:</strong> {{ info.height }}</li>
+            <li><strong>Weight:</strong> {{ info.weight }}</li>
+            <li><strong>Result:</strong> {{ info.resultMessage }}</li>
+          </ul>
+        </div>
+      </div>
     </div>
   </fieldset>
 </div>

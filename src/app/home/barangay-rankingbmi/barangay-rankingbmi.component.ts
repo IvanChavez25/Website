@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Database, ref, get } from '@angular/fire/database';
 
 @Component({
@@ -17,6 +18,7 @@ export class BarangayRankingbmiComponent implements OnInit {
     obese: number;
   }[] = [];
   selectedMonth: string = 'January';
+  selectedBarangayInfo: any[] = [];
 
   constructor(public database: Database) {
     this.fetchBmiRecord().then(() => {
@@ -112,5 +114,21 @@ export class BarangayRankingbmiComponent implements OnInit {
         return b.obese - a.obese;
       }
     });
+  }
+
+  // Function to show detailed information for severely underweight individuals
+  showDetailedInfoByCategory(barangayName: string, category: string) {
+       // Filter records based on the selected month
+       let filteredRecords = this.barangaylist;
+       if (this.selectedMonth) {
+           filteredRecords = this.barangaylist.filter(
+               (record) => record.measurementMonth === this.selectedMonth
+           );
+       }
+   
+       // Filter records for the specific barangay and category
+       this.selectedBarangayInfo = filteredRecords.filter(
+           (record) => record.barangay === barangayName && record.resultMessage === category
+       );
   }
 }
