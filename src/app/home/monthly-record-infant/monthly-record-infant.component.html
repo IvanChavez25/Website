@@ -76,6 +76,8 @@
             id="weight"
             name="weight"
             [(ngModel)]="monthlyInfantRecordData.weight"
+            (ngModelChange)="onWeightForAgeChange()"
+            required
           />
         </div>
         <div>
@@ -85,6 +87,8 @@
             id="heightOrLength"
             name="heightOrLength"
             [(ngModel)]="monthlyInfantRecordData.heightOrLength"
+            (ngModelChange)="onheightOrLengthsChange()"
+            required
           />
         </div>
         <div>
@@ -103,19 +107,16 @@
         </div>
         <div>
           <label for="weightForAge">Weight for Age:</label>
-          <select
+          <input
+            type="text"
             id="weightForAge"
             name="weightForAge"
             [(ngModel)]="monthlyInfantRecordData.weightForAge"
-          >
-            <option value="SUW">SUW (Severely Underweight)</option>
-            <option value="UW">UW (Underweight)</option>
-            <option value="N">N (Normal)</option>
-            <option value="OW">OW (Overweight)</option>
-          </select>
+            required
+          />
         </div>
         <div>
-          <label for="heightOrLengths">Height Length (H/L):</label>
+          <label for="heightOrLengths">Height For Age:</label>
           <input
             type="text"
             id="heightOrLengths"

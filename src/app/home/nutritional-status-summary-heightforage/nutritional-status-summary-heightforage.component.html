@@ -33,13 +33,78 @@
         <tbody>
           <tr *ngFor="let barangay of barangayData">
             <td>{{ barangay.barangay }}</td>
-            <td>{{ barangay.severelyStunted }}</td>
-            <td>{{ barangay.stunted }}</td>
-            <td>{{ barangay.normal }}</td>
-            <td>{{ barangay.tall }}</td>
+            <td
+              (click)="
+                showDetailedInfoByCategory(
+                  barangay.barangay,
+                  'SSt',
+                  barangay.severelyStunted
+                )
+              "
+            >
+              {{ barangay.severelyStunted }}
+            </td>
+            <td
+              (click)="
+                showDetailedInfoByCategory(
+                  barangay.barangay,
+                  'St',
+                  barangay.stunted
+                )
+              "
+            >
+              {{ barangay.stunted }}
+            </td>
+            <td
+              (click)="
+                showDetailedInfoByCategory(
+                  barangay.barangay,
+                  'N',
+                  barangay.normal
+                )
+              "
+            >
+              {{ barangay.normal }}
+            </td>
+            <td
+              (click)="
+                showDetailedInfoByCategory(
+                  barangay.barangay,
+                  'T',
+                  barangay.tall
+                )
+              "
+            >
+              {{ barangay.tall }}
+            </td>
           </tr>
         </tbody>
       </table>
+      <div class="modal" *ngIf="showModal">
+        <div class="modal-content">
+          <span (click)="closeModal()">&times;</span>
+          <div *ngIf="selectedBarangayInfo.length > 0">
+            <table>
+              <thead>
+                <tr>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Height</th>
+                  <th>Result</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let info of selectedBarangayInfo">
+                  <td>{{ info.nameOfChild.firstName }}</td>
+                  <td>{{ info.nameOfChild.lastName }}</td>
+                  <td>{{ info.height }}</td>
+                  <td>{{ info.heightForAge }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </section>
   </fieldset>
 </div>

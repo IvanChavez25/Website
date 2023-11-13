@@ -165,7 +165,7 @@
           id="height"
           name="height"
           [(ngModel)]="nutritionalData.height"
-          (ngModelChange)="onWeightForAgeChange()"
+          (ngModelChange)="onHeightForAgeChange()"
           required
         />
       </div>
@@ -186,6 +186,7 @@
         <div>
           <label for="heightForAge">Height for Age:</label>
           <input
+            type="text"
             id="heightForAge"
             name="heightForAge"
             [(ngModel)]="nutritionalData.heightForAge"

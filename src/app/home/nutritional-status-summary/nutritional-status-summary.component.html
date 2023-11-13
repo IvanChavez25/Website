@@ -2,44 +2,111 @@
   <fieldset id="bmiranking">
     <section class="barangay-nutritional-status">
       <h2>Barangay WeightForAge Nutritional Status</h2>
-      <label for="monthSelect">Select Month:</label>
-      <select
-        id="monthSelect"
-        [(ngModel)]="selectedMonth"
-        (change)="onMonthSelect()"
-      >
-        <option value="January">January</option>
-        <option value="February">February</option>
-        <option value="March">March</option>
-        <option value="May">May</option>
-        <option value="June">June</option>
-        <option value="July">July</option>
-        <option value="August">August</option>
-        <option value="September">September</option>
-        <option value="October">October</option>
-        <option value="November">November</option>
-        <option value="December">December</option>
-      </select>
-      <table class="nutritional-status-table">
-        <thead>
-          <tr>
-            <th>Barangay</th>
-            <th>Severely Underweight</th>
-            <th>Underweight</th>
-            <th>Normal</th>
-            <th>Overweight</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let barangay of barangayData">
-            <td>{{ barangay.barangay }}</td>
-            <td>{{ barangay.severelyUnderweight }}</td>
-            <td>{{ barangay.underweight }}</td>
-            <td>{{ barangay.normalWeight }}</td>
-            <td>{{ barangay.overweight }}</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="ranking-table">
+        <label for="monthSelect">Select Month: </label>
+        <select
+          id="monthSelect"
+          [(ngModel)]="selectedMonth"
+          (change)="onMonthSelect()"
+        >
+          <option value="January">January</option>
+          <option value="February">February</option>
+          <option value="March">March</option>
+          <option value="May">May</option>
+          <option value="June">June</option>
+          <option value="July">July</option>
+          <option value="August">August</option>
+          <option value="September">September</option>
+          <option value="October">October</option>
+          <option value="November">November</option>
+          <option value="December">December</option>
+        </select>
+        <table class="nutritional-status-table">
+          <thead>
+            <tr>
+              <th>Barangay</th>
+              <th>Severely Underweight</th>
+              <th>Underweight</th>
+              <th>Normal</th>
+              <th>Overweight</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let barangay of barangayData">
+              <td>{{ barangay.barangay }}</td>
+              <td
+                (click)="
+                  showDetailedInfoByCategory(
+                    barangay.barangay,
+                    'SUW',
+                    barangay.severelyUnderweight
+                  )
+                "
+              >
+                {{ barangay.severelyUnderweight }}
+              </td>
+              <td
+                (click)="
+                  showDetailedInfoByCategory(
+                    barangay.barangay,
+                    'UW',
+                    barangay.underweight
+                  )
+                "
+              >
+                {{ barangay.underweight }}
+              </td>
+              <td
+                (click)="
+                  showDetailedInfoByCategory(
+                    barangay.barangay,
+                    'N',
+                    barangay.normalWeight
+                  )
+                "
+              >
+                {{ barangay.normalWeight }}
+              </td>
+              <td
+                (click)="
+                  showDetailedInfoByCategory(
+                    barangay.barangay,
+                    'OW',
+                    barangay.overweight
+                  )
+                "
+              >
+                {{ barangay.overweight }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="modal" *ngIf="showModal">
+          <div class="modal-content">
+            <span (click)="closeModal()">&times;</span>
+            <div *ngIf="selectedBarangayInfo.length > 0">
+              <table>
+                <thead>
+                  <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Weight</th>
+                    <th>Result</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let info of selectedBarangayInfo">
+                    <td>{{ info.nameOfChild.firstName }}</td>
+                    <td>{{ info.nameOfChild.lastName }}</td>
+                    <td>{{ info.weight }}</td>
+                    <td>{{ info.weightForAge }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
   </fieldset>
 </div>

@@ -27,29 +27,21 @@
           </div>
           <div>
             <label for="weightForAge">Weight for Age:</label>
-            <select
+            <input
+              type="text"
               id="weightForAge"
               name="weightForAge"
               [(ngModel)]="nutritionalRecordsData.weightForAge"
-            >
-              <option value="SUW">SUW (Severely Underweight)</option>
-              <option value="UW">UW (Underweight)</option>
-              <option value="N">N (Normal)</option>
-              <option value="OW">OW (Overweight)</option>
-            </select>
+              required
+            />
           </div>
           <div>
             <label for="heightForAge">Height for Age:</label>
-            <select
+            <input
               id="heightForAge"
               name="heightForAge"
               [(ngModel)]="nutritionalRecordsData.heightForAge"
-            >
-              <option value="SSt">SSt (Severely Stunded)</option>
-              <option value="St">St (Stunded)</option>
-              <option value="N">N (Normal)</option>
-              <option value="T">T (Tall)</option>
-            </select>
+            />
           </div>
           <div>
             <label for="weightForHeight">Weight for Height:</label>

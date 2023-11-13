@@ -100,17 +100,26 @@
         <div class="modal-content">
           <span (click)="closeModal()">&times;</span>
           <div *ngIf="selectedBarangayInfo.length > 0">
-            <div *ngFor="let info of selectedBarangayInfo">
-              <h4>
-                Details for {{ info.childName.firstName }}
-                {{ info.childName.lastName }}
-              </h4>
-              <ul>
-                <li><strong>Height:</strong> {{ info.height }}</li>
-                <li><strong>Weight:</strong> {{ info.weight }}</li>
-                <li><strong>Result:</strong> {{ info.resultMessage }}</li>
-              </ul>
-            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Height</th>
+                  <th>Weight</th>
+                  <th>Result</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let info of selectedBarangayInfo">
+                  <td>{{ info.childName.firstName }}</td>
+                  <td>{{ info.childName.lastName }}</td>
+                  <td>{{ info.height }}</td>
+                  <td>{{ info.weight }}</td>
+                  <td>{{ info.resultMessage }}</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>

@@ -70,6 +70,40 @@ h2 {
   overflow-x: auto;
 }
 
+/* dinagdag ko dyann sa modal */
+.modal {
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 450px;
+  height: 500px;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal-content {
+  position: relative;
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  overflow-y: auto;
+  z-index: 10;
+}
+
+.modal-content span {
+  position: absolute;
+  right: 20px;
+  top: 10px;
+  cursor: pointer;
+  color: red;
+}
+
 /* Adjust table responsiveness for small screens */
 @media (max-width: 600px) {
   table {

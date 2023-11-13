@@ -20,6 +20,7 @@ export class NutritionalStatusSummaryComponent {
   barangayData: WeightForAgeTotals[] = [];
 
   selectedMonth: string = 'January';
+  selectedBarangayInfo: any[] = [];
 
   constructor(public database: Database) {
     this.fetchNutritionalRecords();
@@ -106,5 +107,37 @@ export class NutritionalStatusSummaryComponent {
       });
 
     this.barangayData = groupedData;
+  }
+
+  showModal = false;
+
+  showDetailedInfoByCategory(
+    barangayName: string,
+    category: string,
+    barangayValue: number
+  ) {
+    // Filter records based on the selected month
+    let filteredRecords = this.nutritionalRecords;
+    if (this.selectedMonth) {
+      filteredRecords = this.nutritionalRecords.filter(
+        (record) => record.measurementMonth === this.selectedMonth
+      );
+    }
+
+    if (barangayValue === 0) {
+      return;
+    }
+
+    // Filter records for the specific barangay and category
+    this.selectedBarangayInfo = filteredRecords.filter(
+      (record) =>
+        record.barangay === barangayName && record.weightForAge === category
+    );
+
+    this.showModal = true;
+  }
+
+  closeModal() {
+    this.showModal = false;
   }
 }

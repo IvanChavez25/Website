@@ -20,7 +20,7 @@ export class NutritionalStatusSummaryWeightforheightComponent {
   barangayData: WeightForHeightTotals[] = [];
 
   selectedMonth: string = 'January';
-  lineChart: Chart | null = null;
+  selectedBarangayInfo: any[] = [];
 
   constructor(public database: Database) {
     this.fetchNutritionalRecords();
@@ -94,7 +94,7 @@ export class NutritionalStatusSummaryWeightforheightComponent {
             case 'N':
               totals.normal++;
               break;
-            case 'OW':
+            case 'O':
               totals.obese++;
               break;
             default:
@@ -108,4 +108,35 @@ export class NutritionalStatusSummaryWeightforheightComponent {
     this.barangayData = groupedData;
   }
 
+  showModal = false;
+
+  showDetailedInfoByCategory(
+    barangayName: string,
+    category: string,
+    barangayValue: number
+  ) {
+    // Filter records based on the selected month
+    let filteredRecords = this.nutritionalRecords;
+    if (this.selectedMonth) {
+      filteredRecords = this.nutritionalRecords.filter(
+        (record) => record.measurementMonth === this.selectedMonth
+      );
+    }
+
+    if (barangayValue === 0) {
+      return;
+    }
+
+    // Filter records for the specific barangay and category
+    this.selectedBarangayInfo = filteredRecords.filter(
+      (record) =>
+        record.barangay === barangayName && record.weightForHeight === category
+    );
+
+    this.showModal = true;
+  }
+
+  closeModal() {
+    this.showModal = false;
+  }
 }
