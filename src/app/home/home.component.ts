@@ -58,4 +58,9 @@ export class HomeComponent implements OnInit {
         console.error('Error retrieving user role:', error);
       });
   }
+
+  logout(): void {
+    this.authService.logout();
+    this.router.navigate(['/login']);
+  }
 }

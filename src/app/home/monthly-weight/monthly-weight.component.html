@@ -20,28 +20,23 @@
       <div>
         <label for="searchChild">Search Child:</label>
         <input
+          list="childList"
           type="text"
           id="searchChild"
           name="searchChild"
           [(ngModel)]="searchInput"
           (input)="onSearchInputChange()"
         />
-      </div>
-
-      <div>
-        <label for="nameOfChild">Name Of Child:</label>
-        <select
-          id="nameOfChild"
-          name="nameOfChild"
-          [(ngModel)]="monthlyWeightRecordData.nameOfChild"
-          required
-        >
-          <option value="">Select a Child</option>
-          <option *ngFor="let child of filteredChildRecords" [ngValue]="child">
+        <datalist id="childList">
+          <option
+            *ngFor="let child of filteredChildRecords"
+            [value]="child.firstName + ' ' + child.lastName"
+          >
             {{ child.firstName }} {{ child.lastName }}
           </option>
-        </select>
+        </datalist>
       </div>
+
       <div>
         <label for="birthday">Birthday:</label>
         <input
@@ -71,7 +66,7 @@
           id="weight"
           name="weight"
           [(ngModel)]="monthlyWeightRecordData.weight"
-          (ngModelChange)="onWeightStatusChange()"
+          (ngModelChange)="onWeightForAgeChange()"
           required
         />
       </div>

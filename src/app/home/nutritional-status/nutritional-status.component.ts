@@ -10,6 +10,8 @@ import { Database, set, ref, get } from '@angular/fire/database';
 })
 export class NutritionalStatusComponent {
   childRecords: any[] = [];
+  searchInput: string = '';
+  filteredChildRecords: any[] = [];
 
   nutritionalData: any = {
     gender: '',
@@ -33,12 +35,8 @@ export class NutritionalStatusComponent {
     vitaminALastReceived: '',
     ironReceived: '',
     usingMNP: '',
-    date: '',
-    measurementMonth: '',
+    Date: '',
   };
-
-  searchInput: string = '';
-  filteredChildRecords: any[] = [];
 
   constructor(public database: Database, private location: Location) {
     this.fetchChildRecords();
@@ -47,733 +45,1458 @@ export class NutritionalStatusComponent {
   onWeightForAgeChange() {
     this.calculateNutritionalStatus(
       this.nutritionalData.ageInMonths,
-      this.nutritionalData.weight
+      this.nutritionalData.weight,
+      this.nutritionalData.gender
     );
   }
 
-  calculateNutritionalStatus(age: number, weight: number) {
-    if (age == 0) {
-      if (weight <= 2.0) {
-        this.nutritionalData.weightForAge = 'SUW';
-      } else if (weight <= 2.3) {
-        this.nutritionalData.weightForAge = 'UW';
-      } else if (weight <= 4.2) {
-        this.nutritionalData.weightForAge = 'N';
-      } else {
-        this.nutritionalData.weightForAge = 'OW';
-      }
-    } else if (age == 1) {
-      if (weight <= 2.7) {
-        this.nutritionalData.weightForAge = 'SUW';
-      } else if (weight <= 3.1) {
-        this.nutritionalData.weightForAge = 'UW';
-      } else if (weight <= 5.5) {
-        this.nutritionalData.weightForAge = 'N';
-      } else {
-        this.nutritionalData.weightForAge = 'OW';
-      }
-    } else if (age == 2) {
-      if (weight <= 3.4) {
-        this.nutritionalData.weightForAge = 'SUW';
-      } else if (weight <= 3.8) {
-        this.nutritionalData.weightForAge = 'UW';
-      } else if (weight <= 6.6) {
-        this.nutritionalData.weightForAge = 'N';
-      } else {
-        this.nutritionalData.weightForAge = 'OW';
-      }
-    } else if (age == 3) {
-      if (weight <= 4.0) {
-        this.nutritionalData.weightForAge = 'SUW';
-      } else if (weight <= 4.4) {
-        this.nutritionalData.weightForAge = 'UW';
-      } else if (weight <= 7.5) {
-        this.nutritionalData.weightForAge = 'N';
-      } else {
-        this.nutritionalData.weightForAge = 'OW';
-      }
-    } else if (age == 4) {
-      if (weight <= 4.4) {
-        this.nutritionalData.weightForAge = 'SUW';
-      } else if (weight <= 4.9) {
-        this.nutritionalData.weightForAge = 'UW';
-      } else if (weight <= 8.2) {
-        this.nutritionalData.weightForAge = 'N';
-      } else {
-        this.nutritionalData.weightForAge = 'OW';
-      }
-    } else if (age == 5) {
-      if (weight <= 4.8) {
-        this.nutritionalData.weightForAge = 'SUW';
-      } else if (weight <= 5.3) {
-        this.nutritionalData.weightForAge = 'UW';
-      } else if (weight <= 8.8) {
-        this.nutritionalData.weightForAge = 'N';
-      } else {
-        this.nutritionalData.weightForAge = 'OW';
-      }
-    } else if (age == 6) {
-      if (weight <= 5.1) {
-        this.nutritionalData.weightForAge = 'SUW';
-      } else if (weight <= 5.6) {
-        this.nutritionalData.weightForAge = 'UW';
-      } else if (weight <= 9.3) {
-        this.nutritionalData.weightForAge = 'N';
-      } else {
-        this.nutritionalData.weightForAge = 'OW';
-      }
-    } else if (age == 7) {
-      if (weight <= 5.3) {
-        this.nutritionalData.weightForAge = 'SUW';
-      } else if (weight <= 5.9) {
-        this.nutritionalData.weightForAge = 'UW';
-      } else if (weight <= 9.8) {
-        this.nutritionalData.weightForAge = 'N';
-      } else {
-        this.nutritionalData.weightForAge = 'OW';
-      }
-    } else if (age == 8) {
-      if (weight <= 5.6) {
-        this.nutritionalData.weightForAge = 'SUW';
-      } else if (weight <= 6.2) {
-        this.nutritionalData.weightForAge = 'UW';
-      } else if (weight <= 10.2) {
-        this.nutritionalData.weightForAge = 'N';
-      } else {
-        this.nutritionalData.weightForAge = 'OW';
-      }
-    } else if (age == 9) {
-      if (weight <= 5.8) {
-        this.nutritionalData.weightForAge = 'SUW';
-      } else if (weight <= 6.4) {
-        this.nutritionalData.weightForAge = 'UW';
-      } else if (weight <= 10.5) {
-        this.nutritionalData.weightForAge = 'N';
-      } else {
-        this.nutritionalData.weightForAge = 'OW';
-      }
-    } else if (age == 10) {
-      if (weight <= 5.9) {
-        this.nutritionalData.weightForAge = 'SUW';
-      } else if (weight <= 6.6) {
-        this.nutritionalData.weightForAge = 'UW';
-      } else if (weight <= 10.9) {
-        this.nutritionalData.weightForAge = 'N';
-      } else {
-        this.nutritionalData.weightForAge = 'OW';
-      }
-    } else if (age == 11) {
-      if (weight <= 6.1) {
-        this.nutritionalData.weightForAge = 'SUW';
-      } else if (weight <= 6.8) {
-        this.nutritionalData.weightForAge = 'UW';
-      } else if (weight <= 11.2) {
-        this.nutritionalData.weightForAge = 'N';
-      } else {
-        this.nutritionalData.weightForAge = 'OW';
-      }
-    } else if (age == 12) {
-      if (weight <= 6.3) {
-        this.nutritionalData.weightForAge = 'SUW';
-      } else if (weight <= 6.9) {
-        this.nutritionalData.weightForAge = 'UW';
-      } else if (weight <= 11.5) {
-        this.nutritionalData.weightForAge = 'N';
-      } else {
-        this.nutritionalData.weightForAge = 'OW';
-      }
-    } else if (age == 13) {
-      if (weight <= 6.4) {
-        this.nutritionalData.weightForAge = 'SUW';
-      } else if (weight <= 7.1) {
-        this.nutritionalData.weightForAge = 'UW';
-      } else if (weight <= 11.8) {
-        this.nutritionalData.weightForAge = 'N';
-      } else {
-        this.nutritionalData.weightForAge = 'OW';
-      }
-    } else if (age == 14) {
-      if (weight <= 6.6) {
-        this.nutritionalData.weightForAge = 'SUW';
-      } else if (weight <= 7.3) {
-        this.nutritionalData.weightForAge = 'UW';
-      } else if (weight <= 12.1) {
-        this.nutritionalData.weightForAge = 'N';
-      } else {
-        this.nutritionalData.weightForAge = 'OW';
-      }
-    } else if (age == 15) {
-      if (weight <= 6.7) {
-        this.nutritionalData.weightForAge = 'SUW';
-      } else if (weight <= 7.5) {
-        this.nutritionalData.weightForAge = 'UW';
-      } else if (weight <= 12.4) {
-        this.nutritionalData.weightForAge = 'N';
-      } else {
-        this.nutritionalData.weightForAge = 'OW';
-      }
-    } else if (age == 16) {
-      if (weight <= 6.9) {
-        this.nutritionalData.weightForAge = 'SUW';
-      } else if (weight <= 7.6) {
-        this.nutritionalData.weightForAge = 'UW';
-      } else if (weight <= 12.6) {
-        this.nutritionalData.weightForAge = 'N';
-      } else {
-        this.nutritionalData.weightForAge = 'OW';
-      }
-    } else if (age == 17) {
-      if (weight <= 7.0) {
-        this.nutritionalData.weightForAge = 'SUW';
-      } else if (weight <= 7.8) {
-        this.nutritionalData.weightForAge = 'UW';
-      } else if (weight <= 12.9) {
-        this.nutritionalData.weightForAge = 'N';
-      } else {
-        this.nutritionalData.weightForAge = 'OW';
-      }
-    } else if (age == 18) {
-      if (weight <= 7.2) {
-        this.nutritionalData.weightForAge = 'SUW';
-      } else if (weight <= 8.0) {
-        this.nutritionalData.weightForAge = 'UW';
-      } else if (weight <= 13.2) {
-        this.nutritionalData.weightForAge = 'N';
-      } else {
-        this.nutritionalData.weightForAge = 'OW';
-      }
-    } else if (age == 19) {
-      if (weight <= 7.3) {
-        this.nutritionalData.weightForAge = 'SUW';
-      } else if (weight <= 8.1) {
-        this.nutritionalData.weightForAge = 'UW';
-      } else if (weight <= 13.5) {
-        this.nutritionalData.weightForAge = 'N';
-      } else {
-        this.nutritionalData.weightForAge = 'OW';
-      }
-    } else if (age == 20) {
-      if (weight <= 7.5) {
-        this.nutritionalData.weightForAge = 'SUW';
-      } else if (weight <= 8.3) {
-        this.nutritionalData.weightForAge = 'UW';
-      } else if (weight <= 13.7) {
-        this.nutritionalData.weightForAge = 'N';
-      } else {
-        this.nutritionalData.weightForAge = 'OW';
-      }
-    } else if (age == 21) {
-      if (weight <= 7.6) {
-        this.nutritionalData.weightForAge = 'SUW';
-      } else if (weight <= 8.5) {
-        this.nutritionalData.weightForAge = 'UW';
-      } else if (weight <= 14.0) {
-        this.nutritionalData.weightForAge = 'N';
-      } else {
-        this.nutritionalData.weightForAge = 'OW';
-      }
-    } else if (age == 22) {
-      if (weight <= 7.8) {
-        this.nutritionalData.weightForAge = 'SUW';
-      } else if (weight <= 8.6) {
-        this.nutritionalData.weightForAge = 'UW';
-      } else if (weight <= 14.3) {
-        this.nutritionalData.weightForAge = 'N';
-      } else {
-        this.nutritionalData.weightForAge = 'OW';
-      }
-    } else if (age == 23) {
-      if (weight <= 7.9) {
-        this.nutritionalData.weightForAge = 'SUW';
-      } else if (weight <= 8.8) {
-        this.nutritionalData.weightForAge = 'UW';
-      } else if (weight <= 14.6) {
-        this.nutritionalData.weightForAge = 'N';
-      } else {
-        this.nutritionalData.weightForAge = 'OW';
-      }
-    } else if (age == 24) {
-      if (weight <= 8.1) {
-        this.nutritionalData.weightForAge = 'SUW';
-      } else if (weight <= 8.9) {
-        this.nutritionalData.weightForAge = 'UW';
-      } else if (weight <= 14.8) {
-        this.nutritionalData.weightForAge = 'N';
-      } else {
-        this.nutritionalData.weightForAge = 'OW';
-      }
-    } else if (age == 25) {
-      if (weight <= 8.2) {
-        this.nutritionalData.weightForAge = 'SUW';
-      } else if (weight <= 9.1) {
-        this.nutritionalData.weightForAge = 'UW';
-      } else if (weight <= 15.1) {
-        this.nutritionalData.weightForAge = 'N';
-      } else {
-        this.nutritionalData.weightForAge = 'OW';
-      }
-    } else if (age == 26) {
-      if (weight <= 8.4) {
-        this.nutritionalData.weightForAge = 'SUW';
-      } else if (weight <= 9.3) {
-        this.nutritionalData.weightForAge = 'UW';
-      } else if (weight <= 15.4) {
-        this.nutritionalData.weightForAge = 'N';
-      } else {
-        this.nutritionalData.weightForAge = 'OW';
-      }
-    } else if (age == 27) {
-      if (weight <= 8.5) {
-        this.nutritionalData.weightForAge = 'SUW';
-      } else if (weight <= 9.4) {
-        this.nutritionalData.weightForAge = 'UW';
-      } else if (weight <= 15.7) {
-        this.nutritionalData.weightForAge = 'N';
-      } else {
-        this.nutritionalData.weightForAge = 'OW';
-      }
-    } else if (age == 28) {
-      if (weight <= 8.6) {
-        this.nutritionalData.weightForAge = 'SUW';
-      } else if (weight <= 9.6) {
-        this.nutritionalData.weightForAge = 'UW';
-      } else if (weight <= 16.0) {
-        this.nutritionalData.weightForAge = 'N';
-      } else {
-        this.nutritionalData.weightForAge = 'OW';
-      }
-    } else if (age == 29) {
-      if (weight <= 8.8) {
-        this.nutritionalData.weightForAge = 'SUW';
-      } else if (weight <= 9.7) {
-        this.nutritionalData.weightForAge = 'UW';
-      } else if (weight <= 16.2) {
-        this.nutritionalData.weightForAge = 'N';
-      } else {
-        this.nutritionalData.weightForAge = 'OW';
-      }
-    } else if (age == 30) {
-      if (weight <= 8.9) {
-        this.nutritionalData.weightForAge = 'SUW';
-      } else if (weight <= 9.9) {
-        this.nutritionalData.weightForAge = 'UW';
-      } else if (weight <= 16.5) {
-        this.nutritionalData.weightForAge = 'N';
-      } else {
-        this.nutritionalData.weightForAge = 'OW';
-      }
-    } else if (age == 31) {
-      if (weight <= 9.0) {
-        this.nutritionalData.weightForAge = 'SUW';
-      } else if (weight <= 10.0) {
-        this.nutritionalData.weightForAge = 'UW';
-      } else if (weight <= 16.8) {
-        this.nutritionalData.weightForAge = 'N';
-      } else {
-        this.nutritionalData.weightForAge = 'OW';
-      }
-    } else if (age == 32) {
-      if (weight <= 9.1) {
-        this.nutritionalData.weightForAge = 'SUW';
-      } else if (weight <= 10.2) {
-        this.nutritionalData.weightForAge = 'UW';
-      } else if (weight <= 17.1) {
-        this.nutritionalData.weightForAge = 'N';
-      } else {
-        this.nutritionalData.weightForAge = 'OW';
-      }
-    } else if (age == 33) {
-      if (weight <= 9.3) {
-        this.nutritionalData.weightForAge = 'SUW';
-      } else if (weight <= 10.3) {
-        this.nutritionalData.weightForAge = 'UW';
-      } else if (weight <= 17.3) {
-        this.nutritionalData.weightForAge = 'N';
-      } else {
-        this.nutritionalData.weightForAge = 'OW';
-      }
-    } else if (age == 34) {
-      if (weight <= 9.4) {
-        this.nutritionalData.weightForAge = 'SUW';
-      } else if (weight <= 10.4) {
-        this.nutritionalData.weightForAge = 'UW';
-      } else if (weight <= 17.6) {
-        this.nutritionalData.weightForAge = 'N';
-      } else {
-        this.nutritionalData.weightForAge = 'OW';
-      }
-    } else if (age == 35) {
-      if (weight <= 9.5) {
-        this.nutritionalData.weightForAge = 'SUW';
-      } else if (weight <= 10.6) {
-        this.nutritionalData.weightForAge = 'UW';
-      } else if (weight <= 17.9) {
-        this.nutritionalData.weightForAge = 'N';
-      } else {
-        this.nutritionalData.weightForAge = 'OW';
-      }
-    } else if (age == 36) {
-      if (weight <= 9.6) {
-        this.nutritionalData.weightForAge = 'SUW';
-      } else if (weight <= 10.7) {
-        this.nutritionalData.weightForAge = 'UW';
-      } else if (weight <= 18.1) {
-        this.nutritionalData.weightForAge = 'N';
-      } else {
-        this.nutritionalData.weightForAge = 'OW';
-      }
-    } else if (age == 37) {
-      if (weight <= 9.7) {
-        this.nutritionalData.weightForAge = 'SUW';
-      } else if (weight <= 10.8) {
-        this.nutritionalData.weightForAge = 'UW';
-      } else if (weight <= 18.4) {
-        this.nutritionalData.weightForAge = 'N';
-      } else {
-        this.nutritionalData.weightForAge = 'OW';
-      }
-    } else if (age == 38) {
-      if (weight <= 9.8) {
-        this.nutritionalData.weightForAge = 'SUW';
-      } else if (weight <= 11.0) {
-        this.nutritionalData.weightForAge = 'UW';
-      } else if (weight <= 18.7) {
-        this.nutritionalData.weightForAge = 'N';
-      } else {
-        this.nutritionalData.weightForAge = 'OW';
-      }
-    } else if (age == 39) {
-      if (weight <= 9.9) {
-        this.nutritionalData.weightForAge = 'SUW';
-      } else if (weight <= 11.1) {
-        this.nutritionalData.weightForAge = 'UW';
-      } else if (weight <= 19.0) {
-        this.nutritionalData.weightForAge = 'N';
-      } else {
-        this.nutritionalData.weightForAge = 'OW';
-      }
-    } else if (age == 40) {
-      if (weight <= 10.1) {
-        this.nutritionalData.weightForAge = 'SUW';
-      } else if (weight <= 11.2) {
-        this.nutritionalData.weightForAge = 'UW';
-      } else if (weight <= 19.2) {
-        this.nutritionalData.weightForAge = 'N';
-      } else {
-        this.nutritionalData.weightForAge = 'OW';
-      }
-    } else if (age == 41) {
-      if (weight <= 10.2) {
-        this.nutritionalData.weightForAge = 'SUW';
-      } else if (weight <= 11.4) {
-        this.nutritionalData.weightForAge = 'UW';
-      } else if (weight <= 19.5) {
-        this.nutritionalData.weightForAge = 'N';
-      } else {
-        this.nutritionalData.weightForAge = 'OW';
-      }
-    } else if (age == 42) {
-      if (weight <= 10.4) {
-        this.nutritionalData.weightForAge = 'SUW';
-      } else if (weight <= 11.5) {
-        this.nutritionalData.weightForAge = 'UW';
-      } else if (weight <= 19.8) {
-        this.nutritionalData.weightForAge = 'N';
-      } else {
-        this.nutritionalData.weightForAge = 'OW';
-      }
-    } else if (age == 43) {
-      if (weight <= 10.4) {
-        this.nutritionalData.weightForAge = 'SUW';
-      } else if (weight <= 11.6) {
-        this.nutritionalData.weightForAge = 'UW';
-      } else if (weight <= 20.1) {
-        this.nutritionalData.weightForAge = 'N';
-      } else {
-        this.nutritionalData.weightForAge = 'OW';
-      }
-    } else if (age == 44) {
-      if (weight <= 10.5) {
-        this.nutritionalData.weightForAge = 'SUW';
-      } else if (weight <= 11.7) {
-        this.nutritionalData.weightForAge = 'UW';
-      } else if (weight <= 20.4) {
-        this.nutritionalData.weightForAge = 'N';
-      } else {
-        this.nutritionalData.weightForAge = 'OW';
-      }
-    } else if (age == 45) {
-      if (weight <= 10.6) {
-        this.nutritionalData.weightForAge = 'SUW';
-      } else if (weight <= 11.9) {
-        this.nutritionalData.weightForAge = 'UW';
-      } else if (weight <= 20.7) {
-        this.nutritionalData.weightForAge = 'N';
-      } else {
-        this.nutritionalData.weightForAge = 'OW';
-      }
-    } else if (age == 46) {
-      if (weight <= 10.7) {
-        this.nutritionalData.weightForAge = 'SUW';
-      } else if (weight <= 12.0) {
-        this.nutritionalData.weightForAge = 'UW';
-      } else if (weight <= 20.9) {
-        this.nutritionalData.weightForAge = 'N';
-      } else {
-        this.nutritionalData.weightForAge = 'OW';
-      }
-    } else if (age == 47) {
-      if (weight <= 10.8) {
-        this.nutritionalData.weightForAge = 'SUW';
-      } else if (weight <= 12.1) {
-        this.nutritionalData.weightForAge = 'UW';
-      } else if (weight <= 21.2) {
-        this.nutritionalData.weightForAge = 'N';
-      } else {
-        this.nutritionalData.weightForAge = 'OW';
-      }
-    } else if (age == 48) {
-      if (weight <= 10.9) {
-        this.nutritionalData.weightForAge = 'SUW';
-      } else if (weight <= 12.2) {
-        this.nutritionalData.weightForAge = 'UW';
-      } else if (weight <= 21.5) {
-        this.nutritionalData.weightForAge = 'N';
-      } else {
-        this.nutritionalData.weightForAge = 'OW';
-      }
-    } else if (age == 49) {
-      if (weight <= 11.0) {
-        this.nutritionalData.weightForAge = 'SUW';
-      } else if (weight <= 12.3) {
-        this.nutritionalData.weightForAge = 'UW';
-      } else if (weight <= 21.8) {
-        this.nutritionalData.weightForAge = 'N';
-      } else {
-        this.nutritionalData.weightForAge = 'OW';
-      }
-    } else if (age == 50) {
-      if (weight <= 11.1) {
-        this.nutritionalData.weightForAge = 'SUW';
-      } else if (weight <= 12.4) {
-        this.nutritionalData.weightForAge = 'UW';
-      } else if (weight <= 22.1) {
-        this.nutritionalData.weightForAge = 'N';
-      } else {
-        this.nutritionalData.weightForAge = 'OW';
-      }
-    } else if (age == 51) {
-      if (weight <= 11.2) {
-        this.nutritionalData.weightForAge = 'SUW';
-      } else if (weight <= 12.6) {
-        this.nutritionalData.weightForAge = 'UW';
-      } else if (weight <= 22.4) {
-        this.nutritionalData.weightForAge = 'N';
-      } else {
-        this.nutritionalData.weightForAge = 'OW';
-      }
-    } else if (age == 52) {
-      if (weight <= 11.3) {
-        this.nutritionalData.weightForAge = 'SUW';
-      } else if (weight <= 12.7) {
-        this.nutritionalData.weightForAge = 'UW';
-      } else if (weight <= 22.6) {
-        this.nutritionalData.weightForAge = 'N';
-      } else {
-        this.nutritionalData.weightForAge = 'OW';
-      }
-    } else if (age == 53) {
-      if (weight <= 11.4) {
-        this.nutritionalData.weightForAge = 'SUW';
-      } else if (weight <= 12.8) {
-        this.nutritionalData.weightForAge = 'UW';
-      } else if (weight <= 22.9) {
-        this.nutritionalData.weightForAge = 'N';
-      } else {
-        this.nutritionalData.weightForAge = 'OW';
-      }
-    } else if (age == 54) {
-      if (weight <= 11.5) {
-        this.nutritionalData.weightForAge = 'SUW';
-      } else if (weight <= 12.9) {
-        this.nutritionalData.weightForAge = 'UW';
-      } else if (weight <= 23.2) {
-        this.nutritionalData.weightForAge = 'N';
-      } else {
-        this.nutritionalData.weightForAge = 'OW';
-      }
-    } else if (age == 55) {
-      if (weight <= 11.6) {
-        this.nutritionalData.weightForAge = 'SUW';
-      } else if (weight <= 13.1) {
-        this.nutritionalData.weightForAge = 'UW';
-      } else if (weight <= 23.5) {
-        this.nutritionalData.weightForAge = 'N';
-      } else {
-        this.nutritionalData.weightForAge = 'OW';
-      }
-    } else if (age == 56) {
-      if (weight <= 11.7) {
-        this.nutritionalData.weightForAge = 'SUW';
-      } else if (weight <= 13.2) {
-        this.nutritionalData.weightForAge = 'UW';
-      } else if (weight <= 23.8) {
-        this.nutritionalData.weightForAge = 'N';
-      } else {
-        this.nutritionalData.weightForAge = 'OW';
-      }
-    } else if (age == 57) {
-      if (weight <= 11.8) {
-        this.nutritionalData.weightForAge = 'SUW';
-      } else if (weight <= 13.3) {
-        this.nutritionalData.weightForAge = 'UW';
-      } else if (weight <= 24.1) {
-        this.nutritionalData.weightForAge = 'N';
-      } else {
-        this.nutritionalData.weightForAge = 'OW';
-      }
-    } else if (age == 58) {
-      if (weight <= 11.9) {
-        this.nutritionalData.weightForAge = 'SUW';
-      } else if (weight <= 13.4) {
-        this.nutritionalData.weightForAge = 'UW';
-      } else if (weight <= 24.4) {
-        this.nutritionalData.weightForAge = 'N';
-      } else {
-        this.nutritionalData.weightForAge = 'OW';
-      }
-    } else if (age == 59) {
-      if (weight <= 12.0) {
-        this.nutritionalData.weightForAge = 'SUW';
-      } else if (weight <= 13.5) {
-        this.nutritionalData.weightForAge = 'UW';
-      } else if (weight <= 24.6) {
-        this.nutritionalData.weightForAge = 'N';
-      } else {
-        this.nutritionalData.weightForAge = 'OW';
-      }
-    } else if (age == 60) {
-      if (weight <= 12.1) {
-        this.nutritionalData.weightForAge = 'SUW';
-      } else if (weight <= 13.6) {
-        this.nutritionalData.weightForAge = 'UW';
-      } else if (weight <= 24.7) {
-        this.nutritionalData.weightForAge = 'N';
-      } else {
-        this.nutritionalData.weightForAge = 'OW';
-      }
-    } else if (age == 61) {
-      if (weight <= 12.4) {
-        this.nutritionalData.weightForAge = 'SUW';
-      } else if (weight <= 13.9) {
-        this.nutritionalData.weightForAge = 'UW';
-      } else if (weight <= 24.8) {
-        this.nutritionalData.weightForAge = 'N';
-      } else {
-        this.nutritionalData.weightForAge = 'OW';
-      }
-    } else if (age == 62) {
-      if (weight <= 12.5) {
-        this.nutritionalData.weightForAge = 'SUW';
-      } else if (weight <= 14.0) {
-        this.nutritionalData.weightForAge = 'UW';
-      } else if (weight <= 25.1) {
-        this.nutritionalData.weightForAge = 'N';
-      } else {
-        this.nutritionalData.weightForAge = 'OW';
-      }
-    } else if (age == 63) {
-      if (weight <= 12.6) {
-        this.nutritionalData.weightForAge = 'SUW';
-      } else if (weight <= 14.1) {
-        this.nutritionalData.weightForAge = 'UW';
-      } else if (weight <= 25.4) {
-        this.nutritionalData.weightForAge = 'N';
-      } else {
-        this.nutritionalData.weightForAge = 'OW';
-      }
-    } else if (age == 64) {
-      if (weight <= 12.7) {
-        this.nutritionalData.weightForAge = 'SUW';
-      } else if (weight <= 14.2) {
-        this.nutritionalData.weightForAge = 'UW';
-      } else if (weight <= 25.6) {
-        this.nutritionalData.weightForAge = 'N';
-      } else {
-        this.nutritionalData.weightForAge = 'OW';
-      }
-    } else if (age == 65) {
-      if (weight <= 12.8) {
-        this.nutritionalData.weightForAge = 'SUW';
-      } else if (weight <= 14.3) {
-        this.nutritionalData.weightForAge = 'UW';
-      } else if (weight <= 25.9) {
-        this.nutritionalData.weightForAge = 'N';
-      } else {
-        this.nutritionalData.weightForAge = 'OW';
-      }
-    } else if (age == 66) {
-      if (weight <= 12.9) {
-        this.nutritionalData.weightForAge = 'SUW';
-      } else if (weight <= 14.5) {
-        this.nutritionalData.weightForAge = 'UW';
-      } else if (weight <= 26.2) {
-        this.nutritionalData.weightForAge = 'N';
-      } else {
-        this.nutritionalData.weightForAge = 'OW';
-      }
-    } else if (age == 67) {
-      if (weight <= 13.0) {
-        this.nutritionalData.weightForAge = 'SUW';
-      } else if (weight <= 14.6) {
-        this.nutritionalData.weightForAge = 'UW';
-      } else if (weight <= 26.5) {
-        this.nutritionalData.weightForAge = 'N';
-      } else {
-        this.nutritionalData.weightForAge = 'OW';
-      }
-    } else if (age == 68) {
-      if (weight <= 13.1) {
-        this.nutritionalData.weightForAge = 'SUW';
-      } else if (weight <= 14.7) {
-        this.nutritionalData.weightForAge = 'UW';
-      } else if (weight <= 26.7) {
-        this.nutritionalData.weightForAge = 'N';
-      } else {
-        this.nutritionalData.weightForAge = 'OW';
-      }
-    } else if (age == 69) {
-      if (weight <= 13.2) {
-        this.nutritionalData.weightForAge = 'SUW';
-      } else if (weight <= 14.8) {
-        this.nutritionalData.weightForAge = 'UW';
-      } else if (weight <= 27.0) {
-        this.nutritionalData.weightForAge = 'N';
-      } else {
-        this.nutritionalData.weightForAge = 'OW';
-      }
-    } else if (age == 70) {
-      if (weight <= 13.3) {
-        this.nutritionalData.weightForAge = 'SUW';
-      } else if (weight <= 14.9) {
-        this.nutritionalData.weightForAge = 'UW';
-      } else if (weight <= 27.3) {
-        this.nutritionalData.weightForAge = 'N';
-      } else {
-        this.nutritionalData.weightForAge = 'OW';
-      }
-    } else if (age == 71) {
-      if (weight <= 13.4) {
-        this.nutritionalData.weightForAge = 'SUW';
-      } else if (weight <= 15.1) {
-        this.nutritionalData.weightForAge = 'UW';
-      } else if (weight <= 27.6) {
-        this.nutritionalData.weightForAge = 'N';
-      } else {
-        this.nutritionalData.weightForAge = 'OW';
+  calculateNutritionalStatus(age: number, weight: number, gender: string) {
+    if (gender === 'female') {
+      if (age == 0) {
+        if (weight <= 2.0) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 2.3) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 4.2) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 1) {
+        if (weight <= 2.7) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 3.1) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 5.5) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 2) {
+        if (weight <= 3.4) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 3.8) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 6.6) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 3) {
+        if (weight <= 4.0) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 4.4) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 7.5) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 4) {
+        if (weight <= 4.4) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 4.9) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 8.2) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 5) {
+        if (weight <= 4.8) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 5.3) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 8.8) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 6) {
+        if (weight <= 5.1) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 5.6) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 9.3) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 7) {
+        if (weight <= 5.3) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 5.9) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 9.8) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 8) {
+        if (weight <= 5.6) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 6.2) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 10.2) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 9) {
+        if (weight <= 5.8) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 6.4) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 10.5) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 10) {
+        if (weight <= 5.9) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 6.6) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 10.9) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 11) {
+        if (weight <= 6.1) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 6.8) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 11.2) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 12) {
+        if (weight <= 6.3) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 6.9) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 11.5) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 13) {
+        if (weight <= 6.4) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 7.1) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 11.8) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 14) {
+        if (weight <= 6.6) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 7.3) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 12.1) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 15) {
+        if (weight <= 6.7) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 7.5) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 12.4) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 16) {
+        if (weight <= 6.9) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 7.6) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 12.6) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 17) {
+        if (weight <= 7.0) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 7.8) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 12.9) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 18) {
+        if (weight <= 7.2) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 8.0) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 13.2) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 19) {
+        if (weight <= 7.3) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 8.1) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 13.5) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 20) {
+        if (weight <= 7.5) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 8.3) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 13.7) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 21) {
+        if (weight <= 7.6) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 8.5) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 14.0) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 22) {
+        if (weight <= 7.8) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 8.6) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 14.3) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 23) {
+        if (weight <= 7.9) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 8.8) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 14.6) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 24) {
+        if (weight <= 8.1) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 8.9) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 14.8) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 25) {
+        if (weight <= 8.2) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 9.1) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 15.1) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 26) {
+        if (weight <= 8.4) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 9.3) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 15.4) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 27) {
+        if (weight <= 8.5) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 9.4) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 15.7) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 28) {
+        if (weight <= 8.6) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 9.6) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 16.0) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 29) {
+        if (weight <= 8.8) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 9.7) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 16.2) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 30) {
+        if (weight <= 8.9) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 9.9) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 16.5) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 31) {
+        if (weight <= 9.0) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 10.0) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 16.8) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 32) {
+        if (weight <= 9.1) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 10.2) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 17.1) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 33) {
+        if (weight <= 9.3) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 10.3) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 17.3) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 34) {
+        if (weight <= 9.4) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 10.4) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 17.6) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 35) {
+        if (weight <= 9.5) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 10.6) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 17.9) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 36) {
+        if (weight <= 9.6) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 10.7) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 18.1) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 37) {
+        if (weight <= 9.7) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 10.8) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 18.4) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 38) {
+        if (weight <= 9.8) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 11.0) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 18.7) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 39) {
+        if (weight <= 9.9) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 11.1) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 19.0) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 40) {
+        if (weight <= 10.1) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 11.2) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 19.2) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 41) {
+        if (weight <= 10.2) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 11.4) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 19.5) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 42) {
+        if (weight <= 10.4) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 11.5) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 19.8) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 43) {
+        if (weight <= 10.4) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 11.6) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 20.1) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 44) {
+        if (weight <= 10.5) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 11.7) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 20.4) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 45) {
+        if (weight <= 10.6) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 11.9) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 20.7) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 46) {
+        if (weight <= 10.7) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 12.0) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 20.9) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 47) {
+        if (weight <= 10.8) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 12.1) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 21.2) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 48) {
+        if (weight <= 10.9) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 12.2) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 21.5) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 49) {
+        if (weight <= 11.0) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 12.3) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 21.8) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 50) {
+        if (weight <= 11.1) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 12.4) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 22.1) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 51) {
+        if (weight <= 11.2) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 12.6) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 22.4) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 52) {
+        if (weight <= 11.3) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 12.7) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 22.6) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 53) {
+        if (weight <= 11.4) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 12.8) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 22.9) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 54) {
+        if (weight <= 11.5) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 12.9) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 23.2) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 55) {
+        if (weight <= 11.6) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 13.1) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 23.5) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 56) {
+        if (weight <= 11.7) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 13.2) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 23.8) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 57) {
+        if (weight <= 11.8) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 13.3) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 24.1) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 58) {
+        if (weight <= 11.9) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 13.4) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 24.4) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 59) {
+        if (weight <= 12.0) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 13.5) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 24.6) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 60) {
+        if (weight <= 12.1) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 13.6) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 24.7) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 61) {
+        if (weight <= 12.4) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 13.9) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 24.8) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 62) {
+        if (weight <= 12.5) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 14.0) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 25.1) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 63) {
+        if (weight <= 12.6) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 14.1) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 25.4) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 64) {
+        if (weight <= 12.7) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 14.2) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 25.6) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 65) {
+        if (weight <= 12.8) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 14.3) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 25.9) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 66) {
+        if (weight <= 12.9) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 14.5) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 26.2) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 67) {
+        if (weight <= 13.0) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 14.6) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 26.5) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 68) {
+        if (weight <= 13.1) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 14.7) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 26.7) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 69) {
+        if (weight <= 13.2) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 14.8) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 27.0) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 70) {
+        if (weight <= 13.3) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 14.9) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 27.3) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 71) {
+        if (weight <= 13.4) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 15.1) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 27.6) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else {
+        this.nutritionalData.weightForAge = 'Unknown';
       }
     } else {
-      this.nutritionalData.weightForAge = 'Unknown';
+      if (age == 0) {
+        if (weight <= 2.1) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 2.4) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 4.4) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 1) {
+        if (weight <= 2.9) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 3.3) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 5.8) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 2) {
+        if (weight <= 3.8) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 4.2) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 7.1) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 3) {
+        if (weight <= 4.4) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 4.9) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 8.0) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 4) {
+        if (weight <= 4.9) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 5.5) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 8.7) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 5) {
+        if (weight <= 5.3) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 5.9) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 9.3) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 6) {
+        if (weight <= 5.7) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 6.3) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 9.8) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 7) {
+        if (weight <= 5.9) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 6.6) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 10.3) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 8) {
+        if (weight <= 6.2) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 6.8) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 10.7) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 9) {
+        if (weight <= 6.4) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 7.0) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 11.0) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 10) {
+        if (weight <= 6.6) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 7.3) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 11.4) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 11) {
+        if (weight <= 6.8) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 7.5) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 11.7) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 12) {
+        if (weight <= 6.9) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 7.6) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 12.0) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 13) {
+        if (weight <= 7.1) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 7.8) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 12.3) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 14) {
+        if (weight <= 7.2) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 8.0) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 12.6) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 15) {
+        if (weight <= 7.4) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 8.2) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 12.8) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 16) {
+        if (weight <= 7.5) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 8.3) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 13.1) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 17) {
+        if (weight <= 7.7) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 8.5) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 13.4) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 18) {
+        if (weight <= 7.8) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 8.7) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 13.7) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 19) {
+        if (weight <= 8.0) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 8.8) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 13.9) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 20) {
+        if (weight <= 8.1) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 9.0) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 14.2) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 21) {
+        if (weight <= 8.2) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 9.1) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 14.5) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 22) {
+        if (weight <= 8.4) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 9.3) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 14.7) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 23) {
+        if (weight <= 8.5) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 9.4) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 15.0) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 24) {
+        if (weight <= 8.6) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 9.6) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 15.3) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 25) {
+        if (weight <= 8.8) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 9.7) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 15.5) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 26) {
+        if (weight <= 8.9) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 9.9) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 15.8) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 27) {
+        if (weight <= 9.0) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 10.0) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 16.1) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 28) {
+        if (weight <= 9.1) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 10.1) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 16.3) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 29) {
+        if (weight <= 9.2) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 10.3) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 16.6) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 30) {
+        if (weight <= 9.4) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 10.4) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 16.9) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 31) {
+        if (weight <= 9.5) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 10.6) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 17.1) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 32) {
+        if (weight <= 9.6) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 10.7) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 17.4) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 33) {
+        if (weight <= 9.7) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 10.8) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 17.6) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 34) {
+        if (weight <= 9.8) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 10.9) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 17.8) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 35) {
+        if (weight <= 9.9) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 11.1) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 18.1) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 36) {
+        if (weight <= 10.0) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 11.2) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 18.3) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 37) {
+        if (weight <= 10.1) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 11.3) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 18.6) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 38) {
+        if (weight <= 10.2) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 11.4) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 18.8) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 39) {
+        if (weight <= 10.3) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 11.5) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 19.0) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 40) {
+        if (weight <= 10.4) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 11.7) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 19.3) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 41) {
+        if (weight <= 10.5) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 11.8) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 19.5) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 42) {
+        if (weight <= 10.6) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 11.9) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 19.7) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 43) {
+        if (weight <= 10.7) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 12.0) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 20.0) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 44) {
+        if (weight <= 10.8) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 12.1) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 20.2) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 45) {
+        if (weight <= 10.9) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 12.3) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 20.5) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 46) {
+        if (weight <= 11.0) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 12.4) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 20.7) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 47) {
+        if (weight <= 11.1) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 12.5) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 20.9) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 48) {
+        if (weight <= 11.2) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 12.6) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 21.2) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 49) {
+        if (weight <= 11.3) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 12.7) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 21.4) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 50) {
+        if (weight <= 11.4) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 12.8) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 21.7) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 51) {
+        if (weight <= 11.5) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 13.0) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 21.9) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 52) {
+        if (weight <= 11.6) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 13.1) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 22.2) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 53) {
+        if (weight <= 11.7) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 13.2) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 22.4) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 54) {
+        if (weight <= 11.8) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 13.3) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 22.7) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 55) {
+        if (weight <= 11.9) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 13.4) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 22.9) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 56) {
+        if (weight <= 12.0) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 13.5) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 23.2) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 57) {
+        if (weight <= 12.1) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 13.6) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 23.4) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 58) {
+        if (weight <= 12.2) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 13.7) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 23.7) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 59) {
+        if (weight <= 12.3) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 13.9) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 23.9) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 60) {
+        if (weight <= 12.4) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 14.0) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 24.2) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 61) {
+        if (weight <= 12.7) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 14.3) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 24.3) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 62) {
+        if (weight <= 12.8) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 14.4) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 24.4) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 63) {
+        if (weight <= 13.0) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 14.5) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 24.7) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 64) {
+        if (weight <= 13.1) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 14.7) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 24.9) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 65) {
+        if (weight <= 13.2) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 14.8) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 25.2) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 66) {
+        if (weight <= 13.3) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 14.9) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 25.5) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 67) {
+        if (weight <= 13.4) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 15.1) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 25.7) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 68) {
+        if (weight <= 13.6) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 15.2) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 26.0) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 69) {
+        if (weight <= 13.7) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 15.3) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 26.3) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 70) {
+        if (weight <= 13.8) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 15.5) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 26.6) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      } else if (age == 71) {
+        if (weight <= 13.9) {
+          this.nutritionalData.weightForAge = 'SUW';
+        } else if (weight <= 15.6) {
+          this.nutritionalData.weightForAge = 'UW';
+        } else if (weight <= 26.8) {
+          this.nutritionalData.weightForAge = 'N';
+        } else {
+          this.nutritionalData.weightForAge = 'OW';
+        }
+      }
     }
   }
 
@@ -1761,11 +2484,482 @@ export class NutritionalStatusComponent {
         } else {
           this.nutritionalData.heightForAge = 'T';
         }
+      } else if (age == 25) {
+        if (height <= 78.5) {
+          this.nutritionalData.heightForAge = 'SSt';
+        } else if (height <= 81.6) {
+          this.nutritionalData.heightForAge = 'St';
+        } else if (height <= 94.2) {
+          this.nutritionalData.heightForAge = 'N';
+        } else {
+          this.nutritionalData.heightForAge = 'T';
+        }
+      } else if (age == 26) {
+        if (height <= 79.2) {
+          this.nutritionalData.heightForAge = 'SSt';
+        } else if (height <= 82.4) {
+          this.nutritionalData.heightForAge = 'St';
+        } else if (height <= 95.2) {
+          this.nutritionalData.heightForAge = 'N';
+        } else {
+          this.nutritionalData.heightForAge = 'T';
+        }
+      } else if (age == 27) {
+        if (height <= 79.8) {
+          this.nutritionalData.heightForAge = 'SSt';
+        } else if (height <= 83.0) {
+          this.nutritionalData.heightForAge = 'St';
+        } else if (height <= 96.1) {
+          this.nutritionalData.heightForAge = 'N';
+        } else {
+          this.nutritionalData.heightForAge = 'T';
+        }
+      } else if (age == 28) {
+        if (height <= 80.4) {
+          this.nutritionalData.heightForAge = 'SSt';
+        } else if (height <= 83.7) {
+          this.nutritionalData.heightForAge = 'St';
+        } else if (height <= 97.0) {
+          this.nutritionalData.heightForAge = 'N';
+        } else {
+          this.nutritionalData.heightForAge = 'T';
+        }
+      } else if (age == 29) {
+        if (height <= 81.0) {
+          this.nutritionalData.heightForAge = 'SSt';
+        } else if (height <= 84.4) {
+          this.nutritionalData.heightForAge = 'St';
+        } else if (height <= 97.9) {
+          this.nutritionalData.heightForAge = 'N';
+        } else {
+          this.nutritionalData.heightForAge = 'T';
+        }
+      } else if (age == 30) {
+        if (height <= 81.6) {
+          this.nutritionalData.heightForAge = 'SSt';
+        } else if (height <= 85.0) {
+          this.nutritionalData.heightForAge = 'St';
+        } else if (height <= 98.7) {
+          this.nutritionalData.heightForAge = 'N';
+        } else {
+          this.nutritionalData.heightForAge = 'T';
+        }
+      } else if (age == 31) {
+        if (height <= 83.2) {
+          this.nutritionalData.heightForAge = 'SSt';
+        } else if (height <= 85.6) {
+          this.nutritionalData.heightForAge = 'St';
+        } else if (height <= 99.6) {
+          this.nutritionalData.heightForAge = 'N';
+        } else {
+          this.nutritionalData.heightForAge = 'T';
+        }
+      } else if (age == 32) {
+        if (height <= 82.7) {
+          this.nutritionalData.heightForAge = 'SSt';
+        } else if (height <= 86.3) {
+          this.nutritionalData.heightForAge = 'St';
+        } else if (height <= 100.4) {
+          this.nutritionalData.heightForAge = 'N';
+        } else {
+          this.nutritionalData.heightForAge = 'T';
+        }
+      } else if (age == 33) {
+        if (height <= 83.3) {
+          this.nutritionalData.heightForAge = 'SSt';
+        } else if (height <= 86.8) {
+          this.nutritionalData.heightForAge = 'St';
+        } else if (height <= 101.2) {
+          this.nutritionalData.heightForAge = 'N';
+        } else {
+          this.nutritionalData.heightForAge = 'T';
+        }
+      } else if (age == 34) {
+        if (height <= 83.8) {
+          this.nutritionalData.heightForAge = 'SSt';
+        } else if (height <= 87.4) {
+          this.nutritionalData.heightForAge = 'St';
+        } else if (height <= 102.0) {
+          this.nutritionalData.heightForAge = 'N';
+        } else {
+          this.nutritionalData.heightForAge = 'T';
+        }
+      } else if (age == 35) {
+        if (height <= 84.3) {
+          this.nutritionalData.heightForAge = 'SSt';
+        } else if (height <= 88.0) {
+          this.nutritionalData.heightForAge = 'St';
+        } else if (height <= 102.7) {
+          this.nutritionalData.heightForAge = 'N';
+        } else {
+          this.nutritionalData.heightForAge = 'T';
+        }
+      } else if (age == 36) {
+        if (height <= 84.9) {
+          this.nutritionalData.heightForAge = 'SSt';
+        } else if (height <= 88.6) {
+          this.nutritionalData.heightForAge = 'St';
+        } else if (height <= 103.5) {
+          this.nutritionalData.heightForAge = 'N';
+        } else {
+          this.nutritionalData.heightForAge = 'T';
+        }
+      } else if (age == 37) {
+        if (height <= 85.4) {
+          this.nutritionalData.heightForAge = 'SSt';
+        } else if (height <= 89.1) {
+          this.nutritionalData.heightForAge = 'St';
+        } else if (height <= 104.2) {
+          this.nutritionalData.heightForAge = 'N';
+        } else {
+          this.nutritionalData.heightForAge = 'T';
+        }
+      } else if (age == 38) {
+        if (height <= 85.9) {
+          this.nutritionalData.heightForAge = 'SSt';
+        } else if (height <= 89.7) {
+          this.nutritionalData.heightForAge = 'St';
+        } else if (height <= 105.0) {
+          this.nutritionalData.heightForAge = 'N';
+        } else {
+          this.nutritionalData.heightForAge = 'T';
+        }
+      } else if (age == 39) {
+        if (height <= 86.4) {
+          this.nutritionalData.heightForAge = 'SSt';
+        } else if (height <= 90.2) {
+          this.nutritionalData.heightForAge = 'St';
+        } else if (height <= 105.7) {
+          this.nutritionalData.heightForAge = 'N';
+        } else {
+          this.nutritionalData.heightForAge = 'T';
+        }
+      } else if (age == 40) {
+        if (height <= 86.9) {
+          this.nutritionalData.heightForAge = 'SSt';
+        } else if (height <= 90.8) {
+          this.nutritionalData.heightForAge = 'St';
+        } else if (height <= 106.4) {
+          this.nutritionalData.heightForAge = 'N';
+        } else {
+          this.nutritionalData.heightForAge = 'T';
+        }
+      } else if (age == 41) {
+        if (height <= 87.4) {
+          this.nutritionalData.heightForAge = 'SSt';
+        } else if (height <= 91.3) {
+          this.nutritionalData.heightForAge = 'St';
+        } else if (height <= 107.1) {
+          this.nutritionalData.heightForAge = 'N';
+        } else {
+          this.nutritionalData.heightForAge = 'T';
+        }
+      } else if (age == 42) {
+        if (height <= 87.9) {
+          this.nutritionalData.heightForAge = 'SSt';
+        } else if (height <= 91.8) {
+          this.nutritionalData.heightForAge = 'St';
+        } else if (height <= 107.8) {
+          this.nutritionalData.heightForAge = 'N';
+        } else {
+          this.nutritionalData.heightForAge = 'T';
+        }
+      } else if (age == 43) {
+        if (height <= 88.3) {
+          this.nutritionalData.heightForAge = 'SSt';
+        } else if (height <= 92.3) {
+          this.nutritionalData.heightForAge = 'St';
+        } else if (height <= 108.5) {
+          this.nutritionalData.heightForAge = 'N';
+        } else {
+          this.nutritionalData.heightForAge = 'T';
+        }
+      } else if (age == 44) {
+        if (height <= 88.8) {
+          this.nutritionalData.heightForAge = 'SSt';
+        } else if (height <= 92.9) {
+          this.nutritionalData.heightForAge = 'St';
+        } else if (height <= 109.1) {
+          this.nutritionalData.heightForAge = 'N';
+        } else {
+          this.nutritionalData.heightForAge = 'T';
+        }
+      } else if (age == 45) {
+        if (height <= 89.3) {
+          this.nutritionalData.heightForAge = 'SSt';
+        } else if (height <= 93.4) {
+          this.nutritionalData.heightForAge = 'St';
+        } else if (height <= 109.8) {
+          this.nutritionalData.heightForAge = 'N';
+        } else {
+          this.nutritionalData.heightForAge = 'T';
+        }
+      } else if (age == 46) {
+        if (height <= 89.7) {
+          this.nutritionalData.heightForAge = 'SSt';
+        } else if (height <= 93.9) {
+          this.nutritionalData.heightForAge = 'St';
+        } else if (height <= 110.4) {
+          this.nutritionalData.heightForAge = 'N';
+        } else {
+          this.nutritionalData.heightForAge = 'T';
+        }
+      } else if (age == 47) {
+        if (height <= 90.2) {
+          this.nutritionalData.heightForAge = 'SSt';
+        } else if (height <= 94.3) {
+          this.nutritionalData.heightForAge = 'St';
+        } else if (height <= 111.1) {
+          this.nutritionalData.heightForAge = 'N';
+        } else {
+          this.nutritionalData.heightForAge = 'T';
+        }
+      } else if (age == 48) {
+        if (height <= 90.6) {
+          this.nutritionalData.heightForAge = 'SSt';
+        } else if (height <= 94.8) {
+          this.nutritionalData.heightForAge = 'St';
+        } else if (height <= 111.7) {
+          this.nutritionalData.heightForAge = 'N';
+        } else {
+          this.nutritionalData.heightForAge = 'T';
+        }
+      } else if (age == 49) {
+        if (height <= 91.1) {
+          this.nutritionalData.heightForAge = 'SSt';
+        } else if (height <= 95.3) {
+          this.nutritionalData.heightForAge = 'St';
+        } else if (height <= 112.4) {
+          this.nutritionalData.heightForAge = 'N';
+        } else {
+          this.nutritionalData.heightForAge = 'T';
+        }
+      } else if (age == 50) {
+        if (height <= 91.5) {
+          this.nutritionalData.heightForAge = 'SSt';
+        } else if (height <= 95.8) {
+          this.nutritionalData.heightForAge = 'St';
+        } else if (height <= 113.0) {
+          this.nutritionalData.heightForAge = 'N';
+        } else {
+          this.nutritionalData.heightForAge = 'T';
+        }
+      } else if (age == 51) {
+        if (height <= 92.0) {
+          this.nutritionalData.heightForAge = 'SSt';
+        } else if (height <= 96.3) {
+          this.nutritionalData.heightForAge = 'St';
+        } else if (height <= 113.6) {
+          this.nutritionalData.heightForAge = 'N';
+        } else {
+          this.nutritionalData.heightForAge = 'T';
+        }
+      } else if (age == 52) {
+        if (height <= 92.4) {
+          this.nutritionalData.heightForAge = 'SSt';
+        } else if (height <= 96.8) {
+          this.nutritionalData.heightForAge = 'St';
+        } else if (height <= 114.2) {
+          this.nutritionalData.heightForAge = 'N';
+        } else {
+          this.nutritionalData.heightForAge = 'T';
+        }
+      } else if (age == 53) {
+        if (height <= 92.9) {
+          this.nutritionalData.heightForAge = 'SSt';
+        } else if (height <= 97.3) {
+          this.nutritionalData.heightForAge = 'St';
+        } else if (height <= 114.9) {
+          this.nutritionalData.heightForAge = 'N';
+        } else {
+          this.nutritionalData.heightForAge = 'T';
+        }
+      } else if (age == 54) {
+        if (height <= 93.3) {
+          this.nutritionalData.heightForAge = 'SSt';
+        } else if (height <= 97.7) {
+          this.nutritionalData.heightForAge = 'St';
+        } else if (height <= 115.5) {
+          this.nutritionalData.heightForAge = 'N';
+        } else {
+          this.nutritionalData.heightForAge = 'T';
+        }
+      } else if (age == 55) {
+        if (height <= 93.8) {
+          this.nutritionalData.heightForAge = 'SSt';
+        } else if (height <= 98.2) {
+          this.nutritionalData.heightForAge = 'St';
+        } else if (height <= 116.1) {
+          this.nutritionalData.heightForAge = 'N';
+        } else {
+          this.nutritionalData.heightForAge = 'T';
+        }
+      } else if (age == 56) {
+        if (height <= 94.2) {
+          this.nutritionalData.heightForAge = 'SSt';
+        } else if (height <= 98.7) {
+          this.nutritionalData.heightForAge = 'St';
+        } else if (height <= 116.7) {
+          this.nutritionalData.heightForAge = 'N';
+        } else {
+          this.nutritionalData.heightForAge = 'T';
+        }
+      } else if (age == 57) {
+        if (height <= 94.6) {
+          this.nutritionalData.heightForAge = 'SSt';
+        } else if (height <= 99.2) {
+          this.nutritionalData.heightForAge = 'St';
+        } else if (height <= 117.4) {
+          this.nutritionalData.heightForAge = 'N';
+        } else {
+          this.nutritionalData.heightForAge = 'T';
+        }
+      } else if (age == 58) {
+        if (height <= 95.1) {
+          this.nutritionalData.heightForAge = 'SSt';
+        } else if (height <= 99.6) {
+          this.nutritionalData.heightForAge = 'St';
+        } else if (height <= 118.0) {
+          this.nutritionalData.heightForAge = 'N';
+        } else {
+          this.nutritionalData.heightForAge = 'T';
+        }
+      } else if (age == 59) {
+        if (height <= 95.5) {
+          this.nutritionalData.heightForAge = 'SSt';
+        } else if (height <= 100.1) {
+          this.nutritionalData.heightForAge = 'St';
+        } else if (height <= 118.6) {
+          this.nutritionalData.heightForAge = 'N';
+        } else {
+          this.nutritionalData.heightForAge = 'T';
+        }
+      } else if (age == 60) {
+        if (height <= 96.0) {
+          this.nutritionalData.heightForAge = 'SSt';
+        } else if (height <= 100.6) {
+          this.nutritionalData.heightForAge = 'St';
+        } else if (height <= 119.2) {
+          this.nutritionalData.heightForAge = 'N';
+        } else {
+          this.nutritionalData.heightForAge = 'T';
+        }
+      } else if (age == 61) {
+        if (height <= 96.4) {
+          this.nutritionalData.heightForAge = 'SSt';
+        } else if (height <= 101.0) {
+          this.nutritionalData.heightForAge = 'St';
+        } else if (height <= 119.4) {
+          this.nutritionalData.heightForAge = 'N';
+        } else {
+          this.nutritionalData.heightForAge = 'T';
+        }
+      } else if (age == 62) {
+        if (height <= 96.8) {
+          this.nutritionalData.heightForAge = 'SSt';
+        } else if (height <= 101.1) {
+          this.nutritionalData.heightForAge = 'St';
+        } else if (height <= 120.0) {
+          this.nutritionalData.heightForAge = 'N';
+        } else {
+          this.nutritionalData.heightForAge = 'T';
+        }
+      } else if (age == 63) {
+        if (height <= 97.3) {
+          this.nutritionalData.heightForAge = 'SSt';
+        } else if (height <= 101.9) {
+          this.nutritionalData.heightForAge = 'St';
+        } else if (height <= 120.6) {
+          this.nutritionalData.heightForAge = 'N';
+        } else {
+          this.nutritionalData.heightForAge = 'T';
+        }
+      } else if (age == 64) {
+        if (height <= 97.7) {
+          this.nutritionalData.heightForAge = 'SSt';
+        } else if (height <= 102.4) {
+          this.nutritionalData.heightForAge = 'St';
+        } else if (height <= 121.2) {
+          this.nutritionalData.heightForAge = 'N';
+        } else {
+          this.nutritionalData.heightForAge = 'T';
+        }
+      } else if (age == 65) {
+        if (height <= 98.1) {
+          this.nutritionalData.heightForAge = 'SSt';
+        } else if (height <= 102.9) {
+          this.nutritionalData.heightForAge = 'St';
+        } else if (height <= 121.8) {
+          this.nutritionalData.heightForAge = 'N';
+        } else {
+          this.nutritionalData.heightForAge = 'T';
+        }
+      } else if (age == 66) {
+        if (height <= 98.6) {
+          this.nutritionalData.heightForAge = 'SSt';
+        } else if (height <= 103.3) {
+          this.nutritionalData.heightForAge = 'St';
+        } else if (height <= 122.4) {
+          this.nutritionalData.heightForAge = 'N';
+        } else {
+          this.nutritionalData.heightForAge = 'T';
+        }
+      } else if (age == 67) {
+        if (height <= 99.0) {
+          this.nutritionalData.heightForAge = 'SSt';
+        } else if (height <= 103.8) {
+          this.nutritionalData.heightForAge = 'St';
+        } else if (height <= 123.0) {
+          this.nutritionalData.heightForAge = 'N';
+        } else {
+          this.nutritionalData.heightForAge = 'T';
+        }
+      } else if (age == 68) {
+        if (height <= 99.4) {
+          this.nutritionalData.heightForAge = 'SSt';
+        } else if (height <= 104.2) {
+          this.nutritionalData.heightForAge = 'St';
+        } else if (height <= 123.6) {
+          this.nutritionalData.heightForAge = 'N';
+        } else {
+          this.nutritionalData.heightForAge = 'T';
+        }
+      } else if (age == 69) {
+        if (height <= 99.8) {
+          this.nutritionalData.heightForAge = 'SSt';
+        } else if (height <= 104.7) {
+          this.nutritionalData.heightForAge = 'St';
+        } else if (height <= 124.1) {
+          this.nutritionalData.heightForAge = 'N';
+        } else {
+          this.nutritionalData.heightForAge = 'T';
+        }
+      } else if (age == 70) {
+        if (height <= 100.3) {
+          this.nutritionalData.heightForAge = 'SSt';
+        } else if (height <= 105.1) {
+          this.nutritionalData.heightForAge = 'St';
+        } else if (height <= 124.7) {
+          this.nutritionalData.heightForAge = 'N';
+        } else {
+          this.nutritionalData.heightForAge = 'T';
+        }
+      } else if (age == 71) {
+        if (height <= 100.7) {
+          this.nutritionalData.heightForAge = 'SSt';
+        } else if (height <= 105.6) {
+          this.nutritionalData.heightForAge = 'St';
+        } else if (height <= 125.2) {
+          this.nutritionalData.heightForAge = 'N';
+        } else {
+          this.nutritionalData.heightForAge = 'T';
+        }
       }
     }
   }
 
   onSubmit() {
+    this.nutritionalData.Date = Date.now();
     if (this.isValidnutritionalData()) {
       // Query the latest nutritional ID from the NutritionalRecord
       const latestnutritionalIdRef = ref(this.database, 'NutritionalRecord');
@@ -1822,8 +3016,7 @@ export class NutritionalStatusComponent {
       vitaminALastReceived: '',
       ironReceived: '',
       usingMNP: '',
-      date: '',
-      measurementMonth: '',
+      Date: '',
     };
   }
 
@@ -1848,8 +3041,7 @@ export class NutritionalStatusComponent {
       this.nutritionalData.vitaminALastReceived &&
       this.nutritionalData.ironReceived &&
       this.nutritionalData.usingMNP &&
-      this.nutritionalData.date &&
-      this.nutritionalData.measurementMonth
+      this.nutritionalData.Date
     );
   }
 
@@ -1872,6 +3064,8 @@ export class NutritionalStatusComponent {
   }
 
   onSearchInputChange() {
+    this.nutritionalData.nameOfChild = this.searchInput;
+
     if (this.searchInput === '') {
       // Show all children records when the search input is empty
       this.filteredChildRecords = this.childRecords;
@@ -1889,7 +3083,7 @@ export class NutritionalStatusComponent {
     const selectedChildName = this.nutritionalData.nameOfChild;
 
     const selectedChild = this.childRecords.find(
-      (c) => c === selectedChildName
+      (c) => c.firstName + ' ' + c.lastName === selectedChildName
     );
 
     if (selectedChild) {
@@ -1905,7 +3099,7 @@ export class NutritionalStatusComponent {
     const selectedChildName = this.nutritionalData.nameOfChild;
 
     const selectedChild = this.childRecords.find(
-      (c) => c === selectedChildName
+      (c) => c.firstName + ' ' + c.lastName === selectedChildName
     );
 
     if (selectedChild) {
@@ -1921,7 +3115,7 @@ export class NutritionalStatusComponent {
     const selectedChildName = this.nutritionalData.nameOfChild;
 
     const selectedChild = this.childRecords.find(
-      (c) => c === selectedChildName
+      (c) => c.firstName + ' ' + c.lastName === selectedChildName
     );
 
     if (selectedChild) {
@@ -1937,7 +3131,7 @@ export class NutritionalStatusComponent {
     const selectedChildName = this.nutritionalData.nameOfChild;
 
     const selectedChild = this.childRecords.find(
-      (c) => c === selectedChildName
+      (c) => c.firstName + ' ' + c.lastName === selectedChildName
     );
 
     if (selectedChild) {
@@ -1953,7 +3147,7 @@ export class NutritionalStatusComponent {
     const selectedChildName = this.nutritionalData.nameOfChild;
 
     const selectedChild = this.childRecords.find(
-      (c) => c === selectedChildName
+      (c) => c.firstName + ' ' + c.lastName === selectedChildName
     );
 
     if (selectedChild) {
@@ -1970,7 +3164,7 @@ export class NutritionalStatusComponent {
     const selectedChildName = this.nutritionalData.nameOfChild;
 
     const selectedChild = this.childRecords.find(
-      (c) => c === selectedChildName
+      (c) => c.firstName + ' ' + c.lastName === selectedChildName
     );
 
     if (selectedChild) {

@@ -200,7 +200,7 @@ export class MonthlyRecordsInfantComponent {
     // Convert the child records to a CSV format
     const csvData = this.monthlyInfantRecords.map((record) => [
       record.monthlyInfantRecordsId,
-      record.nameOfChild.firstName + ' ' + record.nameOfChild?.lastName,
+      record.nameOfChild,
       record.birthday,
       record.ageInMonths,
       record.weight,

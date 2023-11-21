@@ -17,7 +17,7 @@ export class NutritionalTableComponent {
   selectedBarangay: string = '';
   fromDate: string = '';
   toDate: string = '';
-  selectedMeasurementMonth: string = '';
+  selectedMonth: any = '';
 
   @ViewChild('updateNutritionalModal') updateNutritionalModal!: ElementRef;
 
@@ -98,13 +98,15 @@ export class NutritionalTableComponent {
       });
     }
 
-    if (this.selectedMeasurementMonth) {
-      filteredRecords = filteredRecords.filter(
-        (record) => record.measurementMonth === this.selectedMeasurementMonth
-      );
+    if (this.selectedMonth) {
+      filteredRecords = filteredRecords.filter((record) => {
+        const year = new Date(record.Date).getFullYear();
+        const month = new Date(record.Date).getMonth();
+
+        return month == this.selectedMonth;
+      });
     }
 
-    // Update the monthlyHeightRecords with the filtered data
     this.nutritionalRecords = filteredRecords;
   }
 
@@ -113,7 +115,7 @@ export class NutritionalTableComponent {
     this.selectedBarangay = '';
     this.fromDate = '';
     this.toDate = '';
-    this.selectedMeasurementMonth = '';
+    this.selectedMonth = '';
 
     // Reset the monthlyHeightRecords to the original data
     this.nutritionalRecords = [...this.originalNutritionalRecords];
@@ -153,8 +155,6 @@ export class NutritionalTableComponent {
       vitaminALastReceived: this.nutritionalRecordsData.vitaminALastReceived,
       ironReceived: this.nutritionalRecordsData.ironReceived,
       usingMNP: this.nutritionalRecordsData.usingMNP,
-      date: this.nutritionalRecordsData.date,
-      measurementMonth: this.nutritionalRecordsData.measurementMonth,
     })
       .then(() => {
         alert('Nutritional Data Updated successfully');
@@ -217,13 +217,12 @@ export class NutritionalTableComponent {
       'Iron Received',
       'Using MNP',
       'Date',
-      'Measurement Month',
     ];
 
     // Convert the child records to a CSV format
     const csvData = this.nutritionalRecords.map((record) => [
       record.nutritionalId,
-      record.nameOfChild.firstName + ' ' + record.nameOfChild?.lastName,
+      record.nameOfChild,
       record.fatherName,
       record.motherName,
       record.barangay,
@@ -242,8 +241,7 @@ export class NutritionalTableComponent {
       record.vitaminALastReceived,
       record.ironReceived,
       record.usingMNP,
-      record.date,
-      record.measurementMonth,
+      record.Date,
     ]);
 
     // Combine the header and data

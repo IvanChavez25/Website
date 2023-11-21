@@ -27,13 +27,32 @@
         />
       </div>
       <div>
+        <label for="searchChild">Search Child:</label>
+        <input
+          list="childList"
+          type="text"
+          id="searchChild"
+          name="searchChild"
+          [(ngModel)]="searchInput"
+          (input)="onSearchInputChange()"
+        />
+        <datalist id="childList">
+          <option
+            *ngFor="let child of filteredChildRecords"
+            [value]="child.firstName + ' ' + child.lastName"
+          >
+            {{ child.firstName }} {{ child.lastName }}
+          </option>
+        </datalist>
+      </div>
+      <div>
         <label for="birthday">Date of Birth:</label>
         <input
           type="date"
           id="birthday"
           name="birthday"
+          [value]="getSelectedChildBirthday()"
           [(ngModel)]="baselineData.birthday"
-          (ngModelChange)="onBirthdayChange()"
           required
         />
       </div>
@@ -155,6 +174,7 @@
             type="text"
             id="ageInMonth"
             name="ageInMonth"
+            [value]="getSelectedChildAge()"
             [(ngModel)]="baselineData.ageInMonth"
             required
           />
@@ -166,6 +186,7 @@
             id="weight"
             name="weight"
             [(ngModel)]="baselineData.weight"
+            (ngModelChange)="onWeightForAgeChange()"
             required
           />
         </div>
@@ -185,6 +206,7 @@
         <select
           id="barangay"
           name="barangay"
+          [value]="getSelectedChildBarangay()"
           [(ngModel)]="baselineData.barangay"
         >
           <option value="ABUNG">ABUNG</option>
@@ -229,36 +251,6 @@
           <option value="TALAHIBAN 2">TALAHIBAN 2</option>
           <option value="TICALAN">TICALAN</option>
           <option value="TIPAZ">TIPAZ</option>
-        </select>
-      </div>
-      <div>
-        <label for="date">Date:</label>
-        <input
-          type="date"
-          id="date"
-          name="date"
-          [(ngModel)]="baselineData.date"
-          required
-        />
-      </div>
-      <div>
-        <label for="measurementMonth">Measurement Month:</label>
-        <select
-          id="measurementMonth"
-          name="measurementMonth"
-          [(ngModel)]="baselineData.measurementMonth"
-        >
-          <option value="January">January</option>
-          <option value="February">February</option>
-          <option value="March">March</option>
-          <option value="May">May</option>
-          <option value="June">June</option>
-          <option value="July">July</option>
-          <option value="August">August</option>
-          <option value="September">September</option>
-          <option value="October">October</option>
-          <option value="November">November</option>
-          <option value="December">December</option>
         </select>
       </div>
       <div>

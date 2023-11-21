@@ -15,13 +15,12 @@ export class BMIResultComponent {
   selectedBarangay: string = '';
   fromDate: string = '';
   toDate: string = '';
-  selectedMeasurementMonth: string = '';
+  selectedMonth: any = '';
 
   resultMessage: string = '';
   showResult: boolean = false;
   results: {
     childName: string;
-    measurementMonth: string;
     barangay: string;
     weight: number;
     height: number;
@@ -98,13 +97,15 @@ export class BMIResultComponent {
       });
     }
 
-    if (this.selectedMeasurementMonth) {
-      filteredRecords = filteredRecords.filter(
-        (record) => record.measurementMonth === this.selectedMeasurementMonth
-      );
+    if (this.selectedMonth) {
+      filteredRecords = filteredRecords.filter((record) => {
+        const year = new Date(record.Date).getFullYear();
+        const month = new Date(record.Date).getMonth();
+
+        return month == this.selectedMonth;
+      });
     }
 
-    // Update the monthlyHeightRecords with the filtered data
     this.bmiRecords = filteredRecords;
   }
 
@@ -113,7 +114,7 @@ export class BMIResultComponent {
     this.selectedBarangay = '';
     this.fromDate = '';
     this.toDate = '';
-    this.selectedMeasurementMonth = '';
+    this.selectedMonth = '';
 
     // Reset the monthlyHeightRecords to the original data
     this.bmiRecords = [...this.originalBmiRecords];
@@ -142,7 +143,6 @@ export class BMIResultComponent {
 
     const newResult = {
       childName: this.bmiData.childName,
-      measurementMonth: this.bmiData.measurementMonth,
       barangay: this.bmiData.barangay,
       weight: this.bmiData.weight,
       height: this.bmiData.height,
@@ -176,5 +176,4 @@ export class BMIResultComponent {
   goToPage(pageNumber: number) {
     this.currentPage = pageNumber;
   }
-  
 }

@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { Database, ref, get } from '@angular/fire/database';
-import Chart from 'chart.js/auto';
 
 interface WeightForHeightTotals {
   barangay: string;
+  measurementMonth: number;
+  measurementYear: any;
   severelyUnderweight: number;
   underweight: number;
   normal: number;
@@ -19,11 +20,27 @@ export class NutritionalStatusSummaryWeightforheightComponent {
   nutritionalRecords: any[] = [];
   barangayData: WeightForHeightTotals[] = [];
 
-  selectedMonth: string = 'January';
+  selectedMonth: number = 0;
+  selectedYear: number | null = null;
   selectedBarangayInfo: any[] = [];
+
+  currentPage: number = 1;
+  itemsPerPage: number = 5;
 
   constructor(public database: Database) {
     this.fetchNutritionalRecords();
+  }
+
+  get startIndex(): number {
+    return (this.currentPage - 1) * this.itemsPerPage;
+  }
+
+  get endIndex(): number {
+    return this.startIndex + this.itemsPerPage;
+  }
+
+  goToPage(pageNumber: number) {
+    this.currentPage = pageNumber;
   }
 
   fetchNutritionalRecords() {
@@ -36,6 +53,7 @@ export class NutritionalStatusSummaryWeightforheightComponent {
           this.calculateTotalsByBarangay();
         } else {
           this.nutritionalRecords = [];
+          console.log(this.nutritionalRecords);
         }
       })
       .catch((error) => {
@@ -43,7 +61,7 @@ export class NutritionalStatusSummaryWeightforheightComponent {
       });
   }
 
-  onMonthSelect() {
+  onMonthYearSelect() {
     this.fetchNutritionalRecords();
   }
 
@@ -51,7 +69,13 @@ export class NutritionalStatusSummaryWeightforheightComponent {
     const groupedData: WeightForHeightTotals[] = [];
 
     this.nutritionalRecords
-      .filter((record) => record.measurementMonth === this.selectedMonth) // Filter by selected month
+      .filter((record) => {
+        const year = new Date(record.Date).getFullYear();
+        const month = new Date(record.Date).getMonth();
+
+        return month == this.selectedMonth && year == this.selectedYear;
+      })
+      
       .forEach((record) => {
         const barangayName = record.barangay;
         const existingBarangay = groupedData.find(
@@ -78,6 +102,8 @@ export class NutritionalStatusSummaryWeightforheightComponent {
         } else {
           const totals: WeightForHeightTotals = {
             barangay: barangayName,
+            measurementMonth: this.selectedMonth,
+            measurementYear: this.selectedYear,
             severelyUnderweight: 0,
             underweight: 0,
             normal: 0,
@@ -118,9 +144,12 @@ export class NutritionalStatusSummaryWeightforheightComponent {
     // Filter records based on the selected month
     let filteredRecords = this.nutritionalRecords;
     if (this.selectedMonth) {
-      filteredRecords = this.nutritionalRecords.filter(
-        (record) => record.measurementMonth === this.selectedMonth
-      );
+      filteredRecords = this.nutritionalRecords.filter((record) => {
+        const year = new Date(record.Date).getFullYear();
+        const month = new Date(record.Date).getMonth();
+
+        return month == this.selectedMonth && year == this.selectedYear;
+      });
     }
 
     if (barangayValue === 0) {

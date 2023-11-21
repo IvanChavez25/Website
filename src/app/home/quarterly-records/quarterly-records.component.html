@@ -17,27 +17,23 @@
       <div>
         <label for="searchChild">Search Child:</label>
         <input
+          list="childList"
           type="text"
           id="searchChild"
           name="searchChild"
           [(ngModel)]="searchInput"
           (input)="onSearchInputChange()"
         />
-      </div>
-      <div>
-        <label for="nameOfChild">Name Of Child:</label>
-        <select
-          id="nameOfChild"
-          name="nameOfChild"
-          [(ngModel)]="quarterlyData.nameOfChild"
-          required
-        >
-          <option value="">Select a Child</option>
-          <option *ngFor="let child of filteredChildRecords" [ngValue]="child">
+        <datalist id="childList">
+          <option
+            *ngFor="let child of filteredChildRecords"
+            [value]="child.firstName + ' ' + child.lastName"
+          >
             {{ child.firstName }} {{ child.lastName }}
           </option>
-        </select>
+        </datalist>
       </div>
+
       <div>
         <label for="birthday">Birthday:</label>
         <input
@@ -151,36 +147,6 @@
           <option value="TALAHIBAN 2">TALAHIBAN 2</option>
           <option value="TICALAN">TICALAN</option>
           <option value="TIPAZ">TIPAZ</option>
-        </select>
-      </div>
-      <div>
-        <label for="date">Date:</label>
-        <input
-          type="date"
-          id="date"
-          name="date"
-          [(ngModel)]="quarterlyData.date"
-          required
-        />
-      </div>
-      <div>
-        <label for="measurementMonth">Measurement Month:</label>
-        <select
-          id="measurementMonth"
-          name="measurementMonth"
-          [(ngModel)]="quarterlyData.measurementMonth"
-        >
-          <option value="January">January</option>
-          <option value="February">February</option>
-          <option value="March">March</option>
-          <option value="May">May</option>
-          <option value="June">June</option>
-          <option value="July">July</option>
-          <option value="August">August</option>
-          <option value="September">September</option>
-          <option value="October">October</option>
-          <option value="November">November</option>
-          <option value="December">December</option>
         </select>
       </div>
       <div>

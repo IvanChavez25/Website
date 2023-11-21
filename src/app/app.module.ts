@@ -13,6 +13,7 @@ import { provideDatabase, getDatabase } from '@angular/fire/database';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { MatDialogModule } from '@angular/material/dialog';
 
+
 @NgModule({
   declarations: [AppComponent, LoginFormComponent],
   imports: [

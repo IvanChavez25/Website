@@ -10,6 +10,8 @@ import { Database, set, ref, get } from '@angular/fire/database';
 })
 export class QuarterlyRecordsComponent {
   childRecords: any[] = [];
+  searchInput: string = '';
+  filteredChildRecords: any[] = [];
 
   barangay: string = 'ABUNG';
   measurementMonth: string = 'January';
@@ -27,18 +29,16 @@ export class QuarterlyRecordsComponent {
     weightForLengthOrHeight: '',
     nutritionalStatus: '',
     barangay: '',
-    date: '',
-    measurementMonth: '',
+    Date: '',
   };
-
-  searchInput: string = '';
-  filteredChildRecords: any[] = [];
 
   constructor(public database: Database, private location: Location) {
     this.fetchChildRecords();
   }
 
   onSubmit() {
+
+    this.quarterlyData.Date = Date.now()
     if (this.isValidquarterlyData()) {
       // Query the latest child ID from the ChildProfile
       const latestquarterlyIdRef = ref(this.database, 'QuarterlyTable');
@@ -83,8 +83,7 @@ export class QuarterlyRecordsComponent {
       weightForLengthOrHeight: '',
       nutritionalStatus: '',
       barangay: '',
-      date: '',
-      measurementMonth: '',
+      Date: '',
     };
   }
 
@@ -97,9 +96,8 @@ export class QuarterlyRecordsComponent {
       this.quarterlyData.heightOrLength &&
       this.quarterlyData.weightForLengthOrHeight &&
       this.quarterlyData.nutritionalStatus &&
-      this.quarterlyData.barangay &&
-      this.quarterlyData.date &&
-      this.quarterlyData.measurementMonth
+      this.quarterlyData.barangay
+
     );
   }
   fetchChildRecords() {
@@ -121,6 +119,8 @@ export class QuarterlyRecordsComponent {
   }
 
   onSearchInputChange() {
+    this.quarterlyData.nameOfChild = this.searchInput;
+
     if (this.searchInput === '') {
       // Show all children records when the search input is empty
       this.filteredChildRecords = this.childRecords;
@@ -138,7 +138,7 @@ export class QuarterlyRecordsComponent {
     const selectedChildName = this.quarterlyData.nameOfChild;
 
     const selectedChild = this.childRecords.find(
-      (c) => c === selectedChildName
+      (c) => c.firstName + ' ' + c.lastName === selectedChildName
     );
 
     if (selectedChild) {
@@ -154,7 +154,7 @@ export class QuarterlyRecordsComponent {
     const selectedChildName = this.quarterlyData.nameOfChild;
 
     const selectedChild = this.childRecords.find(
-      (c) => c === selectedChildName
+      (c) => c.firstName + ' ' + c.lastName === selectedChildName
     );
 
     if (selectedChild) {
@@ -170,7 +170,7 @@ export class QuarterlyRecordsComponent {
     const selectedChildName = this.quarterlyData.nameOfChild;
 
     const selectedChild = this.childRecords.find(
-      (c) => c === selectedChildName
+      (c) => c.firstName + ' ' + c.lastName === selectedChildName
     );
 
     if (selectedChild) {

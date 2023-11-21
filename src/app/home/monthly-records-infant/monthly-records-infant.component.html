@@ -248,11 +248,7 @@
             <tr *ngFor="let record of monthlyInfantRecords">
               <td>{{ record.monthlyInfantRecordsId }}</td>
               <td>
-                {{
-                  record.nameOfChild.firstName +
-                    " " +
-                    record.nameOfChild?.lastName
-                }}
+                {{ record.nameOfChild }}
               </td>
               <td>{{ record.birthday }}</td>
               <td>{{ record.ageInMonths }}</td>

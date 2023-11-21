@@ -4,6 +4,8 @@ import Chart from 'chart.js/auto';
 
 interface HeightForAgeTotals {
   barangay: string;
+  measurementMonth: number;
+  measurementYear: any;
   severelyStunted: number;
   stunted: number;
   normal: number;
@@ -19,11 +21,27 @@ export class NutritionalStatusSummaryHeightforageComponent {
   nutritionalRecords: any[] = [];
   barangayData: HeightForAgeTotals[] = [];
 
-  selectedMonth: string = 'January';
+  selectedMonth: number = 0;
+  selectedYear: number | null = null;
   selectedBarangayInfo: any[] = [];
+
+  currentPage: number = 1;
+  itemsPerPage: number = 5;
 
   constructor(public database: Database) {
     this.fetchNutritionalRecords();
+  }
+
+  get startIndex(): number {
+    return (this.currentPage - 1) * this.itemsPerPage;
+  }
+
+  get endIndex(): number {
+    return this.startIndex + this.itemsPerPage;
+  }
+
+  goToPage(pageNumber: number) {
+    this.currentPage = pageNumber;
   }
 
   fetchNutritionalRecords() {
@@ -36,6 +54,7 @@ export class NutritionalStatusSummaryHeightforageComponent {
           this.calculateTotalsByBarangay();
         } else {
           this.nutritionalRecords = [];
+          console.log(this.nutritionalRecords);
         }
       })
       .catch((error) => {
@@ -43,7 +62,7 @@ export class NutritionalStatusSummaryHeightforageComponent {
       });
   }
 
-  onMonthSelect() {
+  onMonthYearSelect() {
     this.fetchNutritionalRecords();
   }
 
@@ -51,7 +70,13 @@ export class NutritionalStatusSummaryHeightforageComponent {
     const groupedData: HeightForAgeTotals[] = [];
 
     this.nutritionalRecords
-      .filter((record) => record.measurementMonth === this.selectedMonth) // Filter by selected month
+      .filter((record) => {
+        const year = new Date(record.Date).getFullYear();
+        const month = new Date(record.Date).getMonth(); // Filter by selected month
+
+        return month == this.selectedMonth && year == this.selectedYear;
+      })
+
       .forEach((record) => {
         const barangayName = record.barangay;
         const existingBarangay = groupedData.find(
@@ -78,6 +103,8 @@ export class NutritionalStatusSummaryHeightforageComponent {
         } else {
           const totals: HeightForAgeTotals = {
             barangay: barangayName,
+            measurementMonth: this.selectedMonth,
+            measurementYear: this.selectedYear,
             severelyStunted: 0,
             stunted: 0,
             normal: 0,
@@ -118,9 +145,12 @@ export class NutritionalStatusSummaryHeightforageComponent {
     // Filter records based on the selected month
     let filteredRecords = this.nutritionalRecords;
     if (this.selectedMonth) {
-      filteredRecords = this.nutritionalRecords.filter(
-        (record) => record.measurementMonth === this.selectedMonth
-      );
+      filteredRecords = this.nutritionalRecords.filter((record) => {
+        const year = new Date(record.Date).getFullYear();
+        const month = new Date(record.Date).getMonth();
+
+        return month == this.selectedMonth && year == this.selectedYear;
+      });
     }
 
     if (barangayValue === 0) {

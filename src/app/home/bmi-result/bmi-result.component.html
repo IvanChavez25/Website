@@ -80,22 +80,23 @@
     <select
       id="measurementMonth"
       name="measurementMonth"
-      [(ngModel)]="selectedMeasurementMonth"
+      [(ngModel)]="selectedMonth"
       (change)="filterRecords()"
       required
     >
       <option value="">ALL</option>
-      <option value="January">January</option>
-      <option value="February">February</option>
-      <option value="March">March</option>
-      <option value="May">May</option>
-      <option value="June">June</option>
-      <option value="July">July</option>
-      <option value="August">August</option>
-      <option value="September">September</option>
-      <option value="October">October</option>
-      <option value="November">November</option>
-      <option value="December">December</option>
+      <option value="0">January</option>
+      <option value="1">February</option>
+      <option value="2">March</option>
+      <option value="3">April</option>
+      <option value="4">May</option>
+      <option value="5">June</option>
+      <option value="6">July</option>
+      <option value="7">August</option>
+      <option value="8">September</option>
+      <option value="9">October</option>
+      <option value="10">November</option>
+      <option value="11">December</option>
     </select>
 
     <button (click)="clearFilters()">Clear_Filters</button>
@@ -112,19 +113,19 @@
               <tr>
                 <th>Child ID</th>
                 <th>Child's Name</th>
-                <th>Month</th>
                 <th>Barangay</th>
                 <th>Weight (kg)</th>
                 <th>Height (cm)</th>
                 <th>Age</th>
                 <th>BMI</th>
                 <th>Result</th>
+                <th>Date</th>
                 <th>Action</th>
               </tr>
             </thead>
             <tbody>
               <tr
-              *ngFor="let result of bmiRecords.slice(startIndex, endIndex)"
+                *ngFor="let result of bmiRecords.slice(startIndex, endIndex)"
                 id="result-row"
                 [ngClass]="{ 
                 'severelyunderweight-row': result.resultMessage === 'Severely Underweight',
@@ -136,19 +137,16 @@
               >
                 <td>{{ result.bmiRecordsId }}</td>
                 <td>
-                  {{
-                    result.childName.firstName +
-                      " " +
-                      result.childName?.lastName
-                  }}
+                  {{ result.childName }}
                 </td>
-                <td>{{ result.measurementMonth }}</td>
                 <td>{{ result.barangay }}</td>
                 <td>{{ result.weight }}</td>
                 <td>{{ result.height }}</td>
                 <td>{{ result.age }}</td>
                 <td>{{ result.bmi }}</td>
                 <td>{{ result.resultMessage }}</td>
+                <td>{{ result.Date | date : "medium" : "Asia/Manila" }}</td>
+
                 <td>
                   <button
                     (click)="removeBmi(result)"

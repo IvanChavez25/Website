@@ -193,7 +193,7 @@ export class MonthlyWeightRecordsTableComponent {
     // Convert the child records to a CSV format
     const csvData = this.monthlyWeightRecords.map((record) => [
       record.monthlyWeightRecordsId,
-      record.nameOfChild.firstName + ' ' + record.nameOfChild?.lastName,
+      record.nameOfChild,
       record.birthday,
       record.ageInMonths,
       record.weight,

@@ -4,13 +4,15 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class AuthServiceService {
-  private _uid!: string;
-
   set uid(value: string) {
-    this._uid = value;
+    localStorage.setItem('uid', value);
   }
 
   get uid(): string {
-    return this._uid;
+    return localStorage.getItem('uid') || '';
+  }
+
+  logout(): void {
+    localStorage.removeItem('uid');
   }
 }

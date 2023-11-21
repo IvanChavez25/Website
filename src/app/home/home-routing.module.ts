@@ -26,11 +26,13 @@ import { NutritionalStatusSummaryHeightforageComponent } from './nutritional-sta
 import { NutritionalStatusSummaryWeightforheightComponent } from './nutritional-status-summary-weightforheight/nutritional-status-summary-weightforheight.component';
 import { UserAccountComponent } from './user-account/user-account.component';
 import { UserlistComponent } from './userlist/userlist.component';
+import { authGuard } from '../page/login/auth.guard';
 
 const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
+ canActivate: [authGuard],
     children: [
       { path: 'childreninfo', component: ChildrenInfoComponent },
       { path: 'monthlyrecords', component: MonthlyRecordComponent },

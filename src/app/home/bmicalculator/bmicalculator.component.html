@@ -8,50 +8,23 @@
     <legend><h2>BMI Calculator</h2></legend>
 
     <div>
-      <label for="searchChild" class="label">Search Child:</label>
+      <label for="searchChild">Search Child:</label>
       <input
+        list="childList"
         type="text"
         id="searchChild"
         name="searchChild"
         [(ngModel)]="searchInput"
         (input)="onSearchInputChange()"
       />
-    </div>
-
-    <div>
-      <label for="childName" class="label">Children Name:</label>
-      <select
-        id="childName"
-        name="childName"
-        [(ngModel)]="bmiRecordData.childName"
-        required
-      >
-        <option value="">Select a Child</option>
-
-        <option *ngFor="let child of filteredChildRecords" [ngValue]="child">
+      <datalist id="childList">
+        <option
+          *ngFor="let child of filteredChildRecords"
+          [value]="child.firstName + ' ' + child.lastName"
+        >
           {{ child.firstName }} {{ child.lastName }}
         </option>
-      </select>
-    </div>
-    <div>
-      <label for="measurementMonth">Measurement Month:</label>
-      <select
-        id="measurementMonth"
-        name="measurementMonth"
-        [(ngModel)]="bmiRecordData.measurementMonth"
-      >
-        <option value="January">January</option>
-        <option value="February">February</option>
-        <option value="March">March</option>
-        <option value="May">May</option>
-        <option value="June">June</option>
-        <option value="July">July</option>
-        <option value="August">August</option>
-        <option value="September">September</option>
-        <option value="October">October</option>
-        <option value="November">November</option>
-        <option value="December">December</option>
-      </select>
+      </datalist>
     </div>
     <div>
       <label for="barangay" class="label">Barangay:</label>
@@ -146,7 +119,6 @@
             <tr>
               <th>#</th>
               <th>Child's Name</th>
-              <th>Month</th>
               <th>Barangay</th>
               <th>Weight (kg)</th>
               <th>Height (cm)</th>
@@ -169,7 +141,6 @@
             >
               <td>{{ i + 1 }}</td>
               <td>{{ result.childName }}</td>
-              <td>{{ result.measurementMonth }}</td>
               <td>{{ result.barangay }}</td>
               <td>{{ result.weight }}</td>
               <td>{{ result.height }}</td>

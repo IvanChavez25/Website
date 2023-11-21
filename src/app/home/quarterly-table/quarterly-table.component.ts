@@ -15,7 +15,7 @@ export class QuarterlyTableComponent {
   selectedBarangay: string = '';
   fromDate: string = '';
   toDate: string = '';
-  selectedMeasurementMonth: string = '';
+  selectedMonth: any = '';
 
   @ViewChild('updateQuarterlyModal') updateQuarterlyModal!: ElementRef;
 
@@ -87,12 +87,14 @@ export class QuarterlyTableComponent {
       });
     }
 
-    if (this.selectedMeasurementMonth) {
-      filteredRecords = filteredRecords.filter(
-        (record) => record.measurementMonth === this.selectedMeasurementMonth
-      );
-    }
+    if (this.selectedMonth) {
+      filteredRecords = filteredRecords.filter((record) => {
+        const year = new Date(record.Date).getFullYear();
+        const month = new Date(record.Date).getMonth();
 
+        return month == this.selectedMonth;
+      });
+    }
     this.quarterlyTable = filteredRecords;
   }
 
@@ -100,7 +102,7 @@ export class QuarterlyTableComponent {
     this.selectedBarangay = '';
     this.fromDate = '';
     this.toDate = '';
-    this.selectedMeasurementMonth = '';
+    this.selectedMonth = '';
 
     this.quarterlyTable = [...this.originalQuarterlyTable];
   }
@@ -130,8 +132,7 @@ export class QuarterlyTableComponent {
       weightForLengthOrHeight: this.quarterlyTableData.weightForLengthOrHeight,
       nutritionalStatus: this.quarterlyTableData.nutritionalStatus,
       barangay: this.quarterlyTableData.barangay,
-      date: this.quarterlyTableData.date,
-      measurementMonth: this.quarterlyTableData.measurementMonth,
+      
     })
       .then(() => {
         alert('Children Quarterly Records Data Updated successfully');
@@ -184,7 +185,6 @@ export class QuarterlyTableComponent {
       'Nutritional Status',
       'Barangay',
       'Date',
-      'Measurement Month',
     ];
 
     // Convert the child records to a CSV format
@@ -198,8 +198,7 @@ export class QuarterlyTableComponent {
       record.weightForLengthOrHeight,
       record.nutritionalStatus,
       record.barangay,
-      record.date,
-      record.measurementMonth,
+      record.Date,
     ]);
 
     // Combine the header and data

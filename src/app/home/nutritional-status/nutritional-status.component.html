@@ -19,26 +19,21 @@
       <div>
         <label for="searchChild">Search Child:</label>
         <input
+          list="childList"
           type="text"
           id="searchChild"
           name="searchChild"
           [(ngModel)]="searchInput"
           (input)="onSearchInputChange()"
         />
-      </div>
-      <div>
-        <label for="nameOfChild">Name Of Child:</label>
-        <select
-          id="nameOfChild"
-          name="nameOfChild"
-          [(ngModel)]="nutritionalData.nameOfChild"
-          required
-        >
-          <option value="">Select a Child</option>
-          <option *ngFor="let child of filteredChildRecords" [ngValue]="child">
+        <datalist id="childList">
+          <option
+            *ngFor="let child of filteredChildRecords"
+            [value]="child.firstName + ' ' + child.lastName"
+          >
             {{ child.firstName }} {{ child.lastName }}
           </option>
-        </select>
+        </datalist>
       </div>
       <div>
         <label for="fatherName">Father's Name:</label>
@@ -321,35 +316,6 @@
           </select>
         </div>
       </fieldset>
-      <div>
-        <label for="date">Date Input:</label>
-        <input
-          type="date"
-          id="date"
-          name="date"
-          [(ngModel)]="nutritionalData.date"
-        />
-      </div>
-      <div>
-        <label for="measurementMonth">Measurement Month:</label>
-        <select
-          id="measurementMonth"
-          name="measurementMonth"
-          [(ngModel)]="nutritionalData.measurementMonth"
-        >
-          <option value="January">January</option>
-          <option value="February">February</option>
-          <option value="March">March</option>
-          <option value="May">May</option>
-          <option value="June">June</option>
-          <option value="July">July</option>
-          <option value="August">August</option>
-          <option value="September">September</option>
-          <option value="October">October</option>
-          <option value="November">November</option>
-          <option value="December">December</option>
-        </select>
-      </div>
       <button type="submit">Submit</button>
     </form>
   </fieldset>

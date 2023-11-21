@@ -10,27 +10,25 @@ import { Database, set, ref, get } from '@angular/fire/database';
 })
 export class BmiCalculatorComponent {
   childRecords: any[] = [];
+  searchInput: string = '';
+  filteredChildRecords: any[] = [];
 
   bmiRecordData: any = {
     bmiRecordsId: null,
     childName: '',
-    measurementMonth: '',
     barangay: '',
     weight: '',
     height: '',
     age: '',
     bmi: '',
     resultMessage: '',
+    Date: '',
   };
-
-  searchInput: string = '';
-  filteredChildRecords: any[] = [];
 
   resultMessage: string = '';
   showResult: boolean = false;
   results: {
     childName: string;
-    measurementMonth: string;
     barangay: string;
     weight: number;
     height: number;
@@ -44,6 +42,7 @@ export class BmiCalculatorComponent {
   }
 
   onSubmit() {
+    this.bmiRecordData.Date = Date.now();
     this.calculateBMI();
 
     if (this.isValidbmiRecordData()) {
@@ -80,7 +79,6 @@ export class BmiCalculatorComponent {
   private clearForm() {
     this.bmiRecordData = {
       childName: '',
-      measurementMonth: '',
       barangay: '',
       weight: '',
       height: '',
@@ -93,7 +91,6 @@ export class BmiCalculatorComponent {
   private isValidbmiRecordData(): boolean {
     return (
       this.bmiRecordData.childName &&
-      this.bmiRecordData.measurementMonth &&
       this.bmiRecordData.barangay &&
       this.bmiRecordData.weight &&
       this.bmiRecordData.height &&
@@ -122,13 +119,15 @@ export class BmiCalculatorComponent {
   }
 
   onSearchInputChange() {
+    this.bmiRecordData.childName = this.searchInput;
+
     if (this.searchInput === '') {
       // Show all children records when the search input is empty
       this.filteredChildRecords = this.childRecords;
     } else {
       // Filter children records based on the search input
-      this.filteredChildRecords = this.childRecords.filter((health) => {
-        return (health.firstName + ' ' + health.lastName)
+      this.filteredChildRecords = this.childRecords.filter((child) => {
+        return (child.firstName + ' ' + child.lastName)
           .toLowerCase()
           .includes(this.searchInput.toLowerCase());
       });
@@ -139,7 +138,7 @@ export class BmiCalculatorComponent {
     const selectedChildName = this.bmiRecordData.childName;
 
     const selectedChild = this.childRecords.find(
-      (c) => c === selectedChildName
+      (c) => c.firstName + ' ' + c.lastName === selectedChildName
     );
 
     if (selectedChild) {
@@ -155,7 +154,7 @@ export class BmiCalculatorComponent {
     const selectedChildName = this.bmiRecordData.childName;
 
     const selectedChild = this.childRecords.find(
-      (c) => c === selectedChildName
+      (c) => c.firstName + ' ' + c.lastName === selectedChildName
     );
 
     if (selectedChild) {
@@ -193,7 +192,6 @@ export class BmiCalculatorComponent {
 
     const newResult = {
       childName: this.bmiRecordData.childName,
-      measurementMonth: this.bmiRecordData.measurementMonth,
       barangay: this.bmiRecordData.barangay,
       weight: this.bmiRecordData.weight,
       height: this.bmiRecordData.height,

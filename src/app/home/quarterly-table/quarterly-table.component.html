@@ -53,43 +53,14 @@
             required
           />
         </div>
-        <div>
-          <label for="date">Date:</label>
-          <input
-            type="date"
-            id="date"
-            name="date"
-            [(ngModel)]="quarterlyTableData.date"
-            required
-          />
-        </div>
-        <div>
-          <label for="measurementMonth">Measurement Month:</label>
-          <select
-            id="measurementMonth"
-            name="measurementMonth"
-            [(ngModel)]="quarterlyTableData.measurementMonth"
-          >
-            <option value="January">January</option>
-            <option value="February">February</option>
-            <option value="March">March</option>
-            <option value="May">May</option>
-            <option value="June">June</option>
-            <option value="July">July</option>
-            <option value="August">August</option>
-            <option value="September">September</option>
-            <option value="October">October</option>
-            <option value="November">November</option>
-            <option value="December">December</option>
-          </select>
-          <button class="close" (click)="closeUpdateQuarterlyModal()">
-            Cancel
-          </button>
 
-          <button class="btn btn-primary" (click)="updateQuarterly()">
-            Update Child
-          </button>
-        </div>
+        <button class="close" (click)="closeUpdateQuarterlyModal()">
+          Cancel
+        </button>
+
+        <button class="btn btn-primary" (click)="updateQuarterly()">
+          Update Child
+        </button>
       </form>
     </div>
   </div>
@@ -172,22 +143,23 @@
     <select
       id="measurementMonth"
       name="measurementMonth"
-      [(ngModel)]="selectedMeasurementMonth"
+      [(ngModel)]="selectedMonth"
       (change)="filterRecords()"
       required
     >
       <option value="">ALL</option>
-      <option value="January">January</option>
-      <option value="February">February</option>
-      <option value="March">March</option>
-      <option value="May">May</option>
-      <option value="June">June</option>
-      <option value="July">July</option>
-      <option value="August">August</option>
-      <option value="September">September</option>
-      <option value="October">October</option>
-      <option value="November">November</option>
-      <option value="December">December</option>
+      <option value="0">January</option>
+      <option value="1">February</option>
+      <option value="2">March</option>
+      <option value="3">April</option>
+      <option value="4">May</option>
+      <option value="5">June</option>
+      <option value="6">July</option>
+      <option value="7">August</option>
+      <option value="8">September</option>
+      <option value="9">October</option>
+      <option value="10">November</option>
+      <option value="11">December</option>
     </select>
 
     <button (click)="clearFilters()">Clear_Filters</button>
@@ -217,19 +189,18 @@
                 <th>Nutritional Status (Nut1 Status)</th>
                 <th>Barangay</th>
                 <th>Date</th>
-                <th>Measurement Month</th>
                 <th>Action</th>
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let record of quarterlyTable">
+              <tr
+                *ngFor="
+                  let record of quarterlyTable.slice(startIndex, endIndex)
+                "
+              >
                 <td>{{ record.quarterlyId }}</td>
                 <td>
-                  {{
-                    record.nameOfChild.firstName +
-                      " " +
-                      record.nameOfChild?.lastName
-                  }}
+                  {{ record.nameOfChild }}
                 </td>
                 <td>{{ record.birthday }}</td>
                 <td>{{ record.ageInMonth }}</td>
@@ -238,8 +209,7 @@
                 <td>{{ record.weightForLengthOrHeight }}</td>
                 <td>{{ record.nutritionalStatus }}</td>
                 <td>{{ record.barangay }}</td>
-                <td>{{ record.date }}</td>
-                <td>{{ record.measurementMonth }}</td>
+                <td>{{ record.Date | date : "medium" : "Asia/Manila" }}</td>
                 <td>
                   <a class="btn btn-sm btn-outline-dark"
                     ><i class="fas fa-up-right-from-square"></i

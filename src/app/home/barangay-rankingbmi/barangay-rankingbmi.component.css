@@ -75,8 +75,6 @@ tr:nth-child(odd) {
   font-size: 5px;
 }
 
-
-
 /* dinagdag ko dyann sa modal */
 .modal {
   position: fixed;
@@ -100,7 +98,7 @@ tr:nth-child(odd) {
   height: 100%;
   box-sizing: border-box;
   overflow-y: auto;
-  z-index:10;
+  z-index: 10;
 }
 
 .modal-content span {
@@ -111,3 +109,9 @@ tr:nth-child(odd) {
   color: red;
 }
 
+#barChartContainer {
+  width: 80%; /* Adjust the width as needed */
+  margin: auto; /* Center the chart on the page */
+  padding: 20px;
+  border: 1px solid #ddd; /* Add a border for better visibility */
+}

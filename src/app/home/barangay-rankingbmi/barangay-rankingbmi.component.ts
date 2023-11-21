@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { Database, ref, get } from '@angular/fire/database';
 
 @Component({
@@ -7,7 +6,7 @@ import { Database, ref, get } from '@angular/fire/database';
   templateUrl: './barangay-rankingbmi.component.html',
   styleUrls: ['./barangay-rankingbmi.component.css'],
 })
-export class BarangayRankingbmiComponent implements OnInit {
+export class BarangayRankingbmiComponent {
   barangaylist: any[] = [];
   rankedBarangays: {
     barangay: string;
@@ -17,36 +16,43 @@ export class BarangayRankingbmiComponent implements OnInit {
     overweight: number;
     obese: number;
   }[] = [];
-  selectedMonth: string = 'January';
+  selectedMonth: any = '0';
+  selectedYear: number | null = null; 
   selectedBarangayInfo: any[] = [];
 
   constructor(public database: Database) {
-    this.fetchBmiRecord().then(() => {
+    
       this.rankBarangays();
-    });
+   
   }
 
-  async ngOnInit() {
-    await this.fetchBmiRecord();
-    this.rankBarangays();
-  }
 
-  async fetchBmiRecord() {
+
+
+
+
+  fetchBmiRecord() {
     const barangayRef = ref(this.database, 'BmiRecord');
-    try {
-      const snapshot = await get(barangayRef);
-      if (snapshot.exists()) {
-        this.barangaylist = Object.values(snapshot.val());
-      } else {
-        this.barangaylist = [];
-      }
-    } catch (error) {
-      console.error('Error retrieving BMI records:', error);
-    }
+
+    get(barangayRef)
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          this.barangaylist = Object.values(snapshot.val());
+
+
+        } else {
+          this.barangaylist = [];
+          console.log(this.barangaylist);
+        }
+      })
+      .catch((error) => {
+        console.error('Error retrieving records:', error);
+      });
   }
+
 
   // Event handler for month selection
-  onMonthSelect() {
+  onMonthYearSelect() {
     this.rankBarangays();
   }
 
@@ -66,7 +72,13 @@ export class BarangayRankingbmiComponent implements OnInit {
     // Filter records based on the selected month
     if (this.selectedMonth) {
       this.barangaylist = this.barangaylist.filter(
-        (record) => record.measurementMonth === this.selectedMonth
+        (record) => {
+          const year = new Date(record.Date).getFullYear();
+          const month = new Date(record.Date).getMonth();
+    
+          return month == this.selectedMonth && year == this.selectedYear;
+
+        }
       );
     }
 
@@ -127,8 +139,14 @@ export class BarangayRankingbmiComponent implements OnInit {
     // Filter records based on the selected month
     let filteredRecords = this.barangaylist;
     if (this.selectedMonth) {
-      filteredRecords = this.barangaylist.filter(
-        (record) => record.measurementMonth === this.selectedMonth
+      this.barangaylist = this.barangaylist.filter(
+        (record) => {
+          const year = new Date(record.Date).getFullYear();
+          const month = new Date(record.Date).getMonth();
+    
+          return month == this.selectedMonth && year == this.selectedYear;
+
+        }
       );
     }
 

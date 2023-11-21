@@ -1,17 +1,7 @@
 import { Component } from '@angular/core';
-import { AngularFireDatabase } from '@angular/fire/compat/database';
-import { NgForm } from '@angular/forms';
 import { Location } from '@angular/common';
 
-import {
-  Database,
-  set,
-  ref,
-  push,
-  update,
-  remove,
-  get,
-} from '@angular/fire/database';
+import { Database, set, ref, get } from '@angular/fire/database';
 
 @Component({
   selector: 'app-monthly-record',
@@ -20,6 +10,8 @@ import {
 })
 export class MonthlyRecordComponent {
   childRecords: any[] = [];
+  searchInput: string = '';
+  filteredChildRecords: any[] = [];
 
   weight: number = 0;
   heightOrLength: number = 0;
@@ -36,9 +28,6 @@ export class MonthlyRecordComponent {
     Date: '',
     measurementMonth: '',
   };
-
-  searchInput: string = '';
-  filteredChildRecords: any[] = [];
 
   constructor(public database: Database, private location: Location) {
     this.fetchChildRecords();
@@ -73,6 +62,8 @@ export class MonthlyRecordComponent {
         )
           .then(() => {
             alert('MonthlyHeightRecord added successfully');
+
+            console.log(this.monthlyHeightRecordData);
             this.clearForm();
           })
           .catch((error) => {
@@ -132,11 +123,11 @@ export class MonthlyRecordComponent {
   }
 
   onSearchInputChange() {
+    this.monthlyHeightRecordData.nameOfChild = this.searchInput;
+
     if (this.searchInput === '') {
-      // Show all children records when the search input is empty
       this.filteredChildRecords = this.childRecords;
     } else {
-      // Filter children records based on the search input
       this.filteredChildRecords = this.childRecords.filter((child) => {
         return (child.firstName + ' ' + child.lastName)
           .toLowerCase()
@@ -149,7 +140,7 @@ export class MonthlyRecordComponent {
     const selectedChildName = this.monthlyHeightRecordData.nameOfChild;
 
     const selectedChild = this.childRecords.find(
-      (c) => c === selectedChildName
+      (c) => c.firstName + ' ' + c.lastName === selectedChildName
     );
 
     if (selectedChild) {
@@ -165,7 +156,7 @@ export class MonthlyRecordComponent {
     const selectedChildName = this.monthlyHeightRecordData.nameOfChild;
 
     const selectedChild = this.childRecords.find(
-      (c) => c === selectedChildName
+      (c) => c.firstName + ' ' + c.lastName === selectedChildName
     );
 
     if (selectedChild) {
@@ -181,7 +172,7 @@ export class MonthlyRecordComponent {
     const selectedChildName = this.monthlyHeightRecordData.nameOfChild;
 
     const selectedChild = this.childRecords.find(
-      (c) => c === selectedChildName
+      (c) => c.firstName + ' ' + c.lastName === selectedChildName
     );
 
     if (selectedChild) {

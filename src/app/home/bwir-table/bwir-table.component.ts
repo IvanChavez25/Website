@@ -15,7 +15,7 @@ export class BWIRTableComponent {
   selectedBarangay: string = '';
   fromDate: string = '';
   toDate: string = '';
-  selectedMeasurementMonth: string = '';
+  selectedMonth: any = '';
 
   @ViewChild('updateBaselineModal') updateBaselineModal!: ElementRef;
 
@@ -87,12 +87,14 @@ export class BWIRTableComponent {
       });
     }
 
-    if (this.selectedMeasurementMonth) {
-      filteredRecords = filteredRecords.filter(
-        (record) => record.measurementMonth === this.selectedMeasurementMonth
-      );
-    }
+    if (this.selectedMonth) {
+      filteredRecords = filteredRecords.filter((record) => {
+        const year = new Date(record.Date).getFullYear();
+        const month = new Date(record.Date).getMonth();
 
+        return month == this.selectedMonth;
+      });
+    }
     // Update the monthlyHeightRecords with the filtered data
     this.baselineRecords = filteredRecords;
   }
@@ -102,7 +104,7 @@ export class BWIRTableComponent {
     this.selectedBarangay = '';
     this.fromDate = '';
     this.toDate = '';
-    this.selectedMeasurementMonth = '';
+    this.selectedMonth = '';
 
     // Reset the monthlyHeightRecords to the original data
     this.baselineRecords = [...this.originalBaselineRecords];
@@ -126,7 +128,6 @@ export class BWIRTableComponent {
     update(BaselineRef, {
       HouseholdNumber: this.baselineData.HouseholdNumber,
       NameOfHouseholdHead: this.baselineData.NameOfHouseholdHead,
-      birthday: this.baselineData.birthday,
       bcgDate: this.baselineData.bcgDate,
       dpt1Date: this.baselineData.dpt1Date,
       dpt2Date: this.baselineData.dpt2Date,
@@ -140,7 +141,6 @@ export class BWIRTableComponent {
       ageInMonth: this.baselineData.ageInMonth,
       weight: this.baselineData.weight,
       weightStatus: this.baselineData.weightStatus,
-      barangay: this.baselineData.barangay,
     })
       .then(() => {
         alert('Baseline Records Data Updated successfully');
@@ -186,6 +186,7 @@ export class BWIRTableComponent {
     const csvHeader = [
       'Household Number',
       'Name Of Household Head',
+      'Name of Child',
       'Birthday',
       'NBS Done',
       'BCG Date',
@@ -202,13 +203,13 @@ export class BWIRTableComponent {
       'Weight Status',
       'Barangay',
       'Date',
-      'Measurement Month',
     ];
 
     // Convert the child records to a CSV format
     const csvData = this.baselineRecords.map((record) => [
       record.HouseholdNumber,
       record.NameOfHouseholdHead,
+      record.nameOfChild,
       record.birthday,
       record.nbsDone,
       record.bcgDate,
@@ -224,8 +225,7 @@ export class BWIRTableComponent {
       record.weight,
       record.weightStatus,
       record.barangay,
-      record.date,
-      record.measurementMonth,
+      record.Date,
     ]);
 
     // Combine the header and data
