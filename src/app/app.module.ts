@@ -12,10 +12,11 @@ import { environment } from 'src/environtment/environtment';
 import { provideDatabase, getDatabase } from '@angular/fire/database';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { MatDialogModule } from '@angular/material/dialog';
+import { LandingPageComponent } from './page/landing-page/landing-page.component';
 
 
 @NgModule({
-  declarations: [AppComponent, LoginFormComponent],
+  declarations: [AppComponent, LoginFormComponent, LandingPageComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

@@ -79,4 +79,22 @@ form button[type="submit"] {
 form button[type="submit"]:hover {
   background-color: #45a049;
   opacity: 0.8;
+
+  
+}
+.Login {
+  display: flex;
+  justify-content: space-between;
+  
+  .bck-btn{
+    width: 100%;
+    padding: 10px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+
+
+  }
 }

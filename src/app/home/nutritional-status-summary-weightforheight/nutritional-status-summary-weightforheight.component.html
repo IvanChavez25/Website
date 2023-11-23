@@ -22,7 +22,7 @@
           <option value="10">November</option>
           <option value="11">December</option>
         </select>
-        <label for="monthSelect">Select Month: </label>
+        <label for="monthSelect"> Select Year: </label>
 
         <input
           type="number"
@@ -97,8 +97,7 @@
               <table>
                 <thead>
                   <tr>
-                    <th>First Name</th>
-                    <th>Last Name</th>
+                    <th>Child Name</th>
                     <th>Weight</th>
                     <th>Result</th>
                   </tr>
@@ -112,14 +111,30 @@
                       )
                     "
                   >
-                    <td>{{ info.nameOfChild.firstName }}</td>
-                    <td>{{ info.nameOfChild.lastName }}</td>
+                    <td>{{ info.nameOfChild }}</td>
                     <td>{{ info.weight }}</td>
-                    <td>{{ info.weightForAge }}</td>
+                    <td>{{ info.weightForHeight }}</td>
                   </tr>
                 </tbody>
               </table>
             </div>
+          </div>
+          <div class="pagination">
+            <button
+              class="paginationButton"
+              (click)="goToPage(currentPage - 1)"
+              [disabled]="currentPage === 1"
+            >
+              Previous
+            </button>
+            <span>Weight For Height {{ currentPage }}</span>
+            <button
+              class="paginationButton"
+              (click)="goToPage(currentPage + 1)"
+              [disabled]="endIndex >= selectedBarangayInfo.length"
+            >
+              Next
+            </button>
           </div>
         </div>
       </div>

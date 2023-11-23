@@ -1,7 +1,19 @@
 <div class="chart-grid">
   <div class="left">
     <div class="chart-container">
-      <canvas id="barGraph"></canvas>
+      <div>
+        <label for="yearFilter">Select Year:</label>
+        <input
+          type="number"
+          id="yearFilter"
+          [(ngModel)]="selectedYear"
+          (change)="onYearFilterChange()"
+          min="2020"
+          max="2100"
+        />
+      </div>
+
+      <canvas id="bmiChart"></canvas>
     </div>
 
     <div class="chart-container">

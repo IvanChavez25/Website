@@ -3,10 +3,11 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginFormComponent } from './page/login/login.component';
 import { HomeComponent } from './home/home.component';
 import {AuthLoginGuard} from './page/login/auth-login.guard'//ays na
+import { LandingPageComponent } from './page/landing-page/landing-page.component';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '', redirectTo: '', pathMatch: 'full' },
   {
     path: 'login',
     component: LoginFormComponent,
@@ -17,6 +18,11 @@ const routes: Routes = [
     path: 'home',
     component: HomeComponent,
   },
+  {
+    path: '',
+    component: LandingPageComponent,
+  },
+
 ];
 
 @NgModule({
