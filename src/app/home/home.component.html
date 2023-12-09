@@ -13,19 +13,19 @@
     </li>
     <li *ngIf="userRole === 'bhw'">
       <a routerLink="/home/childreninfo">
-        Profile
+        Children Profile
         <i class="fa fa-user-circle"></i>
       </a>
     </li>
     <li *ngIf="userRole === 'bhw'">
-      <a routerLink="/home/quarterlyrecords">
-        Records
+      <a routerLink="/home/nutritionalstatus">
+        Children Records
         <i class="fa fa-file-text-o"></i>
       </a>
     </li>
     <li *ngIf="userRole === 'bhw'">
-      <a routerLink="/home/monthlyrecords">
-        Monthly Records
+      <a routerLink="/home/monthlyweight">
+        Monthly Children Status
         <i class="fa fa-calendar"></i>
       </a>
     </li>
@@ -41,7 +41,7 @@
       </a>
     </li>
     <li li *ngIf="userRole === 'admin'">
-      <a routerLink="/home/useraccount"> <i class="fa fa-user"></i> Account </a>
+      <a routerLink="/home/useraccount"> <i class="fa fa-user"></i> Create BHW Account </a>
     </li>
     <li *ngIf="userRole === 'admin'">
       <a routerLink="/home/userlist">
@@ -58,7 +58,9 @@
         <i class="fa fa-reorder"></i>
         <ul class="dropdown-menu">
           <li>
-            <app-profile-dropdown></app-profile-dropdown>
+            <a routerLink="/home/profiletable"
+              ><i class="fa fa-table"></i> Children Profile Table</a
+            >
           </li>
           <li *ngIf="userRole === 'bhw'">
             <a routerLink="/home/rankingbmi">
@@ -93,7 +95,7 @@
             </a>
           </li>
           <li>
-            <a (click)="logout()" > <i class="fa fa-sign-out"></i> Log Out </a>
+            <a (click)="logout()"> <i class="fa fa-sign-out"></i> Log Out </a>
           </li>
         </ul>
       </button>

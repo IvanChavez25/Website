@@ -5,9 +5,9 @@
 
 <div class="container">
   <div class="navigation-buttons">
+    <button routerLink="/home/nutritionalstatus">Nutritional Status</button>
     <button routerLink="/home/quarterlyrecords">Quarterly Records</button>
     <button routerLink="/home/baselineweight">BaseLine</button>
-    <button routerLink="/home/nutritionalstatus">Nutritional Status</button>
   </div>
 
   <fieldset class="fieldset1">
@@ -118,6 +118,7 @@
           name="birthday"
           [value]="getSelectedChildBirthday()"
           [(ngModel)]="nutritionalData.birthday"
+          (ngModelChange)="onBirthdayChange()"
           required
         />
       </div>
@@ -137,8 +138,8 @@
           type="text"
           id="ageInMonths"
           name="ageInMonths"
-          [value]="getSelectedChildAge()"
           [(ngModel)]="nutritionalData.ageInMonths"
+          (ngModelChange)="calculateBMI()"
           required
         />
       </div>
@@ -150,6 +151,7 @@
           name="weight"
           [(ngModel)]="nutritionalData.weight"
           (ngModelChange)="onWeightForAgeChange()"
+          (ngModelChange)="calculateBMI()"
           required
         />
       </div>
@@ -161,6 +163,7 @@
           name="height"
           [(ngModel)]="nutritionalData.height"
           (ngModelChange)="onHeightForAgeChange()"
+          (ngModelChange)="calculateBMI()"
           required
         />
       </div>
@@ -176,6 +179,7 @@
             name="weightForAge"
             [(ngModel)]="nutritionalData.weightForAge"
             required
+            readonly
           />
         </div>
         <div>
@@ -185,67 +189,75 @@
             id="heightForAge"
             name="heightForAge"
             [(ngModel)]="nutritionalData.heightForAge"
+            required
+            readonly
           />
         </div>
         <div>
           <label for="weightForHeight">Weight for Height:</label>
-          <select
+          <input
+            type="text"
             id="weightForHeight"
             name="weightForHeight"
             [(ngModel)]="nutritionalData.weightForHeight"
-          >
-            <option value="SUW">SUW (Severely Underweight)</option>
-            <option value="UW">UW (Underweight)</option>
-            <option value="N">N (Normal)</option>
-            <option value="Ob">OW (Obese)</option>
-          </select>
+            required
+            readonly
+          />
         </div>
       </fieldset>
-      <div>
-        <label>Practicing EDF if child is below 6 mos. old:</label>
-        <input
-          type="radio"
-          id="practicingEDFYes"
-          name="practicingEDF"
-          [(ngModel)]="nutritionalData.practicingEDF"
-          value="Yes"
-          required
-        />
-        <label for="practicingEDFYes">Yes</label>
-        <input
-          type="radio"
-          id="practicingEDFNo"
-          name="practicingEDF"
-          [(ngModel)]="nutritionalData.practicingEDF"
-          value="No"
-          required
-        />
-        <label for="practicingEDFNo">No</label>
+      <div class="practicing-edf-container">
+        <div class="label-column">
+          <label>Practicing EDF if child is below 6 months old:</label>
+        </div>
+        <div class="radio-group">
+          <label for="practicingEDFYes">Yes</label>
+          <input
+            type="radio"
+            id="practicingEDFYes"
+            name="practicingEDF"
+            [(ngModel)]="nutritionalData.practicingEDF"
+            value="Yes"
+            required
+          />
+          <label for="practicingEDFNo">No</label>
+          <input
+            type="radio"
+            id="practicingEDFNo"
+            name="practicingEDF"
+            [(ngModel)]="nutritionalData.practicingEDF"
+            value="No"
+            required
+          />
+        </div>
       </div>
       <fieldset>
         <div>
           <legend>-Solid Food Feeding-</legend>
         </div>
-        <div>
-          <label>Practicing CF if child is 6 months - 23 months old:</label>
-          <input
-            type="radio"
-            id="practicingCFYes"
-            name="practicingCF"
-            [(ngModel)]="nutritionalData.practicingCF"
-            value="Yes"
-            required
-          />
-          <label for="practicingCFYes">Yes</label>
-          <input
-            type="radio"
-            id="practicingCFNo"
-            name="practicingCF"
-            [(ngModel)]="nutritionalData.practicingCF"
-            value="No"
-            required
-          />
-          <label for="practicingCFNo">No</label>
+        <div class="practicing-cf-container">
+          <div class="label-column">
+            <label>Practicing CF if child is 6 months - 23 months old:</label>
+          </div>
+          <div class="radio-group">
+            <label for="practicingCFYes">Yes</label>
+            <input
+              type="radio"
+              id="practicingCFYes"
+              name="practicingCF"
+              [(ngModel)]="nutritionalData.practicingCF"
+              value="Yes"
+              required
+            />
+            <label for="practicingCFNo">No</label>
+            <input
+              type="radio"
+              id="practicingCFNo"
+              name="practicingCF"
+              [(ngModel)]="nutritionalData.practicingCF"
+              value="No"
+              required
+            />
+          </div>
         </div>
         <div>
           <label for="ageStartedCF">Age in months started CF:</label>
@@ -256,26 +268,30 @@
             [(ngModel)]="nutritionalData.ageStartedCF"
           />
         </div>
-        <div>
-          <label>Current beneficiary of SF (Supplementary Food) Y/N:</label>
-          <input
-            type="radio"
-            id="beneficiarySFYes"
-            name="beneficiarySF"
-            [(ngModel)]="nutritionalData.beneficiarySF"
-            value="Yes"
-            required
-          />
-          <label for="beneficiarySFYes">Yes</label>
-          <input
-            type="radio"
-            id="beneficiarySFNo"
-            name="beneficiarySF"
-            [(ngModel)]="nutritionalData.beneficiarySF"
-            value="No"
-            required
-          />
-          <label for="beneficiarySFNo">No</label>
+        <div class="beneficiary-sf-container">
+          <div class="label-column">
+            <label>Current beneficiary of SF (Supplementary Food) Y/N:</label>
+          </div>
+          <div class="radio-group">
+            <label for="beneficiarySFYes">Yes</label>
+            <input
+              type="radio"
+              id="beneficiarySFYes"
+              name="beneficiarySF"
+              [(ngModel)]="nutritionalData.beneficiarySF"
+              value="Yes"
+              required
+            />
+            <label for="beneficiarySFNo">No</label>
+            <input
+              type="radio"
+              id="beneficiarySFNo"
+              name="beneficiarySF"
+              [(ngModel)]="nutritionalData.beneficiarySF"
+              value="No"
+              required
+            />
+          </div>
         </div>
       </fieldset>
       <fieldset>

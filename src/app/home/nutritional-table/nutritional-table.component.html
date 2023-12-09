@@ -186,6 +186,25 @@
 </div>
 
 <fieldset class="fieldset1">
+  <div>
+    <label for="searchChild">Search Child:</label>
+    <input
+      list="childList"
+      type="text"
+      id="searchChild"
+      name="searchChild"
+      [(ngModel)]="searchInput"
+      (input)="onSearchInputChange()"
+    />
+    <datalist id="childList">
+      <option
+        *ngFor="let child of nutritionalRecords"
+        [value]="child.nameOfChild"
+      >
+        {{ child.nameOfChild }}
+      </option>
+    </datalist>
+  </div>
   <div class="filter-container">
     <label for="barangay">Barangay:</label>
     <select

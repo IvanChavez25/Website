@@ -21,11 +21,11 @@ export class NutritionalStatusSummaryWeightforheightComponent {
   barangayData: WeightForHeightTotals[] = [];
 
   selectedMonth: number = 0;
-  selectedYear: number | null = null;
+  selectedYear: number = new Date().getFullYear();
   selectedBarangayInfo: any[] = [];
 
   currentPage: number = 1;
-  itemsPerPage: number = 5;
+  itemsPerPage: number = 10;
 
   constructor(public database: Database) {
     this.fetchNutritionalRecords();
@@ -75,7 +75,7 @@ export class NutritionalStatusSummaryWeightforheightComponent {
 
         return month == this.selectedMonth && year == this.selectedYear;
       })
-      
+
       .forEach((record) => {
         const barangayName = record.barangay;
         const existingBarangay = groupedData.find(

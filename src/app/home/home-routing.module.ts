@@ -32,7 +32,7 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
- canActivate: [authGuard],
+    canActivate: [authGuard],
     children: [
       { path: 'childreninfo', component: ChildrenInfoComponent },
       { path: 'monthlyrecords', component: MonthlyRecordComponent },
@@ -76,7 +76,7 @@ const routes: Routes = [
         component: NutritionalStatusSummaryWeightforheightComponent,
       },
       { path: 'useraccount', component: UserAccountComponent },
-      { path: 'userlist', component: UserlistComponent}
+      { path: 'userlist', component: UserlistComponent },
     ],
   },
 ];

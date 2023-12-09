@@ -11,11 +11,13 @@ export class MonthlyRecordsInfantComponent {
   originalMonthlyInfantRecords: any[] = [];
   monthlyInfantRecords: any[] = [];
   monthlyInfantRecordsData: any = {};
-  selectedBarangay: string = '';
+  searchInput: string = '';
+  filteredMonthlyInfantRecords: any[] = [];
 
+  selectedBarangay: string = '';
   fromDate: string = ''; // Declare property for From Date
   toDate: string = '';
-  selectedMeasurementMonth: string = '';
+  selectedMonth: any = '';
 
   @ViewChild('updateMonthlyInfantModal') updateMonthlyInfantModal!: ElementRef;
 
@@ -26,6 +28,26 @@ export class MonthlyRecordsInfantComponent {
     this.fetchmonthlyInfantRecords();
   }
 
+  onSearchInputChange() {
+    this.monthlyInfantRecordsData.nameOfChild = this.searchInput;
+
+    if (this.searchInput === '') {
+      // Show all children records when the search input is empty
+      this.filteredMonthlyInfantRecords = this.monthlyInfantRecords;
+    } else {
+      // Filter children records based on the search input
+      this.filteredMonthlyInfantRecords = this.monthlyInfantRecords.filter(
+        (child) => {
+          return child.nameOfChild
+            .toLowerCase()
+            .includes(this.searchInput.toLowerCase());
+        }
+      );
+    }
+
+    this.filterRecords();
+  }
+
   fetchmonthlyInfantRecords() {
     const monthlyInfantRef = ref(this.database, 'MonthlyInfantRecord');
 
@@ -33,7 +55,7 @@ export class MonthlyRecordsInfantComponent {
       .then((snapshot) => {
         if (snapshot.exists()) {
           this.originalMonthlyInfantRecords = Object.values(snapshot.val());
-          this.monthlyInfantRecords = [...this.originalMonthlyInfantRecords];
+          this.monthlyInfantRecords = Object.values(snapshot.val());
         } else {
           this.monthlyInfantRecords = [];
         }
@@ -53,7 +75,7 @@ export class MonthlyRecordsInfantComponent {
 
   filterRecords() {
     // Create a copy of the original data
-    let filteredRecords = [...this.originalMonthlyInfantRecords];
+    let filteredRecords = [...this.filteredMonthlyInfantRecords];
 
     // Apply the barangay filter
     if (this.selectedBarangay) {
@@ -87,10 +109,13 @@ export class MonthlyRecordsInfantComponent {
       });
     }
 
-    if (this.selectedMeasurementMonth) {
-      filteredRecords = filteredRecords.filter(
-        (record) => record.measurementMonth === this.selectedMeasurementMonth
-      );
+    if (this.selectedMonth) {
+      filteredRecords = filteredRecords.filter((record) => {
+        const year = new Date(record.Date).getFullYear();
+        const month = new Date(record.Date).getMonth();
+
+        return month == this.selectedMonth;
+      });
     }
 
     // Update the monthlyInfantRecords with the filtered data
@@ -99,62 +124,16 @@ export class MonthlyRecordsInfantComponent {
 
   clearFilters() {
     // Clear the selected barangay, from date, and to date
+    this.searchInput = '';
     this.selectedBarangay = '';
     this.fromDate = '';
     this.toDate = '';
-    this.selectedMeasurementMonth = '';
+    this.selectedMonth = '';
 
     // Reset the monthlyHeightRecords to the original data
     this.monthlyInfantRecords = [...this.originalMonthlyInfantRecords];
   }
 
-  openUpdateMonthlyInfantModal(child: any) {
-    // Set the health data in the component to be used in the modal form
-    this.monthlyInfantRecordsData = { ...child };
-
-    // Open the update health modal
-    this.updateMonthlyInfantModal.nativeElement.style.display = 'block';
-  }
-
-  updateMonthlyInfant() {
-    const monthlyInfantRef = ref(
-      this.database,
-      `MonthlyInfantRecord/${this.monthlyInfantRecordsData.monthlyInfantRecordsId}`
-    );
-
-    // Update the children's health data in the database
-    update(monthlyInfantRef, {
-      monthlyInfantRecordsId:
-        this.monthlyInfantRecordsData.monthlyInfantRecordsId,
-      nameOfChild: this.monthlyInfantRecordsData.nameOfChild,
-      birthday: this.monthlyInfantRecordsData.birthday,
-      ageInMonths: this.monthlyInfantRecordsData.ageInMonths,
-      weight: this.monthlyInfantRecordsData.weight,
-      heightOrLength: this.monthlyInfantRecordsData.heightOrLength,
-      weightForLengthOrHeight:
-        this.monthlyInfantRecordsData.weightForLengthOrHeight,
-      weightForAge: this.monthlyInfantRecordsData.weightForAge,
-      heightOrLengths: this.monthlyInfantRecordsData.heightOrLengths,
-      weightForLengthorHeight:
-        this.monthlyInfantRecordsData.weightForLengthorHeight,
-      barangay: this.monthlyInfantRecordsData.barangay,
-      Date: this.monthlyInfantRecordsData.Date,
-      measurementMonth: this.monthlyInfantRecordsData.measurementMonth,
-    })
-      .then(() => {
-        alert('Children Monthly Infant Records Data Updated successfully');
-        this.fetchmonthlyInfantRecords();
-      })
-      .catch((error) => {
-        console.error('Error updating children Monthly Infant records:', error);
-      });
-
-    this.updateMonthlyInfantModal.nativeElement.style.display = 'none';
-  }
-
-  closeUpdateMonthlyInfantModal() {
-    this.updateMonthlyInfantModal.nativeElement.style.display = 'none';
-  }
   reloadPage() {
     window.location.reload();
   }
@@ -190,11 +169,10 @@ export class MonthlyRecordsInfantComponent {
       'Height Or Length',
       'Weight For Length Or Height',
       'Weight For Age',
-      'Height Or Lengths',
+      'Height For Age',
       'Weight For Length Or Height',
       'Barangay',
       'Date',
-      'Measurement Month',
     ];
 
     // Convert the child records to a CSV format
@@ -204,14 +182,13 @@ export class MonthlyRecordsInfantComponent {
       record.birthday,
       record.ageInMonths,
       record.weight,
-      record.heightOrLength,
+      record.height,
       record.weightForLengthOrHeight,
       record.weightForAge,
-      record.heightOrLengths,
+      record.heightForAge,
       record.weightForLengthorHeight,
       record.barangay,
       record.Date,
-      record.measurementMonth,
     ]);
 
     // Combine the header and data

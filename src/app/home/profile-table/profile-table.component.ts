@@ -11,13 +11,14 @@ export class ProfileTableComponent {
   originalChildRecords: any[] = [];
   childRecords: any[] = [];
   childRecordsData: any = {};
+  searchInput: string = '';
+  filteredChildRecords: any[] = [];
 
   selectedBarangay: string = '';
   fromDate: string = '';
   toDate: string = '';
 
   @ViewChild('updateChildModal') updateChildModal!: ElementRef;
-  
 
   currentPage: number = 1;
   itemsPerPage: number = 15;
@@ -55,8 +56,29 @@ export class ProfileTableComponent {
     return this.startIndex + this.itemsPerPage;
   }
 
+  onSearchInputChange() {
+    this.childRecordsData.firstName = this.searchInput;
+    this.childRecordsData.middleName = this.searchInput;
+    this.childRecordsData.lastName = this.searchInput;
+
+    if (this.searchInput === '') {
+      // Show all children records when the search input is empty
+      this.filteredChildRecords = this.childRecords;
+    } else {
+      // Filter children records based on the search input
+      this.filteredChildRecords = this.childRecords.filter((child) => {
+        const fullName = `${child.firstName} ${
+          child.middleName ? child.middleName + ' ' : ''
+        }${child.lastName}`;
+        return fullName.toLowerCase().includes(this.searchInput.toLowerCase());
+      });
+    }
+
+    this.filterRecords();
+  }
+
   filterRecords() {
-    let filteredRecords = [...this.originalChildRecords];
+    let filteredRecords = [...this.filteredChildRecords];
 
     if (this.selectedBarangay) {
       filteredRecords = filteredRecords.filter(
@@ -92,6 +114,7 @@ export class ProfileTableComponent {
   }
 
   clearFilters() {
+    this.searchInput = '';
     this.selectedBarangay = '';
     this.fromDate = '';
     this.toDate = '';
@@ -115,12 +138,11 @@ export class ProfileTableComponent {
       middleName: this.childRecordsData.middleName,
       lastName: this.childRecordsData.lastName,
       birthday: this.childRecordsData.birthday,
-      age: this.childRecordsData.age,
-      ageInMonths: this.childRecordsData.ageInMonths,
       address: this.childRecordsData.address,
       barangay: this.childRecordsData.barangay,
       fatherName: this.childRecordsData.fatherName,
       motherName: this.childRecordsData.motherName,
+      NameOfHouseholdHead: this.childRecordsData.NameOfHouseholdHead,
       gender: this.childRecordsData.gender,
       date: this.childRecordsData.date,
     })
@@ -164,12 +186,11 @@ export class ProfileTableComponent {
       'Middle Name',
       'Last Name',
       'Birthday (dd/mm/yyyy)',
-      'Age',
-      'Age in Months',
       'Address',
       'Barangay',
       "Father's Name",
       "Mother's Name",
+      'Name of HouseHold Head',
       'Gender',
       'Date',
     ];
@@ -181,12 +202,11 @@ export class ProfileTableComponent {
       child.middleName,
       child.lastName,
       child.birthday,
-      child.age,
-      child.ageInMonths,
       child.address,
       child.barangay,
       child.fatherName,
       child.motherName,
+      child.NameOfHouseholdHead,
       child.gender,
       child.date,
     ]);

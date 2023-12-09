@@ -20,20 +20,63 @@ export class MonthlyRecordComponent {
     monthlyHeightRecordsId: null,
     nameOfChild: '',
     birthday: '',
+    age: '',
     ageInMonths: '',
     weight: '',
     heightOrLength: '',
     nutritionalStatus: '',
     barangay: '',
     Date: '',
-    measurementMonth: '',
   };
 
   constructor(public database: Database, private location: Location) {
     this.fetchChildRecords();
   }
 
+  onBirthdayChange() {
+    this.calculateAge(this.monthlyHeightRecordData.birthday);
+    this.calculateAgeInMonths(this.monthlyHeightRecordData.birthday);
+  }
+
+  calculateAge(birthdate: string) {
+    const today = new Date();
+    const birthDate = new Date(birthdate);
+    let age = today.getFullYear() - birthDate.getFullYear();
+
+    // Check if the birthday has occurred this year
+    if (
+      today.getMonth() < birthDate.getMonth() ||
+      (today.getMonth() === birthDate.getMonth() &&
+        today.getDate() < birthDate.getDate())
+    ) {
+      age--;
+    }
+
+    // Set age to zero if it's negative
+    if (age < 0) {
+      age = 0;
+    }
+
+    this.monthlyHeightRecordData.age = age.toString();
+  }
+
+  calculateAgeInMonths(birthdate: string) {
+    const today = new Date();
+    const birthDate = new Date(birthdate);
+    const years = today.getFullYear() - birthDate.getFullYear();
+    const months = today.getMonth() - birthDate.getMonth();
+    const ageInMonths = years * 12 + months;
+
+    // Set ageInMonths to zero if it's negative
+    if (ageInMonths < 0) {
+      this.monthlyHeightRecordData.ageInMonths = '0';
+    } else {
+      this.monthlyHeightRecordData.ageInMonths = ageInMonths.toString();
+    }
+  }
+
   onSubmit() {
+    this.monthlyHeightRecordData.Date = Date.now();
     if (this.isValidmonthlyHeightRecordData()) {
       // Query the latest child ID from the MonthlyHeightRecord
       const latestmonthlyHeightRecordsIdRef = ref(
@@ -80,13 +123,13 @@ export class MonthlyRecordComponent {
     this.monthlyHeightRecordData = {
       nameOfChild: '',
       birthday: '',
+      age: '',
       ageInMonths: '',
       weight: '',
       heightOrLength: '',
       nutritionalStatus: '',
       barangay: '',
       Date: '',
-      measurementMonth: '',
     };
   }
 
@@ -94,13 +137,13 @@ export class MonthlyRecordComponent {
     return (
       this.monthlyHeightRecordData.nameOfChild &&
       this.monthlyHeightRecordData.birthday &&
+      (this.monthlyHeightRecordData.age ||
+        this.monthlyHeightRecordData.age === 0) &&
       this.monthlyHeightRecordData.ageInMonths &&
       this.monthlyHeightRecordData.weight &&
       this.monthlyHeightRecordData.heightOrLength &&
       this.monthlyHeightRecordData.nutritionalStatus &&
-      this.monthlyHeightRecordData.barangay &&
-      this.monthlyHeightRecordData.Date &&
-      this.monthlyHeightRecordData.measurementMonth
+      this.monthlyHeightRecordData.barangay
     );
   }
 
@@ -136,22 +179,6 @@ export class MonthlyRecordComponent {
     }
   }
 
-  getSelectedChildAge() {
-    const selectedChildName = this.monthlyHeightRecordData.nameOfChild;
-
-    const selectedChild = this.childRecords.find(
-      (c) => c.firstName + ' ' + c.lastName === selectedChildName
-    );
-
-    if (selectedChild) {
-      this.monthlyHeightRecordData.ageInMonths = selectedChild.ageInMonths;
-      return selectedChild.ageInMonths;
-    } else {
-      this.monthlyHeightRecordData.ageInMonths = '';
-      return '';
-    }
-  }
-
   getSelectedChildBirthday() {
     const selectedChildName = this.monthlyHeightRecordData.nameOfChild;
 
@@ -160,9 +187,17 @@ export class MonthlyRecordComponent {
     );
 
     if (selectedChild) {
+      // Update the monthlyHeightRecordData's birthday
       this.monthlyHeightRecordData.birthday = selectedChild.birthday;
+
+      // Calculate age based on selected child's birthday
+      this.calculateAge(this.monthlyHeightRecordData.birthday);
+      this.calculateAgeInMonths(this.monthlyHeightRecordData.birthday);
+
+      // Return the selected child's birthday
       return selectedChild.birthday;
     } else {
+      // Clear the birthday field if the selected child is not found
       this.monthlyHeightRecordData.birthday = '';
       return '';
     }
@@ -181,6 +216,36 @@ export class MonthlyRecordComponent {
     } else {
       this.monthlyHeightRecordData.barangay = '';
       return '';
+    }
+  }
+
+  calculateBMI() {
+    const age = parseInt(this.monthlyHeightRecordData.ageInMonths);
+    const heightMeters = this.monthlyHeightRecordData.heightOrLength / 100; // Convert height to meters
+    const weight = this.monthlyHeightRecordData.weight;
+
+    if (age > 72) {
+      this.monthlyHeightRecordData.nutritionalStatus =
+        'Age must be 72 months or below';
+      return;
+    }
+
+    if (weight && heightMeters && age) {
+      const bmi = weight / (heightMeters * heightMeters);
+
+      if (bmi >= 30) {
+        this.monthlyHeightRecordData.nutritionalStatus = 'Obese';
+      } else if (bmi >= 25) {
+        this.monthlyHeightRecordData.nutritionalStatus = 'Overweight';
+      } else if (bmi >= 14.1) {
+        this.monthlyHeightRecordData.nutritionalStatus = 'Healthy weight';
+      } else if (bmi >= 8) {
+        this.monthlyHeightRecordData.nutritionalStatus = 'Underweight';
+      } else {
+        this.monthlyHeightRecordData.nutritionalStatus = 'Severely underweight';
+      }
+    } else {
+      this.monthlyHeightRecordData.nutritionalStatus = ''; // Reset status if data is incomplete
     }
   }
 }

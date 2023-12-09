@@ -5,11 +5,6 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <div class="container">
-  <div class="navigation-buttons">
-    <button routerLink="/home/childreninfo">Children Info</button>
-    <button routerLink="/home/familyprofile">Family Profile</button>
-  </div>
-
   <fieldset class="fieldset1">
     <legend class="legend1">Children Profile</legend>
     <form (ngSubmit)="onSubmit()">
@@ -49,27 +44,6 @@
           id="birthday"
           name="birthday"
           [(ngModel)]="childData.birthday"
-          (ngModelChange)="onBirthdayChange()"
-          required
-        />
-      </div>
-      <div>
-        <label for="age">Age:</label>
-        <input
-          type="text"
-          id="age"
-          name="age"
-          [(ngModel)]="childData.age"
-          required
-        />
-      </div>
-      <div>
-        <label for="ageInMonths">Age in Months:</label>
-        <input
-          type="text"
-          id="ageInMonths"
-          name="ageInMonths"
-          [(ngModel)]="childData.ageInMonths"
           required
         />
       </div>
@@ -156,25 +130,39 @@
         />
       </div>
       <div>
-        <label>Gender:</label>
+        <label for="NameOfHouseholdHead">Name Of Household Head:</label>
         <input
-          type="radio"
-          id="male"
-          name="gender"
-          [(ngModel)]="childData.gender"
-          value="male"
+          type="text"
+          id="NameOfHouseholdHead"
+          name="NameOfHouseholdHead"
+          [(ngModel)]="childData.NameOfHouseholdHead"
           required
         />
-        <label for="male">Male</label>
-        <input
-          type="radio"
-          id="female"
-          name="gender"
-          [(ngModel)]="childData.gender"
-          value="female"
-          required
-        />
-        <label for="female">Female</label>
+      </div>
+      <div class="gender-container">
+        <div class="label-column">
+          <label>Gender:</label>
+        </div>
+        <div class="radio-group">
+          <label for="male">Male</label>
+          <input
+            type="radio"
+            id="male"
+            name="gender"
+            [(ngModel)]="childData.gender"
+            value="male"
+            required
+          />
+          <label for="female">Female</label>
+          <input
+            type="radio"
+            id="female"
+            name="gender"
+            [(ngModel)]="childData.gender"
+            value="female"
+            required
+          />
+        </div>
       </div>
       <div>
         <label for="date">Date:</label>

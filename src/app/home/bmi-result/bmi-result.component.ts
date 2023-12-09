@@ -11,6 +11,8 @@ export class BMIResultComponent {
   originalBmiRecords: any[] = [];
   bmiRecords: any[] = [];
   bmiData: any = {};
+  searchInput: string = '';
+  filteredBmiRecords: any[] = [];
 
   selectedBarangay: string = '';
   fromDate: string = '';
@@ -24,6 +26,7 @@ export class BMIResultComponent {
     barangay: string;
     weight: number;
     height: number;
+    birthday: string;
     age: number;
     bmi: number;
     resultMessage: string;
@@ -34,6 +37,24 @@ export class BMIResultComponent {
 
   constructor(public database: Database, private location: Location) {
     this.fetchBmiRecords();
+  }
+
+  onSearchInputChange() {
+    this.bmiData.childName = this.searchInput;
+
+    if (this.searchInput === '') {
+      // Show all children records when the search input is empty
+      this.filteredBmiRecords = this.bmiRecords;
+    } else {
+      // Filter children records based on the search input
+      this.filteredBmiRecords = this.bmiRecords.filter((child) => {
+        return child.childName
+          .toLowerCase()
+          .includes(this.searchInput.toLowerCase());
+      });
+    }
+
+    this.filterRecords();
   }
 
   fetchBmiRecords() {
@@ -63,7 +84,7 @@ export class BMIResultComponent {
 
   filterRecords() {
     // Create a copy of the original data
-    let filteredRecords = [...this.originalBmiRecords];
+    let filteredRecords = [...this.filteredBmiRecords];
 
     // Apply the barangay filter
     if (this.selectedBarangay) {
@@ -111,6 +132,7 @@ export class BMIResultComponent {
 
   clearFilters() {
     // Clear the selected barangay, from date, and to date
+    this.searchInput = '';
     this.selectedBarangay = '';
     this.fromDate = '';
     this.toDate = '';
@@ -146,6 +168,7 @@ export class BMIResultComponent {
       barangay: this.bmiData.barangay,
       weight: this.bmiData.weight,
       height: this.bmiData.height,
+      birthday: this.bmiData.birthday,
       age: this.bmiData.age,
       bmi: this.bmiData.bmi,
       resultMessage: this.bmiData.resultMessage,

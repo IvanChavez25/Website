@@ -11,6 +11,8 @@ export class QuarterlyTableComponent {
   originalQuarterlyTable: any[] = [];
   quarterlyTable: any[] = [];
   quarterlyTableData: any = {};
+  searchInput: string = '';
+  filteredQuarterlyTable: any[] = [];
 
   selectedBarangay: string = '';
   fromDate: string = '';
@@ -24,6 +26,26 @@ export class QuarterlyTableComponent {
 
   constructor(public database: Database, private location: Location) {
     this.fetchquarterlyTable();
+  }
+
+  onSearchInputChange() {
+    this.quarterlyTableData.nameOfChild = this.searchInput;
+
+    if (this.searchInput === '') {
+      // Show all children records when the search input is empty
+      this.filteredQuarterlyTable = this.quarterlyTable;
+    } else {
+      // Filter children records based on the search input
+      this.filteredQuarterlyTable = this.quarterlyTable.filter(
+        (child) => {
+          return child.nameOfChild
+            .toLowerCase()
+            .includes(this.searchInput.toLowerCase());
+        }
+      );
+    }
+
+    this.filterRecords();
   }
 
   fetchquarterlyTable() {
@@ -53,7 +75,7 @@ export class QuarterlyTableComponent {
 
   filterRecords() {
     // Create a copy of the original data
-    let filteredRecords = [...this.originalQuarterlyTable];
+    let filteredRecords = [...this.filteredQuarterlyTable];
 
     // Apply the barangay filter
     if (this.selectedBarangay) {
@@ -99,6 +121,7 @@ export class QuarterlyTableComponent {
   }
 
   clearFilters() {
+    this.searchInput = '';
     this.selectedBarangay = '';
     this.fromDate = '';
     this.toDate = '';

@@ -5,9 +5,9 @@
 
 <div class="container">
   <div class="navigation-buttons">
+    <button routerLink="/home/nutritionalstatus">Nutritional Status</button>
     <button routerLink="/home/quarterlyrecords">Quarterly Records</button>
     <button routerLink="/home/baselineweight">BaseLine</button>
-    <button routerLink="/home/nutritionalstatus">Nutritional Status</button>
   </div>
 
   <fieldset class="fieldset1">
@@ -22,6 +22,7 @@
           type="text"
           id="NameOfHouseholdHead"
           name="NameOfHouseholdHead"
+          [value]="getSelectedChildNameOfHouseholdHead()"
           [(ngModel)]="baselineData.NameOfHouseholdHead"
           required
         />
@@ -53,6 +54,7 @@
           name="birthday"
           [value]="getSelectedChildBirthday()"
           [(ngModel)]="baselineData.birthday"
+          (ngModelChange)="onBirthdayChange()"
           required
         />
       </div>
@@ -133,26 +135,30 @@
           />
         </div>
       </fieldset>
-      <div>
-        <label>NBS Done? Y/N:</label>
-        <input
-          type="radio"
-          id="nbsDoneYes"
-          name="nbsDone"
-          [(ngModel)]="baselineData.nbsDone"
-          value="Yes"
-          required
-        />
-        <label for="nbsDoneYes">Yes</label>
-        <input
-          type="radio"
-          id="nbsDoneNo"
-          name="nbsDone"
-          [(ngModel)]="baselineData.nbsDone"
-          value="No"
-          required
-        />
-        <label for="nbsDoneNo">No</label>
+      <div class="nbs-done-container">
+        <div class="label-column">
+          <label>NBS Done? Y/N:</label>
+        </div>
+        <div class="radio-group">
+          <label for="nbsDoneYes">Yes</label>
+          <input
+            type="radio"
+            id="nbsDoneYes"
+            name="nbsDone"
+            [(ngModel)]="baselineData.nbsDone"
+            value="Yes"
+            required
+          />
+          <label for="nbsDoneNo">No</label>
+          <input
+            type="radio"
+            id="nbsDoneNo"
+            name="nbsDone"
+            [(ngModel)]="baselineData.nbsDone"
+            value="No"
+            required
+          />
+        </div>
       </div>
       <fieldset>
         <div>
@@ -174,7 +180,6 @@
             type="text"
             id="ageInMonth"
             name="ageInMonth"
-            [value]="getSelectedChildAge()"
             [(ngModel)]="baselineData.ageInMonth"
             required
           />
@@ -186,7 +191,7 @@
             id="weight"
             name="weight"
             [(ngModel)]="baselineData.weight"
-            (ngModelChange)="onWeightForAgeChange()"
+            (ngModelChange)="onweightStatusChange()"
             required
           />
         </div>

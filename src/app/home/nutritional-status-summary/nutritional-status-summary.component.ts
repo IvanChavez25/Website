@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Database, ref, get } from '@angular/fire/database';
 
 interface WeightForAgeTotals {
@@ -16,16 +16,16 @@ interface WeightForAgeTotals {
   templateUrl: './nutritional-status-summary.component.html',
   styleUrls: ['./nutritional-status-summary.component.css'],
 })
-export class NutritionalStatusSummaryComponent {
+export class NutritionalStatusSummaryComponent implements OnInit {
   nutritionalRecords: any[] = [];
   barangayData: WeightForAgeTotals[] = [];
 
   selectedMonth: number = 0;
-  selectedYear: number | null = null;
+  selectedYear: number = new Date().getFullYear();
   selectedBarangayInfo: any[] = [];
 
   currentPage: number = 1;
-  itemsPerPage: number = 5;
+  itemsPerPage: number = 10;
 
   constructor(public database: Database) {
     this.fetchNutritionalRecords();
@@ -43,6 +43,11 @@ export class NutritionalStatusSummaryComponent {
     this.currentPage = pageNumber;
   }
 
+  ngOnInit() {
+    // Fetch initial nutritional records on component initialization
+    this.fetchNutritionalRecords();
+  }
+
   fetchNutritionalRecords() {
     const nutritionalRef = ref(this.database, 'NutritionalRecord');
 
@@ -50,7 +55,6 @@ export class NutritionalStatusSummaryComponent {
       .then((snapshot) => {
         if (snapshot.exists()) {
           this.nutritionalRecords = Object.values(snapshot.val());
-
           this.calculateTotalsByBarangay();
         } else {
           this.nutritionalRecords = [];
@@ -134,6 +138,8 @@ export class NutritionalStatusSummaryComponent {
       });
 
     this.barangayData = groupedData;
+
+    console.log(this.barangayData);
   }
 
   showModal = false;
@@ -170,4 +176,5 @@ export class NutritionalStatusSummaryComponent {
   closeModal() {
     this.showModal = false;
   }
+
 }

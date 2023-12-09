@@ -4,11 +4,11 @@
   position: absolute;
   justify-content: center;
   align-items: center;
-  font-size: 10px;
+  font-size: 20px;
   font-weight: bold;
 
   left: 50%;
-  top: 100%;
+  top: 140%;
   transform: translate(-50%, -50%);
 
   background-color: rgba(255, 255, 255, 0.8);
@@ -21,7 +21,7 @@ input[type="number"],
 select {
   width: 100%;
   padding: 5px;
-  font-size: 10px;
+  font-size: 20px;
   border-radius: 4px;
 }
 
@@ -45,7 +45,7 @@ form {
 .legend1 {
   text-align: center;
   font-weight: bold;
-  font-size: 12px;
+  font-size: 20px;
   margin-bottom: 10px;
 }
 

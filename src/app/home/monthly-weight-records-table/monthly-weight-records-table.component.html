@@ -3,86 +3,26 @@
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
 />
 
-<div id="updateCon">
-  <div id="updateMonthlyWeightModal" #updateMonthlyWeightModal class="modal">
-    <div class="modal-content">
-      <form>
-        <legend>
-          Monthly Records of Weight and Weight Status Underweight and Severely
-          Underweight Cases
-        </legend>
-        <div>
-          <label for="weight">Weight (kgs):</label>
-          <input
-            type="text"
-            id="weight"
-            name="weight"
-            [(ngModel)]="monthlyWeightRecordsData.weight"
-          />
-        </div>
-        <div>
-          <label for="weightStatus">Weight Status:</label>
-          <input
-            type="text"
-            id="weightStatus"
-            name="weightStatus"
-            [(ngModel)]="monthlyWeightRecordsData.weightStatus"
-            required
-          />
-        </div>
-        <div>
-          <label for="dateOfWeighing">Date of Weighing:</label>
-          <input
-            type="date"
-            id="dateOfWeighing"
-            name="dateOfWeighing"
-            [(ngModel)]="monthlyWeightRecordsData.dateOfWeighing"
-            required
-          />
-        </div>
-        <div>
-          <label for="Date">Date:</label>
-          <input
-            type="date"
-            id="Date"
-            name="Date"
-            [(ngModel)]="monthlyWeightRecordsData.Date"
-            required
-          />
-        </div>
-        <div>
-          <label for="measurementMonth">Measurement Month:</label>
-          <select
-            id="measurementMonth"
-            name="measurementMonth"
-            [(ngModel)]="monthlyWeightRecordsData.measurementMonth"
-          >
-            <option value="January">January</option>
-            <option value="February">February</option>
-            <option value="March">March</option>
-            <option value="May">May</option>
-            <option value="June">June</option>
-            <option value="July">July</option>
-            <option value="August">August</option>
-            <option value="September">September</option>
-            <option value="October">October</option>
-            <option value="November">November</option>
-            <option value="December">December</option>
-          </select>
-        </div>
-        <button class="close" (click)="closeUpdateMonthlyWeightModal()">
-          Cancel
-        </button>
-
-        <button class="btn btn-primary" (click)="updateMonthlyWeight()">
-          Update Child
-        </button>
-      </form>
-    </div>
-  </div>
-</div>
-
 <fieldset class="fieldset1">
+  <div>
+    <label for="searchChild">Search Child:</label>
+    <input
+      list="childList"
+      type="text"
+      id="searchChild"
+      name="searchChild"
+      [(ngModel)]="searchInput"
+      (input)="onSearchInputChange()"
+    />
+    <datalist id="childList">
+      <option
+        *ngFor="let child of monthlyWeightRecords"
+        [value]="child.nameOfChild"
+      >
+        {{ child.nameOfChild }}
+      </option>
+    </datalist>
+  </div>
   <div class="filter-container">
     <label for="barangay">Barangay:</label>
     <select
@@ -159,7 +99,7 @@
     <select
       id="measurementMonth"
       name="measurementMonth"
-      [(ngModel)]="selectedMeasurementMonth"
+      [(ngModel)]="selectedMonth"
       (change)="filterRecords()"
       required
     >
@@ -202,12 +142,15 @@
                 <th>Date of Weighing</th>
                 <th>Barangay</th>
                 <th>Date</th>
-                <th>Measurement Month</th>
                 <th>Action</th>
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let record of monthlyWeightRecords">
+              <tr
+                *ngFor="
+                  let record of monthlyWeightRecords.slice(startIndex, endIndex)
+                "
+              >
                 <td>{{ record.monthlyWeightRecordsId }}</td>
                 <td>
                   {{ record.nameOfChild }}
@@ -218,18 +161,11 @@
                 <td>{{ record.weightStatus }}</td>
                 <td>{{ record.dateOfWeighing }}</td>
                 <td>{{ record.barangay }}</td>
-                <td>{{ record.Date }}</td>
-                <td>{{ record.measurementMonth }}</td>
+                <td>{{ record.Date | date : "medium" : "Asia/Manila" }}</td>
                 <td>
                   <a class="btn btn-sm btn-outline-dark"
                     ><i class="fas fa-up-right-from-square"></i
                   ></a>
-                  <button
-                    (click)="openUpdateMonthlyWeightModal(record)"
-                    class="update btn btn-sm btn-outline-warning"
-                  >
-                    Update
-                  </button>
                   <button
                     (click)="removeMonthlyWeight(record)"
                     class="delete btn btn-sm btn-outline-danger"

@@ -4,14 +4,17 @@ import Chart from 'chart.js/auto';
 
 interface WeightForAgeTotals {
   barangay: string;
+  measurementMonth: number;
+  measurementYear: any;
   severelyUnderweight: number;
   underweight: number;
   normalWeight: number;
   overweight: number;
 }
-
 interface HeightForAgeTotals {
   barangay: string;
+  measurementMonth: number;
+  measurementYear: any;
   severelyStunted: number;
   stunted: number;
   normal: number;
@@ -20,6 +23,8 @@ interface HeightForAgeTotals {
 
 interface WeightForHeightTotals {
   barangay: string;
+  measurementMonth: number;
+  measurementYear: any;
   severelyUnderweight: number;
   underweight: number;
   normal: number;
@@ -41,8 +46,22 @@ export class DashboardComponent implements OnInit {
     overweight: number;
     obese: number;
   }[] = [];
-  selectedMonth: any = '0';
+  selectedBarangay: string = 'ALL';
+
+  selectedBarangay1: string = 'ALL';
+
+  selectedMonth: any = '10';
   selectedYear: number = new Date().getFullYear();
+
+  selectedMonth1: any = '10';
+  selectedYear1: number = new Date().getFullYear();
+
+  selectedMonth2: any = '10';
+  selectedYear2: number = new Date().getFullYear();
+
+  selectedMonth3: any = '10';
+  selectedYear3: number = new Date().getFullYear();
+
   selectedBarangayInfo: any[] = [];
 
   nutritionalRecords: any[] = [];
@@ -107,6 +126,9 @@ export class DashboardComponent implements OnInit {
         this.calculateTotalsByBarangayAge();
         this.calculateTotalsByBarangayHeight();
         this.calculateTotalsByBarangayWH();
+        this.createBarGraphAge();
+        this.createBarGraphHeight();
+        this.createBarGraphWH();
       } else {
         this.nutritionalRecords = [];
       }
@@ -137,13 +159,30 @@ export class DashboardComponent implements OnInit {
     }
   }
 
+  onBarangaySelect() {
+    this.fetchChildRecords(); // Call fetchChildRecords() when the barangay selection changes
+  }
+
   calculateGirlsAndBoysCount(records: any[]) {
-    this.girlsCount = records.filter(
-      (record) => record.gender === 'female'
-    ).length;
-    this.boysCount = records.filter(
-      (record) => record.gender === 'male'
-    ).length;
+    if (this.selectedBarangay === 'ALL') {
+      this.girlsCount = records.filter(
+        (record) => record.gender === 'female'
+      ).length;
+      this.boysCount = records.filter(
+        (record) => record.gender === 'male'
+      ).length;
+    } else {
+      const filteredRecords = records.filter(
+        (record) => record.barangay === this.selectedBarangay
+      );
+
+      this.girlsCount = filteredRecords.filter(
+        (record) => record.gender === 'female'
+      ).length;
+      this.boysCount = filteredRecords.filter(
+        (record) => record.gender === 'male'
+      ).length;
+    }
   }
 
   updatePieChart() {
@@ -153,6 +192,11 @@ export class DashboardComponent implements OnInit {
 
     if (chartElement) {
       const ctx = chartElement.getContext('2d') as CanvasRenderingContext2D;
+
+      const existingChart = Chart.getChart(ctx);
+      if (existingChart) {
+        existingChart.destroy();
+      }
 
       if (ctx) {
         const data = {
@@ -172,7 +216,7 @@ export class DashboardComponent implements OnInit {
             plugins: {
               title: {
                 display: true,
-                text: 'Number Of Children In San Juan Batangas',
+                text: `Number Of Children In ${this.selectedBarangay}`,
               },
             },
           },
@@ -193,6 +237,22 @@ export class DashboardComponent implements OnInit {
   onMonthYearSelect() {
     this.rankBarangays();
     this.createBarChart();
+    this.fetchNutritionalRecords();
+  }
+
+  onMonthYearSelect1() {
+    this.fetchNutritionalRecords();
+    this.createBarGraphHeight();
+  }
+
+  onMonthYearSelect2() {
+    this.fetchNutritionalRecords();
+    this.createBarGraphWH();
+  }
+
+  onMonthYearSelect3() {
+    this.fetchNutritionalRecords();
+    this.createBarGraphAge();
   }
 
   getMonth(month: any) {
@@ -326,97 +386,72 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  // Function to show detailed information for severely underweight individuals
-  showModal = false;
-
-  showDetailedInfoByCategory(
-    barangayName: string,
-    category: string,
-    barangayValue: number
-  ) {
-    // Filter records based on the selected month
-    let filteredRecords = this.barangaylist;
-    if (this.selectedMonth) {
-      this.barangaylist = this.barangaylist.filter((record) => {
-        const year = new Date(record.Date).getFullYear();
-        const month = new Date(record.Date).getMonth();
-
-        return month == this.selectedMonth && year == this.selectedYear;
-      });
-    }
-
-    if (barangayValue === 0) {
-      return;
-    }
-
-    // Filter records for the specific barangay and category
-    this.selectedBarangayInfo = filteredRecords.filter(
-      (record) =>
-        record.barangay === barangayName && record.resultMessage === category
-    );
-
-    this.showModal = true;
-  }
-
-  closeModal() {
-    this.showModal = false;
-  }
-
   calculateTotalsByBarangayAge() {
     const groupedData: WeightForAgeTotals[] = [];
 
-    this.nutritionalRecords.forEach((record) => {
-      const barangayName = record.barangay;
-      const existingBarangay = groupedData.find(
-        (data) => data.barangay === barangayName
-      );
+    this.nutritionalRecords
 
-      if (existingBarangay) {
-        switch (record.weightForAge) {
-          case 'SUW':
-            existingBarangay.severelyUnderweight++;
-            break;
-          case 'UW':
-            existingBarangay.underweight++;
-            break;
-          case 'N':
-            existingBarangay.normalWeight++;
-            break;
-          case 'OW':
-            existingBarangay.overweight++;
-            break;
-          default:
-            break;
+      .filter((record) => {
+        const year = new Date(record.Date).getFullYear();
+        const month = new Date(record.Date).getMonth();
+
+        return month == this.selectedMonth3 && year == this.selectedYear3;
+      })
+
+      .forEach((record) => {
+        const barangayName = record.barangay;
+        const existingBarangay = groupedData.find(
+          (data) => data.barangay === barangayName
+        );
+
+        if (existingBarangay) {
+          switch (record.weightForAge) {
+            case 'SUW':
+              existingBarangay.severelyUnderweight++;
+              break;
+            case 'UW':
+              existingBarangay.underweight++;
+              break;
+            case 'N':
+              existingBarangay.normalWeight++;
+              break;
+            case 'OW':
+              existingBarangay.overweight++;
+              break;
+            default:
+              break;
+          }
+        } else {
+          const totals: WeightForAgeTotals = {
+            barangay: barangayName,
+            measurementMonth: this.selectedMonth3,
+            measurementYear: this.selectedYear3,
+            severelyUnderweight: 0,
+            underweight: 0,
+            normalWeight: 0,
+            overweight: 0,
+          };
+
+          switch (record.weightForAge) {
+            case 'SUW':
+              totals.severelyUnderweight++;
+              break;
+            case 'UW':
+              totals.underweight++;
+              break;
+            case 'N':
+              totals.normalWeight++;
+              break;
+            case 'OW':
+              totals.overweight++;
+              break;
+            default:
+              break;
+          }
+
+          groupedData.push(totals);
         }
-      } else {
-        const totals: WeightForAgeTotals = {
-          barangay: barangayName,
-          severelyUnderweight: 0,
-          underweight: 0,
-          normalWeight: 0,
-          overweight: 0,
-        };
-
-        switch (record.weightForAge) {
-          case 'SUW':
-            totals.severelyUnderweight++;
-            break;
-          case 'UW':
-            totals.underweight++;
-            break;
-          case 'N':
-            totals.normalWeight++;
-            break;
-          case 'OW':
-            totals.overweight++;
-            break;
-          default:
-            break;
-        }
-
-        groupedData.push(totals);
-      }
-    });
+      });
 
     this.barangayDataAge = groupedData;
   }
@@ -424,58 +459,69 @@ export class DashboardComponent implements OnInit {
   calculateTotalsByBarangayHeight() {
     const groupedData: HeightForAgeTotals[] = [];
 
-    this.nutritionalRecords.forEach((record) => {
-      const barangayName = record.barangay;
-      const existingBarangay = groupedData.find(
-        (data) => data.barangay === barangayName
-      );
+    this.nutritionalRecords
 
-      if (existingBarangay) {
-        switch (record.heightForAge) {
-          case 'SSt':
-            existingBarangay.severelyStunted++;
-            break;
-          case 'St':
-            existingBarangay.stunted++;
-            break;
-          case 'N':
-            existingBarangay.normal++;
-            break;
-          case 'T':
-            existingBarangay.tall++;
-            break;
-          default:
-            break;
+      .filter((record) => {
+        const year = new Date(record.Date).getFullYear();
+        const month = new Date(record.Date).getMonth();
+
+        return month == this.selectedMonth1 && year == this.selectedYear1;
+      })
+
+      .forEach((record) => {
+        const barangayName = record.barangay;
+        const existingBarangay = groupedData.find(
+          (data) => data.barangay === barangayName
+        );
+
+        if (existingBarangay) {
+          switch (record.heightForAge) {
+            case 'SSt':
+              existingBarangay.severelyStunted++;
+              break;
+            case 'St':
+              existingBarangay.stunted++;
+              break;
+            case 'N':
+              existingBarangay.normal++;
+              break;
+            case 'T':
+              existingBarangay.tall++;
+              break;
+            default:
+              break;
+          }
+        } else {
+          const totals: HeightForAgeTotals = {
+            barangay: barangayName,
+            measurementMonth: this.selectedMonth1,
+            measurementYear: this.selectedYear1,
+            severelyStunted: 0,
+            stunted: 0,
+            normal: 0,
+            tall: 0,
+          };
+
+          switch (record.heightForAge) {
+            case 'SSt':
+              totals.severelyStunted++;
+              break;
+            case 'St':
+              totals.stunted++;
+              break;
+            case 'N':
+              totals.normal++;
+              break;
+            case 'T':
+              totals.tall++;
+              break;
+            default:
+              break;
+          }
+
+          groupedData.push(totals);
         }
-      } else {
-        const totals: HeightForAgeTotals = {
-          barangay: barangayName,
-          severelyStunted: 0,
-          stunted: 0,
-          normal: 0,
-          tall: 0,
-        };
-
-        switch (record.heightForAge) {
-          case 'SSt':
-            totals.severelyStunted++;
-            break;
-          case 'St':
-            totals.stunted++;
-            break;
-          case 'N':
-            totals.normal++;
-            break;
-          case 'T':
-            totals.tall++;
-            break;
-          default:
-            break;
-        }
-
-        groupedData.push(totals);
-      }
-    });
+      });
 
     this.barangayData = groupedData;
   }
@@ -483,58 +529,69 @@ export class DashboardComponent implements OnInit {
   calculateTotalsByBarangayWH() {
     const groupedData: WeightForHeightTotals[] = [];
 
-    this.nutritionalRecords.forEach((record) => {
-      const barangayName = record.barangay;
-      const existingBarangay = groupedData.find(
-        (data) => data.barangay === barangayName
-      );
+    this.nutritionalRecords
 
-      if (existingBarangay) {
-        switch (record.weightForHeight) {
-          case 'SUW':
-            existingBarangay.severelyUnderweight++;
-            break;
-          case 'UW':
-            existingBarangay.underweight++;
-            break;
-          case 'N':
-            existingBarangay.normal++;
-            break;
-          case 'OW':
-            existingBarangay.obese++;
-            break;
-          default:
-            break;
+      .filter((record) => {
+        const year = new Date(record.Date).getFullYear();
+        const month = new Date(record.Date).getMonth();
+
+        return month == this.selectedMonth2 && year == this.selectedYear2;
+      })
+
+      .forEach((record) => {
+        const barangayName = record.barangay;
+        const existingBarangay = groupedData.find(
+          (data) => data.barangay === barangayName
+        );
+
+        if (existingBarangay) {
+          switch (record.weightForHeight) {
+            case 'SUW':
+              existingBarangay.severelyUnderweight++;
+              break;
+            case 'UW':
+              existingBarangay.underweight++;
+              break;
+            case 'N':
+              existingBarangay.normal++;
+              break;
+            case 'OW':
+              existingBarangay.obese++;
+              break;
+            default:
+              break;
+          }
+        } else {
+          const totals: WeightForHeightTotals = {
+            barangay: barangayName,
+            measurementMonth: this.selectedMonth2,
+            measurementYear: this.selectedYear2,
+            severelyUnderweight: 0,
+            underweight: 0,
+            normal: 0,
+            obese: 0,
+          };
+
+          switch (record.weightForHeight) {
+            case 'SUW':
+              totals.severelyUnderweight++;
+              break;
+            case 'UW':
+              totals.underweight++;
+              break;
+            case 'N':
+              totals.normal++;
+              break;
+            case 'OW':
+              totals.obese++;
+              break;
+            default:
+              break;
+          }
+
+          groupedData.push(totals);
         }
-      } else {
-        const totals: WeightForHeightTotals = {
-          barangay: barangayName,
-          severelyUnderweight: 0,
-          underweight: 0,
-          normal: 0,
-          obese: 0,
-        };
-
-        switch (record.weightForHeight) {
-          case 'SUW':
-            totals.severelyUnderweight++;
-            break;
-          case 'UW':
-            totals.underweight++;
-            break;
-          case 'N':
-            totals.normal++;
-            break;
-          case 'OW':
-            totals.obese++;
-            break;
-          default:
-            break;
-        }
-
-        groupedData.push(totals);
-      }
-    });
+      });
 
     this.barangayDataWH = groupedData;
   }
@@ -557,7 +614,13 @@ export class DashboardComponent implements OnInit {
 
     // Calculate counts for each month in the selected year
     const countsPerMonth: {
-      [key: string]: { severelyUnderweight: number; underweight: number };
+      [key: string]: {
+        severelyUnderweight: number;
+        underweight: number;
+        healthyweight: number;
+        overweight: number;
+        obese: number;
+      };
     } = {};
 
     filteredData.forEach((record) => {
@@ -568,6 +631,9 @@ export class DashboardComponent implements OnInit {
         countsPerMonth[month] = {
           severelyUnderweight: 0,
           underweight: 0,
+          healthyweight: 0,
+          overweight: 0,
+          obese: 0,
           // Add other categories here...
         };
       }
@@ -576,6 +642,12 @@ export class DashboardComponent implements OnInit {
         countsPerMonth[month].severelyUnderweight++;
       } else if (resultMessage === 'Underweight') {
         countsPerMonth[month].underweight++;
+      } else if (resultMessage === 'Healthy weight') {
+        countsPerMonth[month].healthyweight++;
+      } else if (resultMessage === 'Overweight') {
+        countsPerMonth[month].overweight++;
+      } else if (resultMessage === 'Obese') {
+        countsPerMonth[month].obese++;
       }
       // Add other category counts similarly...
     });
@@ -588,6 +660,15 @@ export class DashboardComponent implements OnInit {
     const underweightData = Object.values(countsPerMonth).map(
       (countObj) => countObj.underweight
     );
+    const healthyweightData = Object.values(countsPerMonth).map(
+      (countObj) => countObj.healthyweight
+    );
+    const overweightData = Object.values(countsPerMonth).map(
+      (countObj) => countObj.overweight
+    );
+    const obeseData = Object.values(countsPerMonth).map(
+      (countObj) => countObj.obese
+    );
     // Add other categories similarly...
 
     // Create the chart with filtered data
@@ -597,17 +678,38 @@ export class DashboardComponent implements OnInit {
         labels: labels,
         datasets: [
           {
-            label: 'Severely Underweight',
+            label: 'SUW',
             data: severelyUnderweightData,
-            backgroundColor: 'rgba(255, 99, 132, 0.2)',
-            borderColor: 'rgba(255, 99, 132, 1)',
+            backgroundColor: 'red',
+            borderColor: 'red',
             borderWidth: 1,
           },
           {
-            label: 'Underweight',
+            label: 'UW',
             data: underweightData,
-            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-            borderColor: 'rgba(75, 192, 192, 1)',
+            backgroundColor: 'orange',
+            borderColor: 'orange',
+            borderWidth: 1,
+          },
+          {
+            label: 'HW',
+            data: healthyweightData,
+            backgroundColor: 'green',
+            borderColor: 'green',
+            borderWidth: 1,
+          },
+          {
+            label: 'OW',
+            data: overweightData,
+            backgroundColor: 'blue',
+            borderColor: 'blue',
+            borderWidth: 1,
+          },
+          {
+            label: 'Ob',
+            data: obeseData,
+            backgroundColor: 'purple',
+            borderColor: 'purple',
             borderWidth: 1,
           },
           // Add other datasets for different categories similarly...
@@ -617,7 +719,7 @@ export class DashboardComponent implements OnInit {
         plugins: {
           title: {
             display: true,
-            text: `Total Severely Underweight and Underweight Cases for ${this.selectedYear}`,
+            text: `Total BMI Result Cases for ${this.selectedYear}`,
           },
         },
         scales: {
@@ -644,6 +746,11 @@ export class DashboardComponent implements OnInit {
   createBarGraphAge() {
     const ctx = document.getElementById('barGraphAge') as HTMLCanvasElement;
 
+    const existingChart = Chart.getChart(ctx);
+    if (existingChart) {
+      existingChart.destroy();
+    }
+
     const labels = this.barangayDataAge.map((record) => record.barangay);
     const severelyUnderweightData = this.barangayDataAge.map(
       (record) => record.severelyUnderweight
@@ -666,22 +773,22 @@ export class DashboardComponent implements OnInit {
           {
             label: 'SUW',
             data: severelyUnderweightData,
-            backgroundColor: 'rgba(255, 99, 132, 0.6)', // Customize bar color as needed
+            backgroundColor: 'red', // Customize bar color as needed
           },
           {
             label: 'UW',
             data: underweightData,
-            backgroundColor: 'rgba(54, 162, 235, 0.6)', // Customize bar color as needed
+            backgroundColor: 'orange', // Customize bar color as needed
           },
           {
             label: 'NW',
             data: normalWeightData,
-            backgroundColor: 'rgba(75, 192, 192, 0.6)', // Customize bar color as needed
+            backgroundColor: 'green', // Customize bar color as needed
           },
           {
             label: 'OW',
             data: overweightData,
-            backgroundColor: 'rgba(255, 206, 86, 0.6)', // Customize bar color as needed
+            backgroundColor: 'blue', // Customize bar color as needed
           },
         ],
       },
@@ -716,7 +823,12 @@ export class DashboardComponent implements OnInit {
   createBarGraphHeight() {
     const ctx = document.getElementById('barGraphHeight') as HTMLCanvasElement;
 
-    const labels = this.barangayDataAge.map((record) => record.barangay);
+    const existingChart = Chart.getChart(ctx);
+    if (existingChart) {
+      existingChart.destroy();
+    }
+
+    const labels = this.barangayData.map((record) => record.barangay);
     const severelyStuntedData = this.barangayData.map(
       (record) => record.severelyStunted
     );
@@ -732,22 +844,22 @@ export class DashboardComponent implements OnInit {
           {
             label: 'SSt',
             data: severelyStuntedData,
-            backgroundColor: 'rgba(255, 99, 132, 0.6)', // Customize bar color as needed
+            backgroundColor: 'red', // Customize bar color as needed
           },
           {
             label: 'St',
             data: stuntedData,
-            backgroundColor: 'rgba(54, 162, 235, 0.6)', // Customize bar color as needed
+            backgroundColor: 'blue', // Customize bar color as needed
           },
           {
             label: 'N',
             data: normalData,
-            backgroundColor: 'rgba(75, 192, 192, 0.6)', // Customize bar color as needed
+            backgroundColor: 'green', // Customize bar color as needed
           },
           {
             label: 'T',
             data: tallData,
-            backgroundColor: 'rgba(255, 206, 86, 0.6)', // Customize bar color as needed
+            backgroundColor: 'orange', // Customize bar color as needed
           },
         ],
       },
@@ -782,6 +894,11 @@ export class DashboardComponent implements OnInit {
   createBarGraphWH() {
     const ctx = document.getElementById('barGraphWH') as HTMLCanvasElement;
 
+    const existingChart = Chart.getChart(ctx);
+    if (existingChart) {
+      existingChart.destroy();
+    }
+
     const labels = this.barangayDataWH.map((record) => record.barangay);
     const severelyUnderweightData = this.barangayData.map(
       (record) => record.severelyStunted
@@ -800,22 +917,22 @@ export class DashboardComponent implements OnInit {
           {
             label: 'SUW',
             data: severelyUnderweightData,
-            backgroundColor: 'rgba(255, 99, 132, 0.6)', // Customize bar color as needed
+            backgroundColor: 'red', // Customize bar color as needed
           },
           {
             label: 'UW',
             data: underweightData,
-            backgroundColor: 'rgba(54, 162, 235, 0.6)', // Customize bar color as needed
+            backgroundColor: 'orange', // Customize bar color as needed
           },
           {
             label: 'N',
             data: normalData,
-            backgroundColor: 'rgba(75, 192, 192, 0.6)', // Customize bar color as needed
+            backgroundColor: 'green', // Customize bar color as needed
           },
           {
-            label: 'O',
+            label: 'Ob',
             data: obeseData,
-            backgroundColor: 'rgba(255, 206, 86, 0.6)', // Customize bar color as needed
+            backgroundColor: 'purple', // Customize bar color as needed
           },
         ],
       },

@@ -5,8 +5,8 @@
 
 <div class="container">
   <div class="navigation-buttons">
-    <button routerLink="/home/monthlyrecords">Monthly Height Records</button>
     <button routerLink="/home/monthlyweight">Monthly Weight Records</button>
+    <button routerLink="/home/monthlyrecords">Monthly Height Records</button>
     <button routerLink="/home/monthlyrecordsinfant">
       Monthly Records (Infant)
     </button>
@@ -45,6 +45,7 @@
           name="birthday"
           [value]="getSelectedChildBirthday()"
           [(ngModel)]="monthlyWeightRecordData.birthday"
+          (ngModelChange)="onBirthdayChange()"
           required
         />
       </div>
@@ -54,7 +55,6 @@
           type="text"
           id="ageInMonths"
           name="ageInMonths"
-          [value]="getSelectedChildAge()"
           [(ngModel)]="monthlyWeightRecordData.ageInMonths"
           required
         />
@@ -66,7 +66,7 @@
           id="weight"
           name="weight"
           [(ngModel)]="monthlyWeightRecordData.weight"
-          (ngModelChange)="onWeightForAgeChange()"
+          (ngModelChange)="onweightStatusChange()"
           required
         />
       </div>
@@ -142,36 +142,6 @@
           <option value="TALAHIBAN 2">TALAHIBAN 2</option>
           <option value="TICALAN">TICALAN</option>
           <option value="TIPAZ">TIPAZ</option>
-        </select>
-      </div>
-      <div>
-        <label for="Date">Date:</label>
-        <input
-          type="date"
-          id="Date"
-          name="Date"
-          [(ngModel)]="monthlyWeightRecordData.Date"
-          required
-        />
-      </div>
-      <div>
-        <label for="measurementMonth">Measurement Month:</label>
-        <select
-          id="measurementMonth"
-          name="measurementMonth"
-          [(ngModel)]="monthlyWeightRecordData.measurementMonth"
-        >
-          <option value="January">January</option>
-          <option value="February">February</option>
-          <option value="March">March</option>
-          <option value="May">May</option>
-          <option value="June">June</option>
-          <option value="July">July</option>
-          <option value="August">August</option>
-          <option value="September">September</option>
-          <option value="October">October</option>
-          <option value="November">November</option>
-          <option value="December">December</option>
         </select>
       </div>
       <button type="submit">Submit</button>

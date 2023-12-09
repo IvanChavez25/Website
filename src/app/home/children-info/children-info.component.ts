@@ -1,15 +1,9 @@
 import { Component } from '@angular/core';
-import { AngularFireDatabase } from '@angular/fire/compat/database';
-import { NgForm } from '@angular/forms';
-import { Location } from '@angular/common';
 
 import {
   Database,
   set,
   ref,
-  push,
-  update,
-  remove,
   get,
 } from '@angular/fire/database';
 
@@ -25,59 +19,16 @@ export class ChildrenInfoComponent {
     middleName: '',
     lastName: '',
     birthday: null,
-    age: null,
-    ageInMonths: '',
     address: '',
     barangay: '',
     fatherName: '',
     motherName: '',
+    NameOfHouseholdHead: '',
     gender: null,
     date: '',
   };
 
   constructor(public database: Database) {}
-
-  onBirthdayChange() {
-    this.calculateAge(this.childData.birthday);
-    this.calculateAgeInMonths(this.childData.birthday);
-  }
-
-  calculateAge(birthdate: string) {
-    const today = new Date();
-    const birthDate = new Date(birthdate);
-    let age = today.getFullYear() - birthDate.getFullYear();
-
-    // Check if the birthday has occurred this year
-    if (
-      today.getMonth() < birthDate.getMonth() ||
-      (today.getMonth() === birthDate.getMonth() &&
-        today.getDate() < birthDate.getDate())
-    ) {
-      age--;
-    }
-
-    // Set age to zero if it's negative
-    if (age < 0) {
-      age = 0;
-    }
-
-    this.childData.age = age.toString();
-  }
-
-  calculateAgeInMonths(birthdate: string) {
-    const today = new Date();
-    const birthDate = new Date(birthdate);
-    const years = today.getFullYear() - birthDate.getFullYear();
-    const months = today.getMonth() - birthDate.getMonth();
-    const ageInMonths = years * 12 + months;
-
-    // Set ageInMonths to zero if it's negative
-    if (ageInMonths < 0) {
-      this.childData.ageInMonths = '0';
-    } else {
-      this.childData.ageInMonths = ageInMonths.toString();
-    }
-  }
 
   onSubmit() {
     if (this.isValidChildData()) {
@@ -117,12 +68,11 @@ export class ChildrenInfoComponent {
       middleName: '',
       lastName: '',
       birthday: '',
-      age: null, // Clear the age field
-      ageInMonths: '',
       address: '',
       barangay: '',
       fatherName: '',
       motherName: '',
+      NameOfHouseholdHead: '',
       gender: null,
       date: '',
     };
@@ -134,12 +84,11 @@ export class ChildrenInfoComponent {
       this.childData.middleName &&
       this.childData.lastName &&
       this.childData.birthday &&
-      (this.childData.age || this.childData.age === 0) &&
-      this.childData.ageInMonths &&
       this.childData.address &&
       this.childData.barangay &&
       this.childData.fatherName &&
       this.childData.motherName &&
+      this.childData.NameOfHouseholdHead &&
       this.childData.gender &&
       this.childData.date
     );

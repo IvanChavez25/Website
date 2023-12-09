@@ -11,6 +11,8 @@ export class BWIRTableComponent {
   originalBaselineRecords: any[] = [];
   baselineRecords: any[] = [];
   baselineData: any = {};
+  searchInput: string = '';
+  filteredBaselineRecords: any[] = [];
 
   selectedBarangay: string = '';
   fromDate: string = '';
@@ -24,6 +26,24 @@ export class BWIRTableComponent {
 
   constructor(public database: Database, private location: Location) {
     this.fetchBaselineRecords();
+  }
+
+  onSearchInputChange() {
+    this.baselineData.nameOfChild = this.searchInput;
+
+    if (this.searchInput === '') {
+      // Show all children records when the search input is empty
+      this.filteredBaselineRecords = this.baselineRecords;
+    } else {
+      // Filter children records based on the search input
+      this.filteredBaselineRecords = this.baselineRecords.filter((child) => {
+        return child.nameOfChild
+          .toLowerCase()
+          .includes(this.searchInput.toLowerCase());
+      });
+    }
+
+    this.filterRecords();
   }
 
   fetchBaselineRecords() {
@@ -53,7 +73,7 @@ export class BWIRTableComponent {
 
   filterRecords() {
     // Create a copy of the original data
-    let filteredRecords = [...this.originalBaselineRecords];
+    let filteredRecords = [...this.filteredBaselineRecords];
 
     // Apply the barangay filter
     if (this.selectedBarangay) {
@@ -101,6 +121,7 @@ export class BWIRTableComponent {
 
   clearFilters() {
     // Clear the selected barangay, from date, and to date
+    this.searchInput = '';
     this.selectedBarangay = '';
     this.fromDate = '';
     this.toDate = '';
@@ -126,8 +147,6 @@ export class BWIRTableComponent {
 
     // Update the children's health data in the database
     update(BaselineRef, {
-      HouseholdNumber: this.baselineData.HouseholdNumber,
-      NameOfHouseholdHead: this.baselineData.NameOfHouseholdHead,
       bcgDate: this.baselineData.bcgDate,
       dpt1Date: this.baselineData.dpt1Date,
       dpt2Date: this.baselineData.dpt2Date,
@@ -137,10 +156,6 @@ export class BWIRTableComponent {
       polio3Date: this.baselineData.polio3Date,
       measlesDate: this.baselineData.measlesDate,
       nbsDone: this.baselineData.nbsDone,
-      dateOfWeighing: this.baselineData.dateOfWeighing,
-      ageInMonth: this.baselineData.ageInMonth,
-      weight: this.baselineData.weight,
-      weightStatus: this.baselineData.weightStatus,
     })
       .then(() => {
         alert('Baseline Records Data Updated successfully');

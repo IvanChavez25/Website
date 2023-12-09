@@ -22,6 +22,7 @@ export class NutritionalStatusComponent {
     barangay: '',
     birthday: '',
     OPTPlus: '',
+    age: '',
     ageInMonths: '',
     weight: '',
     height: '',
@@ -2958,6 +2959,48 @@ export class NutritionalStatusComponent {
     }
   }
 
+  onBirthdayChange() {
+    this.calculateAge(this.nutritionalData.birthday);
+    this.calculateAgeInMonths(this.nutritionalData.birthday);
+  }
+
+  calculateAge(birthdate: string) {
+    const today = new Date();
+    const birthDate = new Date(birthdate);
+    let age = today.getFullYear() - birthDate.getFullYear();
+
+    // Check if the birthday has occurred this year
+    if (
+      today.getMonth() < birthDate.getMonth() ||
+      (today.getMonth() === birthDate.getMonth() &&
+        today.getDate() < birthDate.getDate())
+    ) {
+      age--;
+    }
+
+    // Set age to zero if it's negative
+    if (age < 0) {
+      age = 0;
+    }
+
+    this.nutritionalData.age = age.toString();
+  }
+
+  calculateAgeInMonths(birthdate: string) {
+    const today = new Date();
+    const birthDate = new Date(birthdate);
+    const years = today.getFullYear() - birthDate.getFullYear();
+    const months = today.getMonth() - birthDate.getMonth();
+    const ageInMonths = years * 12 + months;
+
+    // Set ageInMonths to zero if it's negative
+    if (ageInMonths < 0) {
+      this.nutritionalData.ageInMonths = '0';
+    } else {
+      this.nutritionalData.ageInMonths = ageInMonths.toString();
+    }
+  }
+
   onSubmit() {
     this.nutritionalData.Date = Date.now();
     if (this.isValidnutritionalData()) {
@@ -3003,6 +3046,7 @@ export class NutritionalStatusComponent {
       barangay: '',
       birthday: '',
       OPTPlus: '',
+      age: '',
       ageInMonths: '',
       weight: '',
       height: '',
@@ -3028,6 +3072,7 @@ export class NutritionalStatusComponent {
       this.nutritionalData.barangay &&
       this.nutritionalData.birthday &&
       this.nutritionalData.OPTPlus &&
+      (this.nutritionalData.age || this.nutritionalData.age === 0) &&
       this.nutritionalData.ageInMonths &&
       this.nutritionalData.weight &&
       this.nutritionalData.height &&
@@ -3119,26 +3164,18 @@ export class NutritionalStatusComponent {
     );
 
     if (selectedChild) {
+      // Update the monthlyHeightRecordData's birthday
       this.nutritionalData.birthday = selectedChild.birthday;
+
+      // Calculate age based on selected child's birthday
+      this.calculateAge(this.nutritionalData.birthday);
+      this.calculateAgeInMonths(this.nutritionalData.birthday);
+
+      // Return the selected child's birthday
       return selectedChild.birthday;
     } else {
+      // Clear the birthday field if the selected child is not found
       this.nutritionalData.birthday = '';
-      return '';
-    }
-  }
-
-  getSelectedChildAge() {
-    const selectedChildName = this.nutritionalData.nameOfChild;
-
-    const selectedChild = this.childRecords.find(
-      (c) => c.firstName + ' ' + c.lastName === selectedChildName
-    );
-
-    if (selectedChild) {
-      this.nutritionalData.ageInMonths = selectedChild.ageInMonths;
-      return selectedChild.ageInMonths;
-    } else {
-      this.nutritionalData.ageInMonths = '';
       return '';
     }
   }
@@ -3173,6 +3210,35 @@ export class NutritionalStatusComponent {
     } else {
       this.nutritionalData.gender = '';
       return '';
+    }
+  }
+
+  calculateBMI() {
+    const age = parseInt(this.nutritionalData.ageInMonths);
+    const heightMeters = this.nutritionalData.height / 100; // Convert height to meters
+    const weight = this.nutritionalData.weight;
+
+    if (age > 72) {
+      this.nutritionalData.weightForHeight = 'Age must be 72 months or below';
+      return;
+    }
+
+    if (weight && heightMeters && age) {
+      const bmi = weight / (heightMeters * heightMeters);
+
+      if (bmi >= 30) {
+        this.nutritionalData.weightForHeight = 'Obese';
+      } else if (bmi >= 25) {
+        this.nutritionalData.weightForHeight = 'Overweight';
+      } else if (bmi >= 14.1) {
+        this.nutritionalData.weightForHeight = 'Healthy weight';
+      } else if (bmi >= 8) {
+        this.nutritionalData.weightForHeight = 'Underweight';
+      } else {
+        this.nutritionalData.weightForHeight = 'Severely underweight';
+      }
+    } else {
+      this.nutritionalData.weightForHeight = ''; // Reset status if data is incomplete
     }
   }
 }

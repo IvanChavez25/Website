@@ -5,6 +5,8 @@
 }
 
 .chart-container {
+  border-radius: 5px;
+  background-color: #ffffff;
   max-width: 100%;
   border: 1px solid #ddd;
   margin: 5px; /* Add equal margin to all sides */
@@ -12,10 +14,123 @@
 }
 
 .chart-container1 {
+  border-radius: 5px;
+  background-color: #ffffff;
   max-width: 100%;
   border: 1px solid #ddd;
   margin: 5px; /* Add equal margin to all sides */
   padding: 10px; /* Add padding to create space inside the container */
+}
+
+.suw-label {
+  display: grid;
+  font-size: 10px;
+  grid-template-columns: repeat(5, 1fr); /* 3 columns */
+  gap: 5px; /* Gap between grid cells */
+}
+
+/* Individual grid items (labels) */
+.SUW,
+.UW,
+.HW,
+.OW,
+.Ob {
+  text-align: center; /* Center the text */
+  padding: 5px; /* Add some padding for spacing */
+}
+
+.suw-label .SUW {
+  color: red; /* Set color for Severely Underweight (SUW) */
+}
+
+.suw-label .UW {
+  color: orange; /* Set color for Underweight (UW) */
+}
+
+.suw-label .HW {
+  color: green; /* Set color for Healthy Weight (HW) */
+}
+
+.suw-label .OW {
+  color: blue; /* Set color for Overweight (OW) */
+}
+
+.suw-label .Ob {
+  color: purple; /* Set color for Obese (Ob) */
+}
+
+.SSt-label {
+  display: grid;
+  font-size: 10px;
+  grid-template-columns: repeat(4, 1fr); /* 3 columns */
+  gap: 5px; /* Gap between grid cells */
+}
+
+/* Individual grid items (labels) */
+.SSt,
+.St,
+.N,
+.T {
+  text-align: center; /* Center the text */
+  padding: 5px; /* Add some padding for spacing */
+}
+
+.SSt-label .SSt {
+  color: red; /* Set color for Severely Underweight (SUW) */
+}
+
+.SSt-label .St {
+  color: blue; /* Set color for Severely Underweight (SUW) */
+}
+
+.SSt-label .N {
+  color: green; /* Set color for Severely Underweight (SUW) */
+}
+
+.SSt-label .T {
+  color: orange; /* Set color for Severely Underweight (SUW) */
+}
+
+.SUW-label {
+  display: grid;
+  font-size: 10px;
+  grid-template-columns: repeat(4, 1fr); /* 3 columns */
+  gap: 5px; /* Gap between grid cells */
+}
+
+/* Individual grid items (labels) */
+.SUW,
+.UW,
+.NW,
+.OW,
+.N,
+.Ob {
+  text-align: center; /* Center the text */
+  padding: 5px; /* Add some padding for spacing */
+}
+
+.SUW-label .SUW {
+  color: red; /* Set color for Severely Underweight (SUW) */
+}
+
+.SUW-label .UW {
+  color: orange; /* Set color for Underweight (UW) */
+}
+
+.SUW-label .NW {
+  color: green; /* Set color for Healthy Weight (HW) */
+}
+
+.SUW-label .OW {
+  color: blue; /* Set color for Overweight (OW) */
+}
+
+.SUW-label .N {
+  color: green; /* Set color for Healthy Weight (HW) */
+}
+
+.SUW-label .Ob {
+  color: purple; /* Set color for Overweight (OW) */
 }
 
 canvas {

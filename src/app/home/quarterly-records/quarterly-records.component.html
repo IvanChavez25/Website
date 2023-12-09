@@ -5,9 +5,9 @@
 
 <div class="container">
   <div class="navigation-buttons">
+    <button routerLink="/home/nutritionalstatus">Nutritional Status</button>
     <button routerLink="/home/quarterlyrecords">Quarterly Records</button>
     <button routerLink="/home/baselineweight">BaseLine</button>
-    <button routerLink="/home/nutritionalstatus">Nutritional Status</button>
   </div>
   <fieldset class="fieldset1">
     <legend class="legend1">
@@ -42,6 +42,7 @@
           name="birthday"
           [value]="getSelectedChildBirthday()"
           [(ngModel)]="quarterlyData.birthday"
+          (ngModelChange)="onBirthdayChange()"
           required
         />
       </div>
@@ -51,7 +52,6 @@
           type="text"
           id="ageInMonth"
           name="ageInMonth"
-          [value]="getSelectedChildAge()"
           [(ngModel)]="quarterlyData.ageInMonth"
           required
         />

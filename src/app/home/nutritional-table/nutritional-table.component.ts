@@ -13,6 +13,8 @@ export class NutritionalTableComponent {
   userRole: string = '';
   nutritionalRecords: any[] = [];
   nutritionalRecordsData: any = {};
+  searchInput: string = '';
+  filteredNutritionalRecords: any[] = [];
 
   selectedBarangay: string = '';
   fromDate: string = '';
@@ -35,6 +37,26 @@ export class NutritionalTableComponent {
   ngAfterViewInit() {
     // Hide the updateNutritionalModal on page load
     this.updateNutritionalModal.nativeElement.style.display = 'none';
+  }
+
+  onSearchInputChange() {
+    this.nutritionalRecordsData.nameOfChild = this.searchInput;
+
+    if (this.searchInput === '') {
+      // Show all children records when the search input is empty
+      this.filteredNutritionalRecords = this.nutritionalRecords;
+    } else {
+      // Filter children records based on the search input
+      this.filteredNutritionalRecords = this.nutritionalRecords.filter(
+        (child) => {
+          return child.nameOfChild
+            .toLowerCase()
+            .includes(this.searchInput.toLowerCase());
+        }
+      );
+    }
+
+    this.filterRecords();
   }
 
   fetchNutritionalRecords() {
@@ -64,7 +86,7 @@ export class NutritionalTableComponent {
 
   filterRecords() {
     // Create a copy of the original data
-    let filteredRecords = [...this.originalNutritionalRecords];
+    let filteredRecords = [...this.filteredNutritionalRecords];
 
     // Apply the barangay filter
     if (this.selectedBarangay) {
@@ -112,6 +134,7 @@ export class NutritionalTableComponent {
 
   clearFilters() {
     // Clear the selected barangay, from date, and to date
+    this.searchInput = '';
     this.selectedBarangay = '';
     this.fromDate = '';
     this.toDate = '';

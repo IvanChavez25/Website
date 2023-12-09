@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Database, ref, get } from '@angular/fire/database';
-import Chart from 'chart.js/auto';
 
 interface HeightForAgeTotals {
   barangay: string;
@@ -22,11 +21,11 @@ export class NutritionalStatusSummaryHeightforageComponent {
   barangayData: HeightForAgeTotals[] = [];
 
   selectedMonth: number = 0;
-  selectedYear: number | null = null;
+  selectedYear: number = new Date().getFullYear();
   selectedBarangayInfo: any[] = [];
 
   currentPage: number = 1;
-  itemsPerPage: number = 5;
+  itemsPerPage: number = 10;
 
   constructor(public database: Database) {
     this.fetchNutritionalRecords();

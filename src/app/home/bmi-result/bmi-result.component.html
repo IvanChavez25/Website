@@ -4,6 +4,22 @@
 />
 
 <fieldset class="fieldset1">
+  <div>
+    <label for="searchChild">Search Child:</label>
+    <input
+      list="childList"
+      type="text"
+      id="searchChild"
+      name="searchChild"
+      [(ngModel)]="searchInput"
+      (input)="onSearchInputChange()"
+    />
+    <datalist id="childList">
+      <option *ngFor="let child of bmiRecords" [value]="child.childName">
+        {{ child.childName }}
+      </option>
+    </datalist>
+  </div>
   <div class="filter-container">
     <label for="barangay">Barangay:</label>
     <select
@@ -116,6 +132,7 @@
                 <th>Barangay</th>
                 <th>Weight (kg)</th>
                 <th>Height (cm)</th>
+                <th>Birthday</th>
                 <th>Age</th>
                 <th>BMI</th>
                 <th>Result</th>
@@ -142,6 +159,7 @@
                 <td>{{ result.barangay }}</td>
                 <td>{{ result.weight }}</td>
                 <td>{{ result.height }}</td>
+                <td>{{ result.birthday }}</td>
                 <td>{{ result.age }}</td>
                 <td>{{ result.bmi }}</td>
                 <td>{{ result.resultMessage }}</td>

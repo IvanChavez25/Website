@@ -4,11 +4,11 @@
   position: absolute;
   justify-content: center;
   align-items: center;
-  font-size: 10px;
+  font-size: 15px;
   font-weight: bold;
 
   left: 50%;
-  top: 95%;
+  top: 130%;
   transform: translate(-50%, -50%);
 }
 
@@ -18,7 +18,7 @@ input[type="number"],
 select {
   width: 100%;
   padding: 5px;
-  font-size: 10px;
+  font-size: 15px;
   border-radius: 4px;
 }
 
@@ -42,7 +42,7 @@ form {
 .legend1 {
   text-align: center;
   font-weight: bold;
-  font-size: 12px;
+  font-size: 15px;
   margin-bottom: 10px;
 }
 
@@ -135,7 +135,7 @@ legend {
 .filter-container label {
   flex: 2;
   text-align: center;
-  background-color: #79AC78;
+  background-color: #79ac78;
   border-radius: 4px;
   padding: 5px 10px;
   margin-bottom: 2px;
@@ -157,7 +157,7 @@ legend {
 
 .filter-container button {
   flex: 1;
-  background-color: #79AC78;
+  background-color: #79ac78;
   color: #fff;
   border: none;
   border-radius: 4px;
@@ -169,7 +169,7 @@ legend {
 }
 
 .filter-container button:hover {
-  background-color: #B0D9B1;
+  background-color: #b0d9b1;
 }
 
 .pagination {
@@ -196,9 +196,9 @@ legend {
   cursor: pointer;
   font-size: 15px;
   margin: 0 5px;
-  background-color: #79AC78;
+  background-color: #79ac78;
 }
 
 .pagination button:hover {
-  background-color: #B0D9B1;
+  background-color: #b0d9b1;
 }

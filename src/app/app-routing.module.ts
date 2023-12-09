@@ -4,6 +4,7 @@ import { LoginFormComponent } from './page/login/login.component';
 import { HomeComponent } from './home/home.component';
 import {AuthLoginGuard} from './page/login/auth-login.guard'//ays na
 import { LandingPageComponent } from './page/landing-page/landing-page.component';
+import { AboutComponent } from './page/about/about.component';
 
 
 const routes: Routes = [
@@ -17,6 +18,10 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
+  },
+  {
+    path: 'about',
+    component: AboutComponent,
   },
   {
     path: '',

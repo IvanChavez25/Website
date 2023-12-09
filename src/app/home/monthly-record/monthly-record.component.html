@@ -5,8 +5,8 @@
 
 <div class="container">
   <div class="navigation-buttons">
-    <button routerLink="/home/monthlyrecords">Monthly Height Records</button>
     <button routerLink="/home/monthlyweight">Monthly Weight Records</button>
+    <button routerLink="/home/monthlyrecords">Monthly Height Records</button>
     <button routerLink="/home/monthlyrecordsinfant">
       Monthly Records (Infant)
     </button>
@@ -45,6 +45,7 @@
           name="birthday"
           [value]="getSelectedChildBirthday()"
           [(ngModel)]="monthlyHeightRecordData.birthday"
+          (ngModelChange)="onBirthdayChange()"
           required
         />
       </div>
@@ -54,8 +55,8 @@
           type="text"
           id="ageInMonths"
           name="ageInMonths"
-          [value]="getSelectedChildAge()"
           [(ngModel)]="monthlyHeightRecordData.ageInMonths"
+          (ngModelChange)="calculateBMI()"
           required
         />
       </div>
@@ -66,6 +67,8 @@
           id="weight"
           name="weight"
           [(ngModel)]="monthlyHeightRecordData.weight"
+          (ngModelChange)="calculateBMI()"
+          required
         />
       </div>
       <div>
@@ -75,6 +78,8 @@
           id="heightOrLength"
           name="heightOrLength"
           [(ngModel)]="monthlyHeightRecordData.heightOrLength"
+          (ngModelChange)="calculateBMI()"
+          required
         />
       </div>
       <div>
@@ -85,6 +90,7 @@
           name="nutritionalStatus"
           [(ngModel)]="monthlyHeightRecordData.nutritionalStatus"
           required
+          readonly
         />
       </div>
       <div>
@@ -140,37 +146,6 @@
           <option value="TIPAZ">TIPAZ</option>
         </select>
       </div>
-      <div>
-        <label for="Date">Date:</label>
-        <input
-          type="date"
-          id="Date"
-          name="Date"
-          [(ngModel)]="monthlyHeightRecordData.Date"
-          required
-        />
-      </div>
-      <div>
-        <label for="measurementMonth">Measurement Month:</label>
-        <select
-          id="measurementMonth"
-          name="measurementMonth"
-          [(ngModel)]="monthlyHeightRecordData.measurementMonth"
-        >
-          <option value="January">January</option>
-          <option value="February">February</option>
-          <option value="March">March</option>
-          <option value="May">May</option>
-          <option value="June">June</option>
-          <option value="July">July</option>
-          <option value="August">August</option>
-          <option value="September">September</option>
-          <option value="October">October</option>
-          <option value="November">November</option>
-          <option value="December">December</option>
-        </select>
-      </div>
-
       <button type="submit">Submit</button>
     </form>
   </fieldset>

@@ -119,7 +119,11 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let info of selectedBarangayInfo">
+                <tr
+                  *ngFor="
+                    let info of selectedBarangayInfo.slice(startIndex, endIndex)
+                  "
+                >
                   <td>{{ info.childName }}</td>
                   <td>{{ info.height }}</td>
                   <td>{{ info.weight }}</td>
@@ -129,22 +133,24 @@
             </table>
           </div>
         </div>
+        <div class="pagination">
+          <button
+            class="paginationButton"
+            (click)="goToPage(currentPage - 1)"
+            [disabled]="currentPage === 1"
+          >
+            Previous
+          </button>
+          <span>BMI RESULT {{ currentPage }}</span>
+          <button
+            class="paginationButton"
+            (click)="goToPage(currentPage + 1)"
+            [disabled]="endIndex >= selectedBarangayInfo.length"
+          >
+            Next
+          </button>
+        </div>
       </div>
     </div>
   </fieldset>
-</div>
-<div class="chart-container">
-  <div>
-    <label for="yearFilter">Select Year:</label>
-    <input
-      type="number"
-      id="yearFilter"
-      [(ngModel)]="selectedYear"
-      (change)="onYearFilterChange()"
-      min="2020"
-      max="2100"
-    />
-  </div>
-
-  <canvas id="bmiChart"></canvas>
 </div>

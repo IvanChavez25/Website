@@ -14,7 +14,6 @@ export class QuarterlyRecordsComponent {
   filteredChildRecords: any[] = [];
 
   barangay: string = 'ABUNG';
-  measurementMonth: string = 'January';
   weight: number = 0;
   heightOrLength: number = 0;
   weightForLengthOrHeight: number = 0;
@@ -23,6 +22,7 @@ export class QuarterlyRecordsComponent {
     quarterlyId: null,
     nameOfChild: '',
     birthday: '',
+    age: '',
     ageInMonth: '',
     weight: '',
     heightOrLength: '',
@@ -36,9 +36,50 @@ export class QuarterlyRecordsComponent {
     this.fetchChildRecords();
   }
 
-  onSubmit() {
+  onBirthdayChange() {
+    this.calculateAge(this.quarterlyData.birthday);
+    this.calculateAgeInMonth(this.quarterlyData.birthday);
+  }
 
-    this.quarterlyData.Date = Date.now()
+  calculateAge(birthdate: string) {
+    const today = new Date();
+    const birthDate = new Date(birthdate);
+    let age = today.getFullYear() - birthDate.getFullYear();
+
+    // Check if the birthday has occurred this year
+    if (
+      today.getMonth() < birthDate.getMonth() ||
+      (today.getMonth() === birthDate.getMonth() &&
+        today.getDate() < birthDate.getDate())
+    ) {
+      age--;
+    }
+
+    // Set age to zero if it's negative
+    if (age < 0) {
+      age = 0;
+    }
+
+    this.quarterlyData.age = age.toString();
+  }
+
+  calculateAgeInMonth(birthdate: string) {
+    const today = new Date();
+    const birthDate = new Date(birthdate);
+    const years = today.getFullYear() - birthDate.getFullYear();
+    const months = today.getMonth() - birthDate.getMonth();
+    const ageInMonth = years * 12 + months;
+
+    // Set ageInMonths to zero if it's negative
+    if (ageInMonth < 0) {
+      this.quarterlyData.ageInMonth = '0';
+    } else {
+      this.quarterlyData.ageInMonth = ageInMonth.toString();
+    }
+  }
+
+  onSubmit() {
+    this.quarterlyData.Date = Date.now();
     if (this.isValidquarterlyData()) {
       // Query the latest child ID from the ChildProfile
       const latestquarterlyIdRef = ref(this.database, 'QuarterlyTable');
@@ -77,6 +118,7 @@ export class QuarterlyRecordsComponent {
     this.quarterlyData = {
       nameOfChild: '',
       birthday: '',
+      age: '',
       ageInMonth: '',
       weight: '',
       heightOrLength: '',
@@ -91,13 +133,13 @@ export class QuarterlyRecordsComponent {
     return (
       this.quarterlyData.nameOfChild &&
       this.quarterlyData.birthday &&
+      (this.quarterlyData.age || this.quarterlyData.age === 0) &&
       this.quarterlyData.ageInMonth &&
       this.quarterlyData.weight &&
       this.quarterlyData.heightOrLength &&
       this.quarterlyData.weightForLengthOrHeight &&
       this.quarterlyData.nutritionalStatus &&
       this.quarterlyData.barangay
-
     );
   }
   fetchChildRecords() {
@@ -134,21 +176,7 @@ export class QuarterlyRecordsComponent {
     }
   }
 
-  getSelectedChildAge() {
-    const selectedChildName = this.quarterlyData.nameOfChild;
-
-    const selectedChild = this.childRecords.find(
-      (c) => c.firstName + ' ' + c.lastName === selectedChildName
-    );
-
-    if (selectedChild) {
-      this.quarterlyData.ageInMonth = selectedChild.ageInMonths;
-      return selectedChild.ageInMonths;
-    } else {
-      this.quarterlyData.ageInMonth = '';
-      return '';
-    }
-  }
+  
 
   getSelectedChildBirthday() {
     const selectedChildName = this.quarterlyData.nameOfChild;
@@ -158,9 +186,17 @@ export class QuarterlyRecordsComponent {
     );
 
     if (selectedChild) {
+      // Update the monthlyHeightRecordData's birthday
       this.quarterlyData.birthday = selectedChild.birthday;
+
+      // Calculate age based on selected child's birthday
+      this.calculateAge(this.quarterlyData.birthday);
+      this.calculateAgeInMonth(this.quarterlyData.birthday);
+
+      // Return the selected child's birthday
       return selectedChild.birthday;
     } else {
+      // Clear the birthday field if the selected child is not found
       this.quarterlyData.birthday = '';
       return '';
     }

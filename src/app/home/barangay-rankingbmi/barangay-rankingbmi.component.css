@@ -109,9 +109,34 @@ tr:nth-child(odd) {
   color: red;
 }
 
-#barChartContainer {
-  width: 80%; /* Adjust the width as needed */
-  margin: auto; /* Center the chart on the page */
-  padding: 20px;
-  border: 1px solid #ddd; /* Add a border for better visibility */
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  font-size: 10px;
+  margin: 0 10px;
+  font-weight: bold;
+  padding: 8px 16px;
+  color: #000000;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 0 5px;
 }
+
+.paginationButton {
+  padding: 8px 16px;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 10px;
+  margin: 0 5px;
+  background-color: #79ac78;
+}
+
+.pagination button:hover {
+  background-color: #b0d9b1;
+}
+

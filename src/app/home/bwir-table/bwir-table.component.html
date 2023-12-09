@@ -11,16 +11,6 @@
           Baseline Weight and Immunization Records of PreSchool Children (0-23
           Months)
         </legend>
-        <div>
-          <label for="NameOfHouseholdHead">Name Of Household Head:</label>
-          <input
-            type="text"
-            id="NameOfHouseholdHead"
-            name="NameOfHouseholdHead"
-            [(ngModel)]="baselineData.NameOfHouseholdHead"
-            required
-          />
-        </div>
         <fieldset>
           <div>
             <legend>-Date of Immunization-</legend>
@@ -119,51 +109,6 @@
           />
           <label for="nbsDoneNo">No</label>
         </div>
-        <fieldset>
-          <div>
-            <legend>-Weighing-</legend>
-          </div>
-          <div>
-            <label for="dateOfWeighing">Date of Weighing:</label>
-            <input
-              type="date"
-              id="dateOfWeighing"
-              name="dateOfWeighing"
-              [(ngModel)]="baselineData.dateOfWeighing"
-              required
-            />
-          </div>
-          <div>
-            <label for="ageInMonth">Age in Months:</label>
-            <input
-              type="text"
-              id="ageInMonth"
-              name="ageInMonth"
-              [(ngModel)]="baselineData.ageInMonth"
-              required
-            />
-          </div>
-          <div>
-            <label for="weight">Weight (kg.):</label>
-            <input
-              type="text"
-              id="weight"
-              name="weight"
-              [(ngModel)]="baselineData.weight"
-              required
-            />
-          </div>
-          <div>
-            <label for="weightStatus">Weight Status:</label>
-            <input
-              type="text"
-              id="weightStatus"
-              name="weightStatus"
-              [(ngModel)]="baselineData.weightStatus"
-              required
-            />
-          </div>
-        </fieldset>
         <button class="close" (click)="closeUpdateBaselineModal()">
           Cancel
         </button>
@@ -177,6 +122,25 @@
 </div>
 
 <fieldset class="fieldset1">
+  <div>
+    <label for="searchChild">Search Child:</label>
+    <input
+      list="childList"
+      type="text"
+      id="searchChild"
+      name="searchChild"
+      [(ngModel)]="searchInput"
+      (input)="onSearchInputChange()"
+    />
+    <datalist id="childList">
+      <option
+      *ngFor="let child of baselineRecords" 
+      
+      [value]="child.nameOfChild">
+        {{ child.nameOfChild }}
+      </option>
+    </datalist>
+  </div>
   <div class="filter-container">
     <label for="barangay">Barangay:</label>
     <select
@@ -291,6 +255,7 @@
               <tr>
                 <th>Household Number</th>
                 <th>Name of Household Head</th>
+                <th>Name of Child</th>
                 <th>Date of Birth</th>
                 <th>NBS Done?</th>
                 <th>BCG</th>
@@ -334,7 +299,7 @@
                 <td>{{ record.weight }}</td>
                 <td>{{ record.weightStatus }}</td>
                 <td>{{ record.barangay }}</td>
-                <td>{{ record.Date }}</td>
+                <td>{{ record.Date | date : "medium" : "Asia/Manila" }}</td>
                 <td>
                   <a class="btn btn-sm btn-outline-dark"
                     ><i class="fas fa-up-right-from-square"></i

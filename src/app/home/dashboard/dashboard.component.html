@@ -14,22 +14,176 @@
       </div>
 
       <canvas id="bmiChart"></canvas>
+      <div class="suw-label">
+        <p class="SUW">Severely Underweight (SUW)</p>
+        <p class="UW">Underweight (UW)</p>
+        <p class="HW">Healthy Weight (HW)</p>
+        <p class="OW">Overweight (OW)</p>
+        <p class="Ob">Obese (Ob)</p>
+      </div>
     </div>
 
     <div class="chart-container">
+      <select
+        id="monthSelect"
+        [(ngModel)]="selectedMonth1"
+        (change)="onMonthYearSelect1()"
+      >
+        <option value="0">January</option>
+        <option value="1">February</option>
+        <option value="2">March</option>
+        <option value="3">April</option>
+        <option value="4">May</option>
+        <option value="5">June</option>
+        <option value="6">July</option>
+        <option value="7">August</option>
+        <option value="8">September</option>
+        <option value="9">October</option>
+        <option value="10">November</option>
+        <option value="11">December</option>
+      </select>
+      <label for="monthSelect"> Select Year: </label>
+
+      <input
+        type="number"
+        id="monthSelect"
+        [(ngModel)]="selectedYear1"
+        (change)="onMonthYearSelect1()"
+      />
       <canvas id="barGraphHeight"></canvas>
+      <div class="SSt-label">
+        <p class="SSt">Severely Stunted (SSt)</p>
+        <p class="St">Stunted (St)</p>
+        <p class="N">Normal (N)</p>
+        <p class="T">Tall (T)</p>
+      </div>
     </div>
 
     <div class="chart-container1">
+      <select
+        id="monthSelect"
+        [(ngModel)]="selectedMonth3"
+        (change)="onMonthYearSelect3()"
+      >
+        <option value="0">January</option>
+        <option value="1">February</option>
+        <option value="2">March</option>
+        <option value="3">April</option>
+        <option value="4">May</option>
+        <option value="5">June</option>
+        <option value="6">July</option>
+        <option value="7">August</option>
+        <option value="8">September</option>
+        <option value="9">October</option>
+        <option value="10">November</option>
+        <option value="11">December</option>
+      </select>
+      <label for="monthSelect"> Select Year: </label>
+
+      <input
+        type="number"
+        id="monthSelect"
+        [(ngModel)]="selectedYear3"
+        (change)="onMonthYearSelect3()"
+      />
       <canvas id="barGraphAge"></canvas>
+      <div class="SUW-label">
+        <p class="SUW">Severely Underweight (SUW)</p>
+        <p class="UW">Underweight (UW)</p>
+        <p class="NW">Normal Weight (NW)</p>
+        <p class="OW">Overweight (OW)</p>
+      </div>
     </div>
   </div>
   <div class="right">
     <div class="chart-container1">
+      <label for="barangaySelect">Select Barangay: </label>
+      <select
+        id="barangaySelect"
+        [(ngModel)]="selectedBarangay"
+        (change)="onBarangaySelect()"
+      >
+        <option value="ALL">All Barangay</option>
+        <option value="ABUNG">ABUNG</option>
+        <option value="BALAGBAG">BALAGBAG</option>
+        <option value="BARUALTE">BARUALTE</option>
+        <option value="BATAAN">BATAAN</option>
+        <option value="BUHAY NA SAPA">BUHAY NA SAPA</option>
+        <option value="BULSA">BULSA</option>
+        <option value="CALICANTO">CALICANTO</option>
+        <option value="CALITCALIT">CALITCALIT</option>
+        <option value="CALUBCUB 1">CALUBCUB 1</option>
+        <option value="CALUBCUB 2">CALUBCUB 2</option>
+        <option value="CATMON">CATMON</option>
+        <option value="COLOCONTO">COLOCONTO</option>
+        <option value="ESCRIBANO">ESCRIBANO</option>
+        <option value="HUGOM">HUGOM</option>
+        <option value="IMELDA (TUBOG)">IMELDA (TUBOG)</option>
+        <option value="JANAOJANAO">JANAOJANAO</option>
+        <option value="LAIYA-IBABAO">LAIYA-IBABAO</option>
+        <option value="LAIYA-APLAYA">LAIYA-APLAYA</option>
+        <option value="LIBATO">LIBATO</option>
+        <option value="LIPAHAN">LIPAHAN</option>
+        <option value="MABALANOY">MABALANOY</option>
+        <option value="NAGSAULAY">NAGSAULAY</option>
+        <option value="MARAYKIT">MARAYKIT</option>
+        <option value="MUZON">MUZON</option>
+        <option value="PALAHANAN 1">PALAHANAN 1</option>
+        <option value="PALAHANAN 2">PALAHANAN 2</option>
+        <option value="PALINGOWAK">PALINGOWAK</option>
+        <option value="PINAGBAYANAN">PINAGBAYANAN</option>
+        <option value="POBLACION">POBLACION</option>
+        <option value="POCTOL">POCTOL</option>
+        <option value="PULANGBATO">PULANGBATO</option>
+        <option value="PUTINGBUHANGIN">PUTINGBUHANGIN</option>
+        <option value="QUIPOT">QUIPOT</option>
+        <option value="SAMPIRO">SAMPIRO</option>
+        <option value="SAPANGAN">SAPANGAN</option>
+        <option value="SICO 1">SICO 1</option>
+        <option value="SICO 2">SICO 2</option>
+        <option value="SUBUKIN">SUBUKIN</option>
+        <option value="TALAHIBAN 1">TALAHIBAN 1</option>
+        <option value="TALAHIBAN 2">TALAHIBAN 2</option>
+        <option value="TICALAN">TICALAN</option>
+        <option value="TIPAZ">TIPAZ</option>
+      </select>
+
       <canvas id="genderChart"></canvas>
     </div>
     <div class="chart-container1">
+      <select
+        id="monthSelect"
+        [(ngModel)]="selectedMonth2"
+        (change)="onMonthYearSelect2()"
+      >
+        <option value="0">January</option>
+        <option value="1">February</option>
+        <option value="2">March</option>
+        <option value="3">April</option>
+        <option value="4">May</option>
+        <option value="5">June</option>
+        <option value="6">July</option>
+        <option value="7">August</option>
+        <option value="8">September</option>
+        <option value="9">October</option>
+        <option value="10">November</option>
+        <option value="11">December</option>
+      </select>
+      <label for="monthSelect"> Select Year: </label>
+
+      <input
+        type="number"
+        id="monthSelect"
+        [(ngModel)]="selectedYear2"
+        (change)="onMonthYearSelect2()"
+      />
       <canvas id="barGraphWH"></canvas>
+      <div class="SUW-label">
+        <p class="SUW">Severely Underweight (SUW)</p>
+        <p class="UW">Underweight (UW)</p>
+        <p class="N">Normal (N)</p>
+        <p class="Ob">Obese (Ob)</p>
+      </div>
     </div>
   </div>
 </div>

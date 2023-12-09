@@ -11,11 +11,13 @@ export class MonthlyHeightRecordsTableComponent {
   originalMonthlyHeightRecords: any[] = []; // Store the original data
   monthlyHeightRecords: any[] = [];
   monthlyHeightRecordsData: any = {};
-  selectedBarangay: string = '';
+  searchInput: string = '';
+  filteredMonthlyHeightRecords: any[] = [];
 
+  selectedBarangay: string = '';
   fromDate: string = ''; // Declare property for From Date
   toDate: string = ''; // Declare property for To Date
-  selectedMeasurementMonth: string = '';
+  selectedMonth: any = '';
 
   @ViewChild('updateMonthlyHeightModal') updateMonthlyHeightModal!: ElementRef;
 
@@ -26,6 +28,26 @@ export class MonthlyHeightRecordsTableComponent {
     this.fetchmonthlyHeightRecords();
   }
 
+  onSearchInputChange() {
+    this.monthlyHeightRecordsData.nameOfChild = this.searchInput;
+
+    if (this.searchInput === '') {
+      // Show all children records when the search input is empty
+      this.filteredMonthlyHeightRecords = this.monthlyHeightRecords;
+    } else {
+      // Filter children records based on the search input
+      this.filteredMonthlyHeightRecords = this.monthlyHeightRecords.filter(
+        (child) => {
+          return child.nameOfChild
+            .toLowerCase()
+            .includes(this.searchInput.toLowerCase());
+        }
+      );
+    }
+
+    this.filterRecords();
+  }
+
   fetchmonthlyHeightRecords() {
     const monthlyHeightRef = ref(this.database, 'MonthlyHeightRecord');
 
@@ -33,7 +55,7 @@ export class MonthlyHeightRecordsTableComponent {
       .then((snapshot) => {
         if (snapshot.exists()) {
           this.originalMonthlyHeightRecords = Object.values(snapshot.val());
-          this.monthlyHeightRecords = [...this.originalMonthlyHeightRecords]; // Copy the data
+          this.monthlyHeightRecords = Object.values(snapshot.val()); // Copy the data
         } else {
           this.monthlyHeightRecords = [];
         }
@@ -53,7 +75,7 @@ export class MonthlyHeightRecordsTableComponent {
 
   filterRecords() {
     // Create a copy of the original data
-    let filteredRecords = [...this.originalMonthlyHeightRecords];
+    let filteredRecords = [...this.filteredMonthlyHeightRecords];
 
     // Apply the barangay filter
     if (this.selectedBarangay) {
@@ -87,69 +109,29 @@ export class MonthlyHeightRecordsTableComponent {
       });
     }
 
-    if (this.selectedMeasurementMonth) {
-      filteredRecords = filteredRecords.filter(
-        (record) => record.measurementMonth === this.selectedMeasurementMonth
-      );
-    }
+    if (this.selectedMonth) {
+      filteredRecords = filteredRecords.filter((record) => {
+        const year = new Date(record.Date).getFullYear();
+        const month = new Date(record.Date).getMonth();
 
-    // Update the monthlyHeightRecords with the filtered data
+        return month == this.selectedMonth;
+      });
+    }
     this.monthlyHeightRecords = filteredRecords;
   }
 
   clearFilters() {
     // Clear the selected barangay, from date, and to date
+    this.searchInput = '';
     this.selectedBarangay = '';
     this.fromDate = '';
     this.toDate = '';
-    this.selectedMeasurementMonth = '';
+    this.selectedMonth = '';
 
     // Reset the monthlyHeightRecords to the original data
     this.monthlyHeightRecords = [...this.originalMonthlyHeightRecords];
   }
 
-  openUpdateMonthlyHeightModal(child: any) {
-    // Set the health data in the component to be used in the modal form
-    this.monthlyHeightRecordsData = { ...child };
-
-    // Open the update health modal
-    this.updateMonthlyHeightModal.nativeElement.style.display = 'block';
-  }
-
-  updateMonthlyHeight() {
-    const monthlyHeightRef = ref(
-      this.database,
-      `MonthlyHeightRecord/${this.monthlyHeightRecordsData.monthlyHeightRecordsId}`
-    );
-
-    // Update the children's health data in the database
-    update(monthlyHeightRef, {
-      monthlyHeightRecordsId:
-        this.monthlyHeightRecordsData.monthlyHeightRecordsId,
-      nameOfChild: this.monthlyHeightRecordsData.nameOfChild,
-      birthday: this.monthlyHeightRecordsData.birthday,
-      ageInMonths: this.monthlyHeightRecordsData.ageInMonths,
-      weight: this.monthlyHeightRecordsData.weight,
-      heightOrLength: this.monthlyHeightRecordsData.heightOrLength,
-      nutritionalStatus: this.monthlyHeightRecordsData.nutritionalStatus,
-      barangay: this.monthlyHeightRecordsData.barangay,
-      Date: this.monthlyHeightRecordsData.Date,
-      measurementMonth: this.monthlyHeightRecordsData.measurementMonth,
-    })
-      .then(() => {
-        alert('Children Monthly Height Records Data Updated successfully');
-        this.fetchmonthlyHeightRecords();
-      })
-      .catch((error) => {
-        console.error('Error updating Monthly Height children records:', error);
-      });
-
-    this.updateMonthlyHeightModal.nativeElement.style.display = 'none';
-  }
-
-  closeUpdateMonthlyHeightModal() {
-    this.updateMonthlyHeightModal.nativeElement.style.display = 'none';
-  }
   reloadPage() {
     window.location.reload();
   }
@@ -186,7 +168,6 @@ export class MonthlyHeightRecordsTableComponent {
       'Nutritional Status',
       'Barangay',
       'Date',
-      'Measurement Month',
     ];
 
     // Convert the child records to a CSV format
@@ -200,7 +181,6 @@ export class MonthlyHeightRecordsTableComponent {
       record.nutritionalStatus,
       record.barangay,
       record.Date,
-      record.measurementMonth,
     ]);
 
     // Combine the header and data

@@ -8,7 +8,7 @@
     <legend><h2>BMI Calculator</h2></legend>
 
     <div>
-      <label for="searchChild">Search Child:</label>
+      <label for="searchChild" class="label">Search Child:</label>
       <input
         list="childList"
         type="text"
@@ -25,6 +25,18 @@
           {{ child.firstName }} {{ child.lastName }}
         </option>
       </datalist>
+    </div>
+    <div>
+      <label for="birthday" class="label">Birthday:</label>
+      <input
+        type="date"
+        id="birthday"
+        name="birthday"
+        [value]="getSelectedChildBirthday()"
+        [(ngModel)]="bmiRecordData.birthday"
+        (ngModelChange)="onBirthdayChange()"
+        required
+      />
     </div>
     <div>
       <label for="barangay" class="label">Barangay:</label>
@@ -89,13 +101,7 @@
     </div>
     <div>
       <label for="age" class="label">Age (5 and below):</label>
-      <input
-        type="number"
-        id="age"
-        [value]="getSelectedChildAge()"
-        [(ngModel)]="bmiRecordData.age"
-        max="5"
-      />
+      <input type="number" id="age" [(ngModel)]="bmiRecordData.age" max="5" />
     </div>
     <div>
       <button id="btn-calc" (click)="onSubmit()">Calculate BMI</button>

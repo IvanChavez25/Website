@@ -5,8 +5,8 @@
 
 <div class="container">
   <div class="navigation-buttons">
-    <button routerLink="/home/monthlyrecords">Monthly Height Records</button>
     <button routerLink="/home/monthlyweight">Monthly Weight Records</button>
+    <button routerLink="/home/monthlyrecords">Monthly Height Records</button>
     <button routerLink="/home/monthlyrecordsinfant">
       Monthly Records (Infant)
     </button>
@@ -44,6 +44,7 @@
           name="birthday"
           [value]="getSelectedChildBirthday()"
           [(ngModel)]="monthlyInfantRecordData.birthday"
+          (ngModelChange)="onBirthdayChange()"
           required
         />
       </div>
@@ -54,7 +55,6 @@
           type="text"
           id="ageInMonths"
           name="ageInMonths"
-          [value]="getSelectedChildAge()"
           [(ngModel)]="monthlyInfantRecordData.ageInMonths"
           required
         />
@@ -80,8 +80,8 @@
             type="text"
             id="heightOrLength"
             name="heightOrLength"
-            [(ngModel)]="monthlyInfantRecordData.heightOrLength"
-            (ngModelChange)="onheightOrLengthChange()"
+            [(ngModel)]="monthlyInfantRecordData.height"
+            (ngModelChange)="onheightForAgeChange()"
             required
           />
         </div>
@@ -115,7 +115,7 @@
             type="text"
             id="heightOrLengths"
             name="heightOrLengths"
-            [(ngModel)]="monthlyInfantRecordData.heightOrLengths"
+            [(ngModel)]="monthlyInfantRecordData.heightForAge"
             required
           />
         </div>
@@ -183,36 +183,6 @@
           <option value="TALAHIBAN 2">TALAHIBAN 2</option>
           <option value="TICALAN">TICALAN</option>
           <option value="TIPAZ">TIPAZ</option>
-        </select>
-      </div>
-      <div>
-        <label for="Date">Date:</label>
-        <input
-          type="date"
-          id="Date"
-          name="Date"
-          [(ngModel)]="monthlyInfantRecordData.Date"
-          required
-        />
-      </div>
-      <div>
-        <label for="measurementMonth">Measurement Month:</label>
-        <select
-          id="measurementMonth"
-          name="measurementMonth"
-          [(ngModel)]="monthlyInfantRecordData.measurementMonth"
-        >
-          <option value="January">January</option>
-          <option value="February">February</option>
-          <option value="March">March</option>
-          <option value="May">May</option>
-          <option value="June">June</option>
-          <option value="July">July</option>
-          <option value="August">August</option>
-          <option value="September">September</option>
-          <option value="October">October</option>
-          <option value="November">November</option>
-          <option value="December">December</option>
         </select>
       </div>
       <button type="submit">Submit</button>

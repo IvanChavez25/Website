@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Database, ref, get } from '@angular/fire/database';
-import Chart from 'chart.js/auto';
 
 @Component({
   selector: 'app-barangay-rankingbmi',
@@ -21,8 +20,24 @@ export class BarangayRankingbmiComponent implements OnInit {
   selectedYear: number = new Date().getFullYear();
   selectedBarangayInfo: any[] = [];
 
+  currentPage: number = 1;
+  itemsPerPage: number = 10;
+
+
   constructor(public database: Database) {
     this.rankBarangays();
+  }
+
+  get startIndex(): number {
+    return (this.currentPage - 1) * this.itemsPerPage;
+  }
+
+  get endIndex(): number {
+    return this.startIndex + this.itemsPerPage;
+  }
+
+  goToPage(pageNumber: number) {
+    this.currentPage = pageNumber;
   }
 
   ngOnInit() {
@@ -36,7 +51,6 @@ export class BarangayRankingbmiComponent implements OnInit {
       .then((snapshot) => {
         if (snapshot.exists()) {
           this.barangaylist = Object.values(snapshot.val());
-          this.createBarChart();
         } else {
           this.barangaylist = [];
           console.log(this.barangaylist);
@@ -47,15 +61,9 @@ export class BarangayRankingbmiComponent implements OnInit {
       });
   }
 
-  onYearFilterChange() {
-    this.rankBarangays();
-    this.createBarChart();
-  }
-
   // Event handler for month selection
   onMonthYearSelect() {
     this.rankBarangays();
-    this.createBarChart();
   }
 
   rankBarangays() {
@@ -223,107 +231,5 @@ export class BarangayRankingbmiComponent implements OnInit {
       month = 'December';
       return month;
     }
-  }
-
-  createBarChart() {
-    const ctx = document.getElementById('bmiChart') as HTMLCanvasElement;
-
-    // dinagdag koo
-    const existingChart = Chart.getChart(ctx);
-    if (existingChart) {
-      existingChart.destroy();
-    }
-
-    const filteredData = this.barangaylist.filter((record) => {
-      const recordYear = new Date(record.Date).getFullYear();
-      return recordYear === this.selectedYear;
-    });
-
-    //hangangditoo
-
-    // Calculate counts for each month in the selected year
-    const countsPerMonth: {
-      [key: string]: { severelyUnderweight: number; underweight: number };
-    } = {};
-
-    filteredData.forEach((record) => {
-      const month = this.getMonth(new Date(record.Date).getMonth());
-      const resultMessage = record.resultMessage;
-
-      if (!countsPerMonth[month]) {
-        countsPerMonth[month] = {
-          severelyUnderweight: 0,
-          underweight: 0,
-          // Add other categories here...
-        };
-      }
-
-      if (resultMessage === 'Severely underweight') {
-        countsPerMonth[month].severelyUnderweight++;
-      } else if (resultMessage === 'Underweight') {
-        countsPerMonth[month].underweight++;
-      }
-      // Add other category counts similarly...
-    });
-
-    // Extract counts for each category
-    const labels = Object.keys(countsPerMonth);
-    const severelyUnderweightData = Object.values(countsPerMonth).map(
-      (countObj) => countObj.severelyUnderweight
-    );
-    const underweightData = Object.values(countsPerMonth).map(
-      (countObj) => countObj.underweight
-    );
-    // Add other categories similarly...
-
-    // Create the chart with filtered data
-    new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: labels,
-        datasets: [
-          {
-            label: 'Severely Underweight',
-            data: severelyUnderweightData,
-            backgroundColor: 'rgba(255, 99, 132, 0.2)',
-            borderColor: 'rgba(255, 99, 132, 1)',
-            borderWidth: 1,
-          },
-          {
-            label: 'Underweight',
-            data: underweightData,
-            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-            borderColor: 'rgba(75, 192, 192, 1)',
-            borderWidth: 1,
-          },
-          // Add other datasets for different categories similarly...
-        ],
-      },
-      options: {
-        plugins: {
-          title: {
-            display: true,
-            text: `Total Severely Underweight and Underweight Cases for ${this.selectedYear}`,
-          },
-        },
-        scales: {
-          x: {
-            ticks: {
-              font: {
-                size: 7,
-              },
-            },
-          },
-          y: {
-            beginAtZero: true,
-            ticks: {
-              font: {
-                size: 7,
-              },
-            },
-          },
-        },
-      },
-    });
   }
 }

@@ -11,11 +11,13 @@ export class MonthlyWeightRecordsTableComponent {
   originalMonthlyWeightRecords: any[] = [];
   monthlyWeightRecords: any[] = [];
   monthlyWeightRecordsData: any = {};
+  searchInput: string = '';
+  filteredMonthlyWeightRecords: any[] = [];
 
   selectedBarangay: string = '';
   fromDate: string = '';
   toDate: string = '';
-  selectedMeasurementMonth: string = '';
+  selectedMonth: any = '';
 
   @ViewChild('updateMonthlyWeightModal') updateMonthlyWeightModal!: ElementRef;
 
@@ -26,6 +28,26 @@ export class MonthlyWeightRecordsTableComponent {
     this.fetchmonthlyWeightRecords();
   }
 
+  onSearchInputChange() {
+    this.monthlyWeightRecordsData.nameOfChild = this.searchInput;
+
+    if (this.searchInput === '') {
+      // Show all children records when the search input is empty
+      this.filteredMonthlyWeightRecords = this.monthlyWeightRecords;
+    } else {
+      // Filter children records based on the search input
+      this.filteredMonthlyWeightRecords = this.monthlyWeightRecords.filter(
+        (child) => {
+          return child.nameOfChild
+            .toLowerCase()
+            .includes(this.searchInput.toLowerCase());
+        }
+      );
+    }
+
+    this.filterRecords();
+  }
+
   fetchmonthlyWeightRecords() {
     const monthlyWeightRef = ref(this.database, 'MonthlyWeightRecord');
 
@@ -33,7 +55,7 @@ export class MonthlyWeightRecordsTableComponent {
       .then((snapshot) => {
         if (snapshot.exists()) {
           this.originalMonthlyWeightRecords = Object.values(snapshot.val());
-          this.monthlyWeightRecords = [...this.originalMonthlyWeightRecords]; // Copy the data
+          this.monthlyWeightRecords = Object.values(snapshot.val()); // Copy the data
         } else {
           this.monthlyWeightRecords = [];
         }
@@ -53,7 +75,7 @@ export class MonthlyWeightRecordsTableComponent {
 
   filterRecords() {
     // Create a copy of the original data
-    let filteredRecords = [...this.originalMonthlyWeightRecords];
+    let filteredRecords = [...this.filteredMonthlyWeightRecords];
 
     // Apply the barangay filter
     if (this.selectedBarangay) {
@@ -87,10 +109,13 @@ export class MonthlyWeightRecordsTableComponent {
       });
     }
 
-    if (this.selectedMeasurementMonth) {
-      filteredRecords = filteredRecords.filter(
-        (record) => record.measurementMonth === this.selectedMeasurementMonth
-      );
+    if (this.selectedMonth) {
+      filteredRecords = filteredRecords.filter((record) => {
+        const year = new Date(record.Date).getFullYear();
+        const month = new Date(record.Date).getMonth();
+
+        return month == this.selectedMonth;
+      });
     }
 
     // Update the monthlyHeightRecords with the filtered data
@@ -99,57 +124,16 @@ export class MonthlyWeightRecordsTableComponent {
 
   clearFilters() {
     // Clear the selected barangay, from date, and to date
+    this.searchInput = '';
     this.selectedBarangay = '';
     this.fromDate = '';
     this.toDate = '';
-    this.selectedMeasurementMonth = '';
+    this.selectedMonth = '';
 
     // Reset the monthlyHeightRecords to the original data
     this.monthlyWeightRecords = [...this.originalMonthlyWeightRecords];
   }
 
-  openUpdateMonthlyWeightModal(child: any) {
-    // Set the health data in the component to be used in the modal form
-    this.monthlyWeightRecordsData = { ...child };
-
-    // Open the update health modal
-    this.updateMonthlyWeightModal.nativeElement.style.display = 'block';
-  }
-
-  updateMonthlyWeight() {
-    const monthlyWeightRef = ref(
-      this.database,
-      `MonthlyWeightRecord/${this.monthlyWeightRecordsData.monthlyWeightRecordsId}`
-    );
-
-    // Update the children's health data in the database
-    update(monthlyWeightRef, {
-      monthlyWeightRecordsId:
-        this.monthlyWeightRecordsData.monthlyWeightRecordsId,
-      nameOfChild: this.monthlyWeightRecordsData.nameOfChild,
-      birthday: this.monthlyWeightRecordsData.birthday,
-      ageInMonths: this.monthlyWeightRecordsData.ageInMonths,
-      weight: this.monthlyWeightRecordsData.weight,
-      weightStatus: this.monthlyWeightRecordsData.weightStatus,
-      dateOfWeighing: this.monthlyWeightRecordsData.dateOfWeighing,
-      barangay: this.monthlyWeightRecordsData.barangay,
-      Date: this.monthlyWeightRecordsData.Date,
-      measurementMonth: this.monthlyWeightRecordsData.measurementMonth,
-    })
-      .then(() => {
-        alert('Children Monthly Weight Records Data Updated successfully');
-        this.fetchmonthlyWeightRecords();
-      })
-      .catch((error) => {
-        console.error('Error updating Monthly Weight children records:', error);
-      });
-
-    this.updateMonthlyWeightModal.nativeElement.style.display = 'none';
-  }
-
-  closeUpdateMonthlyWeightModal() {
-    this.updateMonthlyWeightModal.nativeElement.style.display = 'none';
-  }
   reloadPage() {
     window.location.reload();
   }
@@ -187,7 +171,6 @@ export class MonthlyWeightRecordsTableComponent {
       'Nutritional Status',
       'Barangay',
       'Date',
-      'Measurement Month',
     ];
 
     // Convert the child records to a CSV format
@@ -201,7 +184,6 @@ export class MonthlyWeightRecordsTableComponent {
       record.dateOfWeighing,
       record.barangay,
       record.Date,
-      record.measurementMonth,
     ]);
 
     // Combine the header and data

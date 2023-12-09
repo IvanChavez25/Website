@@ -1,17 +1,7 @@
 import { Component } from '@angular/core';
-import { AngularFireDatabase } from '@angular/fire/compat/database';
-import { NgForm } from '@angular/forms';
 import { Location } from '@angular/common';
 
-import {
-  Database,
-  set,
-  ref,
-  push,
-  update,
-  remove,
-  get,
-} from '@angular/fire/database';
+import { Database, set, ref, get } from '@angular/fire/database';
 
 @Component({
   selector: 'app-monthly-record-infant',
@@ -20,29 +10,28 @@ import {
 })
 export class MonthlyRecordInfantComponent {
   childRecords: any[] = [];
+  searchInput: string = '';
+  filteredChildRecords: any[] = [];
 
   weight: number = 0;
-  heightOrLength: number = 0;
+  height: number = 0;
   weightForLengthOrHeight: number = 0;
 
   monthlyInfantRecordData: any = {
     monthlyInfantRecordsId: null,
     nameOfChild: '',
     birthday: '',
+    age: '',
     ageInMonths: '',
     weight: '',
-    heightOrLength: '',
+    height: '',
     weightForLengthOrHeight: '',
     weightForAge: '',
-    heightOrLengths: '',
+    heightForAge: '',
     weightForLengthorHeight: '',
     barangay: '',
     Date: '',
-    measurementMonth: '',
   };
-
-  searchInput: string = '';
-  filteredChildRecords: any[] = [];
 
   constructor(public database: Database, private location: Location) {
     this.fetchChildRecords();
@@ -1506,1465 +1495,1510 @@ export class MonthlyRecordInfantComponent {
     }
   }
 
-  onheightOrLengthChange() {
-    this.calculateheightOrLength(
+  onheightForAgeChange() {
+    this.calculateheightForAge(
       this.monthlyInfantRecordData.ageInMonths,
       this.monthlyInfantRecordData.height,
       this.monthlyInfantRecordData.gender
     );
   }
 
-  calculateheightOrLength(age: number, height: number, gender: string) {
+  calculateheightForAge(age: number, height: number, gender: string) {
     if (gender === 'female') {
       if (age == 0) {
         if (height <= 43.5) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 45.3) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 52.9) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 1) {
         if (height <= 47.7) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 49.7) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 57.6) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 2) {
         if (height <= 50.9) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 52.9) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 61.1) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 3) {
         if (height <= 53.4) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 55.5) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 64.0) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 4) {
         if (height <= 55.5) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 57.7) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 66.4) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 5) {
         if (height <= 57.3) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 59.5) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 68.5) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 6) {
         if (height <= 58.8) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 61.1) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 70.3) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 7) {
         if (height <= 60.2) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 62.6) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 71.9) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 8) {
         if (height <= 61.6) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 63.9) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 73.5) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 9) {
         if (height <= 62.8) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 65.2) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 75.0) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 10) {
         if (height <= 64.0) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 66.4) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 76.4) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 11) {
         if (height <= 65.1) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 67.6) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 77.8) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 12) {
         if (height <= 66.2) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 68.8) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 79.2) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 13) {
         if (height <= 67.2) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 69.9) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 80.5) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 14) {
         if (height <= 68.2) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 70.9) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 81.7) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 15) {
         if (height <= 69.2) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 71.9) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 83.0) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 16) {
         if (height <= 70.1) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 72.9) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 84.2) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 17) {
         if (height <= 71.0) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 73.9) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 85.4) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 18) {
         if (height <= 71.9) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 74.8) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 86.5) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 19) {
         if (height <= 72.7) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 75.7) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 87.6) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 20) {
         if (height <= 73.6) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 76.6) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 88.7) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 21) {
         if (height <= 74.4) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 77.4) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 89.8) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 22) {
         if (height <= 75.1) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 78.3) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 90.8) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 23) {
         if (height <= 75.9) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 79.1) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 91.9) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 24) {
         if (height <= 75.9) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 79.2) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 92.2) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 25) {
         if (height <= 76.7) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 79.9) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 93.1) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 26) {
         if (height <= 77.4) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 80.7) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 94.1) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 27) {
         if (height <= 78.0) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 81.4) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 95.0) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 28) {
         if (height <= 78.7) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 82.1) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 96.0) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 29) {
         if (height <= 79.4) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 82.8) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 96.9) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 30) {
         if (height <= 80.0) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 83.5) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 97.7) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 31) {
         if (height <= 80.6) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 84.2) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 98.6) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 32) {
         if (height <= 81.2) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 84.8) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 99.4) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 33) {
         if (height <= 81.8) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 85.5) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 100.3) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 34) {
         if (height <= 82.4) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 86.1) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 101.1) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 35) {
         if (height <= 83.0) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 86.7) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 101.9) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 36) {
         if (height <= 83.5) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 87.3) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 102.7) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 37) {
         if (height <= 84.1) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 87.9) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 103.4) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 38) {
         if (height <= 84.6) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 88.5) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 104.2) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 39) {
         if (height <= 85.2) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 89.1) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 105.0) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 40) {
         if (height <= 85.7) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 89.7) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 105.7) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 41) {
         if (height <= 86.2) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 90.3) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 106.4) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 42) {
         if (height <= 86.7) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 90.8) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 107.2) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 43) {
         if (height <= 87.3) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 91.4) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 107.9) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 44) {
         if (height <= 87.8) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 91.9) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 108.6) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 45) {
         if (height <= 88.3) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 92.4) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 109.3) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 46) {
         if (height <= 88.8) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 93.0) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 110.0) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 47) {
         if (height <= 89.2) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 93.5) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 110.7) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 48) {
         if (height <= 89.7) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 94.0) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 111.3) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 49) {
         if (height <= 90.2) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 94.5) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 112.0) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 50) {
         if (height <= 90.6) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 95.0) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 112.7) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 51) {
         if (height <= 91.1) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 95.5) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 113.3) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 52) {
         if (height <= 91.6) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 96.0) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 114.0) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 53) {
         if (height <= 92.0) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 96.5) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 114.6) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 54) {
         if (height <= 92.5) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 97.0) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 115.2) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 55) {
         if (height <= 92.9) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 97.5) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 115.9) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 56) {
         if (height <= 93.3) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 98.0) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 116.5) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 57) {
         if (height <= 93.8) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 98.4) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 117.1) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 58) {
         if (height <= 94.2) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 98.9) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 117.7) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 59) {
         if (height <= 94.6) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 99.4) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 118.3) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 60) {
         if (height <= 95.1) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 99.8) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 118.9) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 61) {
         if (height <= 95.2) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 100.0) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 119.1) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 62) {
         if (height <= 95.6) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 100.4) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 119.7) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 63) {
         if (height <= 96.0) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 100.9) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 120.3) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 64) {
         if (height <= 96.4) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 101.3) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 120.9) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 65) {
         if (height <= 96.9) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 101.8) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 121.5) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 66) {
         if (height <= 97.3) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 102.2) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 122.0) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 67) {
         if (height <= 97.7) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 102.6) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 122.6) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 68) {
         if (height <= 98.1) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 103.1) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 123.2) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 69) {
         if (height <= 98.5) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 103.5) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 123.7) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 70) {
         if (height <= 98.9) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 103.9) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 124.3) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 71) {
         if (height <= 99.3) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 104.4) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 124.8) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else {
-        this.monthlyInfantRecordData.heightOrLength = 'Unknown';
+        this.monthlyInfantRecordData.heightForAge = 'Unknown';
       }
     } else {
       if (age == 0) {
         if (height <= 44.1) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 46.0) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 53.7) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 1) {
         if (height <= 48.8) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 50.7) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 58.6) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 2) {
         if (height <= 52.3) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 54.3) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 62.4) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 3) {
         if (height <= 55.2) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 57.2) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 65.5) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 4) {
         if (height <= 57.5) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 59.6) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 68.0) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 5) {
         if (height <= 59.5) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 61.6) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 70.1) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 6) {
         if (height <= 61.1) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 63.2) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 71.9) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 7) {
         if (height <= 62.6) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 64.7) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 73.5) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 8) {
         if (height <= 63.9) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 66.1) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 75.0) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 9) {
         if (height <= 65.1) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 67.4) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 76.5) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 10) {
         if (height <= 66.3) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 68.6) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 77.9) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 11) {
         if (height <= 67.5) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 69.8) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 79.2) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 12) {
         if (height <= 68.5) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 70.9) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 80.5) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 13) {
         if (height <= 69.5) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 72.0) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 81.8) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 14) {
         if (height <= 70.5) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 73.0) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 83.0) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 15) {
         if (height <= 71.5) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 74.0) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 84.2) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 16) {
         if (height <= 72.4) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 74.9) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 85.4) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 17) {
         if (height <= 73.2) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 75.9) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 86.5) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 18) {
         if (height <= 74.1) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 76.8) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 87.7) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 19) {
         if (height <= 74.9) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 77.6) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 88.8) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 20) {
         if (height <= 75.7) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 78.5) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 89.8) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 21) {
         if (height <= 76.4) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 79.3) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 90.9) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 22) {
         if (height <= 77.1) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 80.1) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 91.9) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 23) {
         if (height <= 77.9) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 80.9) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 93.2) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 24) {
         if (height <= 77.9) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 80.9) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 92.2) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 25) {
         if (height <= 78.5) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 81.6) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 94.2) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 26) {
         if (height <= 79.2) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 82.4) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 95.2) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 27) {
         if (height <= 79.8) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 83.0) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 96.1) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 28) {
         if (height <= 80.4) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 83.7) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 97.0) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 29) {
         if (height <= 81.0) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 84.4) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 97.9) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 30) {
         if (height <= 81.6) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 85.0) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 98.7) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 31) {
         if (height <= 83.2) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 85.6) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 99.6) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 32) {
         if (height <= 82.7) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 86.3) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 100.4) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 33) {
         if (height <= 83.3) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 86.8) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 101.2) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 34) {
         if (height <= 83.8) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 87.4) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 102.0) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 35) {
         if (height <= 84.3) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 88.0) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 102.7) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 36) {
         if (height <= 84.9) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 88.6) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 103.5) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 37) {
         if (height <= 85.4) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 89.1) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 104.2) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 38) {
         if (height <= 85.9) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 89.7) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 105.0) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 39) {
         if (height <= 86.4) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 90.2) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 105.7) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 40) {
         if (height <= 86.9) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 90.8) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 106.4) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 41) {
         if (height <= 87.4) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 91.3) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 107.1) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 42) {
         if (height <= 87.9) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 91.8) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 107.8) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 43) {
         if (height <= 88.3) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 92.3) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 108.5) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 44) {
         if (height <= 88.8) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 92.9) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 109.1) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 45) {
         if (height <= 89.3) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 93.4) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 109.8) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 46) {
         if (height <= 89.7) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 93.9) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 110.4) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 47) {
         if (height <= 90.2) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 94.3) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 111.1) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 48) {
         if (height <= 90.6) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 94.8) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 111.7) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 49) {
         if (height <= 91.1) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 95.3) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 112.4) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 50) {
         if (height <= 91.5) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 95.8) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 113.0) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 51) {
         if (height <= 92.0) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 96.3) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 113.6) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 52) {
         if (height <= 92.4) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 96.8) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 114.2) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 53) {
         if (height <= 92.9) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 97.3) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 114.9) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 54) {
         if (height <= 93.3) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 97.7) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 115.5) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 55) {
         if (height <= 93.8) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 98.2) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 116.1) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 56) {
         if (height <= 94.2) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 98.7) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 116.7) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 57) {
         if (height <= 94.6) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 99.2) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 117.4) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 58) {
         if (height <= 95.1) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 99.6) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 118.0) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 59) {
         if (height <= 95.5) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 100.1) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 118.6) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 60) {
         if (height <= 96.0) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 100.6) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 119.2) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 61) {
         if (height <= 96.4) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 101.0) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 119.4) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 62) {
         if (height <= 96.8) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 101.1) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 120.0) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 63) {
         if (height <= 97.3) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 101.9) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 120.6) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 64) {
         if (height <= 97.7) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 102.4) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 121.2) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 65) {
         if (height <= 98.1) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 102.9) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 121.8) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 66) {
         if (height <= 98.6) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 103.3) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 122.4) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 67) {
         if (height <= 99.0) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 103.8) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 123.0) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 68) {
         if (height <= 99.4) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 104.2) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 123.6) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 69) {
         if (height <= 99.8) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 104.7) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 124.1) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 70) {
         if (height <= 100.3) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 105.1) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 124.7) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       } else if (age == 71) {
         if (height <= 100.7) {
-          this.monthlyInfantRecordData.heightOrLength = 'SSt';
+          this.monthlyInfantRecordData.heightForAge = 'SSt';
         } else if (height <= 105.6) {
-          this.monthlyInfantRecordData.heightOrLength = 'St';
+          this.monthlyInfantRecordData.heightForAge = 'St';
         } else if (height <= 125.2) {
-          this.monthlyInfantRecordData.heightOrLength = 'N';
+          this.monthlyInfantRecordData.heightForAge = 'N';
         } else {
-          this.monthlyInfantRecordData.heightOrLength = 'T';
+          this.monthlyInfantRecordData.heightForAge = 'T';
         }
       }
     }
   }
 
+
+
+  onBirthdayChange() {
+    this.calculateAge(this.monthlyInfantRecordData.birthday);
+    this.calculateAgeInMonths(this.monthlyInfantRecordData.birthday);
+  }
+
+  calculateAge(birthdate: string) {
+    const today = new Date();
+    const birthDate = new Date(birthdate);
+    let age = today.getFullYear() - birthDate.getFullYear();
+
+    // Check if the birthday has occurred this year
+    if (
+      today.getMonth() < birthDate.getMonth() ||
+      (today.getMonth() === birthDate.getMonth() &&
+        today.getDate() < birthDate.getDate())
+    ) {
+      age--;
+    }
+
+    // Set age to zero if it's negative
+    if (age < 0) {
+      age = 0;
+    }
+
+    this.monthlyInfantRecordData.age = age.toString();
+  }
+
+  calculateAgeInMonths(birthdate: string) {
+    const today = new Date();
+    const birthDate = new Date(birthdate);
+    const years = today.getFullYear() - birthDate.getFullYear();
+    const months = today.getMonth() - birthDate.getMonth();
+    const ageInMonths = years * 12 + months;
+
+    // Set ageInMonths to zero if it's negative
+    if (ageInMonths < 0) {
+      this.monthlyInfantRecordData.ageInMonths = '0';
+    } else {
+      this.monthlyInfantRecordData.ageInMonths = ageInMonths.toString();
+    }
+  }
+
   onSubmit() {
+    this.monthlyInfantRecordData.Date = Date.now();
     if (this.isValidmonthlyInfantRecordData()) {
       // Query the latest child ID from the MonthlyInfantRecord
       const latestmonthlyInfantRecordsIdRef = ref(
@@ -3011,14 +3045,13 @@ export class MonthlyRecordInfantComponent {
       birthday: '',
       ageInMonths: '',
       weight: '',
-      heightOrLength: '',
+      height: '',
       weightForLengthOrHeight: '',
       weightForAge: '',
-      heightOrLengths: '',
+      heightForAge: '',
       weightForLengthorHeight: '',
       barangay: '',
       Date: '',
-      measurementMonth: '',
     };
   }
 
@@ -3026,16 +3059,16 @@ export class MonthlyRecordInfantComponent {
     return (
       this.monthlyInfantRecordData.nameOfChild &&
       this.monthlyInfantRecordData.birthday &&
+      (this.monthlyInfantRecordData.age ||
+        this.monthlyInfantRecordData.age === 0) &&
       this.monthlyInfantRecordData.ageInMonths &&
       this.monthlyInfantRecordData.weight &&
-      this.monthlyInfantRecordData.heightOrLength &&
+      this.monthlyInfantRecordData.height &&
       this.monthlyInfantRecordData.weightForLengthOrHeight &&
       this.monthlyInfantRecordData.weightForAge &&
-      this.monthlyInfantRecordData.heightOrLengths &&
+      this.monthlyInfantRecordData.heightForAge &&
       this.monthlyInfantRecordData.weightForLengthorHeight &&
-      this.monthlyInfantRecordData.barangay &&
-      this.monthlyInfantRecordData.Date &&
-      this.monthlyInfantRecordData.measurementMonth
+      this.monthlyInfantRecordData.barangay
     );
   }
 
@@ -3071,22 +3104,6 @@ export class MonthlyRecordInfantComponent {
     }
   }
 
-  getSelectedChildAge() {
-    const selectedChildName = this.monthlyInfantRecordData.nameOfChild;
-
-    const selectedChild = this.childRecords.find(
-      (c) => c.firstName + ' ' + c.lastName === selectedChildName
-    );
-
-    if (selectedChild) {
-      this.monthlyInfantRecordData.ageInMonths = selectedChild.ageInMonths;
-      return selectedChild.ageInMonths;
-    } else {
-      this.monthlyInfantRecordData.ageInMonths = '';
-      return '';
-    }
-  }
-
   getSelectedChildBirthday() {
     const selectedChildName = this.monthlyInfantRecordData.nameOfChild;
 
@@ -3095,9 +3112,17 @@ export class MonthlyRecordInfantComponent {
     );
 
     if (selectedChild) {
+      // Update the monthlyHeightRecordData's birthday
       this.monthlyInfantRecordData.birthday = selectedChild.birthday;
+
+      // Calculate age based on selected child's birthday
+      this.calculateAge(this.monthlyInfantRecordData.birthday);
+      this.calculateAgeInMonths(this.monthlyInfantRecordData.birthday);
+
+      // Return the selected child's birthday
       return selectedChild.birthday;
     } else {
+      // Clear the birthday field if the selected child is not found
       this.monthlyInfantRecordData.birthday = '';
       return '';
     }

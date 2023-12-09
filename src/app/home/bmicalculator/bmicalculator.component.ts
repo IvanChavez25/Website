@@ -19,6 +19,7 @@ export class BmiCalculatorComponent {
     barangay: '',
     weight: '',
     height: '',
+    birthday: '',
     age: '',
     bmi: '',
     resultMessage: '',
@@ -39,6 +40,32 @@ export class BmiCalculatorComponent {
 
   constructor(public database: Database, private location: Location) {
     this.fetchChildRecords();
+  }
+
+  onBirthdayChange() {
+    this.calculateAge(this.bmiRecordData.birthday);
+  }
+
+  calculateAge(birthdate: string) {
+    const today = new Date();
+    const birthDate = new Date(birthdate);
+    let age = today.getFullYear() - birthDate.getFullYear();
+
+    // Check if the birthday has occurred this year
+    if (
+      today.getMonth() < birthDate.getMonth() ||
+      (today.getMonth() === birthDate.getMonth() &&
+        today.getDate() < birthDate.getDate())
+    ) {
+      age--;
+    }
+
+    // Set age to zero if it's negative
+    if (age < 0) {
+      age = 0;
+    }
+
+    this.bmiRecordData.age = age.toString();
   }
 
   onSubmit() {
@@ -94,7 +121,8 @@ export class BmiCalculatorComponent {
       this.bmiRecordData.barangay &&
       this.bmiRecordData.weight &&
       this.bmiRecordData.height &&
-      this.bmiRecordData.age &&
+      (this.bmiRecordData.age || this.bmiRecordData.age === 0) &&
+      this.bmiRecordData.birthday &&
       this.bmiRecordData.bmi &&
       this.bmiRecordData.resultMessage
     );
@@ -150,7 +178,7 @@ export class BmiCalculatorComponent {
     }
   }
 
-  getSelectedChildAge() {
+  getSelectedChildBirthday() {
     const selectedChildName = this.bmiRecordData.childName;
 
     const selectedChild = this.childRecords.find(
@@ -158,10 +186,17 @@ export class BmiCalculatorComponent {
     );
 
     if (selectedChild) {
-      this.bmiRecordData.age = selectedChild.age;
-      return selectedChild.age;
+      // Update the monthlyHeightRecordData's birthday
+      this.bmiRecordData.birthday = selectedChild.birthday;
+
+      // Calculate age based on selected child's birthday
+      this.calculateAge(this.bmiRecordData.birthday);
+
+      // Return the selected child's birthday
+      return selectedChild.birthday;
     } else {
-      this.bmiRecordData.age = '';
+      // Clear the birthday field if the selected child is not found
+      this.bmiRecordData.birthday = '';
       return '';
     }
   }
@@ -182,7 +217,7 @@ export class BmiCalculatorComponent {
       this.bmiRecordData.resultMessage = 'Obese';
     } else if (this.bmiRecordData.bmi >= 25) {
       this.bmiRecordData.resultMessage = 'Overweight';
-    } else if (this.bmiRecordData.bmi >= 15) {
+    } else if (this.bmiRecordData.bmi >= 14.1) {
       this.bmiRecordData.resultMessage = 'Healthy weight';
     } else if (this.bmiRecordData.bmi >= 8) {
       this.bmiRecordData.resultMessage = 'Underweight';
