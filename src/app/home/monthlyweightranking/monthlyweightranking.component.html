@@ -1,0 +1,140 @@
+<div class="barangay-ranking">
+  <fieldset id="bmiranking">
+    <legend>
+      <h3>Monthly Weight Records Total Underweight and Severely Underweight</h3>
+    </legend>
+    <div class="ranking-table">
+      <label for="monthSelect">Select Month: </label>
+      <select
+        id="monthSelect"
+        [(ngModel)]="selectedMonth"
+        (change)="onMonthYearSelect()"
+      >
+        <option value="0">January</option>
+        <option value="1">February</option>
+        <option value="2">March</option>
+        <option value="3">April</option>
+        <option value="4">May</option>
+        <option value="5">June</option>
+        <option value="6">July</option>
+        <option value="7">August</option>
+        <option value="8">September</option>
+        <option value="9">October</option>
+        <option value="10">November</option>
+        <option value="11">December</option>
+      </select>
+      <label for="monthSelect"> Select Year: </label>
+
+      <input
+        type="number"
+        id="monthSelect"
+        [(ngModel)]="selectedYear"
+        (change)="onMonthYearSelect()"
+      />
+      <table>
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Barangay</th>
+            <th>Severely Underweight Count</th>
+            <th>Underweight Count</th>
+            <th>Normal Weight Count</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let barangay of rankedBarangays; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ barangay.barangay }}</td>
+            <td
+              (click)="
+                showDetailedInfoByCategory(
+                  barangay.barangay,
+                  'SUW',
+                  barangay.severelyUnderweight
+                )
+              "
+            >
+              {{ barangay.severelyUnderweight }}
+            </td>
+            <td
+              (click)="
+                showDetailedInfoByCategory(
+                  barangay.barangay,
+                  'UW',
+                  barangay.underweight
+                )
+              "
+            >
+              {{ barangay.underweight }}
+            </td>
+            <td
+              (click)="
+                showDetailedInfoByCategory(
+                  barangay.barangay,
+                  'N',
+                  barangay.normal
+                )
+              "
+            >
+              {{ barangay.normal }}
+            </td>
+            <td>
+              {{
+                barangay.severelyUnderweight +
+                  barangay.underweight +
+                  barangay.normal
+              }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Display detailed information without using a separate dialog -->
+      <div class="modal" *ngIf="showModal">
+        <div class="modal-content">
+          <span (click)="closeModal()">&times;</span>
+          <div *ngIf="selectedBarangayInfo.length > 0">
+            <table>
+              <thead>
+                <tr>
+                  <th>Child Name</th>
+                  <th>Weight</th>
+                  <th>Result</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  *ngFor="
+                    let info of selectedBarangayInfo.slice(startIndex, endIndex)
+                  "
+                >
+                  <td>{{ info.nameOfChild }}</td>
+                  <td>{{ info.weight }}</td>
+                  <td>{{ info.weightForAge }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="pagination">
+          <button
+            class="paginationButton"
+            (click)="goToPage(currentPage - 1)"
+            [disabled]="currentPage === 1"
+          >
+            Previous
+          </button>
+          <span>HEIGHT RESULT {{ currentPage }}</span>
+          <button
+            class="paginationButton"
+            (click)="goToPage(currentPage + 1)"
+            [disabled]="endIndex >= selectedBarangayInfo.length"
+          >
+            Next
+          </button>
+        </div>
+      </div>
+    </div>
+  </fieldset>
+</div>

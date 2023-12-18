@@ -103,17 +103,17 @@
       required
     >
       <option value="">ALL</option>
-      <option value="January">January</option>
-      <option value="February">February</option>
-      <option value="March">March</option>
-      <option value="May">May</option>
-      <option value="June">June</option>
-      <option value="July">July</option>
-      <option value="August">August</option>
-      <option value="September">September</option>
-      <option value="October">October</option>
-      <option value="November">November</option>
-      <option value="December">December</option>
+      <option value="1">January</option>
+      <option value="2">February</option>
+      <option value="3">March</option>
+      <option value="4">May</option>
+      <option value="5">June</option>
+      <option value="6">July</option>
+      <option value="7">August</option>
+      <option value="8">September</option>
+      <option value="9">October</option>
+      <option value="10">November</option>
+      <option value="11">December</option>
     </select>
 
     <button (click)="clearFilters()">Clear_Filters</button>
@@ -126,7 +126,9 @@
 <fieldset>
   <div class="result-container">
     <fieldset id="monthlyRecordsInfant">
-      <legend>Monthly Records (Infant)</legend>
+      <legend>
+        Monthly Records of Weight and Weight Status Infants 0-23 Months
+      </legend>
       <div class="result-table">
         <table>
           <thead>
@@ -148,7 +150,7 @@
                 let record of monthlyInfantRecords.slice(startIndex, endIndex)
               "
             >
-              <td>{{ record.monthlyInfantRecordsId }}</td>
+              <td>{{ record.monthlyInfantId }}</td>
               <td>
                 {{ record.nameOfChild }}
               </td>
@@ -163,7 +165,7 @@
                   </li>
                   <li>
                     <strong>W/L/H:</strong>
-                    {{ record.weightForLengthOrHeight }}
+                    {{ record.bmiData }}
                   </li>
                 </ul>
               </td>
@@ -179,7 +181,7 @@
                   </li>
                   <li>
                     <strong>W/L/H:</strong>
-                    {{ record.weightForLengthorHeight }}
+                    {{ record.weightForHeight }}
                   </li>
                 </ul>
               </td>

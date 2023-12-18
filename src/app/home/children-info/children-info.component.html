@@ -16,6 +16,7 @@
           name="firstName"
           [(ngModel)]="childData.firstName"
           required
+          autocomplete="off"
         />
       </div>
       <div>
@@ -25,6 +26,7 @@
           id="middleName"
           name="middleName"
           [(ngModel)]="childData.middleName"
+          autocomplete="off"
         />
       </div>
       <div>
@@ -35,6 +37,7 @@
           name="lastName"
           [(ngModel)]="childData.lastName"
           required
+          autocomplete="off"
         />
       </div>
       <div>
@@ -55,6 +58,7 @@
           name="address"
           [(ngModel)]="childData.address"
           required
+          autocomplete="off"
         />
       </div>
       <div>
@@ -116,7 +120,7 @@
           id="fatherName"
           name="fatherName"
           [(ngModel)]="childData.fatherName"
-          required
+          autocomplete="off"
         />
       </div>
       <div>
@@ -126,7 +130,7 @@
           id="motherName"
           name="motherName"
           [(ngModel)]="childData.motherName"
-          required
+          autocomplete="off"
         />
       </div>
       <div>
@@ -137,6 +141,7 @@
           name="NameOfHouseholdHead"
           [(ngModel)]="childData.NameOfHouseholdHead"
           required
+          autocomplete="off"
         />
       </div>
       <div class="gender-container">
@@ -163,16 +168,6 @@
             required
           />
         </div>
-      </div>
-      <div>
-        <label for="date">Date:</label>
-        <input
-          type="date"
-          id="date"
-          name="date"
-          [(ngModel)]="childData.date"
-          required
-        />
       </div>
       <div>
         <button type="submit">Submit</button>

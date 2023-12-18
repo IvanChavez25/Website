@@ -37,6 +37,7 @@ export class NutritionalStatusComponent {
     ironReceived: '',
     usingMNP: '',
     Date: '',
+    bmiData: '',
   };
 
   constructor(public database: Database, private location: Location) {
@@ -3007,7 +3008,9 @@ export class NutritionalStatusComponent {
       // Query the latest nutritional ID from the NutritionalRecord
       const latestnutritionalIdRef = ref(this.database, 'NutritionalRecord');
       get(latestnutritionalIdRef).then((snapshot) => {
-        let nutritionalId = '10001'; // Initialize with '1'
+        let nutritionalId = '10001';
+
+        // Initialize with '1'
 
         // If there are existing nutritional records, find the latest ID
         if (snapshot.exists()) {
@@ -3029,11 +3032,11 @@ export class NutritionalStatusComponent {
             this.clearForm();
           })
           .catch((error) => {
-            alert('Error adding nutritional: ' + error);
+            alert('Error adding Records: ' + error);
           });
       });
     } else {
-      alert('Invalid nutritional data');
+      alert('Invalid Records data');
       console.log(this.nutritionalData);
     }
   }
@@ -3226,16 +3229,18 @@ export class NutritionalStatusComponent {
     if (weight && heightMeters && age) {
       const bmi = weight / (heightMeters * heightMeters);
 
+      this.nutritionalData.bmiData = bmi;
+
       if (bmi >= 30) {
-        this.nutritionalData.weightForHeight = 'Obese';
+        this.nutritionalData.weightForHeight = 'Ob';
       } else if (bmi >= 25) {
-        this.nutritionalData.weightForHeight = 'Overweight';
+        this.nutritionalData.weightForHeight = 'OW';
       } else if (bmi >= 14.1) {
-        this.nutritionalData.weightForHeight = 'Healthy weight';
+        this.nutritionalData.weightForHeight = 'N';
       } else if (bmi >= 8) {
-        this.nutritionalData.weightForHeight = 'Underweight';
+        this.nutritionalData.weightForHeight = 'UW';
       } else {
-        this.nutritionalData.weightForHeight = 'Severely underweight';
+        this.nutritionalData.weightForHeight = 'SUW';
       }
     } else {
       this.nutritionalData.weightForHeight = ''; // Reset status if data is incomplete

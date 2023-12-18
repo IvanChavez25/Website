@@ -8,6 +8,7 @@ interface WeightForHeightTotals {
   severelyUnderweight: number;
   underweight: number;
   normal: number;
+  overweight: number;
   obese: number;
 }
 
@@ -94,6 +95,9 @@ export class NutritionalStatusSummaryWeightforheightComponent {
               existingBarangay.normal++;
               break;
             case 'OW':
+              existingBarangay.overweight++;
+              break;
+            case 'Ob':
               existingBarangay.obese++;
               break;
             default:
@@ -107,6 +111,7 @@ export class NutritionalStatusSummaryWeightforheightComponent {
             severelyUnderweight: 0,
             underweight: 0,
             normal: 0,
+            overweight: 0,
             obese: 0,
           };
 
@@ -120,7 +125,10 @@ export class NutritionalStatusSummaryWeightforheightComponent {
             case 'N':
               totals.normal++;
               break;
-            case 'O':
+            case 'OW':
+              totals.overweight++;
+              break;
+            case 'Ob':
               totals.obese++;
               break;
             default:

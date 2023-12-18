@@ -71,6 +71,7 @@
             name="weight"
             [(ngModel)]="monthlyInfantRecordData.weight"
             (ngModelChange)="onWeightForAgeChange()"
+            (ngModelChange)="calculateBMI()"
             required
           />
         </div>
@@ -82,6 +83,7 @@
             name="heightOrLength"
             [(ngModel)]="monthlyInfantRecordData.height"
             (ngModelChange)="onheightForAgeChange()"
+            (ngModelChange)="calculateBMI()"
             required
           />
         </div>
@@ -107,6 +109,7 @@
             name="weightForAge"
             [(ngModel)]="monthlyInfantRecordData.weightForAge"
             required
+            readonly
           />
         </div>
         <div>
@@ -117,6 +120,7 @@
             name="heightOrLengths"
             [(ngModel)]="monthlyInfantRecordData.heightForAge"
             required
+            readonly
           />
         </div>
         <div>
@@ -129,6 +133,7 @@
             name="weightForLengthOrHeight"
             [(ngModel)]="monthlyInfantRecordData.weightForLengthorHeight"
             required
+            readonly
           />
         </div>
       </fieldset>

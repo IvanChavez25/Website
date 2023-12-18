@@ -8,7 +8,20 @@
   font-weight: bold;
 
   left: 50%;
-  top: 130%;
+  top: 120%;
+  transform: translate(-50%, -50%);
+}
+
+#viewCon {
+  border-radius: 10px;
+  padding: 5px;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+
+  left: 50%;
+  top: 190%;
   transform: translate(-50%, -50%);
 }
 
@@ -76,7 +89,7 @@ legend {
 .result-table table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 43%;
+  font-size: 50%;
 }
 
 .result-table th,
@@ -114,6 +127,10 @@ legend {
 }
 
 #updateNutritionalModal {
+  display: none;
+}
+
+#viewNutritionalModal {
   display: none;
 }
 

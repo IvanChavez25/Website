@@ -13,6 +13,7 @@ export class NutritionalTableComponent {
   userRole: string = '';
   nutritionalRecords: any[] = [];
   nutritionalRecordsData: any = {};
+  viewnutritionalRecordsData: any = {};
   searchInput: string = '';
   filteredNutritionalRecords: any[] = [];
 
@@ -22,9 +23,10 @@ export class NutritionalTableComponent {
   selectedMonth: any = '';
 
   @ViewChild('updateNutritionalModal') updateNutritionalModal!: ElementRef;
+  @ViewChild('viewNutritionalModal') viewNutritionalModal!: ElementRef;
 
   currentPage: number = 1;
-  itemsPerPage: number = 10;
+  itemsPerPage: number = 15;
 
   constructor(
     public database: Database,
@@ -44,7 +46,7 @@ export class NutritionalTableComponent {
 
     if (this.searchInput === '') {
       // Show all children records when the search input is empty
-      this.filteredNutritionalRecords = this.nutritionalRecords;
+      this.nutritionalRecords = this.originalNutritionalRecords;
     } else {
       // Filter children records based on the search input
       this.filteredNutritionalRecords = this.nutritionalRecords.filter(
@@ -54,9 +56,8 @@ export class NutritionalTableComponent {
             .includes(this.searchInput.toLowerCase());
         }
       );
+      this.nutritionalRecords = this.filteredNutritionalRecords;
     }
-
-    this.filterRecords();
   }
 
   fetchNutritionalRecords() {
@@ -86,7 +87,7 @@ export class NutritionalTableComponent {
 
   filterRecords() {
     // Create a copy of the original data
-    let filteredRecords = [...this.filteredNutritionalRecords];
+    let filteredRecords = [...this.originalNutritionalRecords];
 
     // Apply the barangay filter
     if (this.selectedBarangay) {
@@ -152,6 +153,14 @@ export class NutritionalTableComponent {
     this.updateNutritionalModal.nativeElement.style.display = 'block';
   }
 
+  openViewDataNutritionalModal(record: any) {
+    this.viewnutritionalRecordsData = { ...record };
+
+    console.log(this.viewnutritionalRecordsData);
+
+    this.viewNutritionalModal.nativeElement.style.display = 'block';
+  }
+
   updateNutritional() {
     const nutritionalRef = ref(
       this.database,
@@ -193,6 +202,10 @@ export class NutritionalTableComponent {
 
   closeUpdateNutritionalModal() {
     this.updateNutritionalModal.nativeElement.style.display = 'none';
+  }
+
+  closeViewNutritionalModal() {
+    this.viewNutritionalModal.nativeElement.style.display = 'none';
   }
 
   reloadPage() {

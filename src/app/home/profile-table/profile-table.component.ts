@@ -63,7 +63,7 @@ export class ProfileTableComponent {
 
     if (this.searchInput === '') {
       // Show all children records when the search input is empty
-      this.filteredChildRecords = this.childRecords;
+      this.childRecords = this.originalChildRecords;
     } else {
       // Filter children records based on the search input
       this.filteredChildRecords = this.childRecords.filter((child) => {
@@ -72,13 +72,15 @@ export class ProfileTableComponent {
         }${child.lastName}`;
         return fullName.toLowerCase().includes(this.searchInput.toLowerCase());
       });
+
+      
+    this.childRecords = this.filteredChildRecords;
     }
 
-    this.filterRecords();
   }
 
   filterRecords() {
-    let filteredRecords = [...this.filteredChildRecords];
+    let filteredRecords = [...this.originalChildRecords];
 
     if (this.selectedBarangay) {
       filteredRecords = filteredRecords.filter(
@@ -208,7 +210,7 @@ export class ProfileTableComponent {
       child.motherName,
       child.NameOfHouseholdHead,
       child.gender,
-      child.date,
+      child.Date,
     ]);
 
     // Combine the header and data

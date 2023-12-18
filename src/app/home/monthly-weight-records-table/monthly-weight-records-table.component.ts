@@ -33,7 +33,7 @@ export class MonthlyWeightRecordsTableComponent {
 
     if (this.searchInput === '') {
       // Show all children records when the search input is empty
-      this.filteredMonthlyWeightRecords = this.monthlyWeightRecords;
+      this.monthlyWeightRecords = this.originalMonthlyWeightRecords;
     } else {
       // Filter children records based on the search input
       this.filteredMonthlyWeightRecords = this.monthlyWeightRecords.filter(
@@ -43,9 +43,8 @@ export class MonthlyWeightRecordsTableComponent {
             .includes(this.searchInput.toLowerCase());
         }
       );
+      this.monthlyWeightRecords = this.filteredMonthlyWeightRecords;
     }
-
-    this.filterRecords();
   }
 
   fetchmonthlyWeightRecords() {
@@ -54,8 +53,25 @@ export class MonthlyWeightRecordsTableComponent {
     get(monthlyWeightRef)
       .then((snapshot) => {
         if (snapshot.exists()) {
+          // Copy the data
           this.originalMonthlyWeightRecords = Object.values(snapshot.val());
-          this.monthlyWeightRecords = Object.values(snapshot.val()); // Copy the data
+
+          // Initialize an array to store filtered weightForAge values
+          const filteredMonthlyWeightRecords = [];
+
+          // Loop through monthlyWeightRecords
+          for (const record of this.originalMonthlyWeightRecords) {
+            // Check if the weightForAge is 'OW'
+            if (record.weightForAge !== 'OW') {
+              // Add the record to the filtered array
+              filteredMonthlyWeightRecords.push(record);
+            }
+          }
+
+          // Update monthlyWeightRecords with the filtered array
+          this.monthlyWeightRecords = filteredMonthlyWeightRecords;
+
+          this.originalMonthlyWeightRecords = filteredMonthlyWeightRecords;
         } else {
           this.monthlyWeightRecords = [];
         }
@@ -75,7 +91,7 @@ export class MonthlyWeightRecordsTableComponent {
 
   filterRecords() {
     // Create a copy of the original data
-    let filteredRecords = [...this.filteredMonthlyWeightRecords];
+    let filteredRecords = [...this.originalMonthlyWeightRecords];
 
     // Apply the barangay filter
     if (this.selectedBarangay) {
@@ -113,6 +129,7 @@ export class MonthlyWeightRecordsTableComponent {
       filteredRecords = filteredRecords.filter((record) => {
         const year = new Date(record.Date).getFullYear();
         const month = new Date(record.Date).getMonth();
+        
 
         return month == this.selectedMonth;
       });
@@ -141,7 +158,7 @@ export class MonthlyWeightRecordsTableComponent {
   removeMonthlyWeight(record: any) {
     const monthlyWeightRef = ref(
       this.database,
-      'MonthlyWeightRecord/' + record.monthlyWeightRecordsId
+      'MonthlyWeightRecord/' + record.monthlyWeightId
     );
 
     remove(monthlyWeightRef)
@@ -166,8 +183,6 @@ export class MonthlyWeightRecordsTableComponent {
       'Birthday (dd/mm/yyyy)',
       'Age in Months',
       'Weight',
-      'Weight Status',
-      'Date Of Weighing',
       'Nutritional Status',
       'Barangay',
       'Date',
@@ -175,13 +190,12 @@ export class MonthlyWeightRecordsTableComponent {
 
     // Convert the child records to a CSV format
     const csvData = this.monthlyWeightRecords.map((record) => [
-      record.monthlyWeightRecordsId,
+      record.monthlyWeightId,
       record.nameOfChild,
       record.birthday,
       record.ageInMonths,
       record.weight,
-      record.weightStatus,
-      record.dateOfWeighing,
+      record.weightForAge,
       record.barangay,
       record.Date,
     ]);

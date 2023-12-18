@@ -8,6 +8,7 @@
     <button routerLink="/home/nutritionalstatus">Nutritional Status</button>
     <button routerLink="/home/quarterlyrecords">Quarterly Records</button>
     <button routerLink="/home/baselineweight">BaseLine</button>
+    <button routerLink="/home/monthlyrecords">Monthly Records</button>
   </div>
 
   <fieldset class="fieldset1">
@@ -25,6 +26,7 @@
           name="searchChild"
           [(ngModel)]="searchInput"
           (input)="onSearchInputChange()"
+          autocomplete="off"
         />
         <datalist id="childList">
           <option
@@ -44,6 +46,7 @@
           [value]="getSelectedChildFather()"
           [(ngModel)]="nutritionalData.fatherName"
           required
+          autocomplete="off"
         />
       </div>
       <div>
@@ -55,6 +58,7 @@
           [value]="getSelectedChildMother()"
           [(ngModel)]="nutritionalData.motherName"
           required
+          autocomplete="off"
         />
       </div>
       <div>
@@ -141,6 +145,7 @@
           [(ngModel)]="nutritionalData.ageInMonths"
           (ngModelChange)="calculateBMI()"
           required
+          autocomplete="off"
         />
       </div>
       <div>
@@ -153,6 +158,7 @@
           (ngModelChange)="onWeightForAgeChange()"
           (ngModelChange)="calculateBMI()"
           required
+          autocomplete="off"
         />
       </div>
       <div>
@@ -165,6 +171,7 @@
           (ngModelChange)="onHeightForAgeChange()"
           (ngModelChange)="calculateBMI()"
           required
+          autocomplete="off"
         />
       </div>
       <fieldset>
@@ -266,6 +273,7 @@
             id="ageStartedCF"
             name="ageStartedCF"
             [(ngModel)]="nutritionalData.ageStartedCF"
+            autocomplete="off"
           />
         </div>
         <div class="beneficiary-sf-container">

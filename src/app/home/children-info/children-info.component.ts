@@ -25,12 +25,15 @@ export class ChildrenInfoComponent {
     motherName: '',
     NameOfHouseholdHead: '',
     gender: null,
-    date: '',
+    Date: '',
   };
 
   constructor(public database: Database) {}
 
   onSubmit() {
+
+    this.childData.Date = Date.now();
+
     if (this.isValidChildData()) {
       // Query the latest child ID from the ChildRecord
       const latestChildIdRef = ref(this.database, 'ChildRecord');
@@ -74,7 +77,7 @@ export class ChildrenInfoComponent {
       motherName: '',
       NameOfHouseholdHead: '',
       gender: null,
-      date: '',
+      Date: '',
     };
   }
 
@@ -90,7 +93,7 @@ export class ChildrenInfoComponent {
       this.childData.motherName &&
       this.childData.NameOfHouseholdHead &&
       this.childData.gender &&
-      this.childData.date
+      this.childData.Date
     );
   }
 }

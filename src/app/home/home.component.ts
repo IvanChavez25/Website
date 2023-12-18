@@ -11,6 +11,7 @@ import { SharedDataServiceService } from './shared-data-service.service';
 })
 export class HomeComponent implements OnInit {
   userRole: string = 'bhw'; // Set "bhw" as the default role.
+  username!: string
 
   constructor(
     public database: Database,
@@ -26,13 +27,12 @@ export class HomeComponent implements OnInit {
 
     if (uid) {
       this.fetchUserRecords(uid);
+      this.fetchUsername(uid); // Fetch the username
     } else {
       // Handle the case where uid is not available.
       // For example, redirect back to the login page:
       this.router.navigate(['/login']);
     }
-
-    // const uid = this.authService.uid;
 
     if (uid) {
       // Set the uid in the shared service
@@ -40,7 +40,6 @@ export class HomeComponent implements OnInit {
     } else {
       // Handle the case where uid is not available.
     }
-    // }
   }
 
   fetchUserRecords(uid: string) {
@@ -56,6 +55,22 @@ export class HomeComponent implements OnInit {
       })
       .catch((error) => {
         console.error('Error retrieving user role:', error);
+      });
+  }
+
+  fetchUsername(uid: string) {
+    const usernameRef = ref(this.database, 'UserRecord/' + uid + '/username');
+
+    get(usernameRef)
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          this.username = snapshot.val();
+        } else {
+          console.error('Username not found.');
+        }
+      })
+      .catch((error) => {
+        console.error('Error retrieving username:', error);
       });
   }
 

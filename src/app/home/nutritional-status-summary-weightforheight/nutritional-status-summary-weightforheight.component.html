@@ -37,6 +37,7 @@
               <th>Severely Underweight</th>
               <th>Underweight</th>
               <th>Normal</th>
+              <th>OverWeight</th>
               <th>Obese</th>
             </tr>
           </thead>
@@ -80,7 +81,18 @@
                 (click)="
                   showDetailedInfoByCategory(
                     barangay.barangay,
-                    'O',
+                    'OW',
+                    barangay.overweight
+                  )
+                "
+              >
+                {{ barangay.overweight }}
+              </td>
+              <td
+                (click)="
+                  showDetailedInfoByCategory(
+                    barangay.barangay,
+                    'Ob',
                     barangay.obese
                   )
                 "

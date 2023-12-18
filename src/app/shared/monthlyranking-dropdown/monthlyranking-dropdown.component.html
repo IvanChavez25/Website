@@ -1,0 +1,25 @@
+<div class="dropdown" [ngClass]="{ open: isDropdownOpen }">
+  <button class="dropdown-button" (click)="toggleDropdown()">
+    <i class="fa fa-table"></i> Monthly Result
+    <i class="fa fa-arrow-down"></i> Ranking
+  </button>
+  <div class="dropdown-content">
+    <ul>
+      <li>
+        <a routerLink="/home/monthlyheightranking">
+          <i class="fa fa-table"></i>Monthly Height Ranking
+        </a>
+      </li>
+      <li>
+        <a routerLink="/home/monthlyweightranking">
+          <i class="fa fa-table"></i>Monthly Weight Ranking
+        </a>
+      </li>
+      <li>
+        <a routerLink="/home/monthlyinfantranking">
+          <i class="fa fa-table"></i>Monthly Infant Ranking
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>

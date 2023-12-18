@@ -30,6 +30,9 @@ import { NutritionalStatusSummaryHeightforageComponent } from './nutritional-sta
 import { NutritionalStatusSummaryWeightforheightComponent } from './nutritional-status-summary-weightforheight/nutritional-status-summary-weightforheight.component';
 import { UserAccountComponent } from './user-account/user-account.component';
 import { UserlistComponent } from './userlist/userlist.component';
+import { MonthlyheightrankingComponent } from './monthlyheightranking/monthlyheightranking.component';
+import { MonthlyweightrankingComponent } from './monthlyweightranking/monthlyweightranking.component';
+import { MonthlyinfantrankingComponent } from './monthlyinfantranking/monthlyinfantranking.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +62,9 @@ import { UserlistComponent } from './userlist/userlist.component';
     NutritionalStatusSummaryWeightforheightComponent,
     UserAccountComponent,
     UserlistComponent,
+    MonthlyheightrankingComponent,
+    MonthlyweightrankingComponent,
+    MonthlyinfantrankingComponent,
   ],
 
   imports: [CommonModule, HomeRoutingModule, FormsModule, SharedModule],

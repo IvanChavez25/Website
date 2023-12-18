@@ -25,7 +25,7 @@ export class MonthlyRecordsInfantComponent {
   itemsPerPage: number = 10;
 
   constructor(public database: Database, private location: Location) {
-    this.fetchmonthlyInfantRecords();
+    this.fetchMonthlyInfantRecords();
   }
 
   onSearchInputChange() {
@@ -33,7 +33,7 @@ export class MonthlyRecordsInfantComponent {
 
     if (this.searchInput === '') {
       // Show all children records when the search input is empty
-      this.filteredMonthlyInfantRecords = this.monthlyInfantRecords;
+      this.monthlyInfantRecords = this.originalMonthlyInfantRecords;
     } else {
       // Filter children records based on the search input
       this.filteredMonthlyInfantRecords = this.monthlyInfantRecords.filter(
@@ -43,24 +43,45 @@ export class MonthlyRecordsInfantComponent {
             .includes(this.searchInput.toLowerCase());
         }
       );
+      this.monthlyInfantRecords = this.filteredMonthlyInfantRecords;
     }
-
-    this.filterRecords();
   }
 
-  fetchmonthlyInfantRecords() {
+  fetchMonthlyInfantRecords() {
+    // Define the reference to NutritionalRecord in the database
     const monthlyInfantRef = ref(this.database, 'MonthlyInfantRecord');
 
+    // Retrieve data from the reference
     get(monthlyInfantRef)
       .then((snapshot) => {
+        // Check if the data exists
         if (snapshot.exists()) {
+          // Copy the data
           this.originalMonthlyInfantRecords = Object.values(snapshot.val());
-          this.monthlyInfantRecords = Object.values(snapshot.val());
+
+          // Initialize an array to store filtered records based on ageInMonths
+          const filteredMonthlyInfantRecords = [];
+
+          // Loop through originalMonthlyInfantRecords
+          for (const record of this.originalMonthlyInfantRecords) {
+            // Check if ageInMonths is less than 23
+            if (record.ageInMonths < 23) {
+              // Add the record to the filtered array
+              filteredMonthlyInfantRecords.push(record);
+            }
+          }
+
+          // Update monthlyInfantRecords with the filtered array
+          this.monthlyInfantRecords = filteredMonthlyInfantRecords;
+
+          this.originalMonthlyInfantRecords = filteredMonthlyInfantRecords;
         } else {
+          // Set monthlyInfantRecords to an empty array if no data exists
           this.monthlyInfantRecords = [];
         }
       })
       .catch((error) => {
+        // Log an error message if there's an issue retrieving data
         console.error('Error retrieving monthlyInfantRecords:', error);
       });
   }
@@ -75,7 +96,7 @@ export class MonthlyRecordsInfantComponent {
 
   filterRecords() {
     // Create a copy of the original data
-    let filteredRecords = [...this.filteredMonthlyInfantRecords];
+    let filteredRecords = [...this.originalMonthlyInfantRecords];
 
     // Apply the barangay filter
     if (this.selectedBarangay) {
@@ -141,13 +162,13 @@ export class MonthlyRecordsInfantComponent {
   removeMonthlyInfant(record: any) {
     const monthlyInfantRef = ref(
       this.database,
-      'MonthlyInfantRecord/' + record.monthlyInfantRecordsId
+      'MonthlyInfantRecord/' + record.monthlyInfantId
     );
 
     remove(monthlyInfantRef)
       .then(() => {
         alert('Children Monthly Infant record deleted successfully');
-        this.fetchmonthlyInfantRecords();
+        this.fetchMonthlyInfantRecords();
       })
       .catch((error) => {
         alert('Error deleting children Monthly Infant records: ' + error);
@@ -177,16 +198,16 @@ export class MonthlyRecordsInfantComponent {
 
     // Convert the child records to a CSV format
     const csvData = this.monthlyInfantRecords.map((record) => [
-      record.monthlyInfantRecordsId,
+      record.monthlyInfantId,
       record.nameOfChild,
       record.birthday,
       record.ageInMonths,
       record.weight,
       record.height,
-      record.weightForLengthOrHeight,
+      record.bmiData,
       record.weightForAge,
       record.heightForAge,
-      record.weightForLengthorHeight,
+      record.weightForHeight,
       record.barangay,
       record.Date,
     ]);

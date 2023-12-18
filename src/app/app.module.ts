@@ -16,7 +16,12 @@ import { LandingPageComponent } from './page/landing-page/landing-page.component
 import { AboutComponent } from './page/about/about.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginFormComponent, LandingPageComponent, AboutComponent],
+  declarations: [
+    AppComponent,
+    LoginFormComponent,
+    LandingPageComponent,
+    AboutComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,

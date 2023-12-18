@@ -1,0 +1,228 @@
+<div class="barangay-ranking">
+  <fieldset id="bmiranking">
+    <legend>
+      <h3>Monthly Infant Records</h3>
+    </legend>
+    <div class="ranking-table">
+      <label for="monthSelect">Select Month: </label>
+      <select
+        id="monthSelect"
+        [(ngModel)]="selectedMonth"
+        (change)="onMonthYearSelect()"
+      >
+        <option value="0">January</option>
+        <option value="1">February</option>
+        <option value="2">March</option>
+        <option value="3">April</option>
+        <option value="4">May</option>
+        <option value="5">June</option>
+        <option value="6">July</option>
+        <option value="7">August</option>
+        <option value="8">September</option>
+        <option value="9">October</option>
+        <option value="10">November</option>
+        <option value="11">December</option>
+      </select>
+      <label for="monthSelect"> Select Year: </label>
+
+      <input
+        type="number"
+        id="monthSelect"
+        [(ngModel)]="selectedYear"
+        (change)="onMonthYearSelect()"
+      />
+      <table>
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Barangay</th>
+            <th>Severely Underweight Count</th>
+            <th>Underweight Count</th>
+            <th>Normal Weight Count</th>
+            <th>Severely Stunted Count</th>
+            <th>Stunted Count</th>
+            <th>Overweight Count</th>
+            <th>Obese Count</th>
+            <th>Severely Wasted Count</th>
+            <th>Wasted Count</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let barangay of rankedBarangays; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ barangay.barangay }}</td>
+            <td
+              (click)="
+                showDetailedInfoByCategory(
+                  barangay.barangay,
+                  'SUW',
+                  barangay.severelyUnderweight
+                )
+              "
+            >
+              {{ barangay.severelyUnderweight }}
+            </td>
+            <td
+              (click)="
+                showDetailedInfoByCategory(
+                  barangay.barangay,
+                  'UW',
+                  barangay.underweight
+                )
+              "
+            >
+              {{ barangay.underweight }}
+            </td>
+            <td
+              (click)="
+                showDetailedInfoByCategory(
+                  barangay.barangay,
+                  'N',
+                  barangay.normal
+                )
+              "
+            >
+              {{ barangay.normal }}
+            </td>
+            <td
+              (click)="
+                showDetailedInfoByCategory(
+                  barangay.barangay,
+                  'N',
+                  barangay.severelyStunted
+                )
+              "
+            >
+              {{ barangay.severelyStunted }}
+            </td>
+            <td
+              (click)="
+                showDetailedInfoByCategory(
+                  barangay.barangay,
+                  'N',
+                  barangay.stunted
+                )
+              "
+            >
+              {{ barangay.stunted }}
+            </td>
+            <td
+              (click)="
+                showDetailedInfoByCategory(
+                  barangay.barangay,
+                  'N',
+                  barangay.overweight
+                )
+              "
+            >
+              {{ barangay.overweight }}
+            </td>
+            <td
+              (click)="
+                showDetailedInfoByCategory(
+                  barangay.barangay,
+                  'N',
+                  barangay.obese
+                )
+              "
+            >
+              {{ barangay.obese }}
+            </td>
+            <td
+              (click)="
+                showDetailedInfoByCategory(
+                  barangay.barangay,
+                  'N',
+                  barangay.severelyWasted
+                )
+              "
+            >
+              {{ barangay.severelyWasted }}
+            </td>
+            <td
+              (click)="
+                showDetailedInfoByCategory(
+                  barangay.barangay,
+                  'N',
+                  barangay.Wasted
+                )
+              "
+            >
+              {{ barangay.Wasted }}
+            </td>
+            <td>
+              {{
+                barangay.severelyUnderweight +
+                  barangay.underweight +
+                  barangay.normal +
+                  barangay.severelyStunted +
+                  barangay.stunted +
+                  barangay.overweight +
+                  barangay.obese +
+                  barangay.severelyWasted +
+                  barangay.Wasted
+              }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Display detailed information without using a separate dialog -->
+      <div class="modal" *ngIf="showModal">
+        <div class="modal-content">
+          <span (click)="closeModal()">&times;</span>
+          <div *ngIf="selectedBarangayInfo.length > 0">
+            <table>
+              <thead>
+                <tr>
+                  <th>Child Name</th>
+                  <th>Weight</th>
+                  <th>Height</th>
+                  <th>Weight For Height</th>
+                  <th>Result</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  *ngFor="
+                    let info of selectedBarangayInfo.slice(startIndex, endIndex)
+                  "
+                >
+                  <td>{{ info.nameOfChild }}</td>
+                  <td>{{ info.weight }}</td>
+                  <td>{{ info.height }}</td>
+                  <td>{{ info.bmiData }}</td>
+                  <td>
+                    {{
+                      info.weightForAge &&
+                        info.heightForAge &&
+                        info.weightForHeight
+                    }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="pagination">
+          <button
+            class="paginationButton"
+            (click)="goToPage(currentPage - 1)"
+            [disabled]="currentPage === 1"
+          >
+            Previous
+          </button>
+          <span>HEIGHT RESULT {{ currentPage }}</span>
+          <button
+            class="paginationButton"
+            (click)="goToPage(currentPage + 1)"
+            [disabled]="endIndex >= selectedBarangayInfo.length"
+          >
+            Next
+          </button>
+        </div>
+      </div>
+    </div>
+  </fieldset>
+</div>

@@ -5,16 +5,14 @@
 
 <div class="container">
   <div class="navigation-buttons">
-    <button routerLink="/home/monthlyweight">Monthly Weight Records</button>
-    <button routerLink="/home/monthlyrecords">Monthly Height Records</button>
-    <button routerLink="/home/monthlyrecordsinfant">
-      Monthly Records (Infant)
-    </button>
+    <button routerLink="/home/nutritionalstatus">Nutritional Status</button>
+    <button routerLink="/home/quarterlyrecords">Quarterly Records</button>
+    <button routerLink="/home/baselineweight">BaseLine</button>
+    <button routerLink="/home/monthlyrecords">Monthly Records</button>
   </div>
   <fieldset>
     <legend>
-      Monthly Records of Height and Height Status Wasted and Severely Wasted
-      Cases
+      Monthly Records for Monthly Weight, Monthly Height and Monthly Infants
     </legend>
     <form (ngSubmit)="onSubmit()">
       <div>
@@ -26,6 +24,7 @@
           name="searchChild"
           [(ngModel)]="searchInput"
           (input)="onSearchInputChange()"
+          autocomplete="off"
         />
         <datalist id="childList">
           <option
@@ -58,6 +57,7 @@
           [(ngModel)]="monthlyHeightRecordData.ageInMonths"
           (ngModelChange)="calculateBMI()"
           required
+          autocomplete="off"
         />
       </div>
       <div>
@@ -67,28 +67,54 @@
           id="weight"
           name="weight"
           [(ngModel)]="monthlyHeightRecordData.weight"
+          (ngModelChange)="onWeightForAgeChange()"
           (ngModelChange)="calculateBMI()"
           required
+          autocomplete="off"
         />
       </div>
       <div>
-        <label for="heightOrLength">Height Length:</label>
+        <label for="heightOrLength">Height:</label>
         <input
           type="text"
           id="heightOrLength"
           name="heightOrLength"
-          [(ngModel)]="monthlyHeightRecordData.heightOrLength"
+          [(ngModel)]="monthlyHeightRecordData.height"
+          (ngModelChange)="onHeightForAgeChange()"
           (ngModelChange)="calculateBMI()"
           required
+          autocomplete="off"
         />
       </div>
       <div>
-        <label for="nutritionalStatus">Nutritional Status:</label>
+        <label for="weightForAge">Weight for Age:</label>
         <input
           type="text"
-          id="nutritionalStatus"
-          name="nutritionalStatus"
-          [(ngModel)]="monthlyHeightRecordData.nutritionalStatus"
+          id="weightForAge"
+          name="weightForAge"
+          [(ngModel)]="monthlyHeightRecordData.weightForAge"
+          required
+          readonly
+        />
+      </div>
+      <div>
+        <label for="heightForAge">Height for Age:</label>
+        <input
+          type="text"
+          id="heightForAge"
+          name="heightForAge"
+          [(ngModel)]="monthlyHeightRecordData.heightForAge"
+          required
+          readonly
+        />
+      </div>
+      <div>
+        <label for="weightForHeight">Weight for Height:</label>
+        <input
+          type="text"
+          id="weightForHeight"
+          name="weightForHeight"
+          [(ngModel)]="monthlyHeightRecordData.weightForHeight"
           required
           readonly
         />

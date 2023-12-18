@@ -1,5 +1,5 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
-import { Database, ref, get, update, remove } from '@angular/fire/database';
+import { Component } from '@angular/core';
+import { Database, ref, get, remove } from '@angular/fire/database';
 import { Location } from '@angular/common';
 
 @Component({
@@ -19,8 +19,6 @@ export class MonthlyHeightRecordsTableComponent {
   toDate: string = ''; // Declare property for To Date
   selectedMonth: any = '';
 
-  @ViewChild('updateMonthlyHeightModal') updateMonthlyHeightModal!: ElementRef;
-
   currentPage: number = 1;
   itemsPerPage: number = 10;
 
@@ -33,7 +31,7 @@ export class MonthlyHeightRecordsTableComponent {
 
     if (this.searchInput === '') {
       // Show all children records when the search input is empty
-      this.filteredMonthlyHeightRecords = this.monthlyHeightRecords;
+      this.monthlyHeightRecords = this.originalMonthlyHeightRecords;
     } else {
       // Filter children records based on the search input
       this.filteredMonthlyHeightRecords = this.monthlyHeightRecords.filter(
@@ -43,9 +41,8 @@ export class MonthlyHeightRecordsTableComponent {
             .includes(this.searchInput.toLowerCase());
         }
       );
+      this.monthlyHeightRecords = this.filteredMonthlyHeightRecords;
     }
-
-    this.filterRecords();
   }
 
   fetchmonthlyHeightRecords() {
@@ -54,8 +51,21 @@ export class MonthlyHeightRecordsTableComponent {
     get(monthlyHeightRef)
       .then((snapshot) => {
         if (snapshot.exists()) {
+          // Copy the data
           this.originalMonthlyHeightRecords = Object.values(snapshot.val());
-          this.monthlyHeightRecords = Object.values(snapshot.val()); // Copy the data
+
+          const filteredMonthlyHeightRecords = [];
+
+          for (const record of this.originalMonthlyHeightRecords) {
+            if (record.heightForAge !== 'T') {
+              filteredMonthlyHeightRecords.push(record);
+            }
+          }
+
+          // Update monthlyWeightRecords with the filtered array
+          this.monthlyHeightRecords = filteredMonthlyHeightRecords;
+
+          this.originalMonthlyHeightRecords = filteredMonthlyHeightRecords;
         } else {
           this.monthlyHeightRecords = [];
         }
@@ -75,7 +85,7 @@ export class MonthlyHeightRecordsTableComponent {
 
   filterRecords() {
     // Create a copy of the original data
-    let filteredRecords = [...this.filteredMonthlyHeightRecords];
+    let filteredRecords = [...this.originalMonthlyHeightRecords];
 
     // Apply the barangay filter
     if (this.selectedBarangay) {
@@ -139,7 +149,7 @@ export class MonthlyHeightRecordsTableComponent {
   removeMonthlyHeight(record: any) {
     const monthlyHeightRef = ref(
       this.database,
-      'MonthlyHeightRecord/' + record.monthlyHeightRecordsId
+      'MonthlyHeightRecord/' + record.monthlyHeightId
     );
 
     remove(monthlyHeightRef)
@@ -172,13 +182,13 @@ export class MonthlyHeightRecordsTableComponent {
 
     // Convert the child records to a CSV format
     const csvData = this.monthlyHeightRecords.map((record) => [
-      record.monthlyHeightRecordsId,
+      record.monthlyHeightId,
       record.nameOfChild,
       record.birthday,
       record.ageInMonths,
       record.weight,
-      record.heightOrLength,
-      record.nutritionalStatus,
+      record.height,
+      record.weightForHeight,
       record.barangay,
       record.Date,
     ]);

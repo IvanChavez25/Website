@@ -8,6 +8,7 @@
     <button routerLink="/home/nutritionalstatus">Nutritional Status</button>
     <button routerLink="/home/quarterlyrecords">Quarterly Records</button>
     <button routerLink="/home/baselineweight">BaseLine</button>
+    <button routerLink="/home/monthlyrecords">Monthly Records</button>
   </div>
   <fieldset class="fieldset1">
     <legend class="legend1">
@@ -23,6 +24,7 @@
           name="searchChild"
           [(ngModel)]="searchInput"
           (input)="onSearchInputChange()"
+          autocomplete="off"
         />
         <datalist id="childList">
           <option
@@ -44,6 +46,7 @@
           [(ngModel)]="quarterlyData.birthday"
           (ngModelChange)="onBirthdayChange()"
           required
+          autocomplete="off"
         />
       </div>
       <div>
@@ -52,8 +55,10 @@
           type="text"
           id="ageInMonth"
           name="ageInMonth"
-          [(ngModel)]="quarterlyData.ageInMonth"
+          [(ngModel)]="quarterlyData.ageInMonths"
+          (ngModelChange)="calculateBMI()"
           required
+          autocomplete="off"
         />
       </div>
       <div>
@@ -63,7 +68,9 @@
           id="weight"
           name="weight"
           [(ngModel)]="quarterlyData.weight"
+          (ngModelChange)="calculateBMI()"
           required
+          autocomplete="off"
         />
       </div>
       <div>
@@ -72,8 +79,10 @@
           type="text"
           id="heightOrLength"
           name="heightOrLength"
-          [(ngModel)]="quarterlyData.heightOrLength"
+          [(ngModel)]="quarterlyData.height"
+          (ngModelChange)="calculateBMI()"
           required
+          autocomplete="off"
         />
       </div>
       <div>
@@ -82,8 +91,9 @@
           type="text"
           id="weightForLengthOrHeight"
           name="weightForLengthOrHeight"
-          [(ngModel)]="quarterlyData.weightForLengthOrHeight"
+          [(ngModel)]="quarterlyData.bmiData"
           required
+          autocomplete="off"
         />
       </div>
       <div>
@@ -94,6 +104,8 @@
           name="nutritionalStatus"
           [(ngModel)]="quarterlyData.nutritionalStatus"
           required
+          autocomplete="off"
+          readonly
         />
       </div>
       <div>

@@ -16,6 +16,7 @@
         name="searchChild"
         [(ngModel)]="searchInput"
         (input)="onSearchInputChange()"
+        autocomplete="off"
       />
       <datalist id="childList">
         <option
@@ -93,11 +94,21 @@
     </div>
     <div>
       <label for="weight" class="label">Weight (kg):</label>
-      <input type="number" id="weight" [(ngModel)]="bmiRecordData.weight" />
+      <input
+        type="number"
+        id="weight"
+        [(ngModel)]="bmiRecordData.weight"
+        autocomplete="off"
+      />
     </div>
     <div>
       <label for="height" class="label">Height (cm):</label>
-      <input type="number" id="height" [(ngModel)]="bmiRecordData.height" />
+      <input
+        type="number"
+        id="height"
+        [(ngModel)]="bmiRecordData.height"
+        autocomplete="off"
+      />
     </div>
     <div>
       <label for="age" class="label">Age (5 and below):</label>

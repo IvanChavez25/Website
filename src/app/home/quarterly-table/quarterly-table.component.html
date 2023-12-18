@@ -3,69 +3,6 @@
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
 />
 
-<div id="updateCon">
-  <div id="updateQuarterlyModal" #updateQuarterlyModal class="modal">
-    <div class="modal-content">
-      <form>
-        <legend class="legend1">
-          Quarterly Record of Weight and Weight Status 24-59 Months
-          Pre-Schoolers
-        </legend>
-        <div>
-          <label for="weight">Weight:</label>
-          <input
-            type="number"
-            id="weight"
-            name="weight"
-            [(ngModel)]="quarterlyTableData.weight"
-            required
-          />
-        </div>
-        <div>
-          <label for="heightOrLength">Height/Length:</label>
-          <input
-            type="number"
-            id="heightOrLength"
-            name="heightOrLength"
-            [(ngModel)]="quarterlyTableData.heightOrLength"
-            required
-          />
-        </div>
-        <div>
-          <label for="weightForLengthOrHeight">Weight for Length/Height:</label>
-          <input
-            type="number"
-            id="weightForLengthOrHeight"
-            name="weightForLengthOrHeight"
-            [(ngModel)]="quarterlyTableData.weightForLengthOrHeight"
-            required
-          />
-        </div>
-        <div>
-          <label for="nutritionalStatus"
-            >Nutritional Status (Nut1 Status):</label
-          >
-          <input
-            type="text"
-            id="nutritionalStatus"
-            name="nutritionalStatus"
-            [(ngModel)]="quarterlyTableData.nutritionalStatus"
-            required
-          />
-        </div>
-
-        <button class="close" (click)="closeUpdateQuarterlyModal()">
-          Cancel
-        </button>
-
-        <button class="btn btn-primary" (click)="updateQuarterly()">
-          Update Child
-        </button>
-      </form>
-    </div>
-  </div>
-</div>
-
 <fieldset class="fieldset1">
   <div>
     <label for="searchChild">Search Child:</label>
@@ -219,10 +156,10 @@
                   {{ record.nameOfChild }}
                 </td>
                 <td>{{ record.birthday }}</td>
-                <td>{{ record.ageInMonth }}</td>
+                <td>{{ record.ageInMonths }}</td>
                 <td>{{ record.weight }}</td>
-                <td>{{ record.heightOrLength }}</td>
-                <td>{{ record.weightForLengthOrHeight }}</td>
+                <td>{{ record.height }}</td>
+                <td>{{ record.bmiData }}</td>
                 <td>{{ record.nutritionalStatus }}</td>
                 <td>{{ record.barangay }}</td>
                 <td>{{ record.Date | date : "medium" : "Asia/Manila" }}</td>

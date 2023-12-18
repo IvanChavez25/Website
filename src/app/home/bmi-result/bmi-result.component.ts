@@ -44,7 +44,7 @@ export class BMIResultComponent {
 
     if (this.searchInput === '') {
       // Show all children records when the search input is empty
-      this.filteredBmiRecords = this.bmiRecords;
+      this.bmiRecords = this.originalBmiRecords;
     } else {
       // Filter children records based on the search input
       this.filteredBmiRecords = this.bmiRecords.filter((child) => {
@@ -52,9 +52,8 @@ export class BMIResultComponent {
           .toLowerCase()
           .includes(this.searchInput.toLowerCase());
       });
+      this.bmiRecords = this.filteredBmiRecords;
     }
-
-    this.filterRecords();
   }
 
   fetchBmiRecords() {
@@ -84,7 +83,7 @@ export class BMIResultComponent {
 
   filterRecords() {
     // Create a copy of the original data
-    let filteredRecords = [...this.filteredBmiRecords];
+    let filteredRecords = [...this.originalBmiRecords];
 
     // Apply the barangay filter
     if (this.selectedBarangay) {

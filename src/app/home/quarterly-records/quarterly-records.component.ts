@@ -23,10 +23,10 @@ export class QuarterlyRecordsComponent {
     nameOfChild: '',
     birthday: '',
     age: '',
-    ageInMonth: '',
+    ageInMonths: '',
     weight: '',
-    heightOrLength: '',
-    weightForLengthOrHeight: '',
+    height: '',
+    bmiData: '',
     nutritionalStatus: '',
     barangay: '',
     Date: '',
@@ -72,9 +72,9 @@ export class QuarterlyRecordsComponent {
 
     // Set ageInMonths to zero if it's negative
     if (ageInMonth < 0) {
-      this.quarterlyData.ageInMonth = '0';
+      this.quarterlyData.ageInMonths = '0';
     } else {
-      this.quarterlyData.ageInMonth = ageInMonth.toString();
+      this.quarterlyData.ageInMonths = ageInMonth.toString();
     }
   }
 
@@ -119,10 +119,10 @@ export class QuarterlyRecordsComponent {
       nameOfChild: '',
       birthday: '',
       age: '',
-      ageInMonth: '',
+      ageInMonths: '',
       weight: '',
-      heightOrLength: '',
-      weightForLengthOrHeight: '',
+      height: '',
+      bmiData: '',
       nutritionalStatus: '',
       barangay: '',
       Date: '',
@@ -134,10 +134,10 @@ export class QuarterlyRecordsComponent {
       this.quarterlyData.nameOfChild &&
       this.quarterlyData.birthday &&
       (this.quarterlyData.age || this.quarterlyData.age === 0) &&
-      this.quarterlyData.ageInMonth &&
+      this.quarterlyData.ageInMonths &&
       this.quarterlyData.weight &&
-      this.quarterlyData.heightOrLength &&
-      this.quarterlyData.weightForLengthOrHeight &&
+      this.quarterlyData.height &&
+      this.quarterlyData.bmiData &&
       this.quarterlyData.nutritionalStatus &&
       this.quarterlyData.barangay
     );
@@ -176,8 +176,6 @@ export class QuarterlyRecordsComponent {
     }
   }
 
-  
-
   getSelectedChildBirthday() {
     const selectedChildName = this.quarterlyData.nameOfChild;
 
@@ -215,6 +213,36 @@ export class QuarterlyRecordsComponent {
     } else {
       this.quarterlyData.barangay = '';
       return '';
+    }
+  }
+  calculateBMI() {
+    const age = parseInt(this.quarterlyData.ageInMonths);
+    const heightMeters = this.quarterlyData.height / 100; // Convert height to meters
+    const weight = this.quarterlyData.weight;
+
+    if (age > 72) {
+      this.quarterlyData.nutritionalStatus = 'Age must be 72 months or below';
+      return;
+    }
+
+    if (weight && heightMeters && age) {
+      const bmi = weight / (heightMeters * heightMeters);
+
+      this.quarterlyData.bmiData = bmi;
+
+      if (bmi >= 30) {
+        this.quarterlyData.nutritionalStatus = 'Ob';
+      } else if (bmi >= 25) {
+        this.quarterlyData.nutritionalStatus = 'OW';
+      } else if (bmi >= 14.1) {
+        this.quarterlyData.nutritionalStatus = 'N';
+      } else if (bmi >= 8) {
+        this.quarterlyData.nutritionalStatus = 'UW';
+      } else {
+        this.quarterlyData.nutritionalStatus = 'SUW';
+      }
+    } else {
+      this.quarterlyData.nutritionalStatus = ''; // Reset status if data is incomplete
     }
   }
 }

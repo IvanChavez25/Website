@@ -33,7 +33,7 @@ export class BWIRTableComponent {
 
     if (this.searchInput === '') {
       // Show all children records when the search input is empty
-      this.filteredBaselineRecords = this.baselineRecords;
+      this.baselineRecords = this.originalBaselineRecords;
     } else {
       // Filter children records based on the search input
       this.filteredBaselineRecords = this.baselineRecords.filter((child) => {
@@ -41,9 +41,8 @@ export class BWIRTableComponent {
           .toLowerCase()
           .includes(this.searchInput.toLowerCase());
       });
+      this.baselineRecords = this.filteredBaselineRecords;
     }
-
-    this.filterRecords();
   }
 
   fetchBaselineRecords() {
@@ -73,7 +72,7 @@ export class BWIRTableComponent {
 
   filterRecords() {
     // Create a copy of the original data
-    let filteredRecords = [...this.filteredBaselineRecords];
+    let filteredRecords = [...this.originalBaselineRecords];
 
     // Apply the barangay filter
     if (this.selectedBarangay) {

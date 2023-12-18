@@ -33,19 +33,16 @@ export class QuarterlyTableComponent {
 
     if (this.searchInput === '') {
       // Show all children records when the search input is empty
-      this.filteredQuarterlyTable = this.quarterlyTable;
+      this.quarterlyTable = this.originalQuarterlyTable;
     } else {
       // Filter children records based on the search input
-      this.filteredQuarterlyTable = this.quarterlyTable.filter(
-        (child) => {
-          return child.nameOfChild
-            .toLowerCase()
-            .includes(this.searchInput.toLowerCase());
-        }
-      );
+      this.filteredQuarterlyTable = this.quarterlyTable.filter((child) => {
+        return child.nameOfChild
+          .toLowerCase()
+          .includes(this.searchInput.toLowerCase());
+      });
+      this.quarterlyTable = this.filteredQuarterlyTable;
     }
-
-    this.filterRecords();
   }
 
   fetchquarterlyTable() {
@@ -75,7 +72,7 @@ export class QuarterlyTableComponent {
 
   filterRecords() {
     // Create a copy of the original data
-    let filteredRecords = [...this.filteredQuarterlyTable];
+    let filteredRecords = [...this.originalQuarterlyTable];
 
     // Apply the barangay filter
     if (this.selectedBarangay) {
@@ -138,39 +135,6 @@ export class QuarterlyTableComponent {
     this.updateQuarterlyModal.nativeElement.style.display = 'block';
   }
 
-  updateQuarterly() {
-    const quarterlyRef = ref(
-      this.database,
-      `QuarterlyTable/${this.quarterlyTableData.quarterlyId}`
-    );
-
-    // Update the children's health data in the database
-    update(quarterlyRef, {
-      quarterlyId: this.quarterlyTableData.quarterlyId,
-      nameOfChild: this.quarterlyTableData.nameOfChild,
-      birthday: this.quarterlyTableData.birthday,
-      ageInMonth: this.quarterlyTableData.ageInMonth,
-      weight: this.quarterlyTableData.weight,
-      heightOrLength: this.quarterlyTableData.heightOrLength,
-      weightForLengthOrHeight: this.quarterlyTableData.weightForLengthOrHeight,
-      nutritionalStatus: this.quarterlyTableData.nutritionalStatus,
-      barangay: this.quarterlyTableData.barangay,
-      
-    })
-      .then(() => {
-        alert('Children Quarterly Records Data Updated successfully');
-        this.fetchquarterlyTable();
-      })
-      .catch((error) => {
-        console.error('Error updating Quarterly children records:', error);
-      });
-
-    this.updateQuarterlyModal.nativeElement.style.display = 'none';
-  }
-
-  closeUpdateQuarterlyModal() {
-    this.updateQuarterlyModal.nativeElement.style.display = 'none';
-  }
   reloadPage() {
     window.location.reload();
   }
@@ -215,10 +179,10 @@ export class QuarterlyTableComponent {
       record.quarterlyId,
       record.nameOfChild.firstName + ' ' + record.nameOfChild?.lastName,
       record.birthday,
-      record.ageInMonth,
+      record.ageInMonths,
       record.weight,
-      record.heightOrLength,
-      record.weightForLengthOrHeight,
+      record.height,
+      record.bmiData,
       record.nutritionalStatus,
       record.barangay,
       record.Date,

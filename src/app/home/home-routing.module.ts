@@ -27,6 +27,9 @@ import { NutritionalStatusSummaryWeightforheightComponent } from './nutritional-
 import { UserAccountComponent } from './user-account/user-account.component';
 import { UserlistComponent } from './userlist/userlist.component';
 import { authGuard } from '../page/login/auth.guard';
+import { MonthlyheightrankingComponent } from './monthlyheightranking/monthlyheightranking.component';
+import { MonthlyweightrankingComponent } from './monthlyweightranking/monthlyweightranking.component';
+import { MonthlyinfantrankingComponent } from './monthlyinfantranking/monthlyinfantranking.component';
 
 const routes: Routes = [
   {
@@ -77,6 +80,9 @@ const routes: Routes = [
       },
       { path: 'useraccount', component: UserAccountComponent },
       { path: 'userlist', component: UserlistComponent },
+      { path: 'monthlyheightranking', component: MonthlyheightrankingComponent},
+      { path: 'monthlyweightranking', component: MonthlyweightrankingComponent},
+      { path: 'monthlyinfantranking', component: MonthlyinfantrankingComponent}
     ],
   },
 ];

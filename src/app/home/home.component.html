@@ -2,7 +2,7 @@
 <div class="navbar">
   <div class="navbar-content">
     <div class="navbar-logo"></div>
-    <div class="logo-text">SAN JUAN BATANGAS</div>
+    <div class="logo-text">{{ username }}</div>
   </div>
   <ul class="navbar-list">
     <li *ngIf="userRole === 'bhw'">
@@ -24,12 +24,6 @@
       </a>
     </li>
     <li *ngIf="userRole === 'bhw'">
-      <a routerLink="/home/monthlyweight">
-        Monthly Children Status
-        <i class="fa fa-calendar"></i>
-      </a>
-    </li>
-    <li *ngIf="userRole === 'bhw'">
       <a routerLink="/home/bmi">
         BMI Calculator
         <i class="fa fa-calculator"></i>
@@ -41,7 +35,9 @@
       </a>
     </li>
     <li li *ngIf="userRole === 'admin'">
-      <a routerLink="/home/useraccount"> <i class="fa fa-user"></i> Create BHW Account </a>
+      <a routerLink="/home/useraccount">
+        <i class="fa fa-user"></i> Create BHW Account
+      </a>
     </li>
     <li *ngIf="userRole === 'admin'">
       <a routerLink="/home/userlist">
@@ -79,6 +75,9 @@
             <app-nutritional-dropdown></app-nutritional-dropdown>
           </li>
           <li>
+            <app-monthlyranking-dropdown></app-monthlyranking-dropdown>
+          </li>
+          <li>
             <a routerLink="/home/quarterlytable">
               <i class="fa fa-table"></i> Quarterly Records Table
             </a>
@@ -90,8 +89,7 @@
           </li>
           <li>
             <a routerLink="/home/bwirtable">
-              <i class="fa fa-table"></i> Baseline Weight and Immunization
-              Records table
+              <i class="fa fa-table"></i> Baseline Records table
             </a>
           </li>
           <li>

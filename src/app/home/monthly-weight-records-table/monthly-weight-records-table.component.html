@@ -104,17 +104,17 @@
       required
     >
       <option value="">ALL</option>
-      <option value="January">January</option>
-      <option value="February">February</option>
-      <option value="March">March</option>
-      <option value="May">May</option>
-      <option value="June">June</option>
-      <option value="July">July</option>
-      <option value="August">August</option>
-      <option value="September">September</option>
-      <option value="October">October</option>
-      <option value="November">November</option>
-      <option value="December">December</option>
+      <option value="1">January</option>
+      <option value="2">February</option>
+      <option value="3">March</option>
+      <option value="4">May</option>
+      <option value="5">June</option>
+      <option value="6">July</option>
+      <option value="7">August</option>
+      <option value="8">September</option>
+      <option value="9">October</option>
+      <option value="10">November</option>
+      <option value="11">December</option>
     </select>
 
     <button (click)="clearFilters()">Clear_Filters</button>
@@ -128,18 +128,20 @@
   <div>
     <div class="result-container">
       <fieldset id="monthlyWeightRecords">
-        <legend>Monthly Weight Records</legend>
+        <legend>
+          Monthly Records of Weight and Weight Status Underweight and Severely
+          Underweight Cases
+        </legend>
         <div class="result-table">
           <table>
             <thead>
               <tr>
-                <th>#</th>
+                <th>Monthly ID</th>
                 <th>Name of Child</th>
                 <th>Birthday (dd/mm/yyyy)</th>
                 <th>Age in Months</th>
                 <th>Weight (kg.)</th>
                 <th>Weight Status</th>
-                <th>Date of Weighing</th>
                 <th>Barangay</th>
                 <th>Date</th>
                 <th>Action</th>
@@ -151,15 +153,14 @@
                   let record of monthlyWeightRecords.slice(startIndex, endIndex)
                 "
               >
-                <td>{{ record.monthlyWeightRecordsId }}</td>
+                <td>{{ record.monthlyWeightId }}</td>
                 <td>
                   {{ record.nameOfChild }}
                 </td>
                 <td>{{ record.birthday }}</td>
                 <td>{{ record.ageInMonths }}</td>
                 <td>{{ record.weight }}</td>
-                <td>{{ record.weightStatus }}</td>
-                <td>{{ record.dateOfWeighing }}</td>
+                <td>{{ record.weightForAge }}</td>
                 <td>{{ record.barangay }}</td>
                 <td>{{ record.Date | date : "medium" : "Asia/Manila" }}</td>
                 <td>

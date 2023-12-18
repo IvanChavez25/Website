@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Renderer2, ElementRef, OnDestroy } from '@angular/core';
+import { Renderer2, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-monthly-dropdown',

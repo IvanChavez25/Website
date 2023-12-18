@@ -133,6 +133,48 @@
   color: purple; /* Set color for Overweight (OW) */
 }
 
+.WH-label {
+  display: grid;
+  font-size: 10px;
+  grid-template-columns: repeat(5, 1fr); /* 3 columns */
+  gap: 5px; /* Gap between grid cells */
+}
+
+/* Individual grid items (labels) */
+.SUW,
+.UW,
+.NW,
+.OW,
+.N,
+.Ob {
+  text-align: center; /* Center the text */
+  padding: 5px; /* Add some padding for spacing */
+}
+
+.WH-label .SUW {
+  color: red; /* Set color for Severely Underweight (SUW) */
+}
+
+.WH-label .UW {
+  color: orange; /* Set color for Underweight (UW) */
+}
+
+.WH-label .NW {
+  color: green; /* Set color for Healthy Weight (HW) */
+}
+
+.WH-label .OW {
+  color: blue; /* Set color for Overweight (OW) */
+}
+
+.WH-label .N {
+  color: green; /* Set color for Healthy Weight (HW) */
+}
+
+.WH-label .Ob {
+  color: purple; /* Set color for Overweight (OW) */
+}
+
 canvas {
   display: block;
   width: 80%;

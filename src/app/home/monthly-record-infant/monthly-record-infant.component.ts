@@ -2953,8 +2953,6 @@ export class MonthlyRecordInfantComponent {
     }
   }
 
-
-
   onBirthdayChange() {
     this.calculateAge(this.monthlyInfantRecordData.birthday);
     this.calculateAgeInMonths(this.monthlyInfantRecordData.birthday);
@@ -3157,6 +3155,39 @@ export class MonthlyRecordInfantComponent {
     } else {
       this.monthlyInfantRecordData.gender = '';
       return '';
+    }
+  }
+
+  calculateBMI() {
+    const age = parseInt(this.monthlyInfantRecordData.ageInMonths);
+    const heightMeters = this.monthlyInfantRecordData.height / 100; // Convert height to meters
+    const weight = this.monthlyInfantRecordData.weight;
+
+    if (age > 72) {
+      this.monthlyInfantRecordData.weightForLengthOrHeight =
+        'Age must be 72 months or below';
+      return;
+    }
+
+    if (weight && heightMeters && age) {
+      const bmi = weight / (heightMeters * heightMeters);
+
+      this.monthlyInfantRecordData.weightForLengthOrHeight = bmi.toFixed(2); // Display the calculated BMI
+
+      if (bmi >= 30) {
+        this.monthlyInfantRecordData.weightForLengthorHeight = 'Ob';
+      } else if (bmi >= 25) {
+        this.monthlyInfantRecordData.weightForLengthorHeight = 'OW';
+      } else if (bmi >= 14.1) {
+        this.monthlyInfantRecordData.weightForLengthorHeight = 'HW';
+      } else if (bmi >= 8) {
+        this.monthlyInfantRecordData.weightForLengthorHeight = 'UW';
+      } else {
+        this.monthlyInfantRecordData.weightForLengthorHeight = 'SUW';
+      }
+    } else {
+      this.monthlyInfantRecordData.weightForLengthOrHeight = ''; // Reset status if data is incomplete
+      this.monthlyInfantRecordData.weightForLengthorHeight = '';
     }
   }
 }

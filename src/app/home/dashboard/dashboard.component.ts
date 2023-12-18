@@ -28,6 +28,7 @@ interface WeightForHeightTotals {
   severelyUnderweight: number;
   underweight: number;
   normal: number;
+  overweight: number;
   obese: number;
 }
 
@@ -556,6 +557,9 @@ export class DashboardComponent implements OnInit {
               existingBarangay.normal++;
               break;
             case 'OW':
+              existingBarangay.overweight++;
+              break;
+            case 'Ob':
               existingBarangay.obese++;
               break;
             default:
@@ -569,6 +573,7 @@ export class DashboardComponent implements OnInit {
             severelyUnderweight: 0,
             underweight: 0,
             normal: 0,
+            overweight: 0,
             obese: 0,
           };
 
@@ -583,6 +588,9 @@ export class DashboardComponent implements OnInit {
               totals.normal++;
               break;
             case 'OW':
+              totals.overweight++;
+              break;
+            case 'Ob':
               totals.obese++;
               break;
             default:
@@ -900,13 +908,16 @@ export class DashboardComponent implements OnInit {
     }
 
     const labels = this.barangayDataWH.map((record) => record.barangay);
-    const severelyUnderweightData = this.barangayData.map(
-      (record) => record.severelyStunted
+    const severelyUnderweightData = this.barangayDataWH.map(
+      (record) => record.severelyUnderweight
     );
     const underweightData = this.barangayDataWH.map(
       (record) => record.underweight
     );
     const normalData = this.barangayDataWH.map((record) => record.normal);
+    const overweightData = this.barangayDataWH.map(
+      (record) => record.overweight
+    );
     const obeseData = this.barangayDataWH.map((record) => record.obese);
 
     new Chart(ctx, {
@@ -928,6 +939,11 @@ export class DashboardComponent implements OnInit {
             label: 'N',
             data: normalData,
             backgroundColor: 'green', // Customize bar color as needed
+          },
+          {
+            label: 'OW',
+            data: overweightData,
+            backgroundColor: 'blue', // Customize bar color as needed
           },
           {
             label: 'Ob',

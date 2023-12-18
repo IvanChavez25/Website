@@ -8,6 +8,7 @@
     <button routerLink="/home/nutritionalstatus">Nutritional Status</button>
     <button routerLink="/home/quarterlyrecords">Quarterly Records</button>
     <button routerLink="/home/baselineweight">BaseLine</button>
+    <button routerLink="/home/monthlyrecords">Monthly Records</button>
   </div>
 
   <fieldset class="fieldset1">
@@ -25,6 +26,7 @@
           [value]="getSelectedChildNameOfHouseholdHead()"
           [(ngModel)]="baselineData.NameOfHouseholdHead"
           required
+          autocomplete="off"
         />
       </div>
       <div>
@@ -36,6 +38,7 @@
           name="searchChild"
           [(ngModel)]="searchInput"
           (input)="onSearchInputChange()"
+          autocomplete="off"
         />
         <datalist id="childList">
           <option
@@ -172,6 +175,7 @@
             name="dateOfWeighing"
             [(ngModel)]="baselineData.dateOfWeighing"
             required
+            autocomplete="off"
           />
         </div>
         <div>
@@ -182,6 +186,7 @@
             name="ageInMonth"
             [(ngModel)]="baselineData.ageInMonth"
             required
+            autocomplete="off"
           />
         </div>
         <div>
@@ -193,6 +198,7 @@
             [(ngModel)]="baselineData.weight"
             (ngModelChange)="onweightStatusChange()"
             required
+            autocomplete="off"
           />
         </div>
         <div>
@@ -203,6 +209,7 @@
             name="weightStatus"
             [(ngModel)]="baselineData.weightStatus"
             required
+            readonly
           />
         </div>
       </fieldset>

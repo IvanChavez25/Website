@@ -1,0 +1,131 @@
+* {
+  box-sizing: border-box;
+  border: hidden;
+}
+
+fieldset {
+  border-radius: 4%;
+  border-color: #ccc;
+  margin-bottom: 3%;
+  margin-top: 3%;
+  border-style: hidden;
+}
+
+legend {
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.6vw;
+}
+
+#bmiranking {
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+#bmiranking legend {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.ranking-table table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 75%;
+}
+
+.barangay-ranking {
+  margin: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 2px solid #ddd;
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+tr:nth-child(odd) {
+  background-color: #fff;
+}
+
+/* dinagdag ko dyann sa modal */
+.modal {
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 450px;
+  height: 500px;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal-content {
+  position: relative;
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  overflow-y: auto;
+  z-index: 10;
+}
+
+.modal-content span {
+  position: absolute;
+  right: 20px;
+  top: 10px;
+  cursor: pointer;
+  color: red;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  font-size: 10px;
+  margin: 0 10px;
+  font-weight: bold;
+  padding: 8px 16px;
+  color: #000000;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 0 5px;
+}
+
+.paginationButton {
+  padding: 8px 16px;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 10px;
+  margin: 0 5px;
+  background-color: #79ac78;
+}
+
+.pagination button:hover {
+  background-color: #b0d9b1;
+}

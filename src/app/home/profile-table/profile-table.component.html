@@ -322,7 +322,7 @@
                 <td>{{ child.motherName }}</td>
                 <td>{{ child.NameOfHouseholdHead }}</td>
                 <td>{{ child.gender }}</td>
-                <td>{{ child.date }}</td>
+                <td>{{ child.Date | date : "medium" : "Asia/Manila" }}</td>
                 <td>
                   <a class="btn btn-sm btn-outline-dark"
                     ><i class="fas fa-up-right-from-square"></i
