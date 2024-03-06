@@ -8,7 +8,7 @@
   font-weight: bold;
 
   left: 50%;
-  top: 120%;
+  top: 118%;
   transform: translate(-50%, -50%);
 }
 
@@ -21,7 +21,7 @@
   font-size: 20px;
 
   left: 50%;
-  top: 190%;
+  top: 210%;
   transform: translate(-50%, -50%);
 }
 
@@ -44,7 +44,7 @@ form div {
 }
 
 form {
-  max-width: 400px;
+  max-width: 600px;
   margin: 0 auto;
   padding: 20px;
   border: 1px solid #ccc;
@@ -56,7 +56,7 @@ form {
   text-align: center;
   font-weight: bold;
   font-size: 15px;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 fieldset {
@@ -70,7 +70,8 @@ fieldset {
 legend {
   text-align: center;
   font-weight: bold;
-  font-size: 10px;
+  font-size: 20px;
+  margin-bottom: 20px;
 }
 
 #nutritionalStatus {

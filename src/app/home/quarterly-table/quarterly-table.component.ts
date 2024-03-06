@@ -127,9 +127,9 @@ export class QuarterlyTableComponent {
     this.quarterlyTable = [...this.originalQuarterlyTable];
   }
 
-  openUpdateQuarterlyModal(child: any) {
+  openUpdateQuarterlyModal(record: any) {
     // Set the health data in the component to be used in the modal form
-    this.quarterlyTableData = { ...child };
+    this.quarterlyTableData = { ...record };
 
     // Open the update health modal
     this.updateQuarterlyModal.nativeElement.style.display = 'block';

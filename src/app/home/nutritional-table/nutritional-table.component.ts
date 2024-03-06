@@ -26,7 +26,7 @@ export class NutritionalTableComponent {
   @ViewChild('viewNutritionalModal') viewNutritionalModal!: ElementRef;
 
   currentPage: number = 1;
-  itemsPerPage: number = 15;
+  itemsPerPage: number = 20;
 
   constructor(
     public database: Database,
