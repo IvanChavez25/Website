@@ -41,6 +41,8 @@ export class NutritionalTableComponent {
     this.updateNutritionalModal.nativeElement.style.display = 'none';
   }
 
+  
+
   onSearchInputChange() {
     this.nutritionalRecordsData.nameOfChild = this.searchInput;
 

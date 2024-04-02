@@ -214,7 +214,6 @@
                 <th>Iron Drops / Syrup Received</th>
                 <th>Using MNP</th>
                 <th>Action</th>
-
               </tr>
             </thead>
             <tbody>
@@ -237,16 +236,18 @@
                 <td>{{ viewnutritionalRecordsData.practicingCF }}</td>
                 <td>{{ viewnutritionalRecordsData.ageStartedCF }}</td>
                 <td>{{ viewnutritionalRecordsData.beneficiarySF }}</td>
-                <td>{{ viewnutritionalRecordsData.vitaminALastReceived }}</td>
+                <td>
+                  {{ viewnutritionalRecordsData.vitaminALastReceived }}
+                </td>
                 <td>{{ viewnutritionalRecordsData.ironReceived }}</td>
                 <td>{{ viewnutritionalRecordsData.usingMNP }}</td>
                 <td>
                   <button
-                  (click)="closeViewNutritionalModal()"
-                  class="delete btn btn-sm btn-outline-danger"
-                >
-                  Close
-                </button>
+                    (click)="closeViewNutritionalModal()"
+                    class="delete btn btn-sm btn-outline-danger"
+                  >
+                    Close
+                  </button>
                 </td>
               </tr>
             </tbody>
