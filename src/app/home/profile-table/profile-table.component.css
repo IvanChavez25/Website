@@ -229,15 +229,23 @@ legend {
 }
 
 @media (max-width: 768px) {
+  input[type="text"],
+  input[type="date"],
+  input[type="number"],
+  select {
+    width: 79%;
+    padding: 5px;
+    font-size: 7px;
+    border-radius: 4px;
+  }
+
   fieldset {
     max-width: 50px;
     border-style: hidden;
   }
 
-  legend {
-    text-align: center;
-    font-weight: bold;
-    font-size: 20%;
+  .fieldset1 {
+    font-size: 13px;
   }
 
   #childrenProfile {
@@ -246,7 +254,7 @@ legend {
   }
 
   #childrenProfile legend {
-    font-size: 20%;
+    font-size: 60%;
   }
 
   .result-table table {
@@ -256,22 +264,51 @@ legend {
 
   .result-table th,
   .result-table td {
-    max-width: 30px;
+    max-width: 27.5px;
     font-size: 4px;
   }
 
   .result-table p {
-    margin: 10px 0;
+    margin: 15px 0;
     font-style: italic;
     color: #999;
   }
 
   .result-table th {
     background-color: #f2f2f2;
-    font-weight: lighter;
+    font-weight: bold;
   }
 
   button {
     font-size: 3px;
+    padding: 0px 0px;
+  }
+
+  .filter-container label {
+    max-width: 80px;
+    font-size: 8px;
+  }
+
+  .filter-container input[type="date"],
+  .filter-container input[type="text"],
+  .filter-container input[type="number"],
+  .filter-container select {
+    font-size: 10px;
+    width: 50%;
+  }
+
+  .filter-container button {
+    max-width: 50px;
+    font-size: 8px;
+    padding: 0px 10px;
+  }
+
+  .pagination {
+    font-size: 15px;
+  }
+
+  .pagination Button {
+    font-size: 10px;
+    padding: 5px 23px;
   }
 }

@@ -202,3 +202,91 @@ legend {
 .pagination button:hover {
   background-color: #b0d9b1;
 }
+
+@media (max-width: 768px) {
+  input[type="text"],
+  input[type="date"],
+  input[type="number"],
+  select {
+    width: 79%;
+    padding: 5px;
+    font-size: 7px;
+    border-radius: 4px;
+  }
+
+  fieldset {
+    max-width: 50px;
+    border-style: hidden;
+  }
+
+  .fieldset1 {
+    font-size: 13px;
+  }
+
+  #monthlyWeightRecords {
+    padding: 5px;
+    margin-top: 10px;
+  }
+
+  #monthlyWeightRecords legend {
+    font-size: 60%;
+  }
+
+  .result-table table {
+    border-collapse: collapse;
+    font-size: 5%;
+  }
+
+  .result-table th,
+  .result-table td {
+    max-width: 44px;
+    font-size: 5px;
+    font-weight: bold;
+  }
+
+  .result-table p {
+    margin: 15px 0;
+    font-style: italic;
+    font-weight: bold;
+    color: #999;
+  }
+
+  .result-table th {
+    background-color: #f2f2f2;
+    font-weight: lighter;
+    font-weight: bold;
+  }
+
+  button {
+    font-size: 3px;
+    padding: 0px 0px;
+  }
+
+  .filter-container label {
+    max-width: 50px;
+    font-size: 6px;
+  }
+
+  .filter-container input[type="date"],
+  .filter-container input[type="text"],
+  .filter-container input[type="number"],
+  .filter-container select {
+    font-size: 10px;
+    width: 100%;
+  }
+
+  .filter-container button {
+    font-size: 6px;
+    max-width: 50px;
+    padding: 0px 5px;
+  }
+
+  .pagination {
+    font-size: 15px;
+  }
+
+  .pagination Button {
+    font-size: 10px;
+    padding: 5px 23px;
+  }
+}

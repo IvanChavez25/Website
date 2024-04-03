@@ -77,7 +77,7 @@
       <option value="TIPAZ">TIPAZ</option>
     </select>
 
-    <label for="fromDate">FromDate:</label>
+    <label for="fromDate">From Date:</label>
     <input
       type="date"
       id="fromDate"
@@ -86,7 +86,7 @@
       (input)="filterRecords()"
     />
 
-    <label for="toDate">ToDate:</label>
+    <label for="toDate">To Date:</label>
     <input
       type="date"
       id="toDate"
@@ -94,7 +94,7 @@
       [(ngModel)]="toDate"
       (input)="filterRecords()"
     />
-    <label for="measurementMonth">Measurement Month:</label>
+    <label for="measurementMonth">Month Measured:</label>
     <select
       id="measurementMonth"
       name="measurementMonth"
@@ -116,7 +116,7 @@
       <option value="11">December</option>
     </select>
 
-    <button (click)="clearFilters()">Clear_Filters</button>
+    <button (click)="clearFilters()">Clear Filters</button>
 
     <button (click)="downloadChildData()">
       <i class="fa fa-download"></i>Download
@@ -137,7 +137,7 @@
               <tr>
                 <th>Monthly ID</th>
                 <th>Name of Child</th>
-                <th>Birthday (dd/mm/yyyy)</th>
+                <th>Birthday</th>
                 <th>Age in Months</th>
                 <th>Height or Length</th>
                 <th>Nutritional Status</th>
