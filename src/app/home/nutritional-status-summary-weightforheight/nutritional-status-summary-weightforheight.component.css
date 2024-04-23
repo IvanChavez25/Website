@@ -54,7 +54,7 @@ h2 {
 }
 
 .barangay-ranking {
-  margin: 20px;
+  margin: 10px;
 }
 
 /* Styling for the section container */
@@ -139,8 +139,53 @@ h2 {
 }
 
 /* Adjust table responsiveness for small screens */
-@media (max-width: 600px) {
-  table {
-    font-size: 14px;
+@media (max-width: 768px) {
+  #bmiranking {
+    padding: 5px;
+    margin-top: 10px;
+  }
+
+  #bmiranking h2 {
+    font-size: 60%;
+  }
+
+  .ranking-table table {
+    border-collapse: collapse;
+    font-size: 5%;
+  }
+
+  .ranking-table label {
+    border-collapse: collapse;
+    font-size: 7px;
+    font-weight: bold;
+  }
+
+  .ranking-table input[type="number"],
+  .ranking-table select {
+    font-size: 7px;
+    width: 30%;
+  }
+
+  th,
+  td {
+    max-width: 10px;
+    font-size: 5px;
+    font-weight: bold;
+  }
+
+  .modal {
+    left: 50%;
+    top: 68%;
+    width: 250px;
+    height: 300px;
+  }
+
+  .pagination {
+    font-size: 7px;
+  }
+
+  .pagination Button {
+    font-size: 7px;
+    padding: 0px 10px;
   }
 }

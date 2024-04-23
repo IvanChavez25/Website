@@ -12,6 +12,17 @@
   transform: translate(-50%, -50%);
 }
 
+#viewCon:focus-within::after {
+  padding: 5px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  font-size: 20px;
+}
+
 input[type="text"],
 input[type="date"],
 input[type="number"],
@@ -73,6 +84,13 @@ legend {
   font-weight: bold;
 }
 
+.result-container {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 10px;
+  border: none;
+}
+
 .result-table table {
   width: 100%;
   border-collapse: collapse;
@@ -109,8 +127,51 @@ legend {
   padding: 8px 12px;
 }
 
+.result-table1 table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 50%;
+}
+
+.result-table1 th,
+.result-table1 td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.result-table1 th {
+  background-color: #f2f2f2;
+}
+
+.result-table1 p {
+  margin: 10px 0;
+  font-style: italic;
+  color: #999;
+}
+
+.result-table1 th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.result-table1 td {
+  padding: 8px 12px;
+}
+
+.result-container1 {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 10px;
+  border: none;
+}
+
 #record-row:hover {
   background-color: #e0e0e0;
+}
+
+#viewBaselineModal {
+  display: none;
 }
 
 #updateBaselineModal {
@@ -201,4 +262,160 @@ legend {
 
 .pagination button:hover {
   background-color: #b0d9b1;
+}
+
+@media (max-width: 768px) {
+  input[type="text"],
+  input[type="date"],
+  input[type="number"],
+  select {
+    width: 100%;
+    padding: 5px;
+    font-size: 5px;
+    border-radius: 4px;
+  }
+
+  fieldset input[type="text"],
+  fieldset input[type="date"],
+  fieldset input[type="number"],
+  select {
+    width: 100%;
+    padding: 5px;
+    font-size: 5px;
+    border-radius: 4px;
+  }
+
+  fieldset {
+    max-width: 50px;
+    border-style: hidden;
+  }
+
+  fieldset .baselineRecords {
+    max-width: 50px;
+    border-style: hidden;
+  }
+
+  .fieldset1 {
+    font-size: 13px;
+  }
+
+  #baselineRecords legend {
+    font-size: 90%;
+  }
+
+  .result-container {
+    max-width: 400px;
+    margin: 10px auto;
+    padding: 10px;
+    border: none;
+  }
+
+  .result-table table {
+    border-collapse: collapse;
+    font-size: 5%;
+  }
+
+  .result-table th,
+  .result-table td {
+    max-width: 27.9px;
+    font-size: 4.5px;
+    font-weight: bold;
+  }
+
+  .result-table p {
+    margin: 15px 0;
+    font-style: italic;
+    font-weight: bold;
+    color: #999;
+  }
+
+  .result-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+
+  .result-container button {
+    font-size: 5.5px;
+    padding: 0px 0px;
+  }
+
+  .filter-container label {
+    max-width: 50px;
+    font-size: 6px;
+  }
+
+  .filter-container input[type="date"],
+  .filter-container input[type="text"],
+  .filter-container input[type="number"],
+  .filter-container select {
+    font-size: 10px;
+    width: 100%;
+  }
+
+  .filter-container button {
+    font-size: 6px;
+    max-width: 50px;
+    padding: 0px 5px;
+  }
+
+  .pagination {
+    font-size: 15px;
+  }
+
+  .pagination Button {
+    font-size: 10px;
+    padding: 5px 23px;
+  }
+
+  #updateCon {
+    padding: 10px;
+    font-size: 10px;
+    left: 50%;
+    top: 140%;
+  }
+
+  #updateCon Button {
+    font-size: 10px;
+    padding: 0px 5px;
+  }
+
+  #viewCon Button {
+    font-size: 5px;
+    padding: 0px 5px;
+  }
+
+  .legend1 {
+    font-size: 10px;
+    margin-bottom: 10px;
+  }
+
+  legend {
+    font-size: 10px;
+    margin-bottom: 10px;
+  }
+
+  .result-container1 {
+    max-width: 400px;
+    margin: 10px auto;
+    padding: 10px;
+    border: none;
+  }
+
+  .result-table1 table {
+    border-collapse: collapse;
+    font-size: 5%;
+  }
+
+  .result-table1 th,
+  .result-table1 td {
+    max-width: 35.5px;
+    font-size: 5px;
+    font-weight: normal;
+  }
+
+  .result-table1 th {
+    background-color: #f2f2f2;
+    font-weight: lighter;
+    font-weight: bold;
+  }
 }

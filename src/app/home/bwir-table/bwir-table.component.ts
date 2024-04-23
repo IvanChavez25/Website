@@ -11,6 +11,7 @@ export class BWIRTableComponent {
   originalBaselineRecords: any[] = [];
   baselineRecords: any[] = [];
   baselineData: any = {};
+  viewbaselineData: any = {};
   searchInput: string = '';
   filteredBaselineRecords: any[] = [];
 
@@ -20,12 +21,18 @@ export class BWIRTableComponent {
   selectedMonth: any = '';
 
   @ViewChild('updateBaselineModal') updateBaselineModal!: ElementRef;
+  @ViewChild('viewBaselineModal') viewBaselineModal!: ElementRef;
 
   currentPage: number = 1;
   itemsPerPage: number = 10;
 
   constructor(public database: Database, private location: Location) {
     this.fetchBaselineRecords();
+  }
+
+  ngAfterViewInit() {
+    // Hide the updateNutritionalModal on page load
+    this.updateBaselineModal.nativeElement.style.display = 'none';
   }
 
   onSearchInputChange() {
@@ -52,13 +59,32 @@ export class BWIRTableComponent {
       .then((snapshot) => {
         if (snapshot.exists()) {
           this.originalBaselineRecords = Object.values(snapshot.val());
-          this.baselineRecords = Object.values(snapshot.val());
+          this.originalBaselineRecords.sort((a, b) => {
+            return new Date(b.Date).getTime() - new Date(a.Date).getTime();
+          });
+
+          const filteredBaselineRecords = [];
+
+          // Loop through originalMonthlyInfantRecords
+          for (const record of this.originalBaselineRecords) {
+            // Check if ageInMonths is less than 23
+            if (record.ageInMonth < 23) {
+              // Add the record to the filtered arraye
+              filteredBaselineRecords.push(record);
+            }
+          }
+
+          this.baselineRecords = filteredBaselineRecords;
+
+          this.originalBaselineRecords = filteredBaselineRecords;
         } else {
+          // Set monthlyInfantRecords to an empty array if no data exists
           this.baselineRecords = [];
         }
       })
       .catch((error) => {
-        console.error('Error retrieving baselineRecords:', error);
+        // Log an error message if there's an issue retrieving data
+        console.error('Error retrieving monthlyInfantRecords:', error);
       });
   }
 
@@ -138,6 +164,14 @@ export class BWIRTableComponent {
     this.updateBaselineModal.nativeElement.style.display = 'block';
   }
 
+  openViewBaselineModal(record: any) {
+    this.viewbaselineData = { ...record };
+
+    console.log(this.viewbaselineData);
+
+    this.viewBaselineModal.nativeElement.style.display = 'block';
+  }
+
   updateBaseline() {
     const BaselineRef = ref(
       this.database,
@@ -171,6 +205,11 @@ export class BWIRTableComponent {
   closeUpdateBaselineModal() {
     this.updateBaselineModal.nativeElement.style.display = 'none';
   }
+
+  closeViewBaselineModal() {
+    this.viewBaselineModal.nativeElement.style.display = 'none';
+  }
+
   reloadPage() {
     window.location.reload();
   }

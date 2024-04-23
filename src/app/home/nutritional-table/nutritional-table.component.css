@@ -109,10 +109,6 @@ legend {
   background-color: #f2f2f2;
 }
 
-#record-row:hover {
-  background-color: #e0e0e0;
-}
-
 .result-table p {
   margin: 10px 0;
   font-style: italic;
@@ -130,6 +126,58 @@ legend {
 
 #record-row:hover {
   background-color: #e0e0e0;
+}
+
+.result-table1 table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 50%;
+}
+
+.result-table1 th,
+.result-table1 td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.result-table1 th {
+  background-color: #f2f2f2;
+}
+
+.result-table1 p {
+  margin: 10px 0;
+  font-style: italic;
+  color: #999;
+}
+
+.result-table1 th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.result-table1 td {
+  padding: 8px 12px;
+}
+
+#nutritionalStatus {
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+#nutritionalStatus legend {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.result-container1 {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 10px;
+  border: none;
 }
 
 #updateNutritionalModal {
@@ -252,17 +300,17 @@ legend {
     border-style: hidden;
   }
 
+  fieldset .nutritionalStatus {
+    max-width: 50px;
+    border-style: hidden;
+  }
+
   .fieldset1 {
     font-size: 13px;
   }
 
-  #monthlyWeightRecords {
-    padding: 5px;
-    margin-top: 10px;
-  }
-
-  #monthlyWeightRecords legend {
-    font-size: 60%;
+  #nutritionalStatus legend {
+    font-size: 80%;
   }
 
   .result-container {
@@ -279,9 +327,9 @@ legend {
 
   .result-table th,
   .result-table td {
-    max-width: 30px;
-    font-size: 5px;
-    font-weight: normal;
+    max-width: 30.5px;
+    font-size: 4.5px;
+    font-weight: bold;
   }
 
   .result-table p {
@@ -293,12 +341,11 @@ legend {
 
   .result-table th {
     background-color: #f2f2f2;
-    font-weight: lighter;
     font-weight: bold;
   }
 
-  button {
-    font-size: 3px;
+  .result-container button {
+    font-size: 5.5px;
     padding: 0px 0px;
   }
 
@@ -342,6 +389,11 @@ legend {
     padding: 0px 5px;
   }
 
+  #viewCon Button {
+    font-size: 5px;
+    padding: 0px 5px;
+  }
+
   .legend1 {
     font-size: 10px;
     margin-bottom: 10px;
@@ -350,5 +402,30 @@ legend {
   legend {
     font-size: 10px;
     margin-bottom: 10px;
+  }
+
+  .result-container1 {
+    max-width: 400px;
+    margin: 10px auto;
+    padding: 10px;
+    border: none;
+  }
+
+  .result-table1 table {
+    border-collapse: collapse;
+    font-size: 5%;
+  }
+
+  .result-table1 th,
+  .result-table1 td {
+    max-width: 25.5px;
+    font-size: 5px;
+    font-weight: normal;
+  }
+
+  .result-table1 th {
+    background-color: #f2f2f2;
+    font-weight: lighter;
+    font-weight: bold;
   }
 }

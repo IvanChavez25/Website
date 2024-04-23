@@ -78,7 +78,7 @@
               (click)="
                 showDetailedInfoByCategory(
                   barangay.barangay,
-                  'N',
+                  'No',
                   barangay.normal
                 )
               "
@@ -89,7 +89,7 @@
               (click)="
                 showDetailedInfoByCategory(
                   barangay.barangay,
-                  'N',
+                  'SSt',
                   barangay.severelyStunted
                 )
               "
@@ -100,7 +100,7 @@
               (click)="
                 showDetailedInfoByCategory(
                   barangay.barangay,
-                  'N',
+                  'St',
                   barangay.stunted
                 )
               "
@@ -111,7 +111,7 @@
               (click)="
                 showDetailedInfoByCategory(
                   barangay.barangay,
-                  'N',
+                  'OW',
                   barangay.overweight
                 )
               "
@@ -122,7 +122,7 @@
               (click)="
                 showDetailedInfoByCategory(
                   barangay.barangay,
-                  'N',
+                  'Ob',
                   barangay.obese
                 )
               "
@@ -133,7 +133,7 @@
               (click)="
                 showDetailedInfoByCategory(
                   barangay.barangay,
-                  'N',
+                  'SW',
                   barangay.severelyWasted
                 )
               "
@@ -144,7 +144,7 @@
               (click)="
                 showDetailedInfoByCategory(
                   barangay.barangay,
-                  'N',
+                  'W',
                   barangay.Wasted
                 )
               "
@@ -181,6 +181,8 @@
                   <th>Height</th>
                   <th>Weight For Height</th>
                   <th>Result</th>
+                  <th>Result</th>
+                  <th>Result</th>
                 </tr>
               </thead>
               <tbody>
@@ -192,14 +194,10 @@
                   <td>{{ info.nameOfChild }}</td>
                   <td>{{ info.weight }}</td>
                   <td>{{ info.height }}</td>
-                  <td>{{ info.bmiData }}</td>
-                  <td>
-                    {{
-                      info.weightForAge &&
-                        info.heightForAge &&
-                        info.weightForHeight
-                    }}
-                  </td>
+                  <td>{{ info.bmiData | number : "1.2-2" }}</td>
+                  <td>{{ info.weightForAge }}</td>
+                  <td>{{ info.heightForAge }}</td>
+                  <td>{{ info.weightForHeight }}</td>
                 </tr>
               </tbody>
             </table>

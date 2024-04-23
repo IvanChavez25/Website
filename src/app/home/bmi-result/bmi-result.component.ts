@@ -63,7 +63,10 @@ export class BMIResultComponent {
       .then((snapshot) => {
         if (snapshot.exists()) {
           this.originalBmiRecords = Object.values(snapshot.val());
-          this.bmiRecords = Object.values(snapshot.val());
+          this.originalBmiRecords.sort((a, b) => {
+            return new Date(b.Date).getTime() - new Date(a.Date).getTime();
+          });
+          this.bmiRecords = [...this.originalBmiRecords];
         } else {
           this.bmiRecords = [];
         }

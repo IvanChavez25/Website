@@ -121,6 +121,62 @@
   </div>
 </div>
 
+<div id="viewCon">
+  <div id="viewBaselineModal" #viewBaselineModal class="modal">
+    <div class="modal-content">
+      <div class="result-container1">
+        <fieldset id="baselineRecords">
+          <legend>Nutritional Status</legend>
+          <div class="result-table1">
+            <table>
+              <thead>
+                <tr>
+                  <th>Name Of Child</th>
+                  <th>BCG</th>
+                  <th>DPT 1</th>
+                  <th>DPT 2</th>
+                  <th>DPT 3</th>
+                  <th>Polio 1</th>
+                  <th>Polio 2</th>
+                  <th>Polio 3</th>
+                  <th>Measles</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    {{ viewbaselineData.nameOfChild }}
+                  </td>
+                  <td>{{ viewbaselineData.bcgDate }}</td>
+                  <td>{{ viewbaselineData.dpt1Date }}</td>
+                  <td>{{ viewbaselineData.dpt2Date }}</td>
+                  <td>{{ viewbaselineData.dpt3Date }}</td>
+                  <td>{{ viewbaselineData.polio1Date }}</td>
+                  <td>{{ viewbaselineData.polio2Date }}</td>
+                  <td>{{ viewbaselineData.polio3Date }}</td>
+                  <td>{{ viewbaselineData.measlesDate }}</td>
+                  <td>
+                    <button
+                      (click)="closeViewBaselineModal()"
+                      class="delete btn btn-sm btn-outline-danger"
+                    >
+                      Close
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <p *ngIf="baselineRecords.length === 0">
+              No nutritional records available
+            </p>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+  </div>
+</div>
+
 <fieldset class="fieldset1">
   <div>
     <label for="searchChild">Search Child:</label>
@@ -133,10 +189,7 @@
       (input)="onSearchInputChange()"
     />
     <datalist id="childList">
-      <option
-      *ngFor="let child of baselineRecords" 
-      
-      [value]="child.nameOfChild">
+      <option *ngFor="let child of baselineRecords" [value]="child.nameOfChild">
         {{ child.nameOfChild }}
       </option>
     </datalist>
@@ -195,7 +248,7 @@
       <option value="TIPAZ">TIPAZ</option>
     </select>
 
-    <label for="fromDate">FromDate:</label>
+    <label for="fromDate">From Date:</label>
     <input
       type="date"
       id="fromDate"
@@ -204,7 +257,7 @@
       (input)="filterRecords()"
     />
 
-    <label for="toDate">ToDate:</label>
+    <label for="toDate">To Date:</label>
     <input
       type="date"
       id="toDate"
@@ -213,7 +266,7 @@
       (input)="filterRecords()"
     />
 
-    <label for="measurementMonth">Measurement Month:</label>
+    <label for="measurementMonth">Month Measured:</label>
     <select
       id="measurementMonth"
       name="measurementMonth"
@@ -236,7 +289,7 @@
       <option value="11">December</option>
     </select>
 
-    <button (click)="clearFilters()">Clear_Filters</button>
+    <button (click)="clearFilters()">Clear Filters</button>
 
     <button (click)="downloadChildData()">
       <i class="fa fa-download"></i>Download
@@ -244,105 +297,89 @@
   </div>
 </fieldset>
 
-<fieldset>
-  <div>
-    <div class="result-container">
-      <fieldset id="baselineRecords">
-        <legend>Baseline Weight and Immunization Records</legend>
-        <div class="result-table">
-          <table>
-            <thead>
-              <tr>
-                <th>Household Number</th>
-                <th>Name of Household Head</th>
-                <th>Name of Child</th>
-                <th>Date of Birth</th>
-                <th>NBS Done?</th>
-                <th>BCG</th>
-                <th>DPT 1</th>
-                <th>DPT 2</th>
-                <th>DPT 3</th>
-                <th>Polio 1</th>
-                <th>Polio 2</th>
-                <th>Polio 3</th>
-                <th>Measles</th>
-                <th>Date of Weighing</th>
-                <th>Age in Months</th>
-                <th>Weight (kg.)</th>
-                <th>Weight Status</th>
-                <th>Barangay</th>
-                <th>Date</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr
-                *ngFor="
-                  let record of baselineRecords.slice(startIndex, endIndex)
-                "
+<div class="result-container">
+  <fieldset id="baselineRecords">
+    <legend>Baseline Weight and Immunization Records</legend>
+    <div class="result-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Household Number</th>
+            <th>Name of Household Head</th>
+            <th>Name of Child</th>
+            <th>Date of Birth</th>
+            <th>NBS Done?</th>
+            <th>Date of Weighing</th>
+            <th>Age in Months</th>
+            <th>Weight (kg.)</th>
+            <th>Weight Status</th>
+            <th>Barangay</th>
+            <th>Date</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let record of baselineRecords.slice(startIndex, endIndex)"
+          >
+            <td>{{ record.HouseholdNumber }}</td>
+            <td>{{ record.NameOfHouseholdHead }}</td>
+            <td>{{ record.nameOfChild }}</td>
+            <td>{{ record.birthday }}</td>
+            <td>{{ record.nbsDone }}</td>
+            <td>{{ record.dateOfWeighing }}</td>
+            <td>{{ record.ageInMonth }}</td>
+            <td>{{ record.weight }}</td>
+            <td>{{ record.weightStatus }}</td>
+            <td>{{ record.barangay }}</td>
+            <td>{{ record.Date | date : "medium" : "Asia/Manila" }}</td>
+            <td>
+              <a class="btn btn-sm btn-outline-dark"
+                ><i class="fas fa-up-right-from-square"></i
+              ></a>
+              <button
+                (click)="openViewBaselineModal(record)"
+                class="update btn btn-sm btn-outline-warning"
               >
-                <td>{{ record.HouseholdNumber }}</td>
-                <td>{{ record.NameOfHouseholdHead }}</td>
-                <td>{{ record.nameOfChild }}</td>
-                <td>{{ record.birthday }}</td>
-                <td>{{ record.nbsDone }}</td>
-                <td>{{ record.bcgDate }}</td>
-                <td>{{ record.dpt1Date }}</td>
-                <td>{{ record.dpt2Date }}</td>
-                <td>{{ record.dpt3Date }}</td>
-                <td>{{ record.polio1Date }}</td>
-                <td>{{ record.polio2Date }}</td>
-                <td>{{ record.polio3Date }}</td>
-                <td>{{ record.measlesDate }}</td>
-                <td>{{ record.dateOfWeighing }}</td>
-                <td>{{ record.ageInMonth }}</td>
-                <td>{{ record.weight }}</td>
-                <td>{{ record.weightStatus }}</td>
-                <td>{{ record.barangay }}</td>
-                <td>{{ record.Date | date : "medium" : "Asia/Manila" }}</td>
-                <td>
-                  <a class="btn btn-sm btn-outline-dark"
-                    ><i class="fas fa-up-right-from-square"></i
-                  ></a>
-                  <button
-                    (click)="openUpdateBaselineModal(record)"
-                    class="update btn btn-sm btn-outline-warning"
-                  >
-                    Update
-                  </button>
-                  <button
-                    (click)="removeBaseline(record)"
-                    class="delete btn btn-sm btn-outline-danger"
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <p *ngIf="baselineRecords.length === 0">
-            No baseline records available
-          </p>
-        </div>
-      </fieldset>
+                View
+              </button>
+              <button
+                (click)="openUpdateBaselineModal(record)"
+                class="update btn btn-sm btn-outline-warning"
+              >
+                Update
+              </button>
+              <button
+                (click)="removeBaseline(record)"
+                class="delete btn btn-sm btn-outline-danger"
+              >
+                Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <p *ngIf="baselineRecords.length === 0">No baseline records available</p>
     </div>
-  </div>
-  <div class="pagination">
-    <button
-      class="paginationButton"
-      (click)="goToPage(currentPage - 1)"
-      [disabled]="currentPage === 1"
-    >
-      Previous
-    </button>
-    <span>Children Profile Page {{ currentPage }}</span>
-    <button
-      class="paginationButton"
-      (click)="goToPage(currentPage + 1)"
-      [disabled]="endIndex >= baselineRecords.length"
-    >
-      Next
-    </button>
-  </div>
-</fieldset>
+  </fieldset>
+</div>
+
+<div class="pagination">
+  <button
+    class="paginationButton"
+    (click)="goToPage(currentPage - 1)"
+    [disabled]="currentPage === 1"
+  >
+    Previous
+  </button>
+  <span>Children Profile Page {{ currentPage }}</span>
+  <button
+    class="paginationButton"
+    (click)="goToPage(currentPage + 1)"
+    [disabled]="endIndex >= baselineRecords.length"
+  >
+    Next
+  </button>
+</div>
+
 <router-outlet></router-outlet>

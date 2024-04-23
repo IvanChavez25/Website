@@ -50,7 +50,7 @@ export class NutritionalTableComponent {
       // Show all children records when the search input is empty
       this.nutritionalRecords = this.originalNutritionalRecords;
     } else {
-      // Filter children records based on the search input
+      // Filter children records based on the search input 
       this.filteredNutritionalRecords = this.nutritionalRecords.filter(
         (child) => {
           return child.nameOfChild
@@ -69,7 +69,11 @@ export class NutritionalTableComponent {
       .then((snapshot) => {
         if (snapshot.exists()) {
           this.originalNutritionalRecords = Object.values(snapshot.val());
-          this.nutritionalRecords = Object.values(snapshot.val());
+
+          this.originalNutritionalRecords.sort((a, b) => {
+            return new Date(b.Date).getTime() - new Date(a.Date).getTime();
+          });
+          this.nutritionalRecords = [...this.originalNutritionalRecords];
         } else {
           this.nutritionalRecords = [];
         }

@@ -38,7 +38,10 @@ export class ProfileTableComponent {
       .then((snapshot) => {
         if (snapshot.exists()) {
           this.originalChildRecords = Object.values(snapshot.val());
-          this.childRecords = Object.values(snapshot.val());
+          this.originalChildRecords.sort((a, b) => {
+            return new Date(b.Date).getTime() - new Date(a.Date).getTime();
+          });
+          this.childRecords = [...this.originalChildRecords];
         } else {
           this.childRecords = [];
         }
@@ -73,10 +76,8 @@ export class ProfileTableComponent {
         return fullName.toLowerCase().includes(this.searchInput.toLowerCase());
       });
 
-      
-    this.childRecords = this.filteredChildRecords;
+      this.childRecords = this.filteredChildRecords;
     }
-
   }
 
   filterRecords() {

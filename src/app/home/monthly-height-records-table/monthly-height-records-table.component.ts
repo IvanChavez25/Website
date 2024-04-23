@@ -54,6 +54,10 @@ export class MonthlyHeightRecordsTableComponent {
           // Copy the data
           this.originalMonthlyHeightRecords = Object.values(snapshot.val());
 
+          this.originalMonthlyHeightRecords.sort((a, b) => {
+            return new Date(b.Date).getTime() - new Date(a.Date).getTime();
+          });
+
           const filteredMonthlyHeightRecords = [];
 
           for (const record of this.originalMonthlyHeightRecords) {

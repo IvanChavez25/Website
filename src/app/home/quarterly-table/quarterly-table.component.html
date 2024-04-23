@@ -74,7 +74,7 @@
       <option value="TIPAZ">TIPAZ</option>
     </select>
 
-    <label for="fromDate">FromDate:</label>
+    <label for="fromDate">From Date:</label>
     <input
       type="date"
       id="fromDate"
@@ -83,7 +83,7 @@
       (input)="filterRecords()"
     />
 
-    <label for="toDate">ToDate:</label>
+    <label for="toDate">To Date:</label>
     <input
       type="date"
       id="toDate"
@@ -92,7 +92,7 @@
       (input)="filterRecords()"
     />
 
-    <label for="measurementMonth">Measurement Month:</label>
+    <label for="measurementMonth">Month Measured:</label>
     <select
       id="measurementMonth"
       name="measurementMonth"
@@ -115,7 +115,7 @@
       <option value="11">December</option>
     </select>
 
-    <button (click)="clearFilters()">Clear_Filters</button>
+    <button (click)="clearFilters()">Clear Filters</button>
 
     <button (click)="downloadChildData()">
       <i class="fa fa-download"></i>Download
@@ -137,9 +137,9 @@
                 <th>Birthday</th>
                 <th>Age in Month</th>
                 <th>Weight</th>
-                <th>Height/Length</th>
-                <th>Weight for Length/Height</th>
-                <th>Nutritional Status (Nut1 Status)</th>
+                <th>Height/L</th>
+                <th>Weight for Height/L</th>
+                <th>Nutritional Status</th>
                 <th>Barangay</th>
                 <th>Date</th>
                 <th>Action</th>
@@ -159,7 +159,7 @@
                 <td>{{ record.ageInMonths }}</td>
                 <td>{{ record.weight }}</td>
                 <td>{{ record.height }}</td>
-                <td>{{ record.bmiData }}</td>
+                <td>{{ record.bmiData | number : "1.2-2" }}</td>
                 <td>{{ record.nutritionalStatus }}</td>
                 <td>{{ record.barangay }}</td>
                 <td>{{ record.Date | date : "medium" : "Asia/Manila" }}</td>

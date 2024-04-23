@@ -79,3 +79,34 @@ legend {
   text-align: center;
   font-weight: bold;
 }
+
+@media (max-width: 768px) {
+  .container {
+    max-width: 300px;
+    margin: 10px auto;
+    padding: 10px;
+  }
+
+  input[type="text"],
+  input[type="date"],
+  input[type="number"],
+  input[type="password"],
+  input[type="email"] {
+    width: 100%;
+    padding: 0px 0px 10px;
+    font-size: 10px;
+  }
+
+  label {
+    font-size: 10px;
+  }
+
+  .legend1 {
+    font-size: 15px;
+  }
+
+  button[type="submit"] {
+    padding: 5px 10px;
+    font-size: 10px;
+  }
+}

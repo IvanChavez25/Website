@@ -56,6 +56,10 @@ export class MonthlyWeightRecordsTableComponent {
           // Copy the data
           this.originalMonthlyWeightRecords = Object.values(snapshot.val());
 
+          this.originalMonthlyWeightRecords.sort((a, b) => {
+            return new Date(b.Date).getTime() - new Date(a.Date).getTime();
+          });
+
           // Initialize an array to store filtered weightForAge values
           const filteredMonthlyWeightRecords = [];
 
@@ -70,7 +74,6 @@ export class MonthlyWeightRecordsTableComponent {
 
           // Update monthlyWeightRecords with the filtered array
           this.monthlyWeightRecords = filteredMonthlyWeightRecords;
-
           this.originalMonthlyWeightRecords = filteredMonthlyWeightRecords;
         } else {
           this.monthlyWeightRecords = [];

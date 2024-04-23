@@ -52,8 +52,26 @@ export class QuarterlyTableComponent {
       .then((snapshot) => {
         if (snapshot.exists()) {
           this.originalQuarterlyTable = Object.values(snapshot.val());
-          this.quarterlyTable = Object.values(snapshot.val());
+          this.originalQuarterlyTable.sort((a, b) => {
+            return new Date(b.Date).getTime() - new Date(a.Date).getTime();
+          });
+
+          const filteredQuarterlyTable = [];
+
+          // Loop through originalMonthlyInfantRecords
+          for (const record of this.originalQuarterlyTable) {
+            // Check if ageInMonths is less than 23
+            if (record.ageInMonths >= 24 && record.ageInMonths <= 59) {
+              // Add the record to the filtered arraye
+              filteredQuarterlyTable.push(record);
+            }
+          }
+
+          this.quarterlyTable = filteredQuarterlyTable;
+
+          this.originalQuarterlyTable = filteredQuarterlyTable;
         } else {
+          // Set monthlyInfantRecords to an empty array if no data exists
           this.quarterlyTable = [];
         }
       })
@@ -177,7 +195,7 @@ export class QuarterlyTableComponent {
     // Convert the child records to a CSV format
     const csvData = this.quarterlyTable.map((record) => [
       record.quarterlyId,
-      record.nameOfChild.firstName + ' ' + record.nameOfChild?.lastName,
+      record.nameOfChild,
       record.birthday,
       record.ageInMonths,
       record.weight,

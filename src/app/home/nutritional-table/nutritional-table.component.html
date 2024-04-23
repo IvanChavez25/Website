@@ -187,75 +187,63 @@
 <div id="viewCon">
   <div id="viewNutritionalModal" #viewNutritionalModal class="modal">
     <div class="modal-content">
-      <fieldset id="nutritionalStatus">
-        <legend>Nutritional Status</legend>
-        <div class="result-table">
-          <table>
-            <thead>
-              <tr>
-                <th>Name Of Child</th>
-                <th>Father's Name</th>
-                <th>Mother's Name</th>
-                <th>Barangay</th>
-                <th>Date Of Birth</th>
-                <th>Date Of OPTs</th>
-                <th>Age In Month</th>
-                <th>Weight (Kg.)</th>
-                <th>Height (CM)</th>
-                <th>Weigth For Age</th>
-                <th>Height For Age</th>
-                <th>Weigth For Height</th>
-                <th>Practicing EDF Below 6Months?</th>
-                <th>Practicing CF 6-23Months</th>
-                <th>Age In Months Starting CF</th>
-                <th>Current beneficiary of SF</th>
-                <th>Vitamin A Last Date Received</th>
-                <th>Iron Drops / Syrup Received</th>
-                <th>Using MNP</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  {{ viewnutritionalRecordsData.nameOfChild }}
-                </td>
-                <td>{{ viewnutritionalRecordsData.fatherName }}</td>
-                <td>{{ viewnutritionalRecordsData.motherName }}</td>
-                <td>{{ viewnutritionalRecordsData.barangay }}</td>
-                <td>{{ viewnutritionalRecordsData.birthday }}</td>
-                <td>{{ viewnutritionalRecordsData.OPTPlus }}</td>
-                <td>{{ viewnutritionalRecordsData.ageInMonths }}</td>
-                <td>{{ viewnutritionalRecordsData.weight }}</td>
-                <td>{{ viewnutritionalRecordsData.height }}</td>
-                <td>{{ viewnutritionalRecordsData.weightForAge }}</td>
-                <td>{{ viewnutritionalRecordsData.heightForAge }}</td>
-                <td>{{ viewnutritionalRecordsData.weightForHeight }}</td>
-                <td>{{ viewnutritionalRecordsData.practicingEDF }}</td>
-                <td>{{ viewnutritionalRecordsData.practicingCF }}</td>
-                <td>{{ viewnutritionalRecordsData.ageStartedCF }}</td>
-                <td>{{ viewnutritionalRecordsData.beneficiarySF }}</td>
-                <td>
-                  {{ viewnutritionalRecordsData.vitaminALastReceived }}
-                </td>
-                <td>{{ viewnutritionalRecordsData.ironReceived }}</td>
-                <td>{{ viewnutritionalRecordsData.usingMNP }}</td>
-                <td>
-                  <button
-                    (click)="closeViewNutritionalModal()"
-                    class="delete btn btn-sm btn-outline-danger"
-                  >
-                    Close
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <p *ngIf="nutritionalRecords.length === 0">
-            No nutritional records available
-          </p>
-        </div>
-      </fieldset>
+      <div class="result-container1">
+        <fieldset id="nutritionalStatus">
+          <legend>Nutritional Status</legend>
+          <div class="result-table1">
+            <table>
+              <thead>
+                <tr>
+                  <th>Name Of Child</th>
+                  <th>Date Of OPTs</th>
+                  <th>Weigth For Age</th>
+                  <th>Height For Age</th>
+                  <th>Weigth For Height</th>
+                  <th>Practicing EDF Below 6Months?</th>
+                  <th>Practicing CF 6-23Months</th>
+                  <th>Age In Months Starting CF</th>
+                  <th>Current beneficiary of SF</th>
+                  <th>Vitamin A Last Date Received</th>
+                  <th>Iron Drops / Syrup Received</th>
+                  <th>Using MNP</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    {{ viewnutritionalRecordsData.nameOfChild }}
+                  </td>
+                  <td>{{ viewnutritionalRecordsData.OPTPlus }}</td>
+                  <td>{{ viewnutritionalRecordsData.weightForAge }}</td>
+                  <td>{{ viewnutritionalRecordsData.heightForAge }}</td>
+                  <td>{{ viewnutritionalRecordsData.weightForHeight }}</td>
+                  <td>{{ viewnutritionalRecordsData.practicingEDF }}</td>
+                  <td>{{ viewnutritionalRecordsData.practicingCF }}</td>
+                  <td>{{ viewnutritionalRecordsData.ageStartedCF }}</td>
+                  <td>{{ viewnutritionalRecordsData.beneficiarySF }}</td>
+                  <td>
+                    {{ viewnutritionalRecordsData.vitaminALastReceived }}
+                  </td>
+                  <td>{{ viewnutritionalRecordsData.ironReceived }}</td>
+                  <td>{{ viewnutritionalRecordsData.usingMNP }}</td>
+                  <td>
+                    <button
+                      (click)="closeViewNutritionalModal()"
+                      class="delete btn btn-sm btn-outline-danger"
+                    >
+                      Close
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <p *ngIf="nutritionalRecords.length === 0">
+              No nutritional records available
+            </p>
+          </div>
+        </fieldset>
+      </div>
     </div>
   </div>
 </div>
@@ -391,7 +379,7 @@
         <thead>
           <tr>
             <th>Nutritional ID</th>
-            <th>Name Of Child</th>
+            <th>Name Of Child</th> 
             <th>Father's Name</th>
             <th>Mother's Name</th>
             <th>Barangay</th>

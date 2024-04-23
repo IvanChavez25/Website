@@ -59,6 +59,10 @@ export class MonthlyRecordsInfantComponent {
           // Copy the data
           this.originalMonthlyInfantRecords = Object.values(snapshot.val());
 
+          this.originalMonthlyInfantRecords.sort((a, b) => {
+            return new Date(b.Date).getTime() - new Date(a.Date).getTime();
+          });
+
           // Initialize an array to store filtered records based on ageInMonths
           const filteredMonthlyInfantRecords = [];
 
@@ -66,7 +70,7 @@ export class MonthlyRecordsInfantComponent {
           for (const record of this.originalMonthlyInfantRecords) {
             // Check if ageInMonths is less than 23
             if (record.ageInMonths < 23) {
-              // Add the record to the filtered array
+              // Add the record to the filtered arraye
               filteredMonthlyInfantRecords.push(record);
             }
           }

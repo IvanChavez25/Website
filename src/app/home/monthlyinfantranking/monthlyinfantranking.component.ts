@@ -114,7 +114,7 @@ export class MonthlyinfantrankingComponent implements OnInit {
         counts[record.barangay].severelyUnderweight++;
       } else if (record.weightForAge === 'UW') {
         counts[record.barangay].underweight++;
-      } else if (record.weightForAge === 'N') {
+      } else if (record.weightForAge === 'No') {
         counts[record.barangay].normal++;
       }
 
@@ -130,9 +130,9 @@ export class MonthlyinfantrankingComponent implements OnInit {
         counts[record.barangay].overweight++;
       } else if (record.weightForHeight === 'Ob') {
         counts[record.barangay].obese++;
-      } else if (record.weightForHeight === 'SUW') {
+      } else if (record.weightForHeight === 'SW') {
         counts[record.barangay].severelyWasted++;
-      } else if (record.weightForHeight === 'UW') {
+      } else if (record.weightForHeight === 'W') {
         counts[record.barangay].Wasted++;
       } else if (record.weightForHeight === 'N') {
         counts[record.barangay].normal++;
@@ -161,10 +161,10 @@ export class MonthlyinfantrankingComponent implements OnInit {
         return b.overweight - a.overweight;
       } else if (b.obese !== a.obese) {
         return b.obese - a.obese;
-      } else if (b.severelyUnderweight !== a.severelyUnderweight) {
-        return b.severelyUnderweight - a.severelyUnderweight;
+      } else if (b.severelyWasted !== a.severelyWasted) {
+        return b.severelyWasted - a.severelyWasted;
       } else {
-        return b.underweight - a.underweight;
+        return b.Wasted - a.Wasted;
       }
     });
   }

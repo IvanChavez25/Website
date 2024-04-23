@@ -147,3 +147,46 @@
 .municipality span:first-child {
   margin-left: 0;
 }
+
+@media (max-width: 768px) {
+  .navbar-logo {
+    width: 60px;
+    height: 60px;
+  }
+
+  .top h1 {
+    font-size: 15px;
+  }
+
+  .mission h2,
+  .vision h2,
+  .ten-commandments h2 {
+    font-size: 10px;
+  }
+
+  .mission p,
+  .vision p,
+  .ten-commandments p {
+    font-size: 8px;
+  }
+
+  .municipality {
+    margin-top: 20px;
+  }
+
+  .municipality h2 {
+    font-size: 12px;
+  }
+
+  .municipality p {
+    font-size: 10px;
+  }
+
+  .municipality span {
+    font-size: 10px;
+  }
+
+  .municipality p span {
+    margin-left: 50px;
+  }
+}

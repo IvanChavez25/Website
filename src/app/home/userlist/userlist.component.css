@@ -120,3 +120,60 @@ label {
 .button-container button:hover {
   background-color: #b0d9b1;
 }
+
+@media (max-width: 768px) {
+  .userList label {
+    max-width: 50px;
+    font-size: 6px;
+  }
+
+  .userList button {
+    font-size: 5px;
+    max-width: 35px;
+    padding: 5px 10px;
+  }
+
+  .result-table table {
+    border-collapse: collapse;
+    font-size: 10%;
+  }
+
+  .result-table th,
+  .result-table td {
+    font-size: 7.5px;
+    font-weight: bold;
+  }
+
+  .result-table th {
+    background-color: #79ac78;
+    font-weight: lighter;
+    font-weight: bold;
+  }
+
+  .edit-form {
+    margin-top: 10px;
+    max-width: 300px;
+  }
+
+  .edit-form h2 {
+    font-size: 15px;
+  }
+
+  .edit-form label {
+    font-size: 10px;
+  }
+
+  .edit-form input {
+    font-size: 10px;
+  }
+
+  .button-container {
+    margin-top: 10px;
+    margin: 10px;
+  }
+
+  .button-container button {
+    margin-right: 10px;
+    padding: 5px 10px;
+  }
+}

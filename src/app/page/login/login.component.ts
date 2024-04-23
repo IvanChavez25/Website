@@ -10,6 +10,7 @@ import { AuthServiceService } from './auth-service.service';
   styleUrls: ['./login.component.css'],
 })
 export class LoginFormComponent {
+  currentYear = new Date().getFullYear();
   userRecords: any[] = [];
 
   model: any = {
