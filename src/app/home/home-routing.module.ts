@@ -5,8 +5,6 @@ import { MonthlyRecordComponent } from './monthly-record/monthly-record.componen
 import { NutritionalStatusComponent } from './nutritional-status/nutritional-status.component';
 import { FamilyProfileComponent } from './family-profile/family-profile.component';
 import { QuarterlyRecordsComponent } from './quarterly-records/quarterly-records.component';
-import { MonthlyWeightComponent } from './monthly-weight/monthly-weight.component';
-import { MonthlyRecordInfantComponent } from './monthly-record-infant/monthly-record-infant.component';
 import { BaselineWeightComponent } from './baseline-weight/baseline-weight.component';
 import { BWIRTableComponent } from './bwir-table/bwir-table.component';
 import { MonthlyHeightRecordsTableComponent } from './monthly-height-records-table/monthly-height-records-table.component';
@@ -43,8 +41,6 @@ const routes: Routes = [
       { path: 'nutritionalstatus', component: NutritionalStatusComponent },
       { path: 'familyprofile', component: FamilyProfileComponent },
       { path: 'quarterlyrecords', component: QuarterlyRecordsComponent },
-      { path: 'monthlyweight', component: MonthlyWeightComponent },
-      { path: 'monthlyrecordsinfant', component: MonthlyRecordInfantComponent },
       { path: 'baselineweight', component: BaselineWeightComponent },
       { path: 'bwirtable', component: BWIRTableComponent },
       {

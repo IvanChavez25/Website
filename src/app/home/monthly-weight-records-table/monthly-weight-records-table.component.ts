@@ -132,7 +132,6 @@ export class MonthlyWeightRecordsTableComponent {
       filteredRecords = filteredRecords.filter((record) => {
         const year = new Date(record.Date).getFullYear();
         const month = new Date(record.Date).getMonth();
-        
 
         return month == this.selectedMonth;
       });
@@ -149,7 +148,7 @@ export class MonthlyWeightRecordsTableComponent {
     this.fromDate = '';
     this.toDate = '';
     this.selectedMonth = '';
-
+    
     // Reset the monthlyHeightRecords to the original data
     this.monthlyWeightRecords = [...this.originalMonthlyWeightRecords];
   }
