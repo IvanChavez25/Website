@@ -143,7 +143,7 @@ h2 {
   }
 
   #bmiranking h2 {
-    font-size: 60%;
+    font-size: 80%;
   }
 
   .ranking-table table {
@@ -153,37 +153,36 @@ h2 {
 
   .ranking-table label {
     border-collapse: collapse;
-    font-size: 7px;
+    font-size: 10px;
     font-weight: bold;
   }
 
   .ranking-table input[type="number"],
   .ranking-table select {
-    font-size: 7px;
-    width: 30%;
+    font-size: 10px;
+    width: 20%;
   }
 
   th,
   td {
-    max-width: 10px;
-    font-size: 5px;
+    max-width: 100%;
+    font-size: 10px;
     font-weight: bold;
   }
 
   .modal {
     left: 50%;
-    top: 68%;
+    top: 50%;
     width: 250px;
     height: 300px;
   }
 
   .pagination {
-    font-size: 7px;
+    font-size: 10px;
   }
 
   .pagination Button {
-    font-size: 7px;
+    font-size: 10px;
     padding: 0px 10px;
   }
 }
-

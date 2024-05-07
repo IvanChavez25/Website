@@ -166,7 +166,7 @@ legend {
   input[type="date"],
   input[type="number"],
   select {
-    width: 76.5%;
+    width: 75%;
     padding: 5px;
     font-size: 7px;
     border-radius: 4px;
@@ -178,7 +178,7 @@ legend {
   }
 
   .fieldset1 {
-    font-size: 12px;
+    font-size: 13px;
   }
 
   legend {
@@ -203,8 +203,8 @@ legend {
 
   .result-table th,
   .result-table td {
-    max-width: 10px;
-    font-size: 4px;
+    max-width: 100%;
+    font-size: 7px;
     font-weight: bold;
   }
 
@@ -220,12 +220,12 @@ legend {
   }
 
   button {
-    font-size: 3px;
+    font-size: 10px;
     padding: 0px 0px;
   }
 
   .filter-container label {
-    max-width: 40px;
+    max-width: 80px;
     font-size: 6px;
   }
 
@@ -245,10 +245,17 @@ legend {
 
   .pagination {
     font-size: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: left;
   }
 
   .pagination Button {
     font-size: 10px;
     padding: 5px 23px;
+  }
+
+  legend {
+    text-align: left;
   }
 }

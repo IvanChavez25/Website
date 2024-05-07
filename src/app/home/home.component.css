@@ -168,12 +168,12 @@ h2 {
   }
 
   .navbar-logo {
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
   }
 
   .logo-text {
-    font-size: 15px;
+    font-size: 13px;
   }
 
   .menu-button {
@@ -183,7 +183,8 @@ h2 {
   .navbar-list {
     flex-direction: row;
     margin-top: 20px;
-    font-size: 10px;
+    font-size: 8px;
+    margin-right: 3px;
   }
 
   .menu-button {
@@ -198,6 +199,10 @@ h2 {
     position: relative;
     margin-left: 0;
     margin-right: 5px;
-    font-size: 10px;
+    font-size: 7px;
+  }
+
+  .navbar {
+    max-width: 100%;
   }
 }

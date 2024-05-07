@@ -47,15 +47,21 @@
         <i class="fa fa-user"></i> BHW User List
       </a>
     </li>
+
     <li *ngIf="userRole === 'admin'">
-      <a routerLink="/home/rankingbmi">
-        <i class="fa fa-bar-chart"></i> BMI Barangay Ranking
+      <a routerLink="/home/announcement">
+        <i class="fa fa-bell"></i> Create Announcement
       </a>
     </li>
     <li>
       <button class="menu-button">
         <i class="fa fa-reorder"></i>
         <ul class="dropdown-menu">
+          <li *ngIf="userRole === 'admin'">
+            <a routerLink="/home/rankingbmi">
+              <i class="fa fa-bar-chart"></i> BMI Barangay Ranking
+            </a>
+          </li>
           <li>
             <a routerLink="/home/profiletable"
               ><i class="fa fa-table"></i> Children Profile Table</a

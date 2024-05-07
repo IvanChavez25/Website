@@ -1,0 +1,49 @@
+<div class="container">
+  <fieldset class="fieldset1">
+    <legend class="legend2">Create Announcement</legend>
+    <form (ngSubmit)="onSubmit()" #userForm="ngForm">
+      <div class="form-group">
+        <label for="announcement">Announcement</label>
+        <input
+          type="text"
+          id="announcement"
+          name="announcement"
+          [(ngModel)]="Announcement.announcement"
+          required
+        />
+      </div>
+
+      <button type="submit" [disabled]="!userForm.valid">
+        Create Announcement
+      </button>
+    </form>
+  </fieldset>
+</div>
+
+<fieldset>
+  <div>
+    <div class="userList">
+      <fieldset id="userRecords">
+        <label class="legend1">Announcement</label>
+        <div class="result-table">
+          <table>
+            <thead>
+              <tr>
+                <th>Announcement</th>
+                <th>Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let user of userList">
+                <td>{{ user.announcement }}</td>
+                <td>
+                  <button (click)="deleteUser(user)">Delete</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+</fieldset>

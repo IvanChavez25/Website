@@ -327,8 +327,8 @@ legend {
 
   .result-table th,
   .result-table td {
-    max-width: 30.5px;
-    font-size: 4.5px;
+    max-width: 100%;
+    font-size: 7px;
     font-weight: bold;
   }
 
@@ -345,12 +345,12 @@ legend {
   }
 
   .result-container button {
-    font-size: 5.5px;
+    font-size: 10px;
     padding: 0px 0px;
   }
 
   .filter-container label {
-    max-width: 50px;
+    max-width: 80px;
     font-size: 6px;
   }
 
@@ -370,6 +370,9 @@ legend {
 
   .pagination {
     font-size: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: left;
   }
 
   .pagination Button {
@@ -390,7 +393,7 @@ legend {
   }
 
   #viewCon Button {
-    font-size: 5px;
+    font-size: 7px;
     padding: 0px 5px;
   }
 
@@ -418,14 +421,18 @@ legend {
 
   .result-table1 th,
   .result-table1 td {
-    max-width: 25.5px;
-    font-size: 5px;
-    font-weight: normal;
+    max-width: 100%;
+    font-size: 7px;
+    font-weight: bold;
   }
 
   .result-table1 th {
     background-color: #f2f2f2;
     font-weight: lighter;
     font-weight: bold;
+  }
+
+  legend {
+    text-align: left;
   }
 }

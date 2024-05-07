@@ -28,6 +28,30 @@
     <h1>Welcome to San Juan Batangas</h1>
   </div>
 </section>
+
+<fieldset>
+  <div>
+    <div class="userList">
+      <fieldset id="userRecords">
+        <label class="legend1">Announcement</label>
+        <div class="result-table">
+          <table>
+            <thead>
+              <tr>
+                <th>Announcement</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let user of userList">
+                <td>{{ user.announcement }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+</fieldset>
 <section class="home1">
   <div>
     <img src="/assets/smart.png" />
@@ -260,6 +284,8 @@
     </p>
   </div>
 </section>
+
+
 
 <!-- footer -->
 <footer style="text-align: center; margin-top: 2rem">

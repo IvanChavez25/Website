@@ -10,6 +10,14 @@
 .navbar-content {
   display: flex;
   align-items: center;
+  font-style: italic;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.navbar .navbar-brand {
+  font-size: 24px;
+  color: #000000;
 }
 
 .navbar-logo {
@@ -19,11 +27,6 @@
   width: 80px;
   height: 80px;
   margin-right: 10px;
-}
-
-.navbar .navbar-brand {
-  font-size: 24px;
-  color: #000000;
 }
 
 .navbar .navbar-nav {
@@ -41,6 +44,8 @@
   color: #000000;
   font-size: 16px;
   text-decoration: none;
+  font-style: italic;
+  font-weight: bold;
 }
 
 .navbar .navbar-nav .nav-link:hover {
@@ -203,9 +208,17 @@
     font-size: 40px;
   }
 
+  .navbar-content {
+    font-size: 10px;
+  }
+
   .navbar-logo {
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
+  }
+
+  .navbar .navbar-nav .nav-link {
+    font-size: 10px;
   }
 
   .homecontent {
@@ -237,5 +250,110 @@
 
   .home5 div {
     font-size: 7px;
+  }
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-family: Arial, sans-serif;
+}
+
+thead {
+  background-color: #79ac78;
+  color: #fff;
+}
+
+th {
+  padding: 12px;
+  text-align: left;
+}
+
+tbody tr:nth-child(odd) {
+  background-color: #f2f2f2;
+}
+
+td {
+  padding: 8px;
+}
+
+button {
+  background-color: #79ac78;
+  color: #fff;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+button:hover {
+  background-color: #b0d9b1;
+}
+
+.fieldset1 {
+  border-style: hidden;
+}
+
+.legend1 {
+  text-align: center;
+  font-size: 1.6vw;
+  font-weight: bold;
+}
+
+fieldset {
+  border-radius: 4%;
+  border-color: #ccc;
+  margin-bottom: 3%;
+  margin-top: 3%;
+  border-style: hidden;
+}
+
+label {
+  text-align: center;
+  font-weight: bold;
+}
+
+#userRecords {
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+#userRecords legend {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+@media (max-width: 768px) {
+  .userList label {
+    max-width: 50px;
+    font-size: 10px;
+  }
+
+  .userList button {
+    font-size: 5px;
+    max-width: 35px;
+    padding: 5px 10px;
+  }
+
+  .result-table table {
+    border-collapse: collapse;
+    font-size: 10%;
+  }
+
+  .result-table th,
+  .result-table td {
+    font-size: 7.5px;
+    font-weight: bold;
+  }
+
+  .result-table th {
+    background-color: #79ac78;
+    font-weight: lighter;
+    font-weight: bold;
   }
 }

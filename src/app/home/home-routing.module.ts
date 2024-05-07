@@ -30,6 +30,7 @@ import { authGuard } from '../page/login/auth.guard';
 import { MonthlyheightrankingComponent } from './monthlyheightranking/monthlyheightranking.component';
 import { MonthlyweightrankingComponent } from './monthlyweightranking/monthlyweightranking.component';
 import { MonthlyinfantrankingComponent } from './monthlyinfantranking/monthlyinfantranking.component';
+import { AnnouncementComponent } from './announcement/announcement.component';
 
 const routes: Routes = [
   {
@@ -82,7 +83,8 @@ const routes: Routes = [
       { path: 'userlist', component: UserlistComponent },
       { path: 'monthlyheightranking', component: MonthlyheightrankingComponent},
       { path: 'monthlyweightranking', component: MonthlyweightrankingComponent},
-      { path: 'monthlyinfantranking', component: MonthlyinfantrankingComponent}
+      { path: 'monthlyinfantranking', component: MonthlyinfantrankingComponent},
+      { path: 'announcement', component: AnnouncementComponent}
     ],
   },
 ];

@@ -33,6 +33,7 @@ import { UserlistComponent } from './userlist/userlist.component';
 import { MonthlyheightrankingComponent } from './monthlyheightranking/monthlyheightranking.component';
 import { MonthlyweightrankingComponent } from './monthlyweightranking/monthlyweightranking.component';
 import { MonthlyinfantrankingComponent } from './monthlyinfantranking/monthlyinfantranking.component';
+import { AnnouncementComponent } from './announcement/announcement.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +66,7 @@ import { MonthlyinfantrankingComponent } from './monthlyinfantranking/monthlyinf
     MonthlyheightrankingComponent,
     MonthlyweightrankingComponent,
     MonthlyinfantrankingComponent,
+    AnnouncementComponent,
   ],
 
   imports: [CommonModule, HomeRoutingModule, FormsModule, SharedModule],

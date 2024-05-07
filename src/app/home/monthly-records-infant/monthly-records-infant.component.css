@@ -239,8 +239,8 @@ legend {
 
   .result-table th,
   .result-table td {
-    max-width: 40px;
-    font-size: 5px;
+    max-width: 100%;
+    font-size: 8.5px;
     font-weight: bold;
   }
 
@@ -264,12 +264,12 @@ legend {
   }
 
   button {
-    font-size: 3px;
+    font-size: 10px;
     padding: 0px 0px;
   }
 
   .filter-container label {
-    max-width: 50px;
+    max-width: 80px;
     font-size: 6px;
   }
 
@@ -289,10 +289,17 @@ legend {
 
   .pagination {
     font-size: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: left;
   }
 
   .pagination Button {
     font-size: 10px;
     padding: 5px 23px;
+  }
+
+  legend {
+    text-align: left;
   }
 }
